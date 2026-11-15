@@ -1,6 +1,6 @@
 import { annualRows,compile,runPath } from './engine.js';
 export const money=x=>x===null?'—':Number.isFinite(x)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(x):'Not attainable';
-const pct=x=>`${(x*100).toFixed(0)}%`;
+const pct=x=>`${(x*100).toLocaleString('en-US',{maximumFractionDigits:1})}%`;
 export function el(tag,text='',className='') { const node=document.createElement(tag);if(text!==null)node.textContent=text;if(className)node.className=className;return node; }
 export function table(caption,headers,rows) {
   const wrap=el('div','','table-wrap'),t=el('table'),cap=el('caption',caption),thead=el('thead'),tr=el('tr');
