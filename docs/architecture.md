@@ -1,32 +1,34 @@
-# Architecture and data contract
+# Implemented architecture and data contract
 
-## Decisions
+Release: v0.1.0; model `college-funding-1.0.0`; schema 1.
 
-Static semantic HTML/CSS and vanilla ES modules. Host on GitHub Pages under /education-finance/. Use only relative URLs, no server routes or SPA fallback requirement. No runtime CDN dependencies, telemetry, remote financial APIs, or authentication in the initial scope.
+## Modules
 
-Current tree: site/ contains the preparatory static page; scripts/check.mjs validates packaging and local links. Future site/js/ modules: domain (validation and immutable plan inputs), engine (pure cash flows), simulation (seeded paths and aggregation), workers (cancellable runs), storage (IndexedDB and migrations), ui (forms/charts/tables). Do not create empty module files as if implemented.
+Buildless HTML/CSS and ES modules, hosted beneath /education-finance/. `domain.js` owns strict input validation and portable schema; `engine.js` is a pure monthly cash-flow engine; `simulation.js` owns seeded paths, percentiles, comparisons and contribution solving; `worker.js` runs simulations away from the UI thread; `storage.js` provides IndexedDB; `render.js` builds text-safe results and SVG; `app.js` coordinates the UI. No runtime dependencies, analytics, CDN, login, or financial-data requests.
 
-Simulation worker messages carry a runId, immutable input snapshot and versions. Progress/result/error messages include that ID; ignore stale results after edits. Cancel by terminating the worker. Retain summaries and selected paths rather than every monthly balance from every trial. Do not freeze the UI during contribution solving.
+Worker messages contain runId and immutable input snapshots. Input edits/switches terminate pending workers and invalidate results. Stale messages are ignored. The UI remains usable during long comparisons. Pointwise balance summaries are retained at the first month, calendar-year ends, and final month; full simulated monthly ledgers are not retained.
 
-## Proposed persisted shape (schema version 1)
+## Persisted schema
 
-| Entity | Required fields / relationships |
+| Object | Stored fields |
 | --- | --- |
-| Plan | schemaVersion, id, valuationMonth YYYY-MM, currency, assumptionSets[], students[], accounts[], scenarios[], modelVersion |
-| Student | id, alias, optional age/grade, enrollmentMonth, remainingYears |
-| Account | id, balance, asOfMonth, type, investmentProfileId; owner/allocation records |
-| Allocation | accountId, studentId, amount or explicit fraction; allocations cannot exceed pool |
-| CostPath | id, studentId, baselineMonth, source metadata, per-year category amounts and living arrangement |
-| Scenario | id, studentId, costPathId, coverageGoal, account allocations, dated contributions, grants, income support, assumptionSetId and overrides |
-| AssumptionSet | id, version, values with units/provenance/status/date |
-| Run | id, scenario snapshot/hash, seed, PRNG/model/assumption versions, trialCount, timestamp, aggregate outputs |
+| Plan | schemaVersion, modelVersion, currency, valuation, sharedPool, defaults, students |
+| Student | id, alias, enrollment, years, sharedAllocation, scenarios |
+| Scenario | id/name, path/living labels, baseline, costs, source/sourceDate, costConfirmed, balance, monthly, contributionStart/End, stepUp, gifts, grant/grantYears, income, coverage/share, assumptions, assumptionsDate/Status, stress, acknowledged |
+| Costs | tuition, housing, books, transport, other; annual nominal USD |
+| Gift | date YYYY-MM and nonnegative amount |
+| Assumptions | returnRate/mean/volatility for early saving; lateReturn/lateMean/lateVolatility; attendanceReturn/attendanceMean/attendanceVolatility; transitionYears; tuitionGrowth/livingGrowth/inflation |
 
-IDs are stable opaque strings; amounts are finite USD numbers with cent-level payment rounding; rates are decimal fractions; dates are validated month strings. Presentation percentages are not stored as whole numbers. Preserve input precision for compounding and specify final payment rounding in tests. Future unsupported fields/versions must cause a clear import error rather than guessed migration.
+IDs are opaque UUIDs. Rates are decimal fractions, amounts finite USD numbers, dates validated month strings. `domain.js` is the executable contract: reject missing/unknown fields, invalid types, unsupported versions, duplicate IDs, excess allocations, invalid dates and excessive horizons/counts. Limit: 30 students, 20 scenarios per student, 100 total, 24 gifts/scenario, 2 MB imports. New schemas need deliberate migration.
 
-First engine supports one allocated portfolio balance per student; the data model preserves account identities for later restrictions. Do not imply 529, custodial, and unrestricted funds are interchangeable. Confirm eligibility before restricted-account withdrawals in a future multi-account engine.
+Each scenario has one aggregate earmarked balance plus its student's explicitly allocated share of a family pool. Scenario alternatives do not consume extra shares. Accounts and restricted withdrawals are NOT represented as interchangeable individual accounts. The user must ensure eligible funds are used; account rules are future work.
 
-## Persistence and import/export
+Family defaults are copied snapshots. Editing defaults does not mutate existing scenarios; Apply defaults is explicit and resets simulation acknowledgement. User edits to return assumptions update status/date. Cost confirmation is required before assessment; zero-valued categories are visible and require budget review.
 
-IndexedDB stores plans and input snapshots locally after explicit save; visible saved/unsaved status. JSON export is the portable backup with schema/model versions and timestamp; JSON import previews plan details and requires explicit replace/duplicate selection. Validate types, bounds, references, dates, allocations, size limits, and unsupported versions before any write. Use textContent for user text, never untrusted HTML. Handle blocked storage, quota, corrupt data, and failed writes with export/retry paths. A user can delete a plan and all local data.
+## Persistence and portability
 
-No actual student data in repository fixtures. Public Pages serves public source assets, while entered finances remain local. GitHub receives ordinary page requests; avoid claiming zero network activity. No cross-device sync initially.
+Explicit Save locally writes the full validated plan to IndexedDB database education-finance, store plans, key workspace. Input edits show unsaved status and a navigation warning. Saves wait for transaction completion; storage failures leave inputs available for export. On load, corrupt/unsupported records produce a visible error and are not silently replaced. Reports are not auto-persisted; rerun calculations after reload or export an assessment.
+
+Plan JSON wrapper: format=education-finance-1, exportedAt ISO timestamp, plan. Import parses and validates before any mutation, previews student/scenario counts and aliases, and requires Replace workspace. It replaces only tab memory until Save locally. Export assessments separately as JSON with full plan snapshot, model/PRNG/assumption versions, seed/trial settings, timestamp, and results; annual CSV is spreadsheet-safe; reports can be printed.
+
+Use textContent and value, never user HTML. Validate imports as data; no evaluation. Browser storage is not secure archival storage or cross-device sync. GitHub receives ordinary page/asset requests, but financial inputs are processed locally. Only site/ is deployed; never commit exports or actual student data.

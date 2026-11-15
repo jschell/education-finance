@@ -2,7 +2,24 @@
 
 A browser-local college funding planner, entered one student at a time, designed for GitHub Pages.
 
-**Status: preparation scaffold.** The starter page explains the planned experience. No financial calculation, simulation, profile storage, or school-price lookup is implemented yet. No school or spending target has been selected.
+**Status: working v0.1 calculator (M1–M3).** Deterministic monthly projections, staged-return Monte Carlo, contribution solving, multiple students/scenarios, explicit local saves, and portable backup are implemented. No school-price lookup, tax/aid eligibility calculation, or joint family simulation is included.
+
+Live application: https://jschell.github.io/education-finance/
+
+## Use the planner
+
+1. Enter an alias, enrollment month, attendance duration, and annual expense budget (or load the explicitly fictional example).
+2. Enter current savings. Future contributions default to zero; gifts, scholarships, and income payments are optional.
+3. Review separate cost growth and three investment stages: early saving, final saving years, and attendance. Starting rates are illustrative, not calibrated investment recommendations.
+4. Calculate a projection, or acknowledge the assumptions and run Monte Carlo. The solver uses your contribution dates even when the current contribution is zero.
+5. Duplicate a scenario to change education costs, funding, or return assumptions; compare alternatives for the same student.
+6. Save locally, export a plan backup, and optionally export the calculated assessment (exact inputs, model, seed, trial count, and results) or yearly CSV. New students can be assessed independently.
+
+A shared pool supports explicit allocations only. Restrict each student's earmarked balance to their own funds; do not also include shared money there. Scenario alternatives reuse that student's allocation. Browser storage is not a backup and does not synchronize devices.
+
+## Verification
+
+`npm run check` runs packaging/module checks and financial/input tests. The release checks are recorded in [verification](docs/verification.md). No claim of measured physical iPad performance is made.
 
 ## Planned experience
 

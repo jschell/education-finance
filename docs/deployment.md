@@ -21,4 +21,4 @@ If configure-pages reports missing Pages, enable the source above. If Actions or
 
 ## Local checks
 
-`npm run check` checks the starter HTML's local file references and rejects symlinks in published files. It is packaging validation only. Financial tests will be added with M1 and must gate future deployment. Serve site/ locally via Python's http.server. To manually emulate the project path, serve a temporary parent directory containing an education-finance directory mapped to site/; never change relative links to origin-root paths.
+`npm run check` checks local links, module syntax/import targets, published-file safety, and financial/domain tests. It gates CI and deployment. Browser interaction checks are recorded in verification.md. Serve site/ locally via Python's http.server. To manually emulate the project path, serve a temporary parent directory containing an education-finance directory mapped to site/; never change relative links to origin-root paths.

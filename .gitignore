@@ -6,3 +6,6 @@ exports/
 local-data/
 playwright-report/
 test-results/
+
+.openai/
+site/qa.html

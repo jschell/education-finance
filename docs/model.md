@@ -1,53 +1,58 @@
-# Financial model and Monte Carlo specification
+# Financial model and Monte Carlo methodology
 
-Status: proposed implementation contract, not a validated financial engine. Initial model identifier: `college-funding-v0-proposal`.
+Implemented model: `college-funding-1.0.0`; schema 1; PRNG `mulberry32-boxmuller-1`; assumption set `user-defined-1`. Values are hypothetical and user-controlled. No investment preset has been calibrated or endorsed.
 
-## Deterministic reference
+## Three separate stages
 
-Use UTC month indices, not browser locale arithmetic. All balances have an as-of month. Project a common starting month through the final scheduled payment. Student age is descriptive only. Dates before the assessment require an explicitly remaining-cost schedule; never regenerate paid bills.
+1. **Grow current savings to university entry.** With no contributions and a constant annual compound return r, entry balance = current balance * (1+r)^(months/12), matching an FV calculation. Contributions default to zero. Staged returns multiply growth factors over their respective periods.
+2. **Grow college costs independently.** For each category, future cost = baseline annual amount * payment weight * (1+category growth)^(months since baseline/12). Tuition and living expenses have independent growth assumptions; these are unrelated to the market return. Sum actual future payments, rather than multiplying first-year costs by attendance years.
+3. **Fund attendance.** Continue growing remaining funds, receive scheduled funding, pay bills, and record unpaid obligations month by month through the final payment.
 
-For cost category k with baseline amount C and annual nominal growth g, expense due n months after its baseline is C * (1 + g)^(n/12). A different attendance-year baseline overrides this formula where a transfer or living-arrangement change applies. Tuition/fees default to 50% in August and 50% in January; housing/food and other recurring expenses default to nine equal monthly payments August–April. These are provisional, editable payment conventions, not claims about school billing. Baseline budgets must state nine versus twelve months; summer costs are added explicitly.
+## Timing and expense schedules
 
-Monthly event order:
+Use integer UTC-style month indices, independent of daylight-saving transitions. Savings represent the opening balance at the start of the valuation month. Growth is applied each remaining month, including the valuation month. Report entry savings BEFORE the entry month's growth, contributions and bills, so exactly 12 growth periods separate dates 12 months apart. Already-enrolled students have no projected entry balance; only payments on/after valuation remain.
 
-1. Apply account investment growth to opening balances.
-2. Add scheduled contributions and gifts (end-of-month convention).
-3. Determine scheduled costs, grants, and directly available income support.
-4. Calculate the selected coverage goal; allocate grants to eligible categories before calculating the remaining covered obligation. No grant creates a negative cost or savings deposit.
-5. Withdraw from eligible accounts using a recorded priority. Initial prototype uses one earmarked unrestricted modeling balance per student; account restrictions are a later explicit feature before multi-account release.
-6. Record unmet obligations immediately, cap balances at zero, and retain future unpaid history. Later deposits do not erase earlier failures.
+Tuition/mandatory fees: half at the enrollment month, half five months later, each attendance year. Other annual costs: nine equal monthly amounts from enrollment through month eight; inflation is applied at each payment date and payments rounded to cents. For an August start these are August/January and August–April. These are simplified billing conventions, not school-specific schedules. Current UI does not edit payment weights or provide a separate summer schedule: include annual summer allowances in annual budgets, distributed over attendance months, or compare costs separately. Custom transfer/year-specific schedules are M4.
 
-Income support is used only for due expenses unless an explicit contribution schedule deposits it into savings. Never count the same income twice. Track total attendance cost, covered obligation, student responsibility outside the selected goal, and unpaid covered obligation separately.
+Every month:
 
-Success means every covered obligation was paid when due (tolerance $0.01). Ending surplus alone is not success. Sum unpaid expenses in nominal dollars and also discount each unpaid payment to the valuation month for a comparable present-dollar total. Today's-dollar conversion uses general inflation once; category inflation is not added to general inflation.
+1. Grow opening funds at the applicable monthly gross return; optional market stress multiplies funds by 0.75 once immediately before entry, or at valuation if already enrolled.
+2. Add month-end contributions and scheduled gifts before bills. Annual contribution increases occur after each 12 months from contributionStart. Dates are inclusive. When enrollment is edited, contribution end dates that still equal the original default (month before entry, clamped to valuation) follow the new entry date; explicitly customized schedules are retained. Review the optional contribution schedule before using the solver.
+3. Calculate costs and grants. Grants are nominal annual amounts paid half at each tuition date for grantYears from original entry; cap to that month's total cost, apply tuition first, and discard excess. No grant becomes savings. Renewal is an explicit assumption.
+4. Determine coverage: full net cost, remaining tuition/fees, or share of full net cost. Apply direct income support up to that obligation in nine equal monthly allowances; unused income is not saved. This can use less than the annual allowance for a tuition-only goal; no borrowing between months is assumed.
+5. Withdraw available savings, floor at zero, and record any unpaid obligation. Later funding never erases earlier misses.
 
-## Monte Carlo version 1
+Track total cost, grants, covered obligation, income actually used, deposits, withdrawals, ending funds and unpaid bills. Success means every covered payment is paid when due (per-payment tolerance $0.01), not a positive final balance. Unfunded amounts outside a tuition-only/percentage goal remain outside that success definition. General inflation is used once to discount expenses to valuation-month purchasing power, not added to category growth.
 
-Run the same cash-flow engine repeatedly. Start with 10,000 trials; allow lower preview counts and a recorded integer seed. Use a documented seeded PRNG, separate streams keyed by trial/month/risk factor, and stable factor identities. Scenario comparisons reuse underlying shocks; different paths may use different allocations. Save seed, trial count, input snapshot, assumption-set version, PRNG version, and engine version.
+Current-savings-only excludes future contributions, gifts, and income while retaining grants. The middle comparison includes contributions/gifts but excludes income. The all-funding view includes income. Shared allocation is part of opening savings, counted once per student across the plan; alternative scenarios reuse that allocation. Joint household optimization is not implemented.
 
-Proposed initial distribution: normal monthly log returns, producing lognormal gross returns. Require annual arithmetic expected simple return m > -1 and annual simple-return standard deviation s >= 0. Convert via sigma2 = ln(1 + s^2/(1+m)^2); mu = ln(1+m) - sigma2/2. Monthly log return = mu/12 + sqrt(sigma2/12)*Z. Thus the input mean and volatility describe a one-year simple return under this model; they are not a CAGR. Zero volatility reduces to monthly compounding of (1+m)^(1/12). Net fees/tax drag must be defined explicitly and not deducted twice.
+## Return stages and Monte Carlo
 
-This initial distribution assumes independent increments and misses some extreme events and changing correlations. Do not present its downside as exhaustive. Add separately labeled pre-enrollment market-loss and persistent-high-inflation stress cases. Historical block bootstrap is a later alternative requiring licensed/sourced data and a recorded historical window.
+Three independently editable profiles: early saving; final N years before entry; and attendance. Each specifies deterministic annual compound growth plus Monte Carlo annual arithmetic expected simple return m and annual simple-return standard deviation s. Starting illustrative profiles are 5%/5%/10%, 3%/3%/5%, and 2%/2%/2% (compound/MC mean/volatility), with a final three-year stage. These are user-editable illustrations, not recommendations or market estimates. Set stages equal to model a constant return. Stage changes are abrupt; no asset trades/rebalancing/tax model is inferred.
 
-Initial cost mode is fixed category growth, so its cost percentiles coincide. Optional stochastic costs: draw annual log gross growth for a shared education factor and a shared living-cost factor, calibrating annual means/standard deviations with the same transformation; allow negative annual growth but positive costs. Apply cumulative annual factors with fractional-year interpolation. Category-specific premiums and correlation need recorded assumptions. Do not randomly select a growth rate once and call that annual variability. Keep stochastic cost controls disabled until calibration and correlations are implemented and tested.
+Monthly gross returns are lognormal. Convert one-year arithmetic inputs using sigma2 = ln(1+s^2/(1+m)^2), mu = ln(1+m)-sigma2/2. For each month draw log gross = mu/12 + sqrt(sigma2/12)*Z, Z standard normal. Zero volatility equals monthly compounding (1+m)^(1/12). Do not confuse the arithmetic mean with CAGR. Means are net of fees and assumed tax drag; no additional fees/taxes are deducted.
 
-Across students/accounts in joint mode, generate common calendar-month asset-factor shocks and common annual cost factors, then apply allocations. Never independently simulate the same market for siblings. Version 1 standalone mode uses a single portfolio profile; family mode and multiple asset classes require covariance-aware shocks and valid positive-semidefinite correlation matrices.
+Random generator: Mulberry32 uint32, seeded per trial by seed XOR imul(trial+1,0x9e3779b9); Box–Muller pairs generate normal draws. Months consume draws in calendar order; zero-volatility periods consume no normal draws. Comparisons share streams for the same student/valuation/date layout. Changes to the number of zero-volatility periods can change later draws; do not claim exact common-shock alignment across such changes. The engine is for independent student alternatives, not family correlation analysis.
 
-Aid, attendance duration, transfer choice, and living arrangement remain explicit scenario choices. Do not invent probability distributions for these. Return glide paths must be explicit, dated schedules and are deferred from the first fixed-profile engine.
+Run 1,000 preview, 10,000 default, or 25,000 detailed trials in a cancellable Web Worker. Cost growth stays fixed per scenario, so cost percentiles coincide. Aid, housing and attendance duration are deliberate scenario choices. Compare higher tuition/living growth, more years, and the optional 25% loss as separate stress scenarios. Do not label sensitivity cases statistical best/worst bounds.
 
-## Summary statistics and solver
+Limitations: independent monthly log returns, fixed stage parameters, no fat tails/regime shifts/cross-asset model, fixed tuition/living growth, no aid eligibility/tax/account restrictions, no automatic debt. Probabilities are conditional model frequencies, not confidence that real costs will be funded.
 
-Define percentiles using sorted samples and linear interpolation at index (N-1)*p. Include zero shortfalls in unconditional gap percentiles, and report unsuccessful-trial severity separately. Pointwise balance bands do not represent one realizable trajectory. Do not add student percentiles to derive family percentiles.
+## Percentiles and required contributions
 
-Success frequency = successful trials / N. Show rounded percentages and trial count. At 10,000 independent trials, worst-case binomial standard error is about 0.5 percentage points; that measures simulation sampling noise, not model accuracy. Report sensitivity to assumptions alongside probability.
+Sorted-sample percentile: linear interpolation at (N-1)*p. Unconditional unpaid percentiles include zero gaps; severity among unsuccessful trials is reported separately. P90 unpaid is adverse, while P90 ending funds is favorable. Pointwise balance bands are not one realizable path. Do not sum percentile values to derive family percentiles.
 
-For monthly contribution required at a selected success threshold, bracket and binary-search contributions over a declared contribution date window using fixed common random draws. Return an explicitly infeasible result when the ceiling fails; round up to dollars and recheck. Near-threshold estimates need a higher-trial verification. Do not reuse the deterministic 5% compound assumption as a Monte Carlo arithmetic mean without conversion or relabeling.
+Sampling standard error of success frequency = sqrt(p*(1-p)/N); at 10,000 independent trials the maximum is 0.5 percentage points. This measures random-sampling noise only, not model validity.
 
-## Sources for later calibration
+The solver calculates the minimum required base monthly contribution on each path, using positive-growth linear cash-flow sensitivity. At each payment, track fixed funds F and cumulative contribution sensitivity S: F = F*g + gift - obligation after income; S = S*g + dated contribution factor. Required contribution is the largest max(0,-F/S) over months; an unpaid bill with S=0 is infeasible. This avoids repeatedly simulating binary-search candidates. Existing balance/gifts/income are fixed; base monthly contributions follow the entered start/end dates and annual step-up.
 
-- [College Board cost trends](https://research.collegeboard.org/trends/college-pricing): broad cost benchmarks, not individual net-price predictions.
-- [Federal Student Aid offer comparison](https://studentaid.gov/articles/evaluating-financial-aid-offers/): costs, grants, and financing distinctions.
-- [Investor.gov asset allocation](https://www.investor.gov/introduction-investing/getting-started/asset-allocation): horizon and risk.
-- [CFA Institute simulation methods](https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/simulation-methods): distribution and simulation concepts.
+Select the order statistic needed for the chosen 80/90/95% sample success, round up to dollars, enforce the user's monthly ceiling, refine on max(20,000, 2*N) trials capped at 50,000, and rerun every path in that larger sample to verify actual funding success. The first N paths are reused; this is a larger-sample check, NOT independent out-of-sample validation. Report infeasible results instead of inventing a contribution. Contribution targets remain assumption-dependent.
 
-These sources do not validate provisional numerical defaults. Source cost baselines and portfolio calibration separately before presenting a recommended preset.
+## References
+
+- [College Board cost trends](https://research.collegeboard.org/trends/college-pricing): source for future benchmarks, not used to populate current fictional examples.
+- [Federal Student Aid offer comparison](https://studentaid.gov/articles/evaluating-financial-aid-offers/): costs, grants and financing.
+- [Investor.gov asset allocation](https://www.investor.gov/introduction-investing/getting-started/asset-allocation): horizon/risk context.
+- [CFA Institute simulation methods](https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/simulation-methods): simulation and distributions.
+
+These sources do not validate the numerical placeholders. Users supply school estimates and portfolio assumptions; future calibrated profiles need distinct sources and dates.
