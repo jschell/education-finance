@@ -1,35 +1,38 @@
 # Assumption register
 
-As of 2026-11-15. All numerical values below are **illustrative planning placeholders**, not forecasts, verified school prices, investment recommendations, or an agreed family target.
+As of 2026-11-15; model `college-funding-2.0.0`. Historical observations are verified against a pinned snapshot, not verified forecasts. Portfolio weights and planning conventions are provisional developer choices and user-editable.
 
-| ID | Meaning / units | Initial value | Status / treatment |
+| Input / units | Default | Provenance / status |
+| --- | --- | --- |
+| Currency | Nominal USD | US planning scope |
+| Annual school budget | $0 until entered | User estimate; no school price inferred |
+| Attendance | Four years | Provisional convention |
+| Future contributions / annual increase | $0/month / 0% | User capacity not inferred |
+| Aid, gifts, income | $0 | Explicit user entries only |
+| Historical period | 1978–2024 | 564 complete aligned monthly observations; data manifest |
+| Block length | Three years | Provisional sampling choice; one/five years optional |
+| Cost growth | Historical tuition CPI and general CPI | BLS indexes; school-specific costs may differ |
+| Reference rates | Geometric rates from chosen history | Empirical summary, not a forward forecast |
+| Annual investment fee | 0% | Placeholder; enter actual fee; no tax drag |
+| Final saving stage | Three years before entry | Provisional allocation convention |
+| Main trials | 10,000 | Sampling/performance choice; 1,000/25,000 optional |
+| Target funding frequency | 90% | User-adjustable 80/90/95%, no guarantee |
+| Contribution ceiling | $10,000/month | Solver bound, not assumed capacity |
+| Secondary comparison / independent check | 1,000 paths each | Sampling choice; reported separately |
+
+Portfolio percentages below are stocks / bonds / cash. They are illustrative allocations, not recommended glide paths. Monthly rebalancing and abrupt stage changes are assumed.
+
+| Profile | Early saving | Final saving stage | Attendance |
 | --- | --- | --- | --- |
-| scope | Currency and education system | USD; U.S. undergraduate | Proposed scope |
-| deterministic-return | Annual nominal compound return, net | 3% / 5% / 7% | Adverse/base/favorable sensitivity only |
-| tuition-growth | Annual nominal growth | 6% / 4% / 2% | Adverse/base/favorable sensitivity |
-| living-growth | Annual nominal growth | 4% / 3% / 2% | Adverse/base/favorable sensitivity |
-| general-inflation | Annual nominal inflation | 3.5% / 2.5% / 2% | Today's-dollar display only |
-| mc-return-mean | Annual arithmetic expected return | 5% early / 3% final / 2% attendance | Illustrative editable inputs; no calibrated profile |
-| mc-return-volatility | Annual simple-return standard deviation | 10% early / 5% final / 2% attendance | Illustrative editable inputs; no acknowledgement gate |
-| cost-volatility | Annual growth standard deviation | Unset | Fixed-growth mode until calibrated |
-| price-baselines | Annual expense by category | Unset | User amount or dated source required |
-| unconfirmed-aid | Grants / scholarships | $0 in no-aid scenario | Unknown aid is not predicted eligibility |
-| attendance | Remaining years | User required | Additional year is a separate stress test |
-| contributions | Nominal scheduled amounts | User required, explicit $0 allowed | No assumed household capacity |
-| contribution-step-up | Annual increase | 0% | Editable |
-| trials | Trials per full run | 10,000 | Performance/convergence target |
-| success-threshold | Desired simulated success frequency | User selected | Offer 80/90/95%; none pre-endorsed |
+| Balanced to conservative (default) | 60 / 30 / 10 | 30 / 40 / 30 | 10 / 30 / 60 |
+| Stock-heavy to conservative | 80 / 15 / 5 | 50 / 35 / 15 | 20 / 30 / 50 |
+| Conservative | 30 / 40 / 30 | 15 / 35 / 50 | 0 / 20 / 80 |
+| Cash only | 0 / 0 / 100 | 0 / 0 / 100 | 0 / 0 / 100 |
 
-Scenario labels bundle assumptions for sensitivity, not statistically calibrated best/worst outcomes. Users must be able to vary returns and costs independently.
+Manual reference defaults retained for old plans are annual compound returns of 5% early, 3% final and 2% attendance; tuition growth 4%, living growth 3%, and general inflation 2.5%. These are illustrative legacy placeholders, used only when manual reference/fixed expense assumptions are selected. Stored legacy arithmetic means and volatilities are not used by the historical assessment.
 
-Each stored assumption needs: ID, label, units, value, source URL or user-entry provenance, source/as-of date, provisional/verified/user status, scope, and override history. Unknown and zero differ. Never silently default absent costs or volatility to zero.
+The fictional example uses $25,000 savings and annual costs of $14,000 tuition, $16,000 housing/food, $1,200 books, $2,000 transport/personal and $1,500 other. These are synthetic demonstration numbers, not national or school estimates. No family target has been agreed.
 
-School data intake must record academic year, residency, attendance/living basis, included categories, annual versus term pricing, sticker versus net price, source date, and URL. Net-price estimates need their household context and grant assumptions; do not apply a national average aid discount automatically. Do not infer 529 eligibility from a generic cost category.
+The source snapshot, retrieval date, transformations and hashes are in [the manifest](../data/manifest.json); licensing and attribution are in [the notice](../data/NOTICE.md). No source confirms future returns, inflation or a specific university's net cost. Tuition CPI is a national index; general CPI is a broad proxy for all non-tuition categories. Bond returns are yield-reconstructed and can be smoother than investable fund returns.
 
-Before calibrated release: choose sourced portfolio profiles, validate arithmetic versus geometric return interpretation, select cost baseline data, and document limitations. Tax/aid/account eligibility rules require current official sources when implemented.
-
-## Implemented v0.1 conventions
-
-The UI uses base deterministic rates of 5% early, 3% in the final three saving years, and 2% during attendance. Monte Carlo expected returns and volatilities are listed above. Contributions default to zero. The fictional example uses $14,000 tuition, $16,000 housing/food, $1,200 books, $2,000 transport/personal, $1,500 other, and $25,000 savings. These are synthetic demonstration values, not national or school estimates. All values are nominal USD; default origin is an illustrative developer assumption, dated 2026-11-15. User changes receive a user-defined date/status.
-
-Preset school prices, stochastic cost growth, aid eligibility and calibrated portfolio recommendations are not supplied. Compare growth assumptions independently by duplicating scenarios. See model.md for the exact billing/grant/income conventions and limitations.
+School intake should record academic year, residency, included categories, annual versus term pricing, sticker versus net price, source date and URL. Metadata is optional in the starting form. Blank costs mean zero; omitted categories are not estimated. Never apply a national aid discount or infer account eligibility. Tax/aid/account rules require current official sources if implemented.

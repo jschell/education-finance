@@ -1,5 +1,6 @@
-export const MODEL = 'college-funding-1.0.0';
-export const SCHEMA = 1;
+import { HISTORY_DEFAULTS,PROFILES } from './history-config.js?v=0.2.0';
+export const MODEL = 'college-funding-2.0.0';
+export const SCHEMA = 2;
 export const PRNG = 'mulberry32-boxmuller-1';
 export const ASSUMPTIONS = 'user-defined-1';
 export const categories = ['tuition', 'housing', 'books', 'transport', 'other'];
@@ -16,7 +17,7 @@ export function currentMonth() { const d = new Date(); return `${d.getFullYear()
 export const clone = x => structuredClone(x);
 export function defaultScenario(valuation = currentMonth(), enrollment = `${Number(valuation.slice(0,4))+8}-08`) {
   return {
-    id: id(), name: 'Path 1', path: 'Custom path', living: 'On campus', baseline: valuation,
+    history: {...HISTORY_DEFAULTS}, id: id(), name: 'Path 1', path: 'Custom path', living: 'On campus', baseline: valuation,
     costs: { tuition: 0, housing: 0, books: 0, transport: 0, other: 0 },
     // Legacy flags are retained only for version-1 backup compatibility; no UI gates.
     costConfirmed: false, source: 'User estimate', sourceDate: valuation,
@@ -53,7 +54,16 @@ export function validateAssumptions(a) {
   number(a.transitionYears,0,10,'Final saving stage length',true);
   for(const k of ['tuitionGrowth','livingGrowth','inflation']) number(a[k],-.05,.15,k);
 }
+export function migratePlan(plan) {
+  if(plan?.schemaVersion===1&&plan?.modelVersion==='college-funding-1.0.0') {
+    const next=clone(plan);next.schemaVersion=SCHEMA;next.modelVersion=MODEL;
+    if(Array.isArray(next.students))for(const st of next.students)if(Array.isArray(st.scenarios))for(const sc of st.scenarios)sc.history={...HISTORY_DEFAULTS};
+    return next;
+  }
+  return plan;
+}
 export function validatePlan(plan) {
+  plan=migratePlan(plan);
   object(plan,['schemaVersion','modelVersion','currency','valuation','sharedPool','defaults','students'],'Plan');
   if(plan.schemaVersion!==SCHEMA||plan.modelVersion!==MODEL||plan.currency!=='USD') throw Error('Unsupported schema, model version, or currency.');
   const now=month(plan.valuation); number(plan.sharedPool,0,1e8,'Shared pool'); validateAssumptions(plan.defaults);
@@ -67,7 +77,10 @@ export function validatePlan(plan) {
     number(st.sharedAllocation,0,1e8,'Shared allocation'); allocated+=st.sharedAllocation;
     array(st.scenarios,20,'Scenarios'); if(!st.scenarios.length)throw Error('Each student needs a scenario.'); totalScenarios+=st.scenarios.length;
     for(const s of st.scenarios) {
-      object(s,['id','name','path','living','baseline','costs','source','sourceDate','costConfirmed','balance','monthly','contributionStart','contributionEnd','stepUp','gifts','grant','grantYears','income','coverage','share','assumptions','assumptionsDate','assumptionsStatus','stress','acknowledged'],'Scenario');
+      object(s,['history','id','name','path','living','baseline','costs','source','sourceDate','costConfirmed','balance','monthly','contributionStart','contributionEnd','stepUp','gifts','grant','grantYears','income','coverage','share','assumptions','assumptionsDate','assumptionsStatus','stress','acknowledged'],'Scenario');
+      object(s.history,['profile','period','blockYears','costMode','reference','fee'],'Historical settings');
+      if(!Object.hasOwn(PROFILES,s.history.profile)||!['full','recent'].includes(s.history.period)||![1,3,5].includes(s.history.blockYears)||!['historical','fixed'].includes(s.history.costMode)||!['historical','manual'].includes(s.history.reference))throw Error('Unsupported historical settings.');
+      number(s.history.fee,0,.05,'Annual investment fee');
       unique(s.id); text(s.name,100,'Scenario name'); text(s.path,150,'Education path');text(s.living,100,'Living arrangement');text(s.source,500,'Cost source');
       if(month(s.baseline)>now || now-month(s.baseline)>40*12)throw Error('Cost baseline must be within 40 years before the valuation month.');
       month(s.sourceDate);month(s.assumptionsDate);
@@ -95,5 +108,5 @@ export function parseImport(textValue) {
   if(typeof raw.exportedAt!=='string'||!Number.isFinite(Date.parse(raw.exportedAt)))throw Error('Invalid export date.');
   return clone(validatePlan(raw.plan));
 }
-export function exportPlan(plan) { validatePlan(plan); return JSON.stringify({format:'education-finance-1',exportedAt:new Date().toISOString(),plan},null,2); }
+export function exportPlan(plan) { plan=validatePlan(plan); return JSON.stringify({format:'education-finance-1',exportedAt:new Date().toISOString(),plan},null,2); }
 export function duplicateStudent(st) { const x=clone(st); x.id=id(); x.alias=`${x.alias.slice(0,85)} copy`; x.sharedAllocation=0; for(const s of x.scenarios)s.id=id();return x; }

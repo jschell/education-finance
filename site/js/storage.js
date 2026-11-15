@@ -1,4 +1,4 @@
-import { validatePlan,clone } from './domain.js';
+import { validatePlan,clone } from './domain.js?v=0.2.0';
 const DB='education-finance',KEY='workspace';
 function database() {
   return new Promise((resolve,reject)=>{

@@ -1,6 +1,6 @@
 # Roadmap and acceptance criteria
 
-Preparation is complete when docs, a clearly labeled static starter, local checks, CI, and an Actions Pages workflow are committed. A calculator is not complete at this milestone.
+v0.2.0 provides a working single-student historical assessment on GitHub Pages.
 
 ## M1 — Implemented: Deterministic student assessment
 
@@ -23,7 +23,7 @@ Preparation is complete when docs, a clearly labeled static starter, local check
 
 ## M4 — Richer education and account modeling
 
-- Transfer paths, changing housing, dated school sources, restricted account rules, detailed asset glide paths, stochastic cost mode after calibration.
+- Transfer paths, changing housing, dated school sources, restricted account rules, detailed asset glide paths, school-specific cost uncertainty beyond national CPI proxies.
 - Accept: no missing expenses silently set to zero; transfer/year transitions match schedules; eligibility and source dates visible; category uncertainty/correlations tested.
 
 ## M5 — Joint family analysis
@@ -41,3 +41,7 @@ Preparation is complete when docs, a clearly labeled static starter, local check
 - Validate current assumptions and source dates before describing numerical presets as calibrated.
 
 M1–M3 are implemented in v0.1.0. The user's staged-return refinement is also included. Portfolio calibration remains a future enhancement; no profile is represented as recommended. See verification.md for measured checks and limitations. Next: M4 richer account/education schedules, then M5 joint family funding.
+
+## v0.2 — Historical range assessment implemented
+
+One Calculate action replaces separate projection and Monte Carlo buttons. Joint calendar blocks use pinned stock/bond/cash and tuition/general-inflation observations from 1978–2024. Each run includes cost and savings ranges, paired gaps, actual complete historical windows, alternative-period sensitivity, contribution solving with an independent seeded check, and a collapsed fixed-rate reference. Source attribution, reproducible data preparation and schema-1 migration are included. These are historical empirical scenarios, not forward-looking calibrated recommendations. Remaining M4/M5 work is unchanged in scope; national CPI does not replace a school-price database.

@@ -1,4 +1,4 @@
-import { month, monthText, categories } from './domain.js';
+import { month, monthText, categories } from './domain.js?v=0.2.0';
 const cents = x => Math.round((x+Number.EPSILON)*100)/100;
 export function compile(plan, student, scenario, mode='all') {
   const start=month(plan.valuation), entry=month(student.enrollment), end=entry+(student.years-1)*12+8;
@@ -10,9 +10,11 @@ export function compile(plan, student, scenario, mode='all') {
     const elapsed=t-entry, year=Math.floor(elapsed/12), within=((elapsed%12)+12)%12;
     const attending=elapsed>=0&&year<student.years&&within<9;
     const costs=Object.fromEntries(categories.map(k=>[k,0]));
+    const valuationCosts=Object.fromEntries(categories.map(k=>[k,0]));
     if(attending) for(const k of categories) {
       const weight=k==='tuition'?(within===0||within===5?.5:0):1/9;
       const growth=k==='tuition'?a.tuitionGrowth:a.livingGrowth;
+      valuationCosts[k]=scenario.costs[k]*weight*(1+growth)**((start-base)/12);
       costs[k]=cents(scenario.costs[k]*weight*(1+growth)**((t-base)/12));
     }
     const total=cents(Object.values(costs).reduce((v,x)=>v+x,0));
@@ -25,9 +27,9 @@ export function compile(plan, student, scenario, mode='all') {
     const income=mode==='all'&&attending?cents(Math.min(obligation,scenario.income/9)):0;
     const factor=mode!=='savings'&&t>=cs&&t<=ce?(1+scenario.stepUp)**Math.floor((t-cs)/12):0;
     const gift=mode!=='savings'?scenario.gifts.filter(g=>month(g.date)===t).reduce((sum,g)=>sum+g.amount,0):0;
-    rows.push({date:monthText(t),year:Math.floor(t/12),costs,total,grant,net,obligation,income,need:cents(obligation-income),factor,gift,discount:(1+a.inflation)**((t-start)/12),attending});
+    rows.push({date:monthText(t),year:Math.floor(t/12),costs,valuationCosts,grantOffer,incomeAllowance: mode==='all'&&attending?scenario.income/9:0,coverage:scenario.coverage,share:scenario.share,total,grant,net,obligation,income,need:cents(obligation-income),factor,gift,discount:(1+a.inflation)**((t-start)/12),attending});
   }
-  return { rows, opening:scenario.balance+student.sharedAllocation, monthly:scenario.monthly, a,
+  return { rows, opening:scenario.balance+student.sharedAllocation, monthly:scenario.monthly, a, history:scenario.history, valuationMonth:start%12,
     rates: rows.map((_,i)=> { const t=start+i; return t>=entry? {returnRate:a.attendanceReturn,mean:a.attendanceMean,volatility:a.attendanceVolatility}: t>=entry-a.transitionYears*12? {returnRate:a.lateReturn,mean:a.lateMean,volatility:a.lateVolatility}: a; }),
     enrollmentIndex:entry-start, crashIndex:Math.max(0,entry-start-1), stress:scenario.stress };
 }
@@ -37,7 +39,7 @@ export function logParameters(mean,volatility) {
 }
 export function deterministicGrowth(compiled,i=0) { return (1+compiled.rates[i].returnRate)**(1/12); }
 export function runPath(c, growth=i=>deterministicGrowth(c,i), monthly=c.monthly, detail=true) {
-  let balance=c.opening,shortfall=0,realShortfall=0,total=0,net=0,obligation=0,grants=0,income=0,deposits=0,withdrawals=0;
+  let balance=c.opening,shortfall=0,realShortfall=0,total=0,net=0,obligation=0,grants=0,income=0,deposits=0,withdrawals=0,tuitionTotal=0,realTotal=0;
   let firstShortfall=null,enrollmentBalance=null; const ledger=[];const balances=[];
   for(let i=0;i<c.rows.length;i++) {
     const r=c.rows[i];const opening=balance;
@@ -47,13 +49,13 @@ export function runPath(c, growth=i=>deterministicGrowth(c,i), monthly=c.monthly
     const contribution=monthly*r.factor+r.gift; balance+=contribution;
     const draw=Math.min(balance,r.need);balance=Math.max(0,balance-draw);
     const unpaid=Math.max(0,r.need-draw);
-    shortfall+=unpaid;realShortfall+=unpaid/r.discount;total+=r.total;net+=r.net;obligation+=r.obligation;grants+=r.grant;income+=r.income;deposits+=contribution;withdrawals+=draw;
+    tuitionTotal+=r.costs.tuition;realTotal+=r.total/r.discount;shortfall+=unpaid;realShortfall+=unpaid/r.discount;total+=r.total;net+=r.net;obligation+=r.obligation;grants+=r.grant;income+=r.income;deposits+=contribution;withdrawals+=draw;
     if(unpaid>.01&&!firstShortfall)firstShortfall=r.date;
     if(detail)balances.push(balance);
     if(detail===true)ledger.push({...r,opening,earned,contribution,withdrawal:draw,shortfall:unpaid,balance});
   }
   const success=firstShortfall===null;
-  return {success,shortfall,realShortfall,total,net,obligation,grants,income,deposits,withdrawals,ending:balance,enrollmentBalance,firstShortfall,ledger,balances};
+  return {success,shortfall,realShortfall,total,tuitionTotal,realTotal,net,obligation,grants,income,deposits,withdrawals,ending:balance,enrollmentBalance,firstShortfall,ledger,balances};
 }
 export function annualRows(result) {
   const groups=new Map();
@@ -76,4 +78,15 @@ export function requiredContribution(c,growth) {
     }
   }
   return Math.max(0,required);
+}
+
+export function repriceRow(row,tuitionFactor,livingFactor,discount) {
+  if(!row.attending)return row;
+  const costs=Object.fromEntries(categories.map(k=>[k,cents(row.valuationCosts[k]*(k==='tuition'?tuitionFactor:livingFactor))]));
+  const total=cents(Object.values(costs).reduce((v,x)=>v+x,0));
+  const grant=cents(Math.min(total,row.grantOffer));
+  const net=cents(total-grant),tuitionGrant=Math.min(costs.tuition,grant);
+  const obligation=cents(row.coverage==='tuition'?Math.max(0,costs.tuition-tuitionGrant):net*(row.coverage==='percent'?row.share:1));
+  const income=cents(Math.min(obligation,row.incomeAllowance));
+  return {...row,costs,total,grant,net,obligation,income,need:cents(obligation-income),discount};
 }

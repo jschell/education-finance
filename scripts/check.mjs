@@ -31,7 +31,7 @@ for (const name of await readdir(resolve(root, 'js'))) {
   const checked = spawnSync(process.execPath, ['--check', path], { encoding: 'utf8' });
   assert.equal(checked.status, 0, checked.stderr);
   for (const match of content.matchAll(/(?:from\s+|new URL\()'([^']+)'/g)) {
-    if (match[1].startsWith('.')) await access(resolve(dirname(path), match[1]));
+    if (match[1].startsWith('.')) await access(resolve(dirname(path), match[1].split(/[?#]/)[0]));
   }
 }
 for (const file of ['README.md', 'docs/requirements.md', 'docs/model.md', 'docs/assumptions.md', 'docs/architecture.md', 'docs/roadmap.md', 'docs/deployment.md']) {

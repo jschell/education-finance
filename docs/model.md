@@ -1,6 +1,6 @@
 # Financial model and Monte Carlo methodology
 
-Implemented model: `college-funding-1.0.0`; schema 1; PRNG `mulberry32-boxmuller-1`; assumption set `user-defined-1`. Values are hypothetical and user-controlled. No investment preset has been calibrated or endorsed.
+Implemented model: `college-funding-2.0.0`; schema 2; primary PRNG `mulberry32-calendar-block-1`; dataset `us-joint-monthly-1978-2024-v1`, retrieved 2026-11-15. One Calculate action runs the complete historical assessment. Allocation presets are illustrative, not calibrated recommendations.
 
 ## Three separate stages
 
@@ -26,17 +26,27 @@ Track total cost, grants, covered obligation, income actually used, deposits, wi
 
 Current-savings-only excludes future contributions, gifts, and income while retaining grants. The middle comparison includes contributions/gifts but excludes income. The all-funding view includes income. Shared allocation is part of opening savings, counted once per student across the plan; alternative scenarios reuse that allocation. Joint household optimization is not implemented.
 
-## Return stages and Monte Carlo
+## Historical simulation and three investment stages
 
-Three independently editable profiles: early saving; final N years before entry; and attendance. Each specifies deterministic annual compound growth plus Monte Carlo annual arithmetic expected simple return m and annual simple-return standard deviation s. Starting illustrative profiles are 5%/5%/10%, 3%/3%/5%, and 2%/2%/2% (compound/MC mean/volatility), with a final three-year stage. These are user-editable illustrations, not recommendations or market estimates. Set stages equal to model a constant return. Stage changes are abrupt; no asset trades/rebalancing/tax model is inferred.
+The default model samples observed nominal monthly stock, bond, cash, general-inflation, and college-tuition-inflation observations together. The common complete period is January 1978–December 2024 (564 months); the alternative period is January 2000–December 2024. Sources, exact transformations, upstream commits, raw-file hashes and derived checksum are in [the manifest](../data/manifest.json) and [data notice](../data/NOTICE.md). No runtime third-party data request is needed.
 
-Monthly gross returns are lognormal. Convert one-year arithmetic inputs using sigma2 = ln(1+s^2/(1+m)^2), mu = ln(1+m)-sigma2/2. For each month draw log gross = mu/12 + sqrt(sigma2/12)*Z, Z standard normal. Zero volatility equals monthly compounding (1+m)^(1/12). Do not confuse the arithmetic mean with CAGR. Means are net of fees and assumed tax drag; no additional fees/taxes are deducted.
+Stocks are Fama/French market excess return plus RF; cash is RF. The legacy FIZ factor snapshot ends in 2024. Bonds are reconstructed nominal US 10-year sovereign total returns from ReturnDataFiles: a proxy based on monthly-averaged yields that can smooth volatility, not actual fund returns. General CPI is a proxy for housing, books, transport and other expenses; tuition uses BLS CPI-U college tuition and fees CUUR0000SEEB01. National indexes do not represent a particular school, residency, aid offer, or housing market.
 
-Random generator: Mulberry32 uint32, seeded per trial by seed XOR imul(trial+1,0x9e3779b9); Box–Muller pairs generate normal draws. Months consume draws in calendar order; zero-volatility periods consume no normal draws. Comparisons share streams for the same student/valuation/date layout. Changes to the number of zero-volatility periods can change later draws; do not claim exact common-shock alignment across such changes. The engine is for independent student alternatives, not family correlation analysis.
+Default allocation weights (stocks / bonds / cash) are 60/30/10 in early saving, 30/40/30 in the final three saving years, and 10/30/60 during attendance. Alternative illustrative profiles and exact weights appear in [assumptions](assumptions.md) and in the result. Stage changes are abrupt. Monthly portfolio return is the weighted sum of observed asset returns, assuming monthly rebalancing; annual fee f multiplies monthly gross return by (1-f)^(1/12). Default fee is zero and must be changed to represent actual costs. No tax drag, trading costs or account rules are modeled.
 
-Run 1,000 preview, 10,000 default, or 25,000 detailed trials in a cancellable Web Worker. Cost growth stays fixed per scenario, so cost percentiles coincide. Aid, housing and attendance duration are deliberate scenario choices. Compare higher tuition/living growth, more years, and the optional 25% loss as separate stress scenarios. Do not label sensitivity cases statistical best/worst bounds.
+The primary simulation is a calendar-aligned joint block bootstrap: default blocks are 36 consecutive months, optionally 12 or 60. Eligible blocks start in the same calendar month as valuation and must fit completely in the chosen history. Sample blocks uniformly with replacement, concatenate, and truncate the final block at the horizon. No history wraps or interpolation. Each row carries all five market/cost observations together, preserving observed relationships and sequences inside blocks; relationships across boundaries are broken. Blocks shorter than the horizon can repeat and do not preserve every long-run regime.
 
-Limitations: independent monthly log returns, fixed stage parameters, no fat tails/regime shifts/cross-asset model, fixed tuition/living growth, no aid eligibility/tax/account restrictions, no automatic debt. Probabilities are conditional model frequencies, not confidence that real costs will be funded.
+Mulberry32 is seeded per trial by seed XOR imul(trial+1,0x9e3779b9). This generator selects block starts; no Gaussian values or synthetic return limits are injected. The same seed, model, dataset and inputs reproduce results. Alternative scenarios use common sampled sequences with matching calendar layouts. Student assessments are independent; no joint family probability is inferred.
+
+Historical cost mode first translates any past-dated budget to valuation using the fixed reference category growth rate, then compounds sampled tuition CPI for tuition and general CPI for the other categories from valuation onward. There is no sampled inflation before the initial quoted bill. Observations in month i determine that month's investment return and the price change reaching the next month's costs. Grants, coverage, direct income, and withdrawals are recalculated on each repriced path; nominal grants and income are not automatically indexed. General CPI discounts each path once to valuation purchasing power. Fixed expense mode instead retains the entered category growth rates and discount rate; only historical investment returns vary.
+
+The fixed-rate reference uses geometric annual returns derived from the chosen historical monthly portfolios, net of the entered fee, and geometric index growth rates. It is displayed separately in a collapsed reference panel, not presented as the median path. Manual reference rates remain available and existing stored rates are preserved. In manual reference mode these rates affect the reference, historical baseline translation, or fixed expense mode; they do not replace observed investment returns in the bootstrap.
+
+Each calculation also includes every complete matching-calendar historical window that fits the horizon, with no resampling, plus a 1,000-path comparison using the alternative historical period. These use the same cash-flow conventions and portfolio stages. Overlapping actual windows are descriptive comparisons, not independent estimates of future probability. A horizon too long for any actual window is reported as unavailable rather than wrapped. The secondary comparison has more sampling noise than the default 10,000-path main run.
+
+A cancellable Web Worker runs 1,000, 10,000 (default), or 25,000 primary paths. Results include entry savings, tuition, total costs, funding gaps, ending savings, and pointwise balance bands. Each gap comes from paired costs and available funds on that path; subtracting unrelated percentile values would be incorrect. Optional 25% market-loss stress remains an explicit scenario overlay.
+
+Historical sampling includes actual loss and high-inflation episodes but cannot invent events absent from the data. It is not a forward-looking forecast calibrated to current valuations, yields, expected returns, or future education policy. National index changes, bond proxy limitations, allocation choices, block lengths, sampled period, aid assumptions and annual budgets all affect results. More trials reduce sampling noise, not these limitations. Legacy parametric simulation functions remain internally regression-tested for compatibility; they are not a second user-facing calculation path.
 
 ## Percentiles and required contributions
 
@@ -46,17 +56,8 @@ Sampling standard error of success frequency = sqrt(p*(1-p)/N); at 10,000 indepe
 
 The solver calculates the minimum required base monthly contribution on each path, using positive-growth linear cash-flow sensitivity. At each payment, track fixed funds F and cumulative contribution sensitivity S: F = F*g + gift - obligation after income; S = S*g + dated contribution factor. Required contribution is the largest max(0,-F/S) over months; an unpaid bill with S=0 is infeasible. This avoids repeatedly simulating binary-search candidates. Existing balance/gifts/income are fixed; base monthly contributions follow the entered start/end dates and annual step-up.
 
-Select the order statistic needed for the chosen 80/90/95% sample success, round up to dollars, enforce the user's monthly ceiling, refine on max(20,000, 2*N) trials capped at 50,000, and rerun every path in that larger sample to verify actual funding success. The first N paths are reused; this is a larger-sample check, NOT independent out-of-sample validation. Report infeasible results instead of inventing a contribution. Contribution targets remain assumption-dependent.
+Select the order statistic needed for the chosen 80/90/95% sample success, round up to dollars, enforce the user's monthly ceiling, refine on max(20,000, 2*N) trials capped at 50,000, then independently check actual capped-balance ledgers on 1,000 paths with a different seed. The calibration sample reuses the first N paths. Report both calibration and independent-check frequencies; a check below the selected threshold is explicitly labeled and is not adjusted away. Report infeasible results instead of inventing a contribution. Contribution targets remain assumption-dependent.
 
-## References
+## Reproducibility and migration
 
-- [College Board cost trends](https://research.collegeboard.org/trends/college-pricing): source for future benchmarks, not used to populate current fictional examples.
-- [Federal Student Aid offer comparison](https://studentaid.gov/articles/evaluating-financial-aid-offers/): costs, grants and financing.
-- [Investor.gov asset allocation](https://www.investor.gov/introduction-investing/getting-started/asset-allocation): horizon/risk context.
-- [CFA Institute simulation methods](https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/simulation-methods): simulation and distributions.
-
-These sources do not validate the numerical placeholders. Users supply school estimates and portfolio assumptions; future calibrated profiles need distinct sources and dates.
-
-## v0.1.1 interface update
-
-No calculation formula or model version changed. Removed both acknowledgement gates from projection, worker, and comparison paths, including for old saved plans with false flags. The simplified form shows four core inputs, generates names and date metadata, defaults to four attendance years and zero future contributions, and exposes the rest under optional sections. Blank costs/funding amounts mean zero; blank optional metadata/rates retain displayed existing/default values. No-budget results are marked savings growth only, with no funding-success percentage or savings target.
+Assessment JSON includes the input snapshot, seed/trial settings, model and generator versions, dataset ID/hash, resolved reference assumptions and results. Outcome CSV contains percentile metrics; the reference panel retains the annual cash-flow table. Schema-1 saved plans migrate to schema 2 by adding historical settings while retaining original numbers. The backup wrapper stays `education-finance-1`; its inner schema identifies the migration. No acknowledgement gates are used.

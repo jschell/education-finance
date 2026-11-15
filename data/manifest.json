@@ -1,0 +1,61 @@
+{
+  "id": "us-joint-monthly-1978-2024-v1",
+  "asOf": "2026-11-15",
+  "start": "1978-01",
+  "end": "2024-12",
+  "columns": [
+    "month",
+    "stocks",
+    "bonds",
+    "cash",
+    "inflation",
+    "tuition"
+  ],
+  "units": "Nominal monthly simple returns / monthly index changes, decimal fractions",
+  "sources": [
+    {
+      "name": "Fama/French US market total return and RF, legacy FIZ snapshot",
+      "url": "https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html",
+      "snapshotUrl": "https://raw.githubusercontent.com/travlake/retirement_viz/71dc93acd53b521af01b587867027a5c5ff58f1f/mktrf.csv",
+      "transform": "stocks = mktrf + rf; cash = rf. Snapshot columns already decimal fractions.",
+      "rights": "Copyright Eugene F. Fama and Kenneth R. French; separate attribution from MIT application code."
+    },
+    {
+      "name": "ReturnDataFiles US 10-year sovereign bond nominal total-return proxy",
+      "url": "https://github.com/birjusuketupatel/ReturnDataFiles/tree/7ca64f271c2022f4a022424c9d5173dbe6b68ce2",
+      "transform": "Filter US rows from custom/sov_bonds_erHedgedUSD_nominal_total.csv. Returns reconstructed from yields; not a traded fund.",
+      "rights": "CC0-1.0, repository declaration"
+    },
+    {
+      "name": "BLS CPI-U all items, via ReturnDataFiles",
+      "url": "https://github.com/birjusuketupatel/ReturnDataFiles/blob/7ca64f271c2022f4a022424c9d5173dbe6b68ce2/other/US_CPI.csv",
+      "transform": "Monthly nonseasonally adjusted index ratio minus one. General CPI is the proxy for living/other expenses.",
+      "rights": "US government data; ReturnDataFiles CC0 declaration"
+    },
+    {
+      "name": "BLS college tuition and fees CPI, CUUR0000SEEB01",
+      "url": "https://data.bls.gov/timeseries/CUUR0000SEEB01",
+      "transform": "Monthly nonseasonally adjusted index ratio minus one, retrieved through BLS public API in 10-year batches. National proxy includes some financial-aid adjustments.",
+      "rights": "US government data; attribution retained"
+    }
+  ],
+  "rawHashes": {
+    "bonds-original.sha256": "1b79050fff1f76ce5447d2309a8e1a24ec0753a9604b2bac84180d3740cd14ba",
+    "cpi.csv": "0341eb36e6a0086194fa1fa58de1a08063e7086e86d43ecfb529ae1722f51a2d",
+    "french.csv": "87e558ca53d1c9c97f63e37ed70487e3ff3e7cd49f94662d50f81335c8010737",
+    "tuition-1986.json": "948e90c6a08c72efc71dbd5b463970d5264dff67079fdb6f573f8945d78c5da8",
+    "tuition-1996.json": "26fad9a07938c98448fd8a3df2a91ed0a234997e077076834d461dba1cfd9e08",
+    "tuition-2006.json": "72e6490c84f237a670f60d63089699ee5a4a330dd4ffcbb4b9c09a832c842e8a",
+    "tuition-2016.json": "0d4b59f59130989f8fd881f02280c13a1721fed2470a9e538efeed0a7e20cd1c",
+    "tuition.json": "8f57028cd6b0aafe8f196c415a94229cb05b39a585be6de03d10c57c5ea96862",
+    "us-bonds.csv": "6d950d6ba8c9989fd225b7cc52d6d4a2dc563883e33c732316db7ac8e12619f0"
+  },
+  "notes": [
+    "All five risk factors are aligned on the same observed month. No missing months are filled or fabricated.",
+    "1978\u20132024 is the common complete window; deliberately excludes the 2025 CPI data gap and partial recent years.",
+    "Bond returns are a reconstructed 10-year Treasury proxy and monthly-average yields can smooth movements.",
+    "Tuition CPI is a national price-change proxy, not a school quote or grant forecast. Housing and other costs use general CPI.",
+    "Dataset is a research snapshot, not a forecast. Original source data is not relicensed as MIT."
+  ],
+  "observationsSha256": "2428c0397502642b2a672473f3a4ad83c0026d64cacef2df99db909ca37c1e4f"
+}
