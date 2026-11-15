@@ -21,3 +21,9 @@ No physical-device or Safari test performed. Starting return values are illustra
 ## v0.1.1 simplification
 
 MIT license added to LICENSE/package metadata and linked from the page. Updated regression test confirms false legacy acknowledgement flags permit projections and scenario comparisons, and backups round-trip unchanged. Browser check: add a new student, fill only current savings and the two annual cost inputs, then run a 10,000-trial simulation without opening any optional section or checking any acknowledgement. The form has four visible core inputs and one prefilled required field (enrollment month). Existing local profiles load successfully. Clearing optional names, attendance duration and source metadata restores existing defaults and still calculates successfully. Phone (390×844) and iPad landscape (1024×768) viewport checks show no page-wide overflow.
+
+## v0.1.2 result visibility fix
+
+Reproduced on the live v0.1.1 page: changing savings hid results while the status still read Assessment complete. Corrected input lifecycle and automatic load/switch projections. Preview checks: $25,000 → $50,000 doubles entry savings with zero contributions; negative savings keeps the last result visibly stale and disables report actions; correcting to $60,000 recovers; an immediate Run Monte Carlo after editing retains both sections after completion; save/reload regenerates the projection automatically. No financial formulas changed. See [browser regression procedure](../tests/browser-results.md).
+
+Phone (390×844) and iPad landscape (1024×768) checks passed without page overflow. View results brought the mobile result panel to 20 px below the viewport top. Changing entry from 2034-08 to 2030-08, then changing savings, retained the correct default contribution end of 2030-07. Existing manual Calculate and Monte Carlo controls remain available; only deterministic projections auto-refresh.

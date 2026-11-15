@@ -1,12 +1,12 @@
 # Implemented architecture and data contract
 
-Release: v0.1.1; model `college-funding-1.0.0`; schema 1.
+Release: v0.1.2; model `college-funding-1.0.0`; schema 1.
 
 ## Modules
 
 Buildless HTML/CSS and ES modules, hosted beneath /education-finance/. `domain.js` owns strict input validation and portable schema; `engine.js` is a pure monthly cash-flow engine; `simulation.js` owns seeded paths, percentiles, comparisons and contribution solving; `worker.js` runs simulations away from the UI thread; `storage.js` provides IndexedDB; `render.js` builds text-safe results and SVG; `app.js` coordinates the UI. No runtime dependencies, analytics, CDN, login, or financial-data requests.
 
-Worker messages contain runId and immutable input snapshots. Input edits/switches terminate pending workers and invalidate results. Stale messages are ignored. The UI remains usable during long comparisons. Pointwise balance summaries are retained at the first month, calendar-year ends, and final month; full simulated monthly ledgers are not retained.
+Worker messages contain runId and immutable input snapshots. Input edits/switches terminate pending workers. A 300 ms pause after valid input refreshes the deterministic projection. Until then, the previous result stays visible, marked as previous, with export controls disabled. Invalid inputs leave that previous result visible with an error beside the buttons. Pending refreshes are cancelled before explicit calculation or simulation. Stale messages are ignored. The UI remains usable during long comparisons. Pointwise balance summaries are retained at the first month, calendar-year ends, and final month; full simulated monthly ledgers are not retained.
 
 ## Persisted schema
 
@@ -38,3 +38,7 @@ Use textContent and value, never user HTML. Validate imports as data; no evaluat
 The main form shows current savings, enrollment month, annual tuition, and annual housing/food. Other fields are collapsed. Only enrollment is HTML-required; it is prefilled. Blank costs and optional funding amounts resolve to zero, while blank names, dates, durations and return settings retain their existing/default values. Resolved values are put back into controls when a plan is committed, so the displayed inputs agree with the calculation. Dates and nonblank values remain validated. Student and scenario names are generated automatically. All names, detailed costs, contribution schedules, shared allocations, and return stages remain editable. No acknowledgement is required after changing assumptions, applying defaults, loading old plans, or comparing scenarios.
 
 If no college budget is entered, results describe savings growth without showing a funding-success percentage or contribution target. Source metadata defaults to User estimate and the valuation month; it is optional to edit.
+
+## Result lifecycle
+
+Render the initial form and projection before waiting for storage. A saved plan regenerates its projection on load; selecting/importing a student or scenario also regenerates it. Do not overwrite edits made while an asynchronous saved-plan load is pending. Automatic projection commits preserve the typing cursor and avoid writing back the active input. Explicit actions normalize optional defaults. Dependent default contribution dates are synchronized when enrollment changes. CSV/report data comes from the assessment snapshot. Entry script and stylesheet URLs are versioned to avoid retaining the older results-clearing code after deployment.

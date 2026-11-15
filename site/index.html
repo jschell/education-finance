@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Plan college costs and savings one student at a time. Compare projections, Monte Carlo funding ranges, and saved scenarios locally.">
 <title>Education Finance · College funding planner</title>
-<link rel="stylesheet" href="./assets/styles.css"><script type="module" src="./js/app.js"></script>
+<link rel="stylesheet" href="./assets/styles.css?v=0.1.2"><script type="module" src="./js/app.js?v=0.1.2"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to planner</a>
@@ -25,6 +25,7 @@
 <p class="hint">Use annual costs at today's prices. Contributions start at zero; books and other costs can be added below.</p>
 <p id="defaults-summary" class="defaults-summary"></p>
 </div></section>
+<p id="calculation-status" class="calculation-status" role="status" aria-live="polite"></p>
 <div class="run-controls"><button id="calculate" type="submit" class="primary">Calculate projection</button><button id="simulate" type="button">Run Monte Carlo</button><button id="compare" type="button">Compare scenarios</button></div>
 <details id="more-details"><summary>More details <span class="optional">optional</span></summary><div class="fields">
 <div class="pair"><label>Student name<input data-student="alias" maxlength="100" placeholder="Student" autocomplete="off"></label><label>Scenario name<input data-scenario="name" maxlength="100" placeholder="Path 1"></label></div>

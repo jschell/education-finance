@@ -4,24 +4,56 @@ import { savePlan,loadPlan,clearPlan } from './storage.js';
 import { el,money,table,deterministicView,simulationView,comparisonView,csvText } from './render.js';
 const $=s=>document.querySelector(s),form=$('#planner');
 let plan=newPlan(),studentId=plan.students[0].id,scenarioId=plan.students[0].scenarios[0].id;
-let revision=0,dirty=false,worker=null,runId=0,lastResult=null,pendingImport=null,assumptionEdited=false;
+let revision=0,dirty=false,worker=null,runId=0,lastResult=null,pendingImport=null,assumptionEdited=false,refreshTimer=null;
 const student=()=>plan.students.find(s=>s.id===studentId),scenario=()=>student().scenarios.find(s=>s.id===scenarioId);
 const message=(text,error=false)=>{ $('#message').textContent=text;$('#message').classList.toggle('error',error); };
 function cancel(show=false) { if(worker){worker.terminate();worker=null;runId++;if(show)message('Simulation cancelled. Inputs are unchanged.');}$('#run-status').hidden=true; }
-function invalidate() {cancel();lastResult=null;$('#results-content').hidden=true;$('#empty-results').hidden=false;}
-function changed() { revision++;dirty=true;$('#save-state').textContent='Unsaved changes';invalidate(); }
+function calculationStatus(text,error=false) {
+  let status=$('#calculation-status');
+  // Tolerate an older cached HTML shell during an asset update.
+  if(!status){status=el('p','','calculation-status');status.id='calculation-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');$('.run-controls').before(status);}
+  status.textContent=text;status.classList.toggle('error',error);
+  if(lastResult&&!$('#results-content').hidden){
+    const link=el('a',error?'View previous results':'View results');link.href='#results-content';
+    status.append(' ',link);
+  }
+}
+function clearRefresh() { clearTimeout(refreshTimer);refreshTimer=null; }
+function invalidate() {
+  clearRefresh();cancel();
+  // Keep the last complete result visible; never replace it with an empty panel.
+  const target=$('#results-content');
+  if(lastResult&&!target.hidden) {
+    target.dataset.stale='true';
+    if(!target.querySelector('.stale-notice'))target.prepend(el('p','Inputs changed. These results are from the previous assessment.','callout warning stale-notice'));
+    target.querySelectorAll('.actions button').forEach(button=>{button.disabled=true;});
+  }
+}
+function changed() {
+  revision++;dirty=true;$('#save-state').textContent='Unsaved changes';invalidate();message('');
+  calculationStatus('Updating projection…');
+}
+function scheduleProjection() {
+  clearRefresh();
+  refreshTimer=setTimeout(()=>{
+    refreshTimer=null;
+    try { commit({normalize:false,report:false});showProjection(); }
+    catch(error) { calculationStatus(`${error.message}${lastResult?' Previous results remain visible.':''}`,true); }
+  },300);
+}
 function inputValue(node,fallback) {
   if(node.type==='checkbox')return node.checked;
   if(node.value.trim()==='')return fallback;
   if(node.type==='number')return node.valueAsNumber/(node.hasAttribute('data-percent')?100:1);
   return node.value;
 }
-function reportValidity() {
+function reportValidity(report=true) {
   const invalid=[...form.querySelectorAll('input,select')].find(x=>!x.checkValidity());
-  if(invalid){let n=invalid.parentElement;while(n){if(n.tagName==='DETAILS')n.open=true;n=n.parentElement;}invalid.reportValidity();return false;}return true;
+  if(invalid){if(!report)return false;let n=invalid.parentElement;while(n){if(n.tagName==='DETAILS')n.open=true;n=n.parentElement;}invalid.reportValidity();return false;}return true;
 }
-function commit() {
-  if(!reportValidity())throw Error('Complete the highlighted input before continuing.');
+function commit({normalize=true,report=true}={}) {
+  if(normalize)clearRefresh();
+  if(!reportValidity(report))throw Error('Complete the highlighted input before continuing.');
   const candidate=clone(plan),st=candidate.students.find(x=>x.id===studentId),sc=st.scenarios.find(x=>x.id===scenarioId);
   for(const n of form.querySelectorAll('[data-student]'))st[n.dataset.student]=inputValue(n,st[n.dataset.student]);
   for(const n of form.querySelectorAll('[data-scenario]'))sc[n.dataset.scenario]=inputValue(n,sc[n.dataset.scenario]);
@@ -39,21 +71,25 @@ function commit() {
   }
   if(assumptionEdited){sc.assumptionsStatus='user-defined';sc.assumptionsDate=currentMonth();}
   validatePlan(candidate);plan=candidate;assumptionEdited=false;updateAllocation();
+  if(normalize) {
   for(const n of form.querySelectorAll('[data-student]'))fill(n,st[n.dataset.student]);
   for(const n of form.querySelectorAll('[data-scenario]'))fill(n,sc[n.dataset.scenario]);
   for(const n of form.querySelectorAll('[data-cost]'))fill(n,sc.costs[n.dataset.cost]);
   for(const n of form.querySelectorAll('[data-assumption]'))fill(n,sc.assumptions[n.dataset.assumption]);
   $('#valuation').value=plan.valuation;$('#shared-pool').value=plan.sharedPool;
+  }
   updateDefaultsSummary(st,sc);
   const studentOption=[...$('#student-select').options].find(x=>x.value===studentId);if(studentOption)studentOption.textContent=st.alias;
-  const scenarioOption=[...$('#scenario-select').options].find(x=>x.value===scenarioId);if(scenarioOption)scenarioOption.textContent=sc.name;return plan;
+  const scenarioOption=[...$('#scenario-select').options].find(x=>x.value===scenarioId);if(scenarioOption)scenarioOption.textContent=sc.name;
+  if(normalize&&$('#results-content').dataset.stale==='true')showProjection();
+  return plan;
 }
 function option(select,value,label) { const op=el('option',label);op.value=value;select.append(op); }
 function fill(node,value) {if(node.type==='checkbox')node.checked=value;else {if(node.tagName==='SELECT'&&![...node.options].some(o=>o.value===value))option(node,value,value);node.value=node.hasAttribute('data-percent')?Number((value*100).toFixed(8)):value;}}
 function giftRow(g={date:plan.valuation,amount:0}) {
   const row=el('div','','gift-row'),date=el('label','Gift month'),amount=el('label','Amount ($)'),di=el('input'),ai=el('input'),remove=el('button','Remove');
   di.type='month';di.required=true;di.dataset.date='';di.value=g.date;ai.type='number';ai.min='0';ai.max='100000000';ai.step='.01';ai.required=true;ai.dataset.amount='';ai.value=g.amount;date.append(di);amount.append(ai);remove.type='button';
-  remove.addEventListener('click',()=>{row.remove();changed();});row.append(date,amount,remove);return row;
+  remove.addEventListener('click',()=>{row.remove();changed();scheduleProjection();});row.append(date,amount,remove);return row;
 }
 function updateDefaultsSummary(st,sc) {
   const a=sc.assumptions,pct=x=>`${(x*100).toLocaleString('en-US',{maximumFractionDigits:1})}%`;
@@ -75,8 +111,9 @@ function renderForm() {
   updateDefaultsSummary(st,sc);
   const share=form.querySelector('[data-scenario=share]');share.disabled=sc.coverage!=='percent';
   $('#delete-student').disabled=plan.students.length===1;$('#delete-scenario').disabled=st.scenarios.length===1;updateAllocation();assumptionEdited=false;
+  try {showProjection();}catch(error){calculationStatus(error.message,true);}
 }
-async function guard(action){try{await action();}catch(e){message(e.message||String(e),true);}}
+async function guard(action){try{await action();}catch(e){message(e.message||String(e),true);calculationStatus(e.message||String(e),true);}}
 function confirmAction(title,body) {
   return new Promise(resolve=>{const d=$('#confirm-dialog');$('#dialog-title').textContent=title;$('#dialog-body').textContent=body;
     const finish=v=>{d.close();$('#dialog-yes').onclick=null;$('#dialog-no').onclick=null;d.oncancel=null;resolve(v);};
@@ -89,15 +126,17 @@ function resultActions() {
   const actions=el('div','','actions'),report=el('button','Export assessment JSON'),csv=el('button','Export yearly CSV'),print=el('button','Print report');
   report.onclick=()=>download('education-finance-assessment.json',JSON.stringify(lastResult,null,2),'application/json');
   csv.onclick=()=>{
-    const all=lastResult.comparisons||[{name:scenario().name,deterministic:lastResult.deterministic}];
+    const assessedStudent=lastResult.plan.students.find(s=>s.id===lastResult.studentId),assessedScenario=assessedStudent.scenarios.find(s=>s.id===lastResult.scenarioId);
+    const all=lastResult.comparisons||[{name:assessedScenario.name,deterministic:lastResult.deterministic}];
     const rows=[['Student','Scenario','Valuation','Year','Total costs','Grants','Covered obligation','Income used','Contributions and gifts','Savings withdrawals','Unpaid obligation','Ending savings']];
-    for(const r of all)for(const y of annualRows(r.deterministic))rows.push([student().alias,r.name,plan.valuation,y.year,...['total','grant','obligation','income','contribution','withdrawal','shortfall','balance'].map(k=>y[k].toFixed(2))]);
+    for(const r of all)for(const y of annualRows(r.deterministic))rows.push([assessedStudent.alias,r.name,lastResult.plan.valuation,y.year,...['total','grant','obligation','income','contribution','withdrawal','shortfall','balance'].map(k=>y[k].toFixed(2))]);
     download('education-finance-yearly.csv',csvText(rows),'text/csv');};print.onclick=()=>window.print();actions.append(report,csv,print);return actions;
 }
 function showProjection() {
   const c=compile(plan,student(),scenario()),det=runPath(c);
   lastResult={modelVersion:MODEL,prngVersion:PRNG,assumptionsVersion:ASSUMPTIONS,generatedAt:new Date().toISOString(),plan:clone(plan),studentId,scenarioId,deterministic:det};
-  const target=$('#results-content');target.replaceChildren(deterministicView(plan,student(),scenario(),det),resultActions());target.hidden=false;$('#empty-results').hidden=true;
+  const target=$('#results-content');delete target.dataset.stale;target.replaceChildren(deterministicView(plan,student(),scenario(),det),resultActions());target.hidden=false;$('#empty-results').hidden=true;
+  calculationStatus('Projection updated. Run Monte Carlo for outcome ranges.');
 }
 function settings() {
   if($('#seed').value==='')$('#seed').value='12345';
@@ -107,28 +146,28 @@ function settings() {
 }
 function startSimulation(action='single') {
   commit();const config=settings();
-  cancel();showProjection();message('Simulation running. You can cancel or edit inputs at any time.');const thisRun=++runId,snapshot=clone(plan);$('#run-status').hidden=false;$('#progress-text').textContent='Starting simulation…';$('#progress').value=0;$('#run-status').scrollIntoView({block:'start',behavior:'smooth'});
+  cancel();showProjection();message('');calculationStatus('Running Monte Carlo…');const thisRun=++runId,snapshot=clone(plan);$('#run-status').hidden=false;$('#progress-text').textContent='Starting simulation…';$('#progress').value=0;$('#run-status').scrollIntoView({block:'start',behavior:'smooth'});
   worker=new Worker(new URL('./worker.js',import.meta.url),{type:'module'});
   worker.onmessage=({data})=>{
     if(data.runId!==runId)return;
     if(data.type==='progress'){ $('#progress').value=data.done/Math.max(1,data.total);$('#progress-text').textContent=`${data.scenario?data.scenario+' · ':''}${data.stage} · ${Math.round(data.done/Math.max(1,data.total)*100)}%`; }
-    else if(data.type==='error'){cancel();message(data.message,true);}
+    else if(data.type==='error'){cancel();message(data.message,true);calculationStatus(data.message,true);}
     else if(data.type==='result') {
       cancel();const target=$('#results-content');
       lastResult={...lastResult,plan:snapshot,settings:config};
       if(action==='compare'){lastResult.comparisons=data.result;target.replaceChildren(comparisonView(data.result),deterministicView(plan,student(),scenario(),lastResult.deterministic));const selected=data.result.find(r=>r.id===scenarioId);if(selected)target.append(simulationView(selected.simulation));}
       else {lastResult.simulation=data.result.simulation;target.replaceChildren(deterministicView(plan,student(),scenario(),data.result.deterministic),simulationView(data.result.simulation));}
-      target.append(resultActions());message('Assessment complete. Export the report to keep results and exact assumptions.');
+      target.append(resultActions());calculationStatus('Assessment complete. Projection and simulated outcomes are shown below.');message('');
     }
   };
-  worker.onerror=e=>{cancel();message(`Simulation could not complete: ${e.message}. Try fewer trials or check browser support.`,true);};
+  worker.onerror=e=>{cancel();calculationStatus(`Simulation could not complete: ${e.message}. The projection remains visible.`,true);};
   worker.postMessage({runId:thisRun,plan:snapshot,studentId,scenarioId,settings:config,action});
 }
-form.addEventListener('input',e=>{changed();if(e.target.dataset.assumption!==undefined||e.target.dataset.scenario==='stress'){assumptionEdited=true;}});
-form.addEventListener('change',e=>{if(e.target.dataset.scenario==='coverage')form.querySelector('[data-scenario=share]').disabled=e.target.value!=='percent';});
-form.addEventListener('submit',e=>{e.preventDefault();guard(()=>{commit();showProjection();$('#results-content').scrollIntoView({block:'start',behavior:'smooth'});message('Projection calculated with fixed annual growth assumptions.');});});
-$('#simulate').onclick=()=>guard(()=>startSimulation());$('#compare').onclick=()=>guard(()=>startSimulation('compare'));$('#cancel').onclick=()=>cancel(true);
-$('#add-gift').onclick=()=>{if($('#gifts').children.length>=24)return message('A scenario allows up to 24 gifts.',true);$('#gifts').append(giftRow());changed();};
+form.addEventListener('input',e=>{changed();if(e.target.dataset.assumption!==undefined||e.target.dataset.scenario==='stress'){assumptionEdited=true;}scheduleProjection();});
+form.addEventListener('change',e=>{if(e.target.tagName==='SELECT'||e.target.type==='month'||e.target.type==='checkbox'){changed();scheduleProjection();}if(e.target.dataset.scenario==='coverage')form.querySelector('[data-scenario=share]').disabled=e.target.value!=='percent';});
+form.addEventListener('submit',e=>{e.preventDefault();guard(()=>{commit();showProjection();$('#results-content').scrollIntoView({block:'start',behavior:'smooth'});message('');});});
+$('#simulate').onclick=()=>guard(()=>startSimulation());$('#compare').onclick=()=>guard(()=>startSimulation('compare'));$('#cancel').onclick=()=>{cancel(true);calculationStatus('Simulation cancelled. The projection remains visible.');};
+$('#add-gift').onclick=()=>{if($('#gifts').children.length>=24)return message('A scenario allows up to 24 gifts.',true);$('#gifts').append(giftRow());changed();scheduleProjection();};
 $('#student-select').onchange=()=>guard(()=>{const selected=$('#student-select').value;try{commit();studentId=selected;scenarioId=student().scenarios[0].id;invalidate();renderForm();message('Student selected.');}catch(e){$('#student-select').value=studentId;throw e;}});
 $('#scenario-select').onchange=()=>guard(()=>{const selected=$('#scenario-select').value;try{commit();scenarioId=selected;invalidate();renderForm();message('Scenario selected.');}catch(e){$('#scenario-select').value=scenarioId;throw e;}});
 $('#add-student').onclick=()=>guard(()=>{commit();if(plan.students.length>=30)throw Error('Maximum 30 students.');const st=newStudent(plan.valuation);st.alias=`Student ${plan.students.length+1}`;st.scenarios[0].assumptions=clone(plan.defaults);st.scenarios[0].assumptionsStatus='user-defined';const candidate=clone(plan);candidate.students.push(st);validatePlan(candidate);plan=candidate;studentId=st.id;scenarioId=st.scenarios[0].id;changed();renderForm();});
@@ -142,7 +181,7 @@ function addScenario(copy=false) {
 }
 $('#add-scenario').onclick=()=>guard(()=>addScenario());$('#copy-scenario').onclick=()=>guard(()=>addScenario(true));
 $('#delete-scenario').onclick=()=>guard(async()=>{if(student().scenarios.length<2)return;if(!await confirmAction('Delete this scenario?',`Remove ${scenario().name} from this workspace?`))return;student().scenarios=student().scenarios.filter(s=>s.id!==scenarioId);scenarioId=student().scenarios[0].id;changed();renderForm();});
-$('#set-defaults').onclick=()=>guard(()=>{commit();plan.defaults=clone(scenario().assumptions);changed();message('Family defaults updated. Existing scenarios retain their values. Save locally to keep these defaults.');});
+$('#set-defaults').onclick=()=>guard(()=>{commit();plan.defaults=clone(scenario().assumptions);changed();showProjection();message('Family defaults updated. Existing scenarios retain their values. Save locally to keep these defaults.');});
 $('#apply-defaults').onclick=()=>guard(()=>{commit();scenario().assumptions=clone(plan.defaults);scenario().assumptionsStatus='user-defined';scenario().assumptionsDate=currentMonth();changed();renderForm();message('Family defaults copied into this scenario. Review before simulating.');});
 $('#save').onclick=()=>guard(async()=>{commit();const snapshot=clone(plan);const signature=JSON.stringify(snapshot),savedRevision=revision;await savePlan(snapshot);if(revision===savedRevision&&JSON.stringify(plan)===signature){dirty=false;$('#save-state').textContent='Saved in this browser';}message('Plan saved locally. Export a backup for portability.');});
 $('#export').onclick=()=>guard(()=>{commit();download('education-finance-plan.json',exportPlan(plan),'application/json');message('Plan exported. The JSON contains financial inputs; store it privately.');});
@@ -157,6 +196,6 @@ $('#example').onclick=()=>guard(async()=>{
   studentId=st.id;scenarioId=s.id;changed();renderForm();showProjection();message('Example loaded. Replace the sample figures with your own.');
 });
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
-try { const stored=await loadPlan();if(stored){plan=stored;studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;$('#save-state').textContent='Loaded from this browser';message('');} }
-catch(e){message(`Could not load local data: ${e.message}. Import a backup or continue; exporting remains available.`,true);}
 renderForm();
+try { const stored=await loadPlan();if(stored&&!dirty){plan=stored;studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;$('#save-state').textContent='Loaded from this browser';message('');renderForm();} }
+catch(e){message(`Could not load local data: ${e.message}. Import a backup or continue; exporting remains available.`,true);}
