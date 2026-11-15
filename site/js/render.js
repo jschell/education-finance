@@ -25,12 +25,13 @@ export function deterministicView(plan,student,scenario,result) {
   const c=compile(plan,student,scenario),only=runPath(compile(plan,student,scenario,'savings')),withC=runPath(compile(plan,student,scenario,'contributions'));
   const s=section(`${student.alias} · ${scenario.name}`,'Monthly projection');
   s.append(el('p',`${scenario.path} · ${scenario.living} · enrollment ${student.enrollment} · ${student.years} attendance years`,'hint'));
+  if(!result.total)s.append(callout('Savings growth only: add annual college costs to assess the funding gap.'));
   if(scenario.stress)s.append(callout('Stress case: includes a one-time 25% market loss before enrollment (or at valuation if already enrolled).',true));
   const firstYear=c.rows.filter((r,i)=>i>=Math.max(0,c.enrollmentIndex)&&i<c.enrollmentIndex+12).reduce((v,r)=>v+r.total,0);
   s.append(stats([
     ['Savings at university entry',money(result.enrollmentBalance),result.enrollmentBalance===null?'Already enrolled at valuation':'Before the entry month’s growth and bills'],
     ['First attendance year',money(firstYear),c.enrollmentIndex<0?'Remaining costs only':'Projected tuition + all other costs'],
-    ['Unfunded covered expenses',money(result.shortfall),result.success?'All covered bills paid':'Includes timing shortfalls']
+    ['Unfunded covered expenses',result.total?money(result.shortfall):'—',result.total?(result.success?'All covered bills paid':'Includes timing shortfalls'):'Add annual costs to assess the gap']
   ]));
   const years=Math.max(0,c.enrollmentIndex)/12;
   s.append(callout(`Savings and costs grow separately over ${years.toFixed(1)} years to entry. Current savings alone reach ${money(only.enrollmentBalance)} at entry. Total remaining attendance cost: ${money(result.total)} (${money(c.rows.reduce((v,r)=>v+r.total/r.discount,0))} in ${plan.valuation} purchasing power).`));
@@ -53,7 +54,7 @@ export function deterministicView(plan,student,scenario,result) {
 export function simulationView(sim) {
   const s=section('Possible funding outcomes',`${sim.trials.toLocaleString()} trials`);
   s.append(stats([
-    ['Simulated funding success',pct(sim.probability),'Every covered bill paid on time'],['Median unpaid expenses',money(sim.gap.p50),'Includes zero-gap trials'],['Adverse unpaid expenses',money(sim.gap.p90),'90th percentile across all trials']
+    ['Simulated funding success',sim.cost?pct(sim.probability):'—',sim.cost?'Every covered bill paid on time':'Add a college budget to assess funding'],['Median unpaid expenses',money(sim.gap.p50),'Includes zero-gap trials'],['Adverse unpaid expenses',money(sim.gap.p90),'90th percentile across all trials']
   ]));
   s.append(el('p',`Model ${sim.modelVersion} · seed ${sim.seed} · ${sim.prngVersion}. Probability is conditional on your assumptions. Estimated Monte Carlo sampling standard error: ${(sim.samplingSE*100).toFixed(1)} percentage points; this excludes model uncertainty.`,'hint'));
   s.append(chart(sim.bands));const legend=el('div','','legend');legend.append(el('span','10th–90th percentile'),el('span','Median'));s.append(legend);
@@ -66,7 +67,8 @@ export function simulationView(sim) {
   ]));
   s.append(el('p',`${sim.failedCount.toLocaleString()} trials had a missed payment. Cost growth is fixed, so total cost is ${money(sim.cost)} in every trial. A 90th-percentile gap is adverse; a 90th-percentile ending balance is favorable. Bands summarize each date separately, not one possible path.`,'hint'));
   const solver=el('div','','callout');solver.append(el('strong',`Monthly savings for ${pct(sim.threshold)} simulated success`));
-  if(sim.infeasible)solver.append(el('p',`Not attainable within the ${money(sim.ceiling)}/month ceiling and entered contribution dates. Earlier missed bills may be impossible to fix with that schedule. Adjust dates, funding, or the goal.`));
+  if(!sim.cost)solver.append(el('p','Enter annual college costs to calculate a monthly savings target.'));
+  else if(sim.infeasible)solver.append(el('p',`Not attainable within the ${money(sim.ceiling)}/month ceiling and entered contribution dates. Earlier missed bills may be impossible to fix with that schedule. Adjust dates, funding, or the goal.`));
   else {
     solver.append(el('p',`${money(sim.contribution)}/month total base contribution (${money(sim.additional)} more than currently planned), using the entered start/end dates and annual increase.`));
     solver.append(el('p',`Larger confirmation run: ${pct(sim.confirmation.probability)} across ${sim.confirmation.trials.toLocaleString()} trials. ${sim.confirmation.meets?'The selected threshold was met in this check.':'The threshold was not met in the larger check; increase contributions or rerun with more trials.'}`));
@@ -78,7 +80,7 @@ export function simulationView(sim) {
 }
 export function comparisonView(results) {
   const s=section('Scenario comparison','Same random draws');
-  s.append(table('Same student · independently assessed alternatives',['Scenario','Total cost','Projection gap','MC success','Median gap','90th gap','Monthly at target'],results.map(r=>[r.name,money(r.deterministic.total),money(r.deterministic.shortfall),pct(r.simulation.probability),money(r.simulation.gap.p50),money(r.simulation.gap.p90),money(r.simulation.contribution)])));
+  s.append(table('Same student · independently assessed alternatives',['Scenario','Total cost','Projection gap','MC success','Median gap','90th gap','Monthly at target'],results.map(r=>[r.name,money(r.deterministic.total),money(r.deterministic.shortfall),r.simulation.cost?pct(r.simulation.probability):'—',money(r.simulation.gap.p50),money(r.simulation.gap.p90),money(r.simulation.contribution)])));
   s.append(el('p','These are alternatives for one student. Do not add their costs or interpret individual probabilities as family-wide success. Each scenario retains its own coverage goal and return assumptions.','hint'));return s;
 }
 export function csvText(rows) {

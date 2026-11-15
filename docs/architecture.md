@@ -1,6 +1,6 @@
 # Implemented architecture and data contract
 
-Release: v0.1.0; model `college-funding-1.0.0`; schema 1.
+Release: v0.1.1; model `college-funding-1.0.0`; schema 1.
 
 ## Modules
 
@@ -23,7 +23,7 @@ IDs are opaque UUIDs. Rates are decimal fractions, amounts finite USD numbers, d
 
 Each scenario has one aggregate earmarked balance plus its student's explicitly allocated share of a family pool. Scenario alternatives do not consume extra shares. Accounts and restricted withdrawals are NOT represented as interchangeable individual accounts. The user must ensure eligible funds are used; account rules are future work.
 
-Family defaults are copied snapshots. Editing defaults does not mutate existing scenarios; Apply defaults is explicit and resets simulation acknowledgement. User edits to return assumptions update status/date. Cost confirmation is required before assessment; zero-valued categories are visible and require budget review.
+Family defaults are copied snapshots. Editing defaults does not mutate existing scenarios; Apply defaults explicitly copies the saved values. User edits to return assumptions update status/date. No acknowledgement or budget-confirmation gate is used. The version-1 costConfirmed and acknowledged boolean fields are retained solely for existing saved-plan and backup compatibility and are ignored by calculation and simulation.
 
 ## Persistence and portability
 
@@ -32,3 +32,9 @@ Explicit Save locally writes the full validated plan to IndexedDB database educa
 Plan JSON wrapper: format=education-finance-1, exportedAt ISO timestamp, plan. Import parses and validates before any mutation, previews student/scenario counts and aliases, and requires Replace workspace. It replaces only tab memory until Save locally. Export assessments separately as JSON with full plan snapshot, model/PRNG/assumption versions, seed/trial settings, timestamp, and results; annual CSV is spreadsheet-safe; reports can be printed.
 
 Use textContent and value, never user HTML. Validate imports as data; no evaluation. Browser storage is not secure archival storage or cross-device sync. GitHub receives ordinary page/asset requests, but financial inputs are processed locally. Only site/ is deployed; never commit exports or actual student data.
+
+## Simple starting form
+
+The main form shows current savings, enrollment month, annual tuition, and annual housing/food. Other fields are collapsed. Only enrollment is HTML-required; it is prefilled. Blank costs and optional funding amounts resolve to zero, while blank names, dates, durations and return settings retain their existing/default values. Resolved values are put back into controls when a plan is committed, so the displayed inputs agree with the calculation. Dates and nonblank values remain validated. Student and scenario names are generated automatically. All names, detailed costs, contribution schedules, shared allocations, and return stages remain editable. No acknowledgement is required after changing assumptions, applying defaults, loading old plans, or comparing scenarios.
+
+If no college budget is entered, results describe savings growth without showing a funding-success percentage or contribution target. Source metadata defaults to User estimate and the valuation month; it is optional to edit.

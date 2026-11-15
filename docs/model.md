@@ -56,3 +56,7 @@ Select the order statistic needed for the chosen 80/90/95% sample success, round
 - [CFA Institute simulation methods](https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/simulation-methods): simulation and distributions.
 
 These sources do not validate the numerical placeholders. Users supply school estimates and portfolio assumptions; future calibrated profiles need distinct sources and dates.
+
+## v0.1.1 interface update
+
+No calculation formula or model version changed. Removed both acknowledgement gates from projection, worker, and comparison paths, including for old saved plans with false flags. The simplified form shows four core inputs, generates names and date metadata, defaults to four attendance years and zero future contributions, and exposes the rest under optional sections. Blank costs/funding amounts mean zero; blank optional metadata/rates retain displayed existing/default values. No-budget results are marked savings growth only, with no funding-success percentage or savings target.

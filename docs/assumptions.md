@@ -10,7 +10,7 @@ As of 2026-11-15. All numerical values below are **illustrative planning placeho
 | living-growth | Annual nominal growth | 4% / 3% / 2% | Adverse/base/favorable sensitivity |
 | general-inflation | Annual nominal inflation | 3.5% / 2.5% / 2% | Today's-dollar display only |
 | mc-return-mean | Annual arithmetic expected return | 5% early / 3% final / 2% attendance | Illustrative editable inputs; no calibrated profile |
-| mc-return-volatility | Annual simple-return standard deviation | 10% early / 5% final / 2% attendance | Illustrative editable inputs; acknowledgement required |
+| mc-return-volatility | Annual simple-return standard deviation | 10% early / 5% final / 2% attendance | Illustrative editable inputs; no acknowledgement gate |
 | cost-volatility | Annual growth standard deviation | Unset | Fixed-growth mode until calibrated |
 | price-baselines | Annual expense by category | Unset | User amount or dated source required |
 | unconfirmed-aid | Grants / scholarships | $0 in no-aid scenario | Unknown aid is not predicted eligibility |

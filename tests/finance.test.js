@@ -89,8 +89,12 @@ test('unsafe aliases preserved as text; invalid references/dates are rejected',(
   const {p,st,s}=fixture();st.alias='<img src=x onerror=alert(1)>';assert.equal(parseImport(exportPlan(p)).students[0].alias,st.alias);
   s.contributionStart='2029-01';assert.throws(()=>validatePlan(p));s.contributionStart='2026-08';s.baseline='2028-01';assert.throws(()=>validatePlan(p));
 });
-test('unconfirmed expense categories prevent calculation',()=>{
-  const {p,st,s}=fixture();s.costConfirmed=false;assert.throws(()=>compile(p,st,s),/Confirm/);
+test('legacy acknowledgement flags never block projections or comparisons',async()=>{
+  const {p,st,s}=fixture();s.costConfirmed=false;s.acknowledged=false;
+  validatePlan(p);assert.ok(runPath(compile(p,st,s)).total>0);
+  const {compareScenarios}=await import('../site/js/simulation.js');
+  assert.equal(compareScenarios(p,st,{trials:100,seed:7,ceiling:0}).length,1);
+  assert.deepEqual(parseImport(exportPlan(p)),p);
 });
 test('discounted expenses and coverage percentage are independent of general inflation',()=>{
   const {p,st,s}=fixture();s.coverage='percent';s.share=.5;s.assumptions.inflation=.1;const r=runPath(compile(p,st,s));close(r.obligation,10500);assert.ok(r.realShortfall<r.shortfall);

@@ -2,16 +2,16 @@
 
 A browser-local college funding planner, entered one student at a time, designed for GitHub Pages.
 
-**Status: working v0.1 calculator (M1–M3).** Deterministic monthly projections, staged-return Monte Carlo, contribution solving, multiple students/scenarios, explicit local saves, and portable backup are implemented. No school-price lookup, tax/aid eligibility calculation, or joint family simulation is included.
+**Status: working v0.1.1 calculator (M1–M3).** Deterministic monthly projections, staged-return Monte Carlo, contribution solving, multiple students/scenarios, explicit local saves, and portable backup are implemented. No school-price lookup, tax/aid eligibility calculation, or joint family simulation is included.
 
 Live application: https://jschell.github.io/education-finance/
 
 ## Use the planner
 
-1. Enter an alias, enrollment month, attendance duration, and annual expense budget (or load the explicitly fictional example).
-2. Enter current savings. Future contributions default to zero; gifts, scholarships, and income payments are optional.
+1. Start with four inputs: current savings, university start month, annual tuition/fees, and annual housing/food (or try the example).
+2. Names, attendance length (four years by default), extra costs, and source notes are under More details. Future contributions, gifts, scholarships, and income payments are optional.
 3. Review separate cost growth and three investment stages: early saving, final saving years, and attendance. Starting rates are illustrative, not calibrated investment recommendations.
-4. Calculate a projection, or acknowledge the assumptions and run Monte Carlo. The solver uses your contribution dates even when the current contribution is zero.
+4. Calculate a projection or run Monte Carlo directly. The solver uses your contribution dates even when the current contribution is zero.
 5. Duplicate a scenario to change education costs, funding, or return assumptions; compare alternatives for the same student.
 6. Save locally, export a plan backup, and optionally export the calculated assessment (exact inputs, model, seed, trial count, and results) or yearly CSV. New students can be assessed independently.
 
@@ -57,3 +57,7 @@ Open `http://localhost:8000`. No npm dependencies, bundler, database, server API
 The deployment workflow publishes main after its checks pass and also supports manual runs. GitHub Actions must be selected in **Settings → Pages → Source**. See the deployment guide for verification and troubleshooting. A live URL is not claimed until deployment succeeds.
 
 Never commit real student information, balances, account numbers, or exported plans. Browser-local processing does not make publicly committed data private.
+
+## License
+
+[MIT](LICENSE) · Copyright (c) 2026 J. Schell.

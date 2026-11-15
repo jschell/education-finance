@@ -77,7 +77,6 @@ export function simulate(c,{seed=12345,trials=10000,threshold=.9,ceiling=10000}=
     input: {opening:c.opening,monthly:c.monthly,assumptions:c.a} };
 }
 export function compareScenarios(plan,student,settings,progress=()=>{}) {
-  if(student.scenarios.some(s=>!s.acknowledged))throw Error('Review and acknowledge assumptions in every scenario before comparing simulations.');
   return student.scenarios.map((scenario,i)=>{
     progress({stage:`Scenario ${i+1} of ${student.scenarios.length}`,done:i,total:student.scenarios.length});
     const c=compile(plan,student,scenario);

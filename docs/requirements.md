@@ -21,7 +21,7 @@ Required input groups:
 | Aid | Explicit grants/scholarships, years applicable, renewal conditions |
 | Goal | Tuition-only, full attendance cost, percentage, or dollar cap; initially compare alternatives |
 
-Unknown inputs must be visible as unknown or provisional; do not silently treat missing expense categories as zero. Allow an explicit zero. Separate current-savings-only, planned-contribution, and income-supported assessments.
+The quick-start form begins with zero-valued annual cost and optional funding amounts; omitted amounts resolve to zero. If the whole college budget is zero, label the result as savings growth only and omit funding-success percentages and contribution targets. Other assumptions and the four-year duration are prefilled and visible in the summary. Separate current-savings-only, planned-contribution, and income-supported assessments.
 
 ## Outputs
 

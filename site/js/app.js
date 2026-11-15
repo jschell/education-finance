@@ -10,7 +10,12 @@ const message=(text,error=false)=>{ $('#message').textContent=text;$('#message')
 function cancel(show=false) { if(worker){worker.terminate();worker=null;runId++;if(show)message('Simulation cancelled. Inputs are unchanged.');}$('#run-status').hidden=true; }
 function invalidate() {cancel();lastResult=null;$('#results-content').hidden=true;$('#empty-results').hidden=false;}
 function changed() { revision++;dirty=true;$('#save-state').textContent='Unsaved changes';invalidate(); }
-function inputValue(node) {if(node.type==='checkbox')return node.checked;if(node.type==='number')return node.value===''?NaN:node.valueAsNumber/(node.hasAttribute('data-percent')?100:1);return node.value;}
+function inputValue(node,fallback) {
+  if(node.type==='checkbox')return node.checked;
+  if(node.value.trim()==='')return fallback;
+  if(node.type==='number')return node.valueAsNumber/(node.hasAttribute('data-percent')?100:1);
+  return node.value;
+}
 function reportValidity() {
   const invalid=[...form.querySelectorAll('input,select')].find(x=>!x.checkValidity());
   if(invalid){let n=invalid.parentElement;while(n){if(n.tagName==='DETAILS')n.open=true;n=n.parentElement;}invalid.reportValidity();return false;}return true;
@@ -18,12 +23,14 @@ function reportValidity() {
 function commit() {
   if(!reportValidity())throw Error('Complete the highlighted input before continuing.');
   const candidate=clone(plan),st=candidate.students.find(x=>x.id===studentId),sc=st.scenarios.find(x=>x.id===scenarioId);
-  for(const n of form.querySelectorAll('[data-student]'))st[n.dataset.student]=inputValue(n);
-  for(const n of form.querySelectorAll('[data-scenario]'))sc[n.dataset.scenario]=inputValue(n);
-  for(const n of form.querySelectorAll('[data-cost]'))sc.costs[n.dataset.cost]=inputValue(n);
-  for(const n of form.querySelectorAll('[data-assumption]'))sc.assumptions[n.dataset.assumption]=inputValue(n);
+  for(const n of form.querySelectorAll('[data-student]'))st[n.dataset.student]=inputValue(n,st[n.dataset.student]);
+  for(const n of form.querySelectorAll('[data-scenario]'))sc[n.dataset.scenario]=inputValue(n,sc[n.dataset.scenario]);
+  for(const n of form.querySelectorAll('[data-cost]'))sc.costs[n.dataset.cost]=inputValue(n,0);
+  for(const n of form.querySelectorAll('[data-assumption]'))sc.assumptions[n.dataset.assumption]=inputValue(n,sc.assumptions[n.dataset.assumption]);
+  for(const key of ['balance','monthly','grant','income','stepUp']) { const node=form.querySelector(`[data-scenario=${key}]`); if(node.value.trim()==='')sc[key]=0; }
+  for(const key of ['sharedAllocation']) { const node=form.querySelector(`[data-student=${key}]`); if(node.value.trim()==='')st[key]=0; }
   sc.gifts=[...$('#gifts').querySelectorAll('.gift-row')].map(row=>({date:row.querySelector('[data-date]').value,amount:row.querySelector('[data-amount]').valueAsNumber}));
-  candidate.valuation=$('#valuation').value;candidate.sharedPool=$('#shared-pool').valueAsNumber;
+  candidate.valuation=inputValue($('#valuation'),plan.valuation);candidate.sharedPool=inputValue($('#shared-pool'),0);
   if(st.enrollment!==student().enrollment) {
     const oldEnd=monthText(Math.max(month(plan.valuation),month(student().enrollment)-1));
     const newEnd=monthText(Math.max(month(candidate.valuation),month(st.enrollment)-1));
@@ -32,6 +39,12 @@ function commit() {
   }
   if(assumptionEdited){sc.assumptionsStatus='user-defined';sc.assumptionsDate=currentMonth();}
   validatePlan(candidate);plan=candidate;assumptionEdited=false;updateAllocation();
+  for(const n of form.querySelectorAll('[data-student]'))fill(n,st[n.dataset.student]);
+  for(const n of form.querySelectorAll('[data-scenario]'))fill(n,sc[n.dataset.scenario]);
+  for(const n of form.querySelectorAll('[data-cost]'))fill(n,sc.costs[n.dataset.cost]);
+  for(const n of form.querySelectorAll('[data-assumption]'))fill(n,sc.assumptions[n.dataset.assumption]);
+  $('#valuation').value=plan.valuation;$('#shared-pool').value=plan.sharedPool;
+  updateDefaultsSummary(st,sc);
   const studentOption=[...$('#student-select').options].find(x=>x.value===studentId);if(studentOption)studentOption.textContent=st.alias;
   const scenarioOption=[...$('#scenario-select').options].find(x=>x.value===scenarioId);if(scenarioOption)scenarioOption.textContent=sc.name;return plan;
 }
@@ -41,6 +54,10 @@ function giftRow(g={date:plan.valuation,amount:0}) {
   const row=el('div','','gift-row'),date=el('label','Gift month'),amount=el('label','Amount ($)'),di=el('input'),ai=el('input'),remove=el('button','Remove');
   di.type='month';di.required=true;di.dataset.date='';di.value=g.date;ai.type='number';ai.min='0';ai.max='100000000';ai.step='.01';ai.required=true;ai.dataset.amount='';ai.value=g.amount;date.append(di);amount.append(ai);remove.type='button';
   remove.addEventListener('click',()=>{row.remove();changed();});row.append(date,amount,remove);return row;
+}
+function updateDefaultsSummary(st,sc) {
+  const a=sc.assumptions,pct=x=>`${(x*100).toLocaleString('en-US',{maximumFractionDigits:1})}%`;
+  $('#defaults-summary').textContent=`${st.years} years of attendance · savings growth ${pct(a.returnRate)} early / ${pct(a.lateReturn)} near entry / ${pct(a.attendanceReturn)} during college · tuition growth ${pct(a.tuitionGrowth)} · other cost growth ${pct(a.livingGrowth)}. Edit below.`;
 }
 function updateAllocation() {
   const allocated=plan.students.reduce((v,s)=>v+s.sharedAllocation,0);$('#allocation-note').textContent=`Pool assigned across students: ${money(allocated)} of ${money(plan.sharedPool)}. This student's share is reused across their alternative scenarios and counted once across students.`;
@@ -54,7 +71,8 @@ function renderForm() {
   form.querySelectorAll('[data-cost]').forEach(n=>fill(n,sc.costs[n.dataset.cost]));
   form.querySelectorAll('[data-assumption]').forEach(n=>fill(n,sc.assumptions[n.dataset.assumption]));
   $('#valuation').value=plan.valuation;$('#shared-pool').value=plan.sharedPool;$('#gifts').replaceChildren(...sc.gifts.map(giftRow));
-  $('#assumption-status').textContent=`Return assumptions: ${sc.assumptionsStatus}, as of ${sc.assumptionsDate}. Values are user-controlled and have not been calibrated to a recommended portfolio.`;
+  $('#assumption-status').textContent=`Assumptions updated ${sc.assumptionsDate}.`;
+  updateDefaultsSummary(st,sc);
   const share=form.querySelector('[data-scenario=share]');share.disabled=sc.coverage!=='percent';
   $('#delete-student').disabled=plan.students.length===1;$('#delete-scenario').disabled=st.scenarios.length===1;updateAllocation();assumptionEdited=false;
 }
@@ -82,13 +100,13 @@ function showProjection() {
   const target=$('#results-content');target.replaceChildren(deterministicView(plan,student(),scenario(),det),resultActions());target.hidden=false;$('#empty-results').hidden=true;
 }
 function settings() {
+  if($('#seed').value==='')$('#seed').value='12345';
+  if($('#ceiling').value==='')$('#ceiling').value='10000';
   for(const selector of ['#seed','#ceiling'])if(!$(selector).reportValidity())throw Error('Review simulation settings.');
   return {seed:$('#seed').valueAsNumber,trials:Number($('#trials').value),threshold:Number($('#threshold').value),ceiling:$('#ceiling').valueAsNumber};
 }
 function startSimulation(action='single') {
   commit();const config=settings();
-  if(action==='compare'&&student().scenarios.some(s=>!s.costConfirmed||!s.acknowledged))throw Error('Review costs and acknowledge simulation assumptions in every scenario before comparing.');
-  if(!scenario().acknowledged)throw Error('Open Growth & uncertainty and acknowledge the simulation assumptions first.');
   cancel();showProjection();message('Simulation running. You can cancel or edit inputs at any time.');const thisRun=++runId,snapshot=clone(plan);$('#run-status').hidden=false;$('#progress-text').textContent='Starting simulation…';$('#progress').value=0;$('#run-status').scrollIntoView({block:'start',behavior:'smooth'});
   worker=new Worker(new URL('./worker.js',import.meta.url),{type:'module'});
   worker.onmessage=({data})=>{
@@ -106,7 +124,7 @@ function startSimulation(action='single') {
   worker.onerror=e=>{cancel();message(`Simulation could not complete: ${e.message}. Try fewer trials or check browser support.`,true);};
   worker.postMessage({runId:thisRun,plan:snapshot,studentId,scenarioId,settings:config,action});
 }
-form.addEventListener('input',e=>{changed();if(e.target.dataset.assumption!==undefined||e.target.dataset.scenario==='stress'){assumptionEdited=true;form.querySelector('[data-scenario=acknowledged]').checked=false;}});
+form.addEventListener('input',e=>{changed();if(e.target.dataset.assumption!==undefined||e.target.dataset.scenario==='stress'){assumptionEdited=true;}});
 form.addEventListener('change',e=>{if(e.target.dataset.scenario==='coverage')form.querySelector('[data-scenario=share]').disabled=e.target.value!=='percent';});
 form.addEventListener('submit',e=>{e.preventDefault();guard(()=>{commit();showProjection();$('#results-content').scrollIntoView({block:'start',behavior:'smooth'});message('Projection calculated with fixed annual growth assumptions.');});});
 $('#simulate').onclick=()=>guard(()=>startSimulation());$('#compare').onclick=()=>guard(()=>startSimulation('compare'));$('#cancel').onclick=()=>cancel(true);
@@ -125,7 +143,7 @@ function addScenario(copy=false) {
 $('#add-scenario').onclick=()=>guard(()=>addScenario());$('#copy-scenario').onclick=()=>guard(()=>addScenario(true));
 $('#delete-scenario').onclick=()=>guard(async()=>{if(student().scenarios.length<2)return;if(!await confirmAction('Delete this scenario?',`Remove ${scenario().name} from this workspace?`))return;student().scenarios=student().scenarios.filter(s=>s.id!==scenarioId);scenarioId=student().scenarios[0].id;changed();renderForm();});
 $('#set-defaults').onclick=()=>guard(()=>{commit();plan.defaults=clone(scenario().assumptions);changed();message('Family defaults updated. Existing scenarios retain their values. Save locally to keep these defaults.');});
-$('#apply-defaults').onclick=()=>guard(()=>{commit();scenario().assumptions=clone(plan.defaults);scenario().assumptionsStatus='user-defined';scenario().assumptionsDate=currentMonth();scenario().acknowledged=false;changed();renderForm();message('Family defaults copied into this scenario. Review before simulating.');});
+$('#apply-defaults').onclick=()=>guard(()=>{commit();scenario().assumptions=clone(plan.defaults);scenario().assumptionsStatus='user-defined';scenario().assumptionsDate=currentMonth();changed();renderForm();message('Family defaults copied into this scenario. Review before simulating.');});
 $('#save').onclick=()=>guard(async()=>{commit();const snapshot=clone(plan);const signature=JSON.stringify(snapshot),savedRevision=revision;await savePlan(snapshot);if(revision===savedRevision&&JSON.stringify(plan)===signature){dirty=false;$('#save-state').textContent='Saved in this browser';}message('Plan saved locally. Export a backup for portability.');});
 $('#export').onclick=()=>guard(()=>{commit();download('education-finance-plan.json',exportPlan(plan),'application/json');message('Plan exported. The JSON contains financial inputs; store it privately.');});
 $('#import').onclick=()=>$('#import-file').click();
@@ -136,9 +154,9 @@ $('#delete-local').onclick=()=>guard(async()=>{if(!await confirmAction('Delete a
 $('#example').onclick=()=>guard(async()=>{
   if(dirty&&!await confirmAction('Replace workspace with example?','Your stored plan will remain unchanged. Unsaved changes in this tab will be replaced.'))return;
   plan=newPlan();const st=plan.students[0],s=st.scenarios[0];st.alias='Fictional student';s.name='Illustrative in-state';s.path='Public in-state';s.costs={tuition:14000,housing:16000,books:1200,transport:2000,other:1500};s.balance=25000;s.monthly=0;s.costConfirmed=true;s.source='Fictional example, not a school quote or national benchmark';s.acknowledged=false;
-  studentId=st.id;scenarioId=s.id;changed();renderForm();showProjection();message('Fictional example loaded. Costs and returns are illustrative, not sourced school prices.');
+  studentId=st.id;scenarioId=s.id;changed();renderForm();showProjection();message('Example loaded. Replace the sample figures with your own.');
 });
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
-try { const stored=await loadPlan();if(stored){plan=stored;studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;$('#save-state').textContent='Loaded from this browser';message('Saved plan loaded. Calculations can be rerun from these inputs.');} }
+try { const stored=await loadPlan();if(stored){plan=stored;studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;$('#save-state').textContent='Loaded from this browser';message('');} }
 catch(e){message(`Could not load local data: ${e.message}. Import a backup or continue; exporting remains available.`,true);}
 renderForm();

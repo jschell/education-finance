@@ -18,7 +18,8 @@ export function defaultScenario(valuation = currentMonth(), enrollment = `${Numb
   return {
     id: id(), name: 'Path 1', path: 'Custom path', living: 'On campus', baseline: valuation,
     costs: { tuition: 0, housing: 0, books: 0, transport: 0, other: 0 },
-    costConfirmed: false, source: 'User estimate — enter annual costs; explicit zero allowed', sourceDate: valuation,
+    // Legacy flags are retained only for version-1 backup compatibility; no UI gates.
+    costConfirmed: false, source: 'User estimate', sourceDate: valuation,
     balance: 0, monthly: 0, contributionStart: valuation, contributionEnd: monthText(Math.max(month(valuation),month(enrollment)-1)), stepUp: 0,
     gifts: [], grant: 0, grantYears: 4, income: 0, coverage: 'full', share: 1,
     assumptions: { returnRate: .05, mean: .05, volatility: .10, tuitionGrowth: .04, livingGrowth: .03, inflation: .025, lateReturn: .03, lateMean: .03, lateVolatility: .05, attendanceReturn: .02, attendanceMean: .02, attendanceVolatility: .02, transitionYears: 3 },

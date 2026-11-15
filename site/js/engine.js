@@ -1,7 +1,6 @@
 import { month, monthText, categories } from './domain.js';
 const cents = x => Math.round((x+Number.EPSILON)*100)/100;
 export function compile(plan, student, scenario, mode='all') {
-  if(!scenario.costConfirmed)throw Error('Confirm the annual cost budget before calculating.');
   const start=month(plan.valuation), entry=month(student.enrollment), end=entry+(student.years-1)*12+8;
   const length=end-start+1;
   if(length<1||length>600)throw Error('Projection must contain 1–600 remaining months.');

@@ -10,7 +10,6 @@ self.onmessage=({data})=>{
     if(action==='compare')result=compareScenarios(plan,st,settings,progress);
     else {
       const s=st.scenarios.find(x=>x.id===scenarioId);if(!s)throw Error('Scenario not found.');
-      if(!s.acknowledged)throw Error('Review and acknowledge the simulation assumptions first.');
       const c=compile(plan,st,s);result={simulation:simulate(c,settings,progress),snapshot:structuredClone(s),deterministic:runPath(c)};
     }
     self.postMessage({runId,type:'result',result});

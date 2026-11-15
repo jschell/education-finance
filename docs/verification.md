@@ -17,3 +17,7 @@ Responsive viewport harness uses same-origin iframes at phone 390×844, iPad lan
 ## Limits
 
 No physical-device or Safari test performed. Starting return values are illustrative and have not been professionally calibrated. No live school cost database, restricted-account eligibility, stochastic college inflation, family joint simulation, or cross-device sync. Data saves are explicit and local; exports are the backup mechanism. More trials do not eliminate assumption uncertainty.
+
+## v0.1.1 simplification
+
+MIT license added to LICENSE/package metadata and linked from the page. Updated regression test confirms false legacy acknowledgement flags permit projections and scenario comparisons, and backups round-trip unchanged. Browser check: add a new student, fill only current savings and the two annual cost inputs, then run a 10,000-trial simulation without opening any optional section or checking any acknowledgement. The form has four visible core inputs and one prefilled required field (enrollment month). Existing local profiles load successfully. Clearing optional names, attendance duration and source metadata restores existing defaults and still calculates successfully. Phone (390×844) and iPad landscape (1024×768) viewport checks show no page-wide overflow.
