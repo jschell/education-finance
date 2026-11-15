@@ -1,0 +1,13 @@
+{
+  "name": "education-finance",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static college funding planner preparation scaffold",
+  "scripts": {
+    "check": "node scripts/check.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

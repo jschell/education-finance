@@ -1,0 +1,8 @@
+node_modules/
+coverage/
+.DS_Store
+*.log
+exports/
+local-data/
+playwright-report/
+test-results/

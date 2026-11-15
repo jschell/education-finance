@@ -37,6 +37,6 @@ Open `http://localhost:8000`. No npm dependencies, bundler, database, server API
 
 ## Hosting
 
-The deployment workflow is manual initially. Enable **Settings → Pages → Source → GitHub Actions**, then run **Deploy GitHub Pages** in Actions. See the deployment guide for verification and troubleshooting. A live URL is not claimed until deployment succeeds.
+The deployment workflow publishes main after its checks pass and also supports manual runs. GitHub Actions must be selected in **Settings → Pages → Source**. See the deployment guide for verification and troubleshooting. A live URL is not claimed until deployment succeeds.
 
 Never commit real student information, balances, account numbers, or exported plans. Browser-local processing does not make publicly committed data private.
