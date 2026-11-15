@@ -48,7 +48,7 @@
     "tuition-2006.json": "72e6490c84f237a670f60d63089699ee5a4a330dd4ffcbb4b9c09a832c842e8a",
     "tuition-2016.json": "0d4b59f59130989f8fd881f02280c13a1721fed2470a9e538efeed0a7e20cd1c",
     "tuition.json": "8f57028cd6b0aafe8f196c415a94229cb05b39a585be6de03d10c57c5ea96862",
-    "us-bonds.csv": "6d950d6ba8c9989fd225b7cc52d6d4a2dc563883e33c732316db7ac8e12619f0"
+    "us-bonds.csv": "3170d36a4e6577cb87bf6035e4a9fbb242ecac40bce30da8ba674c3b23f1d991"
   },
   "notes": [
     "All five risk factors are aligned on the same observed month. No missing months are filled or fabricated.",

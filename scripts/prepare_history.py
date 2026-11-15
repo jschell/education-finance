@@ -15,7 +15,7 @@ def prev(s):
 if (RAW/'bonds.csv').exists():
  source=(RAW/'bonds.csv').read_bytes();rows=[r for r in read_csv('bonds.csv') if r['country']=='US']
  with (RAW/'us-bonds.csv').open('w',newline='') as f:
-  w=csv.DictWriter(f,fieldnames=['date','country','trHedgedUSD']);w.writeheader();w.writerows(rows)
+  w=csv.DictWriter(f,fieldnames=['date','country','trHedgedUSD'],lineterminator='\n');w.writeheader();w.writerows(rows)
  (RAW/'bonds-original.sha256').write_text(hashlib.sha256(source).hexdigest()+'\n')
 stock={ym(r['month']):(float(r['mktrf'])+float(r['rf']),float(r['rf'])) for r in read_csv('french.csv')}
 bond={ym(r['date']):float(r['trHedgedUSD']) for r in read_csv('us-bonds.csv')}
