@@ -25,6 +25,10 @@ This session reconstructed the later uncommitted work from GitHub sources. It di
 
 ## Verification state
 
-The initial reconstructed implementation passed 131 tests and regenerated reports twice identically in GitHub Actions. The final report-integrity test and browser checks are pending on this revision. Deployment will be recorded after final checks pass.
+The final implementation passes **132 tests** in [GitHub Actions](https://github.com/jschell/education-finance/actions/runs/43974817323). Two independent report regenerations match each other and the committed JSON/Markdown byte-for-byte. The extra test verifies source/protocol/report hashes, score arithmetic, invoice rounding bounds, chronological cutoffs and distinct evidence counts.
+
+Automated Chromium checks at the project prefix completed the worker assessment and confirmed no page overflow at phone 390×844, iPad landscape 1024×768 and desktop 1440×1000. Keyboard Space opens the new disclosure. Entering/exiting the fictional example restored the synthetic $54,321 real-workspace balance, which survived reload. No page errors or failed application-resource requests occurred. This is browser automation, not physical Safari verification; screenshots have not been visually reviewed in this session.
+
+[Browser metadata](../tests/evidence/followup-browser.json) is committed. Screenshots and reports are retained by the evidence workflow. Deployment status is recorded in [the release status](critique-fix-status.md).
 
 [Protocol](cost-followup-protocol.md) · [Results](cost-followup-results.md) · [Prior deployed review](critique-review-v0.10.0.md)

@@ -54,4 +54,5 @@ jobs:
           name: cost-followup-evidence
           path: |
             site/data/cost-followup.json
-            docs/cost-followup-results.md\n            tests/evidence/followup/
+            docs/cost-followup-results.md
+            tests/evidence/followup/

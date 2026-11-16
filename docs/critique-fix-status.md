@@ -20,3 +20,14 @@
 ## Post-deployment conclusion
 
 The [fresh review](critique-review-v0.10.0.md) confirms the deployed engineering and savings-stability fixes. Statistical findings remain open: all longer-wait cost misses were below the forecast lower bound in these historical tests, and short/overlapping histories do not establish future funding calibration. The failed uncertainty candidate was not promoted. No additional calculation control or required input was added.
+
+
+## v0.10.1 follow-up reconstructed in a new session
+
+The uncommitted later-session source could not be recovered. Its work was reconstructed from a separately frozen [protocol](cost-followup-protocol.md), with [new reproducible results](cost-followup-results.md) and a [fresh completion review](completion-review.md). The original session's specific unpublished numerical claims are not used as verification.
+
+The evaluation is complete: 132 tests pass, reports reproduce exactly twice and match committed evidence, and project-prefix phone/iPad/desktop, keyboard, worker and saved-funding checks pass in Chromium. The benchmark is retained because all three trend substitutions lose the complete-bill comparison. The financial model, calibration bundle, savings reserve and schema remain unchanged.
+
+Cost coverage and independent evidence remain unresolved: fixed-panel longer-wait tests overforecast costs, while the new aggregate 18-year-wait benchmark underforecasts all 14 bills across seven overlapping origins. These findings do not justify a blanket correction or certify future funding probabilities.
+
+Deployment is pending the final branch checks and merge; the prior verified deployed release is v0.10.0.
