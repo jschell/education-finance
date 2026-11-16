@@ -1,6 +1,6 @@
 # Implemented architecture and data contract
 
-Release: v0.2.0; model `college-funding-2.0.0`; schema 2.
+Release: v0.2.1; model `college-funding-2.0.0`; schema 2.
 
 ## Modules
 
@@ -47,3 +47,9 @@ Render the initial form and projection before waiting for storage. A saved plan 
 ## Data packaging
 
 Raw inputs, source hashes, transformations and attribution are committed in `data/`; `scripts/prepare_history.py` rebuilds `site/data/history.json` offline. Only site/ is published. Dataset ID and observation SHA-256 accompany assessment exports. All module import URLs and the worker entry are versioned to avoid mixing the new schema with older cached modules. No user data is sent for calculations. Family joint simulation remains future work.
+
+## Temporary example workspace (v0.2.1)
+
+Try an example validates and snapshots the current in-memory plan, selected student/scenario and dirty/save status, then switches to a separate fictional plan. Exit example restores that snapshot and recalculates; it does not commit example edits. Save locally, import, repeated example entry and local-data deletion are disabled during example mode. Existing stored data is untouched. The real snapshot is tab memory, not a second stored plan; unsaved real work keeps the normal navigation warning, while disposable example edits do not create one. Export remains available.
+
+`distribution.js` derives actual dollar-band counts from the existing simulation samples. `history.js` includes those summaries in assessments, and `render.js` supplies the gauge and an outcome selector without a second computation control. Schema and financial formulas are unchanged.

@@ -1,7 +1,8 @@
-import { MODEL,clone } from './domain.js?v=0.2.0';
-import { compile,runPath,repriceRow,requiredContribution } from './engine.js?v=0.2.0';
-import { random,quantile } from './simulation.js?v=0.2.0';
-import { DATASET_ID,HISTORY_PRNG,PROFILES,periodLabel } from './history-config.js?v=0.2.0';
+import { outcomeDistribution } from './distribution.js?v=0.2.1';
+import { MODEL,clone } from './domain.js?v=0.2.1';
+import { compile,runPath,repriceRow,requiredContribution } from './engine.js?v=0.2.1';
+import { random,quantile } from './simulation.js?v=0.2.1';
+import { DATASET_ID,HISTORY_PRNG,PROFILES,periodLabel } from './history-config.js?v=0.2.1';
 const sort=x=>x.sort((a,b)=>a-b);
 const percentiles=x=>{sort(x);return {p10:quantile(x,.1),p50:quantile(x,.5),p90:quantile(x,.9)};};
 export function validateHistory(data) {
@@ -90,6 +91,7 @@ export function simulateHistorical(c,data,settings={},progress=()=>{},solve=true
     }
   }
   return {modelVersion:MODEL,prngVersion:HISTORY_PRNG,assumptionsVersion:DATASET_ID,seed,trials,threshold,ceiling,
+    distributions:{gap:outcomeDistribution(failed,{fundedCount:successes,total:trials,bands:6}),enrollment:outcomeDistribution(enrollment),cost:outcomeDistribution(costs)},
     method:'Calendar-aligned joint historical block bootstrap',period:periodLabel(c.history.period),blockYears:c.history.blockYears,profile:c.history.profile,costMode:c.history.costMode,fee:c.history.fee,
     probability:successes/trials,samplingSE:Math.sqrt(successes/trials*(1-successes/trials)/trials),gap:percentiles(gaps),realGap:percentiles(realGaps),costRange:percentiles(costs),realCostRange:percentiles(realCosts),tuitionRange:percentiles(tuitionCosts),
     ending:percentiles(ending),enrollment:percentiles(enrollment),failedCount:failed.length,conditionalGap:percentiles(failed),cost:quantile(sort([...costs]),.5),

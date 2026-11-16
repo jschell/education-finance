@@ -1,4 +1,4 @@
-import { HISTORY_DEFAULTS,PROFILES } from './history-config.js?v=0.2.0';
+import { HISTORY_DEFAULTS,PROFILES } from './history-config.js?v=0.2.1';
 export const MODEL = 'college-funding-2.0.0';
 export const SCHEMA = 2;
 export const PRNG = 'mulberry32-boxmuller-1';

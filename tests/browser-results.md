@@ -14,3 +14,6 @@ Use synthetic data only.
 10. Phone 390×844 and iPad landscape 1024×768: no page-wide overflow, readable results, contained table scroll, View results reaches the result panel. Check keyboard focus and action activation.
 
 Automated financial checks are separate from browser event/storage/worker checks. Physical iOS/Safari performance is not established by iframe layout checks.
+
+11. Try an example with valid unsaved changes. Confirm the example banner, disabled local save/import/delete, and one Calculate action. Edit fictional inputs, then Exit example by keyboard; restore original values, student/scenario selection and dirty status. Repeat starting from an empty plan. No delete operation is needed.
+12. Gauge target/status and probability-band counts must agree with the same assessment; switch displayed outcome without starting a new worker. No budget shows a neutral gauge and no funded-percentage distribution.

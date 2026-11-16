@@ -1,5 +1,5 @@
-import { validatePlan } from './domain.js?v=0.2.0';
-import { assessHistorical,verifyHistory } from './history.js?v=0.2.0';
+import { validatePlan } from './domain.js?v=0.2.1';
+import { assessHistorical,verifyHistory } from './history.js?v=0.2.1';
 let dataPromise;
 function data(){return dataPromise??=fetch(new URL('../data/history.json',import.meta.url)).then(r=>{if(!r.ok)throw Error('Historical data could not be loaded. Reload and retry.');return r.json();}).then(verifyHistory);}
 self.onmessage=async({data:input})=>{

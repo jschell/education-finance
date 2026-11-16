@@ -1,4 +1,4 @@
-import { month, monthText, categories } from './domain.js?v=0.2.0';
+import { month, monthText, categories } from './domain.js?v=0.2.1';
 const cents = x => Math.round((x+Number.EPSILON)*100)/100;
 export function compile(plan, student, scenario, mode='all') {
   const start=month(plan.valuation), entry=month(student.enrollment), end=entry+(student.years-1)*12+8;

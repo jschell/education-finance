@@ -1,5 +1,5 @@
-import { PROFILES } from './history-config.js?v=0.2.0';
-import { annualRows,compile,runPath } from './engine.js?v=0.2.0';
+import { PROFILES } from './history-config.js?v=0.2.1';
+import { annualRows,compile,runPath } from './engine.js?v=0.2.1';
 export const money=x=>x===null?'—':Number.isFinite(x)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(x):'Not attainable';
 const pct=x=>`${(x*100).toLocaleString('en-US',{maximumFractionDigits:1})}%`;
 export function el(tag,text='',className='') { const node=document.createElement(tag);if(text!==null)node.textContent=text;if(className)node.className=className;return node; }
@@ -52,22 +52,72 @@ export function deterministicView(plan,student,scenario,result) {
   ]));assumptions.append(el('p',`Costs: ${scenario.source} · checked ${scenario.sourceDate} · baseline ${scenario.baseline}. Return assumptions: ${scenario.assumptionsStatus}, as of ${scenario.assumptionsDate}. No recommended investment allocation or aid eligibility is inferred.`,'hint'));s.append(assumptions);
   return s;
 }
+function distributionView(sim) {
+  const wrapper=el('section','','outcome-distribution');wrapper.append(el('h3','Range of possible outcomes'));
+  const select=el('select'),label=el('label','Show outcome');label.className='distribution-select';
+  for(const [value,text] of [['gap','Funding gap'],['enrollment','Savings at university entry'],['cost','Total college expenses']]){
+    if(sim.distributions[value].total&&(sim.cost||value==='enrollment')){const option=el('option',text);option.value=value;select.append(option);}
+  }
+  if(!select.options.length){wrapper.append(el('p','Enter college costs to see the distribution of funding outcomes.','hint'));return wrapper;}
+  label.append(select);wrapper.append(label);const body=el('div');wrapper.append(body);
+  function render(){
+    const key=select.value,distribution=sim.distributions[key];
+    const rows=distribution.bins.map(bin=>{
+      const range=bin.kind==='funded'?'All covered bills paid':bin.kind==='point'?money(bin.lower):`${money(bin.lower)} – ${bin.last?'':'< '}${money(bin.upper)}`;
+      const frequency=el('div','','probability-cell'),bar=el('span','','probability-bar'),value=el('strong',`${(bin.probability*100).toLocaleString('en-US',{maximumFractionDigits:2})}%`);
+      bar.style.width=`${bin.probability*100}%`;bar.setAttribute('aria-hidden','true');frequency.append(bar,value);
+      return {range,frequency,count:bin.count};
+    });
+    const tableWrapper=table(`${key==='gap'?'Funding outcomes':key==='cost'?'Total college expenses':'Savings at entry'} · nominal dollars`,['Outcome range','Share of simulated paths','Paths'],rows.map(r=>[r.range,'',r.count.toLocaleString()]));
+    tableWrapper.querySelectorAll('tbody tr').forEach((row,i)=>row.children[1].append(rows[i].frequency));
+    body.replaceChildren(tableWrapper,el('p',`Based on ${distribution.total.toLocaleString()} simulated paths. Bar lengths show the actual share in each range; empty dollar bands are omitted. ${key==='gap'?'Lower gaps are favorable. Each gap uses the investment returns and expenses from the same path.':key==='cost'?'Lower expenses are favorable.':'Higher savings are favorable.'}`,'hint'));
+  }
+  select.addEventListener('change',render);render();return wrapper;
+}
+// Presentation only: the gauge uses the existing all-bills-paid simulation frequency.
+export function successGauge(sim) {
+  const hasBudget=sim.cost>0,p=hasBudget?Math.max(0,Math.min(1,sim.probability)):0;
+  const meets=hasBudget&&p>=sim.threshold;
+  const probabilityText=`${(p*100).toLocaleString('en-US',{maximumFractionDigits:2})}%`;
+  const card=el('div','','success-gauge '+(!hasBudget?'neutral':meets?'on-course':'below-target'));
+  card.append(el('h3','Likelihood of success'),el('p','College funding · simulated outcomes','gauge-subtitle'));
+  const visual=el('div','','gauge-visual');
+  const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox','0 0 360 220');svg.setAttribute('aria-hidden','true');
+  const add=(tag,attrs,text)=>{const n=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,String(v));if(text!==undefined)n.textContent=text;svg.append(n);return n;};
+  const arc={d:'M30 184 A150 150 0 0 1 330 184',fill:'none','stroke-width':15,'stroke-linecap':'round',pathLength:100};
+  add('path',{...arc,class:'gauge-track'});
+  if(hasBudget){
+    if(p>0)add('path',{...arc,class:'gauge-fill','stroke-dasharray':`${p*100} 100`});
+    const angle=Math.PI*(1-p),target=Math.PI*(1-sim.threshold);
+    add('line',{x1:180+137*Math.cos(target),y1:184-137*Math.sin(target),x2:180+164*Math.cos(target),y2:184-164*Math.sin(target),class:'gauge-target'});
+    add('circle',{cx:180+150*Math.cos(angle),cy:184-150*Math.sin(angle),r:9,class:'gauge-marker','stroke-width':5});
+  }
+  add('text',{x:30,y:214,'text-anchor':'middle'},'0%');add('text',{x:330,y:214,'text-anchor':'middle'},'100%');visual.append(svg);
+  const reading=el('div','','gauge-reading');reading.append(el('strong',hasBudget?probabilityText:'—','gauge-value'),el('span',!hasBudget?'Add a college budget':meets?'On course':'Below target','gauge-badge'));visual.append(reading);
+  if(hasBudget){visual.setAttribute('role','meter');visual.setAttribute('aria-label','Simulated likelihood of funding every covered college bill');visual.setAttribute('aria-valuemin','0');visual.setAttribute('aria-valuemax','100');visual.setAttribute('aria-valuenow',String(p*100));visual.setAttribute('aria-valuetext',`${probabilityText}; ${meets?'on course':'below'} your ${pct(sim.threshold)} target`);}
+  card.append(visual);
+  card.append(el('p',hasBudget?`Target ${pct(sim.threshold)} · tick mark on the arc`:'Enter annual costs to assess funding.','gauge-target-note'));
+  card.append(el('p',hasBudget?`Every covered bill paid when due in ${Math.round(p*sim.trials).toLocaleString()} of ${sim.trials.toLocaleString()} simulated paths.`:'The gauge will use the same Calculate action.','hint'));
+  return card;
+}
 export function simulationView(sim) {
   const s=section('Funding outlook',`${sim.trials.toLocaleString()} historical paths`);
-  s.append(stats([
-    ['Simulated funding success',sim.cost?pct(sim.probability):'—',sim.cost?'Every covered bill paid when due':'Add a college budget to assess funding'],
+  const overview=el('div','','funding-summary');
+  overview.append(successGauge(sim),stats([
     ['Median funding gap',money(sim.gap.p50),'Unpaid covered expenses'],
     ['Higher funding gap',money(sim.gap.p90),'90th percentile · adverse outcome']
-  ]));
+  ]));s.append(overview);
   s.append(el('p',`${sim.period} observations · ${sim.blockYears}-year blocks · ${PROFILES[sim.profile].name}. ${sim.costMode==='historical'?'Investment returns, tuition growth, and living-cost inflation vary together.':'Investment returns vary; expense-growth rates are fixed.'}`,'hint'));
-  s.append(table('Range of possible outcomes · nominal dollars',['Outcome','10th percentile','Median','90th percentile'],[
+  s.append(distributionView(sim));
+  s.append(table('Percentile summary · nominal dollars',['Outcome','10th percentile','Median','90th percentile'],[
     ['Savings at university entry',money(sim.enrollment.p10),money(sim.enrollment.p50),money(sim.enrollment.p90)],
     ['Total college expenses',money(sim.costRange.p10),money(sim.costRange.p50),money(sim.costRange.p90)],
     ['Tuition & fees',money(sim.tuitionRange.p10),money(sim.tuitionRange.p50),money(sim.tuitionRange.p90)],
     ['Funding gap',money(sim.gap.p10),money(sim.gap.p50),money(sim.gap.p90)],
     ['Funds left after college',money(sim.ending.p10),money(sim.ending.p50),money(sim.ending.p90)]
   ]));
-  s.append(el('p','Each funding gap is calculated from that path’s expenses and available funds together. A higher expense or gap is adverse; higher savings are favorable. Percentiles describe ranges, not minimum or maximum outcomes.','hint'));
+  s.append(el('p','Each percentile column ranks every row independently; it is not one combined scenario. Each funding gap is calculated from that path’s expenses and available funds together. A higher expense or gap is adverse; higher savings are favorable. Percentiles describe ranges, not minimum or maximum outcomes.','hint'));
   s.append(el('h3','Savings through the plan'),chart(sim.bands));
   const legend=el('div','','legend');legend.append(el('span','10th–90th percentile'),el('span','Median'));s.append(legend);
   const solver=el('div','','callout');solver.append(el('strong',`Monthly savings for ${pct(sim.threshold)} simulated funding success`));

@@ -2,7 +2,7 @@
 
 A browser-local college funding planner, entered one student at a time, designed for GitHub Pages.
 
-**Status: working v0.2.0 calculator.** One Calculate action produces historical investment, expense, and funding-gap ranges, a savings target, actual historical-period comparisons, and a fixed-rate reference. Multiple students/scenarios, explicit local saves, and portable backup are implemented. No school-price lookup, tax/aid eligibility calculation, or joint family simulation is included.
+**Status: working v0.2.1 calculator.** One Calculate action produces historical investment, expense, and funding-gap ranges, a savings target, actual historical-period comparisons, and a fixed-rate reference. Multiple students/scenarios, explicit local saves, and portable backup are implemented. No school-price lookup, tax/aid eligibility calculation, or joint family simulation is included.
 
 Live application: https://jschell.github.io/education-finance/
 
@@ -67,3 +67,9 @@ Never commit real student information, balances, account numbers, or exported pl
 The checked-in snapshot has 564 complete joint months, January 1978–December 2024. Stocks and cash use Fama/French factors; bonds use a yield-reconstructed US 10-year sovereign proxy; costs use BLS general and college-tuition CPI. See [data attribution](data/NOTICE.md), [manifest](data/manifest.json), and [methodology](docs/model.md). This is an empirical historical model, not a forward-looking capital-market forecast. Recent-history and actual-period comparisons expose some sensitivity to the selected data.
 
 Rebuild the bundled data offline with `python3 scripts/prepare_history.py`. Only `site/` is deployed. Application code is MIT; source data retains its separate attribution and terms. Saved schema-1 plans and backups migrate to schema 2 without changing balances, dates, or original manual rates.
+
+The funding outlook includes a semicircular likelihood-of-success gauge. Its percentage is the existing simulated frequency of paying every covered bill when due. The target tick and On course / Below target label use the selected success threshold; a missing college budget shows no percentage. No separate control or new probability calculation is introduced.
+
+Outcome distributions display actual simulation frequencies across dollar bands for funding gaps, entry savings and total college costs. Fully funded paths are counted separately. The selector changes only the displayed summary and does not rerun the calculation. Percentile columns rank rows independently and do not describe a single combined scenario.
+
+Try an example opens a temporary fictional workspace. Exit example restores the previous student/scenario selection and all valid unsaved edits. Example mode disables local save, import and local-data deletion so a demonstration cannot overwrite the stored plan. It does not add a separate calculation action. Unsaved real work retains the normal navigation warning; example edits can be discarded by exiting.

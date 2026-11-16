@@ -4,13 +4,14 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Plan college costs and savings one student at a time. Compare projections, Monte Carlo funding ranges, and saved scenarios locally.">
 <title>Education Finance · College funding planner</title>
-<link rel="stylesheet" href="./assets/styles.css?v=0.2.0"><script type="module" src="./js/app.js?v=0.2.0"></script>
+<link rel="stylesheet" href="./assets/styles.css?v=0.2.1"><script type="module" src="./js/app.js?v=0.2.1"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to planner</a>
 <header><a class="brand" href="./"><span class="brand-icon" aria-hidden="true">ef</span> Education Finance</a><div class="header-actions"><span id="save-state" role="status">Not saved locally</span><button id="save" class="primary">Save locally</button><button id="export">Export plan</button><button id="import">Import</button><input id="import-file" type="file" accept=".json,application/json" hidden></div></header>
 <main id="main">
 <section class="page-heading"><div><p class="eyebrow">A plan for possibilities</p><h1>Plan college funding.</h1><p>Compare future costs with savings, one student at a time.</p></div><button id="example">Try an example</button></section>
+<section id="example-notice" class="example-notice" aria-label="Example mode" hidden><div><strong>Trying the fictional example</strong><p>Your plan is kept, including unsaved edits. Changes here affect only the example. Exit to return to your plan and save.</p></div><button id="exit-example" type="button">Exit example</button></section>
 <div id="message" role="status" aria-live="polite"></div>
 <section class="workspace-bar" aria-label="Students and scenarios">
 <div><label for="student-select">Student</label><select id="student-select"></select></div><div class="button-group"><button id="add-student">+ Student</button><details class="profile-actions"><summary>Manage</summary><div><button id="copy-student">Duplicate student</button><button id="delete-student" class="quiet danger">Delete student</button></div></details></div>

@@ -61,3 +61,9 @@ Select the order statistic needed for the chosen 80/90/95% sample success, round
 ## Reproducibility and migration
 
 Assessment JSON includes the input snapshot, seed/trial settings, model and generator versions, dataset ID/hash, resolved reference assumptions and results. Outcome CSV contains percentile metrics; the reference panel retains the annual cash-flow table. Schema-1 saved plans migrate to schema 2 by adding historical settings while retaining original numbers. The backup wrapper stays `education-finance-1`; its inner schema identifies the migration. No acknowledgement gates are used.
+
+## Outcome presentation (v0.2.1)
+
+The success gauge uses the existing all-covered-bills-paid path frequency and compares it with the selected threshold; no college budget means no success percentage. Its arc runs from 0% to 100%, with a tick at the selected target.
+
+Probability bars summarize observed path counts in dollar bands, rather than assuming a symmetric bell curve. Funding gaps have a separate fully-funded category, then up to six positive-gap bands; entry savings and total expenses use up to seven bands. Band widths round upward to a 1/2/5 power-of-ten dollar step. Bins include the lower edge and exclude the upper edge, except the final bin includes its upper edge. Empty bins are omitted. Constant values produce one point category. Counts and probabilities reconcile to the number of available paths. Entry savings are unavailable for already enrolled students. Positive-gap ranges use the paths that missed covered bills; their probability denominator includes every trial. These are display summaries of the same financial model, not changes to simulation assumptions. Distribution data is included in assessment JSON.

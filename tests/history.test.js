@@ -85,3 +85,13 @@ test('committed source hashes and derived manifest agree with the runtime snapsh
   assert.equal(data.observationsSha256,manifest.observationsSha256);
   for(const [name,hash] of Object.entries(manifest.rawHashes))assert.equal(createHash('sha256').update(fs.readFileSync(new URL('../data/raw/'+name,import.meta.url))).digest('hex'),hash,name);
 });
+
+test('display distributions reconcile to the same simulated success and cost paths',()=>{
+  const {p,st,s}=fixture();s.balance=15000;
+  const result=simulateHistorical(compile(p,st,s),data,{trials:200,seed:12},()=>{},false);
+  for(const [name,distribution] of Object.entries(result.distributions)){
+    assert.equal(distribution.total,200,name);assert.equal(distribution.bins.reduce((n,b)=>n+b.count,0),200,name);
+  }
+  close(result.distributions.gap.bins[0].probability,result.probability,1e-12);
+  assert.equal(result.distributions.gap.bins[0].count,200-result.failedCount);
+});

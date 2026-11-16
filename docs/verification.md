@@ -39,3 +39,11 @@ Chromium preview checks: one Calculate button produces the full primary range ta
 Responsive same-origin iframe checks at 390×844 phone, 1024×768 iPad landscape and 768×1024 iPad portrait showed completed assessments and no page-wide horizontal overflow (scroll width equals viewport client width). These validate responsive Chromium layout, not physical Safari/iOS. Old v0.1 sections above are release history; their statements about fixed Monte Carlo costs and separate controls no longer describe v0.2.
 
 Remaining limitations: historical proxies rather than forward-looking calibrated market forecasts; national CPI rather than school-specific cost uncertainty; reconstructed bond returns rather than investable fund returns; no account eligibility, automatic aid prediction, joint family probability or cross-device sync. See the methodology and source notice for details.
+
+## v0.2.1 outcome visuals and temporary example mode
+
+42 automated checks pass. New checks reconcile actual probability-band counts with all simulated paths and the success gauge frequency, including skewed distributions, constant outcomes, endpoints and unavailable enrollment balances. No financial growth or cash-flow formulas changed. The model remains college-funding-2.0.0.
+
+Chromium preview: gauge states 0%, 65%, 95%, 100% and no-budget were inspected; the target tick and text agree with the selected threshold. Screen-reader meter values accompany the graphic. Funding gap, entry savings and cost distribution selectors update the summary without rerunning the simulation. The phone distribution table fits its container and both phone 390×844 and iPad landscape 1024×768 show no page-wide overflow. Project-path /education-finance/ completes the worker and loads the new module.
+
+Example regression: an unsaved synthetic balance of $54,321 and a workspace with three students/two scenarios was preserved while entering the fictional example. Editing the example to $999 and activating Exit example by keyboard restored $54,321, the original students/scenarios and Unsaved changes status. Save/import are disabled in example mode; Exit example re-enables them. The saved original is never replaced by trying the example. Temporary QA pages/copies are removed before publication. These are Chromium layout checks, not physical-device Safari measurements.
