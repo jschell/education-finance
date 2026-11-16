@@ -1,5 +1,5 @@
 {
-  "model": "college-funding-3.0.0",
+  "model": "college-funding-4.0.0",
   "dataset": "us-joint-monthly-1978-2024-v1",
   "seed": 90210,
   "primaryTrials": 1000,
@@ -45,6 +45,7 @@
         {
           "name": "25% loss at entry + cost growth 2 percentage points higher",
           "probability": 0,
+          "deltaProbability": 0,
           "gap": {
             "p10": 93571.39416302716,
             "p50": 106017.92064889357,
@@ -54,6 +55,7 @@
         {
           "name": "No future grants or scholarships",
           "probability": 0,
+          "deltaProbability": 0,
           "gap": {
             "p10": 46804.02276547867,
             "p50": 61406.42497530552,
@@ -63,6 +65,7 @@
         {
           "name": "Housing and food budget 20% higher",
           "probability": 0,
+          "deltaProbability": 0,
           "gap": {
             "p10": 62201.59152610497,
             "p50": 76746.20983870362,
@@ -72,6 +75,7 @@
         {
           "name": "One additional attendance year",
           "probability": 0,
+          "deltaProbability": 0,
           "gap": {
             "p10": 88793.00757304615,
             "p50": 104734.10701497093,
@@ -188,6 +192,7 @@
         {
           "name": "25% loss at entry + cost growth 2 percentage points higher",
           "probability": 0.002,
+          "deltaProbability": -0.556,
           "gap": {
             "p10": 49663.91498516966,
             "p50": 92417.88497845414,
@@ -197,6 +202,7 @@
         {
           "name": "No future grants or scholarships",
           "probability": 0.558,
+          "deltaProbability": 0,
           "gap": {
             "p10": 0,
             "p50": 0,
@@ -206,6 +212,7 @@
         {
           "name": "Housing and food budget 20% higher",
           "probability": 0.383,
+          "deltaProbability": -0.17500000000000004,
           "gap": {
             "p10": 0,
             "p50": 13115.384429911053,
@@ -215,6 +222,7 @@
         {
           "name": "One additional attendance year",
           "probability": 0.158,
+          "deltaProbability": -0.4,
           "gap": {
             "p10": 0,
             "p50": 45135.11243122927,
@@ -319,6 +327,7 @@
         {
           "name": "25% loss at entry + cost growth 2 percentage points higher",
           "probability": 0.568,
+          "deltaProbability": -0.42400000000000004,
           "gap": {
             "p10": 0,
             "p50": 0,
@@ -328,6 +337,7 @@
         {
           "name": "No future grants or scholarships",
           "probability": 0.992,
+          "deltaProbability": 0,
           "gap": {
             "p10": 0,
             "p50": 0,
@@ -337,6 +347,7 @@
         {
           "name": "Housing and food budget 20% higher",
           "probability": 0.984,
+          "deltaProbability": -0.008000000000000007,
           "gap": {
             "p10": 0,
             "p50": 0,
@@ -346,6 +357,7 @@
         {
           "name": "One additional attendance year",
           "probability": 0.964,
+          "deltaProbability": -0.028000000000000025,
           "gap": {
             "p10": 0,
             "p50": 0,

@@ -1,6 +1,6 @@
 # Assumption register
 
-As of 2026-11-15; model `college-funding-2.1.0`. Historical observations are verified against a pinned snapshot, not verified forecasts. Portfolio weights and planning conventions are provisional developer choices and user-editable.
+As of 2026-11-15; current model `college-funding-4.0.0`. Historical observations are verified against a pinned snapshot, not verified forecasts. Portfolio weights and planning conventions are provisional developer choices and user-editable.
 
 | Input / units | Default | Provenance / status |
 | --- | --- | --- |
@@ -50,3 +50,7 @@ Published budget presets are opt-in verified source snapshots, not future school
 Published tuition uses the entered nominal annual trend (initial 4%, developer illustration, unverified forecast) and demeaned historical tuition-index log changes as a variability proxy. The raw BLS mean includes some financial-aid adjustments and is no longer silently used as a published-price trend. Optional raw index mode is explicitly labeled. Demeaning cannot eliminate aid effects from variability or create school-specific published-price history. Tuition prices are held within the academic year.
 
 Additional stress choices—two percentage points higher fixed cost growth, 20% higher housing/food, no future grants, an extra year, and the existing 25% loss—are uncalibrated alternatives, not assigned likelihoods. Walk-forward and sensitivity results accompany the main model frequency; these do not certify future forecasting accuracy. Gauge colors reflect a selected target, and Monte Carlo sampling intervals exclude model error. Household savings-deposit limits are user-entered USD/month; blank means no limit and zero means no deposits. Funds remain earmarked.
+
+## v0.5.0 ownership
+
+Financial rates and source data are unchanged. Funding and investment assumptions are entered once per student; expense growth is per education path. General grants and school-specific aid are separate nominal USD/year amounts, with independently entered award durations. Defaults remain zero awards and four-year durations as editable planning conventions. Schema 5 intentionally resets older stored plans without migration. Current integer-cent portions distribute remainders across payments and never make a negative payment.

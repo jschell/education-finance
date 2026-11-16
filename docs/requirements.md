@@ -40,3 +40,7 @@ Initial delivery excludes automated FAFSA/CSS Profile eligibility, tax-credit op
 ## Nonfunctional requirements
 
 Responsive phone/desktop/iPad landscape; keyboard and screen-reader access; tabular alternatives to charts; cancellable worker simulations; saved-input validation; versioned exports; clear storage failure recovery; no silent data loss or off-device financial data transmission. Browser storage is convenient persistence, not a backup. Target a 10,000-trial assessment in under five seconds on a representative iPad; this is an unverified performance target, to measure before release.
+
+## Student funding ownership (v0.5.0)
+
+Switching, creating or duplicating education scenarios must not change a student's savings, deposit schedule, general scholarships, income support, goal or investments. These belong to the student. School-specific aid, costs, duration and billing remain in education scenarios. Existing saved schema-1/2/3/4 plans are intentionally unsupported and reset; no migration or reconciliation UI is required. Duplicating a student resets monetary funding inputs to prevent duplicating the same funds.

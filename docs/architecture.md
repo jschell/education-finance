@@ -77,3 +77,7 @@ Budget preview selection does not commit inputs or rerun an assessment. Use sele
 ## v0.4.0
 
 Saved schema 4 adds `family: {monthlyLimit: number|null, scenarios: {studentId:scenarioId}}` and per-scenario `history.tuitionBasis`. `household.js` sums paired-path student obligations and applies a proportional monthly deposit cap before running the pure ledgers. `probability.js` supplies sampling intervals and target status. `storage.js` owns the exclusive browser Web Lock and separate raw draft persistence. No dependencies, backend, telemetry or third-party runtime requests were added.
+
+## v0.5.0 ownership and breaking contract
+
+Schema 5/model 4.0.0 removes all funding fields from persistent education scenarios. `student.funding` holds monetary inputs, contribution schedules, goals and investment settings. Education scenarios hold costs, attendance length, school aid and expense/sampling settings. The pure domain resolver creates a cloned flat calculation view consumed by the existing monthly engine, historical assessment and renderer. This view is rejected by saved-plan validation. No legacy migration is retained; format-2 backups and schema-5 browser stores are the only supported input contracts. Legacy store cleanup runs under the exclusive editor lock and never erases an already-current record solely because another store contains legacy data.

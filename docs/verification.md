@@ -97,3 +97,20 @@ Final color browser check: with fictional savings of $100,000, the example produ
 Presentation-only correction: color fills from zero to the calculated percentage; the remaining semicircle stays gray. At 0% no colored fill path is drawn; at 100% the full track is filled. The entire filled segment retains the percentage-based color, with yellow at 45%, light green at 60% and dark green at the chosen target. Marker, target tick, probability and model remain unchanged. The previous v0.4.0 screenshot records the older full-track behavior.
 
 Chromium preview: a 72.61% model frequency produced normalized fill length 72.61 of the 100-unit semicircle, ending at its marker with gray track beyond. Keyboard Calculate completed. Phone 390×844 and iPad landscape 1024×768 /education-finance/ views retained matching document client/scroll widths (375/375, 1009/1009). [Synthetic progress screenshot](../tests/evidence/v0.4.1-progress.jpg). Financial model/version and the existing 72 passing checks are unchanged.
+
+## v0.5.0 · student funding and review corrections (2026-11-15)
+
+82 automated checks pass. New financial regressions verify identical student opening savings/deposits/investments across education paths, independent funding across students, rejection of funding fields inside saved education scenarios, school-specific versus general award durations and single grant application, zero funding on duplicated students, current backup round trips, deliberate rejection of schemas 1–4, cleanup of legacy copies without deleting current copies, and no mutation of saved funding by derived reference rates. Both historical periods now use matching trial counts. A no-aid stress on a plan with zero general/school aid has exactly zero change against its matched baseline, including identical gap percentiles.
+
+Browser checks used synthetic data:
+
+- Opening the new release discarded the prior schema-4 workspace and displayed one new student with zero savings and a clear breaking-change message.
+- Entered $25,000 savings/$300 monthly, created a second school path, and confirmed funding persisted while its costs started at zero. Entered distinct tuition, duration and school aid for that path; switching back restored the first school's costs/aid without replacing savings. Updating savings to $50,000 affected both paths.
+- Reload retained both paths, the shared $50,000/$300 funding and selected scenario. A new second student started at zero funding; returning to the original retained its savings and contributions.
+- Changed student investment profile/fees; both education scenarios retained those same student settings. Keyboard Calculate and same-student comparison completed successfully.
+- The main gauge displayed approximately 69–90% across histories, with the arc explicitly labeled as the selected 1978–2024 period. This is model sensitivity, not a calibrated confidence interval. The selected-period fill still stops at its percentage marker and retains the 45%/60%/target color milestones.
+- Phone 390×844 and iPad landscape 1024×768 project-path views loaded current modules and expanded household settings without page-wide overflow (client/scroll widths 375/375 and 1009/1009).
+
+Source was formatted with a one-time Prettier invocation; no application dependencies or package lock were added. Packaging checks now recognize both single- and double-quoted module/worker URLs. The historical diagnostic report was rebuilt under model 4.0.0. Held-out reconstructed costs are now explicitly described as proxy replay outcomes, not observed published school prices. No economic recalibration is claimed; work required is in [the calibration plan](economic-calibration.md). Physical Safari validation is still outstanding.
+
+[Updated assessment screenshot with synthetic student funding](../tests/evidence/v0.5.0-student-funding.jpg). The temporary example was also checked: $60,000/$500 appeared in example mode and exiting restored the real synthetic workspace’s $50,000/$300 and two education scenarios.

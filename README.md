@@ -1,107 +1,65 @@
 # Education Finance
 
-A browser-local college funding planner, entered one student at a time, designed for GitHub Pages.
+A static, browser-local college funding planner for GitHub Pages. Enter students one at a time and compare education paths using a shared funding plan for each student.
 
-**Status: working v0.4.1 calculator.** One Calculate action produces historical investment, expense, and funding-gap ranges, a savings target, actual historical-period comparisons, and a fixed-rate reference. Multiple students/scenarios, automatic local saves, and portable backup are implemented. Static published school-budget presets and an attendance-overlap overview are included. Joint household assessment now uses shared economic paths, saved scenario choices and an optional monthly savings-deposit limit. Live school-price lookup and tax/aid eligibility calculation remain future work.
+**Working release v0.5.0 · model college-funding-4.0.0 · schema 5.**
 
 Live application: https://jschell.github.io/education-finance/
 
+## Breaking change: student funding
+
+Savings, contributions, gifts, general scholarships, direct income, coverage goals and investment settings now belong to the **student**. Switching education scenarios never replaces these values. Each education scenario contains its own costs, attendance length, school-specific aid, expense growth, billing and source information.
+
+There is deliberately **no migration or balance reconciliation** from older releases. Old browser plans, recovery copies and unfinished drafts are discarded when the editing tab opens this release. Old exported backups are not supported. Enter a new plan; new schema-5 data and format-2 backups save and restore normally. Close an older editing tab before opening the new release elsewhere.
+
 ## Use the planner
 
-1. Start with four inputs: current savings, university start month, annual tuition/fees, and annual housing/food (or try the example).
-2. Names, attendance length (four years by default), semester/quarter tuition billing, nine/twelve living months, published budget presets, extra costs, and structured source notes are under More details. Future contributions, gifts, scholarships, and income payments are optional.
-3. Optional assumptions select an allocation profile, dated asset-allocation overrides, historical period, block length, fees, or fixed expense growth. The default uses jointly sampled monthly stock/bond/cash returns, general CPI, and tuition CPI from 1978–2024. Allocation presets are illustrative developer choices.
-4. Click Calculate for the full assessment. Valid edits also refresh the same assessment after a short pause. Complete simulated path examples include their own annual schedules; the fixed-rate reference is collapsed separately. No separate Monte Carlo button is needed. The solver uses your contribution dates even when the current contribution is zero.
-5. Duplicate a scenario to change education costs, funding, or return assumptions; compare alternatives for the same student.
-6. Changes save automatically in this browser. Export a plan backup, and optionally export the calculated assessment (exact inputs, model, seed, trial count, and results) or outcome-range CSV. New students can be assessed independently.
+1. Start with current student savings, enrollment month, annual tuition/fees and annual housing/food. Other inputs are optional. Try an example opens temporary fictional data; Exit example restores the real workspace.
+2. Under More details, name the student and education scenario, choose attendance length, living/billing schedules, school-specific aid, extra expenses or a published budget preset. Applying a preset changes education costs/source, never student funding.
+3. Student funding holds deposits, gifts, general scholarship amounts/duration, income support and shared-pool allocation. Enter these once for the student. General awards and the selected school's award are combined once and capped at bills.
+4. Assumptions separates student investments from the selected education path's expense/sampling settings. Investment profile, fees, dated allocations and investment reference rates apply to every education scenario for that student. Tuition/living growth and the school's aid offer can differ by scenario.
+5. One Calculate action produces historical ranges, complete example paths, a contribution estimate, historical comparisons, stress/sensitivity tests, and a collapsed fixed-rate reference. Valid edits also refresh the same assessment. Manage → Compare scenarios uses the same student funding across alternatives.
+6. Add another student for independent savings and funding. Duplicating a student copies education settings but resets balances, monthly deposits, gifts, general aid, school-specific aid, income and shared allocation to zero; it cannot duplicate the same money into a second student's plan.
+7. For multiple students, select one education scenario per student under Household scenarios & attendance. An optional monthly household savings-deposit limit prorates planned deposits. Economic paths are shared across students; success requires every selected goal to be funded. Money stays earmarked; unallocated shared funds are excluded.
+8. Changes save automatically in this browser. Export a current-format plan backup for portability. Assessment JSON records exact inputs, seed, versions and results. Browser storage does not sync devices.
 
-A shared pool supports explicit allocations only. Restrict each student's earmarked balance to their own funds; do not also include shared money there. Scenario alternatives reuse that student's allocation. Browser storage is not a backup and does not synchronize devices.
+## Historical method and presentation
 
-## Verification
+The bundled snapshot contains 564 complete paired months, January 1978–December 2024. Stocks/cash use Fama/French factors; bonds use a reconstructed US 10-year sovereign proxy. General CPI proxies non-tuition expenses. Published-price tuition planning uses your selected trend (initial 4%, illustrative) plus demeaned historical tuition-index changes as an imperfect variability proxy; raw BLS tuition-index mode is explicitly labeled. Aid remains separate. Tuition prices stay fixed within an academic year.
 
-`npm run check` runs packaging/module checks and financial/input tests. The release checks are recorded in [verification](docs/verification.md). No claim of measured physical iPad performance is made.
+The calendar-aligned bootstrap uses one/three/five-year joint blocks. Allocation profiles are illustrative developer choices. Ranges are conditional on those assumptions, not calibrated future probabilities. Held-out historical diagnostics have shown weak cost-range coverage; the app flags this and includes explicit stress cases. Physical Safari persistence testing remains unverified.
 
-## Planned experience
+The gauge prominently shows the range across both historical periods, using matching trial counts. Its arc and marker show the selected period’s frequency, with gray track beyond that point. This is a model-sensitivity range, not a confidence interval. Its filled segment changes smoothly: yellow at 45%, light green at 60%, dark green at the selected target. Target status is independent of color and accounts for Monte Carlo sampling noise. At 0% no colored fill is drawn; a missing college budget shows no percentage.
 
-1. Add a student and expected enrollment date.
-2. Compare education paths and living arrangements.
-3. Enter earmarked savings, planned contributions, and college-year income support.
-4. Review dated assumptions and run one historical assessment.
-5. Compare funding gaps, payment timing, and additional savings requirements.
-6. Export a portable backup; add another student independently.
+Actual simulated path examples keep savings, costs and shortfalls paired. Marginal percentiles and pointwise bands rank independently. Household probabilities are calculated jointly, never averaged or multiplied. School-specific published-price volatility, account/tax rules, automatic aid eligibility, dynamic fund transfers and allocation optimization remain outside this model.
 
-Household assessment combines selected student scenarios on the same economic paths. Funds remain earmarked; allocation optimization is not implemented.
+## Development and verification
 
-## Project guide
-
-- [Requirements and scope](docs/requirements.md)
-- [Calculation and simulation specification](docs/model.md)
-- [Assumption register](docs/assumptions.md)
-- [Data contract and architecture](docs/architecture.md)
-- [Milestones and acceptance criteria](docs/roadmap.md)
-- [GitHub Pages setup](docs/deployment.md)
-
-## Local development
-
-Requires Node.js 24 for checks; the website itself requires only a modern browser.
+Static semantic HTML/CSS and vanilla JS modules; no framework, runtime service, telemetry or dependencies. Requires Node.js 24 for checks; the app runs in a modern browser.
 
 ```sh
 npm run check
 python3 -m http.server 8000 --directory site
+node scripts/validate-history.mjs
 ```
 
-Open `http://localhost:8000`. No npm dependencies, bundler, database, server API, external fonts, or analytics are required. Only `site/` is uploaded to Pages; documentation and future local exports are excluded.
+Only `site/` is deployed through GitHub Actions. Relative URLs support `/education-finance/`. Tests use synthetic data only. The synthetic historical diagnostic report can be reproduced with the last command. The source snapshot can be rebuilt offline with `python3 scripts/prepare_history.py`.
 
-## Hosting
+- [Calculation and simulation methodology](docs/model.md)
+- [Economic calibration plan](docs/economic-calibration.md)
+- [Assumptions](docs/assumptions.md)
+- [Requirements](docs/requirements.md)
+- [Architecture](docs/architecture.md)
+- [Verification](docs/verification.md)
+- [Roadmap](docs/roadmap.md)
+- [GitHub Pages setup](docs/deployment.md)
+- [Historical data attribution](data/NOTICE.md)
+- [Published school budgets](data/school-costs.md)
 
-The deployment workflow publishes main after its checks pass and also supports manual runs. GitHub Actions must be selected in **Settings → Pages → Source**. See the deployment guide for verification and troubleshooting. A live URL is not claimed until deployment succeeds.
-
-Never commit real student information, balances, account numbers, or exported plans. Browser-local processing does not make publicly committed data private.
+No real student information, account values, private workbook contents or exports belong in commits.
 
 ## License
 
-[MIT](LICENSE) · Copyright (c) 2026 J. Schell.
+[MIT](LICENSE) · Copyright (c) 2026 J. Schell. Application code is MIT; source data retains its own attribution and terms.
 
-## Historical data
-
-The checked-in snapshot has 564 complete joint months, January 1978–December 2024. Stocks and cash use Fama/French factors; bonds use a yield-reconstructed US 10-year sovereign proxy; costs use BLS general and college-tuition CPI. See [data attribution](data/NOTICE.md), [manifest](data/manifest.json), and [methodology](docs/model.md). This is an empirical historical model, not a forward-looking capital-market forecast. Recent-history and actual-period comparisons expose some sensitivity to the selected data.
-
-Rebuild the bundled data offline with `python3 scripts/prepare_history.py`. Only `site/` is deployed. Application code is MIT; source data retains its separate attribution and terms. Saved older plans and backups migrate to the current schema without changing balances, dates, or original manual rates.
-
-The funding outlook includes a semicircular likelihood-of-success gauge. Its percentage is the existing simulated frequency of paying every covered bill when due. The target tick and Target met / Near target / Below target label use the selected success threshold; a missing college budget shows no percentage. No separate control or new probability calculation is introduced.
-
-Outcome distributions display actual simulation frequencies across dollar bands for funding gaps, entry savings and total college costs. Fully funded paths are counted separately. The selector changes only the displayed summary and does not rerun the calculation. Percentile columns rank rows independently and do not describe a single combined scenario.
-
-Try an example opens a temporary fictional workspace. Exit example restores the previous student/scenario selection and all valid unsaved edits. Example mode disables local save, import and local-data deletion so a demonstration cannot overwrite the stored plan. It does not add a separate calculation action. Unsaved real work retains the normal navigation warning; example edits can be discarded by exiting.
-
-## Automatic saves and reload recovery (v0.2.2)
-
-Valid real-plan changes—including adding students/scenarios—automatically save. Save now forces an immediate save. A synchronous local recovery copy protects the latest valid plan while the browser database transaction is pending; reload restores the selected student/scenario and retries interrupted saves. Header status reports completion or storage/validation failures. Unfinished inputs are now recovered separately as raw drafts; only valid inputs enter calculations. Example-mode changes are deliberately temporary and never replace the real plan; exit before entering real students. Changes that existed only in memory in earlier releases cannot be reconstructed after the tab is gone. Exported backups remain portable; browser saves do not sync devices.
-
-## Session samples and gauge colors (v0.2.3)
-
-Each independent tab session starts with a cryptographically generated unsigned 32-bit seed. Reloads and repeated calculations retain it; edit Random seed under Calculation settings to choose another sample. Clearing the field reuses the current session seed. The seed is included in assessment exports, so a report can be reproduced with the same inputs/model/data. Browser-duplicated or restored tabs may retain copied session state. If session storage is blocked, the seed remains stable in the current page but cannot be retained through reload.
-
-The colored part of the gauge stops at the calculated percentage, with gray track beyond it. The filled part changes to a single shade as the percentage updates: brown/red at low likelihood, yellow by 45%, light green at 60%, and dark green at the selected target, with smooth interpolation between these points. A contrasting marker shows the actual result and a tick shows the target. Percentages and Below target / Near target / Target met labels remain available; no budget remains neutral gray. No extra calculation button is introduced.
-
-## Workbook-inspired planning improvements (v0.3.0)
-
-- Semester tuition/grants: two bills at enrollment and five months later. Quarter tuition/grants: three bills at enrollment and three/six months later. Investment compounding remains monthly.
-- Living costs and direct income support can span nine or twelve months per school year. Choosing twelve changes timing; enter a full-year budget if including summer costs.
-- Preview published 2026–27 on-campus budgets for public in-state, public out-of-state and private nonprofit sectors, or a specifically labeled Harvard high-cost example. Use selected budget replaces five cost categories and source metadata, preserves funding/tuition calendar, and sets nine living months. All amounts remain editable; no aid is inferred. See [budget sources and attribution](data/school-costs.md).
-- Year-by-year funding now appears directly in results as a clearly labeled fixed-rate reference, with opening savings, growth, deposits, withdrawals, unpaid bills and closing savings. It is not a median Monte Carlo path.
-- Family attendance calendar shows remaining academic months and peak simultaneous students, not a joint funding probability.
-- Dated allocation changes optionally replace automatic investment stages from their starting month onward. Cash is the remainder after stocks/bonds. These affect historical simulations and the history-derived reference; custom fixed reference rates remain separate.
-
-Saved schema-1 and schema-2 plans migrate to schema 3/model college-funding-2.1.0 while preserving existing amounts, dates, IDs and manual rates. The default remains semester tuition and nine living months. In v0.4.0, integer-cent shares distribute remainder cents across payments so a zero-growth annual budget reconciles exactly without negative bills.
-
-## Model and reliability improvements (v0.4.0)
-
-- One editing tab prevents conflicting browser saves; unfinished form drafts survive reload without becoming financial inputs. Close the editor and reload a reader to switch tabs.
-- Published tuition keeps the chosen annual trend (4% initially, illustrative), with historical tuition-index deviations as an explicitly imperfect variability proxy. Raw index mode is labeled separately. Tuition reprices annually, and integer-cent payment allocation eliminates negative remainder bills.
-- Whole-percentage gauge, sampling interval, near-target status and provisional savings estimates distinguish model frequency from target attainment.
-- Three complete simulated paths reconcile costs, investments, missed bills and annual cash flow. Marginal percentile tables and the deterministic reference remain expandable.
-- Each calculation includes period/block sensitivity, defined stress cases and walk-forward diagnostics with training cutoffs. Long horizons can have insufficient data for complete held-out testing.
-- Multiple students receive joint household outcomes from common economic paths. Choose one scenario per student under Household scenarios & attendance and optionally limit combined monthly savings deposits. Shared funds are counted once; no account transfers or allocation optimization are assumed.
-
-Schema-1/2/3 plans migrate to schema 4/model college-funding-3.0.0. Original amounts and manual rates are preserved; corrected modeling conventions intentionally change recalculated outcomes. Run `node scripts/validate-history.mjs` for the checked-in synthetic diagnostic report. Historical variability remains a proxy; real iPhone Safari verification is still required.
+Stress cases now compare with an unchanged baseline using the same 1,000 seeds and calendar blocks. An absent-grants stress has exactly zero effect when no grants are entered. The temporary fictional example now includes $60,000 savings and $500/month contributions, showing a more useful planning case without changing the model defaults. Application source is formatted for review; no runtime dependencies were added. Legacy Gaussian helpers remain for a separate cleanup; the live assessment continues to use the historical engine.

@@ -53,3 +53,7 @@ Semester/quarter tuition and grant timing; optional twelve-month living schedule
 ## v0.4.0 delivered
 
 Implemented draft recovery, single-editor protection, cent-safe splitting, annual tuition pricing, explicit tuition basis, coherent example paths, uncertainty-aware target presentation, block/stress/walk-forward diagnostics and joint household assessment with a monthly savings-deposit limit. Next data-quality work: school/sector published-price histories and richer cost proxies. Household allocation optimization and real iOS verification remain open.
+
+## v0.5.0 delivered
+
+Separate student funding from education paths, retain funding when switching paths, combine general and school-specific aid once, use scenario-specific attendance length, and reject/reset incompatible saved data without migration. Reusable shared education-template management remains a possible later improvement; the saved education contract no longer carries student funds.

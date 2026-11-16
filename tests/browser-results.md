@@ -37,3 +37,7 @@ Automated financial checks are separate from browser event/storage/worker checks
 26. Inspect sensitivity/stress/walk-forward diagnostics, including insufficient-history states and weak-coverage warning. Below-target independent contribution checks must be provisional; a near-target gauge must not imply materially different readiness from sample noise.
 
 27. As the calculated percentage changes, the entire semicircle must recolor uniformly (low brown/red, yellow at 45%, light green at 60%, dark green at target), rather than leaving a static gradient along the arc. Keep the marker, target tick and gray no-budget state.
+
+28. v0.5.0 deliberately resets incompatible local plans. Confirm a fresh zero-funded student, explanatory notice, and rejection of old backups; new-format data and unfinished drafts must save/reload normally.
+29. Enter student funding, create/switch/duplicate education scenarios, and verify savings, monthly deposits, general aid, coverage and investments remain shared. Costs, duration and school-specific aid must remain independent. Edit funding in one path; all paths must see the update after reload.
+30. Confirm the gauge's central range covers both equal-sized historical samples, while its arc/marker are labeled for the selected period. Stresses must include a matched unchanged baseline and percentage-point changes; no-aid assumptions with zero awards must have exactly zero change.
