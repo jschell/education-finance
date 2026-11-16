@@ -1,0 +1,39 @@
+name: Cost follow-up evidence
+on:
+  pull_request:
+    paths:
+      - 'scripts/**'
+      - 'tests/**'
+      - 'docs/cost-followup*'
+      - 'site/**'
+      - '.github/workflows/cost-followup.yml'
+permissions:
+  contents: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Generate follow-up evidence
+        env:
+          EMIT_RECOVERY_FILES: '1'
+        run: node scripts/validate-cost-followup.mjs
+      - name: Verify deterministic regeneration
+        run: |
+          cp site/data/cost-followup.json /tmp/cost-followup-first.json
+          cp docs/cost-followup-results.md /tmp/cost-followup-first.md
+          node scripts/validate-cost-followup.mjs
+          cmp site/data/cost-followup.json /tmp/cost-followup-first.json
+          cmp docs/cost-followup-results.md /tmp/cost-followup-first.md
+      - name: Repository checks
+        run: npm run check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cost-followup-evidence
+          path: |
+            site/data/cost-followup.json
+            docs/cost-followup-results.md
