@@ -1,10 +1,10 @@
-import { MODEL, PRNG, ASSUMPTIONS } from "./domain.js?v=0.5.0";
+import { MODEL, PRNG, ASSUMPTIONS } from "./domain.js?v=0.6.0";
 import {
   compile,
   runPath,
   logParameters,
   requiredContribution,
-} from "./engine.js?v=0.5.0";
+} from "./engine.js?v=0.6.0";
 export function random(seed) {
   let a = seed >>> 0;
   return () => {

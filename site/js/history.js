@@ -1,20 +1,20 @@
-import { allocationAt } from "./planning.js?v=0.5.0";
-import { outcomeDistribution } from "./distribution.js?v=0.5.0";
-import { MODEL, clone, resolveScenario } from "./domain.js?v=0.5.0";
+import { allocationAt } from "./planning.js?v=0.6.0";
+import { outcomeDistribution } from "./distribution.js?v=0.6.0";
+import { MODEL, clone, resolveScenario } from "./domain.js?v=0.6.0";
 import {
   compile,
   runPath,
   repriceRow,
   requiredContribution,
   annualRows,
-} from "./engine.js?v=0.5.0";
-import { random, quantile } from "./simulation.js?v=0.5.0";
+} from "./engine.js?v=0.6.0";
+import { random, quantile } from "./simulation.js?v=0.6.0";
 import {
   DATASET_ID,
   HISTORY_PRNG,
   PROFILES,
   periodLabel,
-} from "./history-config.js?v=0.5.0";
+} from "./history-config.js?v=0.6.0";
 const sort = (x) => x.sort((a, b) => a - b);
 const percentiles = (x) => {
   sort(x);
@@ -239,6 +239,7 @@ export function simulateHistorical(
   settings = {},
   progress = () => {},
   solve = true,
+  pathFactory = null,
 ) {
   const {
     seed = 12345,
@@ -281,19 +282,21 @@ export function simulateHistorical(
   const ranked = [],
     center = tuitionLogMean(rows);
   const make = (t) =>
-    historicalPath(
-      c,
-      rows,
-      blockIndices(
-        rows,
-        c.rows.length,
-        c.valuationMonth,
-        c.history.blockYears,
-        seed,
-        t,
-      ),
-      center,
-    );
+    pathFactory
+      ? pathFactory.make(t)
+      : historicalPath(
+          c,
+          rows,
+          blockIndices(
+            rows,
+            c.rows.length,
+            c.valuationMonth,
+            c.history.blockYears,
+            seed,
+            t,
+          ),
+          center,
+        );
   for (let t = 0; t < trials; t++) {
     const path = make(t),
       r = runPath(path.compiled, (i) => path.gross[i], c.monthly, "bands");
@@ -336,18 +339,20 @@ export function simulateHistorical(
       const verify = 1000;
       let passed = 0;
       for (let t = 0; t < verify; t++) {
-        const path = historicalPath(
-          c,
-          rows,
-          blockIndices(
-            rows,
-            c.rows.length,
-            c.valuationMonth,
-            c.history.blockYears,
-            seed ^ 0x51ed270b,
-            t,
-          ),
-        );
+        const path = pathFactory
+          ? pathFactory.verify(t)
+          : historicalPath(
+              c,
+              rows,
+              blockIndices(
+                rows,
+                c.rows.length,
+                c.valuationMonth,
+                c.history.blockYears,
+                seed ^ 0x51ed270b,
+                t,
+              ),
+            );
         if (
           runPath(path.compiled, (i) => path.gross[i], contribution, false)
             .success
@@ -430,6 +435,7 @@ export function simulateHistorical(
       contribution === null ? null : Math.max(0, contribution - c.monthly),
     confirmation,
     infeasible: solve && contribution === null,
+    ...pathFactory?.metadata,
   };
 }
 export function assessHistorical(

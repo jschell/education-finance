@@ -1,75 +1,35 @@
-# Economic calibration plan
+# Economic calibration · first implementation
 
-Proposed work, as of 2026-11-15. This document does not claim that the current historical model is economically calibrated.
+Application 0.6.0; model college-funding-5.0.0; assumptions us-sector-calibration-2026-11-16-v1. Implemented 2026-11-16. This is a provisional economic-assumption release, not a validated funding-probability model.
 
-## What calibration means here
+## In scope
 
-Choose defensible, dated expectations and uncertainty assumptions for the investment and college-cost processes, then test forecasts against corresponding observed outcomes that were not used to fit or choose the model. More Monte Carlo paths reduce sampling noise; they cannot correct inappropriate economic assumptions, proxy data or validation targets.
+- One Calculate evaluates cautious, central and favorable macro/cost cases with identical trial counts and matched random draws. The gauge shows their envelope; the arc, detailed paths, distributions and monthly contribution solver use the central case. Cases are not confidence intervals and have no assigned probability weights.
+- Published NCES sector tuition/required fees and on-campus room/board levels, separately for public four-year, public two-year and private nonprofit four-year. User budgets remain starting values. Academic CPI is inferred from current/constant-dollar column ratios. At-home/off-campus housing and books/transport/other expenses use general CPI.
+- Forward nominal anchors from the Philadelphia Fed SPF's latest common vintage, 2026Q1: central stocks 7%, Treasury yield proxy 4%, bills 3%, CPI 2.3%, annual units. The stock forecast is S&P 500, used as a broad-equity proxy. The bond forecast is a yield, not a total-return forecast; using it as a carry anchor is provisional. Cautious/favorable anchors use forecaster quartiles, with cautious equities lowered to 4.8% using Vanguard's published September 2026 outlook cross-check. These quartiles describe disagreement, not future return bounds. Anchors are held constant beyond ten years; no long-horizon calibration is claimed.
+- Real college growth = nominal sector gross growth / academic CPI gross growth. Its center uses the last ten annual changes. Persistent between-path drift draws use centered rolling-ten-year real-growth averages; cautious/favorable cost centers shift by plus/minus half their IQR. This is empirical regime sensitivity, not an estimated parameter confidence interval.
+- Every source year carries its paired tuition, housing and CPI changes plus twelve September–August market months. One-, three- or five-year consecutive blocks start at model-year boundaries. The same block and persistent-drift indices are shared across students/cases. Poor markets can coincide with higher expenses; the source's observed dependence is retained, not replaced by perfect correlation.
+- Asset monthly gross factors are scaled so each asset's source-year arithmetic mean annual gross return equals its case anchor. This retains source log-return deviations while avoiding interpreting an arithmetic forecast as a geometric compound return. Monthly fees and portfolio rebalancing retain the existing ledger convention. Annual CPI factors are similarly recentered; monthly CPI is interpolated, not observed. Nominal tuition/housing = adjusted real growth × the same CPI, so inflation is applied once. Academic tuition and on-campus housing prices are held within each attendance year; other costs follow monthly interpolated CPI.
+- Current schema-5 student funding is preserved, with model metadata upgraded. Historical replay remains an optional calculation mode. No extra button, required field, account linkage or live API is added.
 
-The current student-funding refactor is a data-ownership correction. The two-history gauge range and matched stress baselines improve presentation/comparison, not economic forecasting accuracy. Two historical periods are alternative models, not a confidence interval or a complete estimate of model uncertainty.
+## Observed-price validation and limits
 
-## 1. Specify the forecasting target
+`node scripts/validate_calibration.mjs` produces the committed `site/data/calibration-validation.json`. Each expanding training sample contains at least eleven annual levels. At each origin, the model fits only past prices/CPI and forecasts actual tuition plus on-campus room/board at 2, 5, 10 and 18 years. Training inflation replaces today's SPF forecasts so current expectations cannot leak into past forecasts. P10–P90 coverage, average signed median-relative error, median-forecast MAPE and fixed 4% tuition/3% housing MAPE are reported. Tests use 1,000 paths per fold and fixed seed 972461.
 
-Keep opening savings, deposit schedules, award assumptions and coverage goals explicit. Define whether the model predicts published tuition/mandatory fees, total published attendance allowances, actual family spending, or net prices after aid. These are different quantities. For this planner, a defensible initial target is published undergraduate tuition and attendance allowances, before separately entered grants, by school sector/residency and living arrangement. School-specific offers remain user inputs; eligibility is not inferred.
+**The component check fails to establish adequate coverage.** Public-four-year coverage is about 58%, 30%, 33% and 40% by the four horizons; private-four-year coverage is about 31%, 10%, 0%, and unavailable. The fixed-rate baseline often has smaller point errors. No fitting to these held-out results or post-hoc widening was performed to manufacture a pass.
 
-Evaluate distinct horizons such as 2, 5, 10 and 18 years, rather than treating near-entry and newborn forecasts as equally validated. Investment benchmarks must match the modeled stock/bond/cash allocations and duration. State fees, rebalancing and any omitted account/tax effects.
+Non-overlapping evaluation counts are explicit (public sectors: 13/5/2/1; private: 7/2/1/0). Wilson intervals for the non-overlapping coverage are included in the report, but common economic exposures and overlapping training data still limit independence. These are retrospective year-cutoff tests using revised aggregate prices, not historical release vintages. They do not validate investments, aid, household funding frequencies or individual school costs. Long horizons cannot be certified with these data.
 
-Deliverable: forecast-target and asset-mapping specification, with units, horizons and supported use cases.
+## Sources, proxies and reproducibility
 
-## 2. Build matched observed datasets
+See `data/calibration-manifest.json` and `data/NOTICE.md`. Rebuild with standard-library Python: `python3 scripts/prepare_calibration.py`, then the validation command above. Raw source hashes, matched historical-data hash and canonical derived-bundle SHA-256 are verified. Assessment exports retain method, versions, seed, case anchors and validation results. Browser work is entirely local.
 
-- Annual published tuition/fee and attendance-allowance histories: IPEDS Institutional Characteristics/student-charges files, with institution IDs, sector, residency, academic year and living arrangement. Room/board and other allowances are estimates, not necessarily actual spending. Keep school changes, missing observations, mergers and sample composition explicit. Use national/sector summaries as cross-checks rather than silently replacing school observations.
-- General inflation and appropriate living-cost proxies, clearly distinguished from school budget allowances.
-- Total-return asset series matching the actual portfolio definition. Improve or quantify the limitations of the yield-reconstructed bond proxy before treating it as an investable fund return.
-- Dated public inflation expectations and yield curves for forward-looking anchors. Archive both source values and release vintages; do not use revised/future information in earlier-date tests.
+NCES 2024 Table 330.10 is a pinned vintage, not asserted to be the latest table. The data cover through 2023–24. Private nonprofit levels begin in 1999; common paired annual changes span 2000–2023. Public prices use in-district charges; out-of-state and custom public paths use this sector growth proxy. On-campus room/board is not a local-rent model. Sector composition changes and the post-1995 institutional-definition break remain in the source. Bond returns retain the reconstructed Treasury proxy from the existing historical bundle.
 
-BLS college tuition CPI includes some financial-aid-adjusted observations and multiple degree levels/sectors. Demeaning its changes removes its sample mean, not aid effects or the difference between that index and a school's gross published price. It cannot serve as the observed gross-price target for validating published-price forecasts.
+Refresh annually through a reviewed data/model change; retain raw vintages and rerun coverage checks. Never silently fetch new defaults into an existing assessment.
 
-Deliverable: reproducible preprocessing, data dictionary, quality/missingness report, pinned source/checksum manifest and redistribution review. No personal student data are needed.
+## Outside this release
 
-## 3. Make the economic assumptions consistent
+School-specific growth calibration, current school scraping, net-price/aid eligibility forecasting, taxes and account restrictions, loans, foreign markets/currencies, optimization, validated allocation recommendations and empirically certified individual-family success percentages. Historical replay stresses remain available in replay mode; economic cases currently replace that diagnostic panel.
 
-Either retain an explicitly historical-replay model, or specify forward-looking anchors for all relevant processes together: stocks, bonds, cash, inflation, tuition and other costs. Avoid fixing tuition at an arbitrary trend while automatically treating a particularly favorable historical investment premium as the forward expectation.
-
-Real-dollar modeling can make assumptions easier to understand. Convert consistently: real gross return = nominal gross return / inflation gross factor. However, changing the unit of account alone does not improve calibration or erase dependence on the selected period. Expected real returns and expected tuition growth above inflation still need defensible assumptions.
-
-For a practical first model, use a documented baseline and lower/higher return-and-cost cases. Possible inputs include public yield curves and inflation expectations, with cautiously specified equity return assumptions checked against multiple sources. An investment firm's 10-year outlook is a useful external comparison, not a replacement for a cash-flow model or a forecast for every horizon. Do not fabricate probabilities for expert-selected cases.
-
-Deliverable: dated assumption register with parameter ranges, provenance, rationale, horizon and sensitivity to each input.
-
-## 4. Represent both economic variability and assumption uncertainty
-
-Retain paired market/inflation/cost sequences or residual blocks to preserve observed relationships. If recentering, define the transformation for every process and ensure it does not distort the intended dependence or generate implausible prices/returns. Test persistence and adverse combinations, not just marginal average returns.
-
-Consider an outer layer of economic assumptions for each complete simulated lifetime and an inner layer of year-to-year fluctuations. This prevents repeated short blocks from implying that every household receives the same long-run historical average. Parameter distributions require evidence; until then, report named cases and their outcome envelope rather than an apparently precise averaged probability. Costs and investments must remain paired within each path.
-
-Deliverable: pure simulation model, invariance/accounting tests and documented economic scenarios, including prolonged weak returns with rising education costs.
-
-## 5. Repair and expand validation
-
-The current walk-forward diagnostic transplants a synthetic plan onto held-out proxy observations, including transformed tuition changes. It is a conditional proxy replay, not a validation against actual published school bills. Repair the target/data match before using its cost coverage as evidence of real-world calibration.
-
-Use frozen training cutoffs, archived input vintages, unchanged hold-out periods and separate model-selection data. Test component forecasts before the final funding outcome. For costs, evaluate bias and 50%/80% prediction-interval coverage against observed comparable costs. For funding probabilities, examine reliability/Brier scores across documented historical planning cases and compare with simple relevant baselines. A fixed 50% guess is not always the appropriate base-rate forecast.
-
-Avoid treating overlapping years, many schools exposed to the same economy, or thousands of synthetic funding variations as thousands of independent economic histories. Account for clustering/effective sample size and report uncertainty around validation metrics. Long horizons may have too few independent cohorts to substantiate a precisely calibrated success percentage; say so.
-
-Predefine acceptance tolerances based on sample size, economic usefulness and benchmark performance. An 80% interval need not cover exactly 80% in a small sample. Do not widen intervals or fit parameters to a hold-out set and then claim that same set independently validates the revision.
-
-Deliverable: independent validation report by horizon/sector, scored baselines, documented failures and a decision on which probability claims are supported.
-
-## 6. Release and maintain the calibrated model separately
-
-Version assumptions independently of the engine and raw datasets. Record which assumption version produced each assessment; keep historical replay available for comparison. Refresh economic inputs on a stated schedule and when the evidence warrants it, retaining vintage snapshots and rerunning validation. Keep the browser app static: data preparation/calibration can run offline and publish a reviewed JSON bundle.
-
-Do not tune the model to make one family look funded, to reproduce a competitor's gauge, or to make the example look reassuring. Example inputs can be illustrative without changing the model assumptions.
-
-Deliverable: reviewed calibration bundle and user-facing explanation of supported horizons, remaining limitations, and how much results change across defensible cases.
-
-## Primary starting sources
-
-- [BLS college tuition CPI methodology](https://www.bls.gov/cpi/factsheets/college-tuition.htm): published and aid-adjusted quotes; academic-year pricing.
-- [NCES IPEDS Institutional Characteristics](https://nces.ed.gov/ipeds/survey-components/4) and [survey handbook](https://nces.ed.gov/statprog/handbook/ipeds.asp): tuition/fees, attendance charges and financial-aid components.
-- [Federal Reserve yield-curve models and data](https://www.federalreserve.gov/data/yield-curve-models.htm): nominal/TIPS yield information.
-- [Philadelphia Fed inflation forecasts](https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/inflation-forecasts) and [Survey of Professional Forecasters](https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/survey-of-professional-forecasters): inflation expectations and historical forecasts.
-- [Vanguard Capital Markets Model methodology](https://corporate.vanguard.com/content/corporatesite/us/en/corp/vemo/vemo-return-forecasts.html): external example of distributions, correlations, economic conditions and horizon-specific forecasts; not a model we can claim to reproduce.
-- [Federal Reserve model-risk guidance](https://www.federalreserve.gov/frrs/guidance/supervisory-guidance-on-model-risk-management.htm): conceptual soundness, data relevance, out-of-time testing and outcome analysis. This is a methodological reference, not a regulatory requirement for this app.
+Next work is genuine model improvement against untouched price histories or release vintages, stronger long-horizon regime treatment and independent investment validation. More Monte Carlo trials cannot fix the observed coverage failure.

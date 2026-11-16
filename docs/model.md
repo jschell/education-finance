@@ -1,6 +1,8 @@
 # Financial model and historical simulation methodology
 
-Implemented model `college-funding-4.0.0`, saved schema 5, application v0.5.0. Dataset `us-joint-monthly-1978-2024-v1` contains 564 complete monthly observations (January 1978–December 2024), retrieved 2026-11-15. Primary PRNG: `mulberry32-calendar-block-1`. One Calculate action includes the complete assessment. All monetary amounts are nominal USD unless labeled purchasing power.
+Default forward-anchored case methodology is specified in [economic calibration](economic-calibration.md). The historical replay sections below describe the optional legacy method.
+
+Implemented model `college-funding-5.0.0`, saved schema 5, application v0.6.0. Dataset `us-joint-monthly-1978-2024-v1` contains 564 complete monthly observations (January 1978–December 2024), retrieved 2026-11-15. Primary PRNG: `mulberry32-calendar-block-1`. One Calculate action includes the complete assessment. All monetary amounts are nominal USD unless labeled purchasing power.
 
 ## Cash flow and timing
 
@@ -78,7 +80,7 @@ Valid plans persist in IndexedDB with a synchronous localStorage recovery copy c
 
 Example mode snapshots the real workspace, disables real saves/import/delete, and restores the real plan on exit/reload. Example edits remain temporary. A pending unfinished real entry must be completed before switching into example mode.
 
-Schema 5 is deliberately incompatible with schemas 1–4. No migration, conflicting-balance reconciliation, or preservation of old records is performed. The editing tab discards legacy IndexedDB, recovery and draft copies; newer schema-5 copies are retained if stores contain mixed versions. Old backup formats are rejected. Current backups use `education-finance-2`. Recalculated assessment reports identify model 4.0.0.
+Schema 5 is deliberately incompatible with schemas 1–4. No migration, conflicting-balance reconciliation, or preservation of old records is performed. The editing tab discards legacy IndexedDB, recovery and draft copies; newer schema-5 copies are retained if stores contain mixed versions. Old backup formats are rejected. Current backups use `education-finance-2`. Recalculated assessment reports identify model 5.0.0.
 
 ## Student funding versus education scenarios (v0.5.0)
 
@@ -92,4 +94,6 @@ Shared funding dates are validated independently of whichever education path is 
 
 No migration from conflicting scenario-level balances exists by design. This release intentionally clears incompatible older browser plans and rejects old backups. The browser editor lock is acquired before resetting records, so another active editor must close before the new release can own/reset the workspace. New saved student funding, recovery copies and unfinished drafts retain normal autosave semantics.
 
-Economic calibration work is specified separately in [the calibration plan](economic-calibration.md). Expressing the model in real dollars alone would not repair the assumptions. No forward-looking recalibration is claimed in this release.
+Economic calibration work is specified separately in [the calibration plan](economic-calibration.md). Expressing the model in real dollars alone would not repair the assumptions. The default now uses forward-anchored economic cases; see the calibration document. Their funding frequencies remain provisional because actual-price validation is weak. The historical method below remains available as an explicit replay mode.
+
+Schema-5/model-4.0.0 plans retain all student and scenario data through a metadata-only upgrade to model 5.0.0; recalculation uses the newly selected methodology. The economic method is a calculation setting, recorded in assessment exports, not a hidden student funding override.

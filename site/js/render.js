@@ -1,9 +1,9 @@
-import { samplingRangeText, targetStatus } from "./probability.js?v=0.5.0";
-import { resolveScenario } from "./domain.js?v=0.5.0";
-import { attendanceCalendar } from "./planning.js?v=0.5.0";
-import { gaugeColor } from "./gauge-colors.js?v=0.5.0";
-import { PROFILES } from "./history-config.js?v=0.5.0";
-import { annualRows, compile, runPath } from "./engine.js?v=0.5.0";
+import { samplingRangeText, targetStatus } from "./probability.js?v=0.6.0";
+import { resolveScenario } from "./domain.js?v=0.6.0";
+import { attendanceCalendar } from "./planning.js?v=0.6.0";
+import { gaugeColor } from "./gauge-colors.js?v=0.6.0";
+import { PROFILES } from "./history-config.js?v=0.6.0";
+import { annualRows, compile, runPath } from "./engine.js?v=0.6.0";
 export const money = (x) =>
   x === null
     ? "—"
@@ -435,12 +435,16 @@ function distributionView(sim) {
   return wrapper;
 }
 // Presentation only: the gauge uses the existing all-bills-paid simulation frequency.
-export function successGauge(sim, sensitivity = null) {
+export function successGauge(sim, sensitivity = null, cases = null) {
   const hasBudget = sim.cost > 0,
     p = hasBudget ? Math.max(0, Math.min(1, sim.probability)) : 0;
   const other = sensitivity?.probability ?? p,
-    low = Math.min(p, other),
-    high = Math.max(p, other);
+    low = cases
+      ? Math.min(...cases.map((c) => c.probability))
+      : Math.min(p, other),
+    high = cases
+      ? Math.max(...cases.map((c) => c.probability))
+      : Math.max(p, other);
   const meets = hasBudget && low >= sim.threshold;
   const rangeText =
     Math.round(low * 100) === Math.round(high * 100)
@@ -449,7 +453,9 @@ export function successGauge(sim, sensitivity = null) {
   const status = !hasBudget
     ? "Add a college budget"
     : low < sim.threshold && high >= sim.threshold
-      ? "History-sensitive"
+      ? cases
+        ? "Assumption-sensitive"
+        : "History-sensitive"
       : targetStatus(low, sim.trials, sim.threshold);
   const probabilityText = `${(p * 100).toLocaleString("en-US", { maximumFractionDigits: 0 })}%`;
   const card = el(
@@ -461,8 +467,19 @@ export function successGauge(sim, sensitivity = null) {
   if (hasBudget)
     card.style.setProperty("--gauge-color", gaugeColor(p, sim.threshold));
   card.append(
-    el("h3", "Historical funding range"),
-    el("p", "Sensitivity across both historical periods", "gauge-subtitle"),
+    el(
+      "h3",
+      cases
+        ? "Funding range across economic cases"
+        : "Historical funding range",
+    ),
+    el(
+      "p",
+      cases
+        ? "Cautious, central and favorable assumptions · provisional"
+        : "Sensitivity across both historical periods",
+      "gauge-subtitle",
+    ),
   );
   const visual = el("div", "", "gauge-visual");
   const ns = "http://www.w3.org/2000/svg",
@@ -528,18 +545,28 @@ export function successGauge(sim, sensitivity = null) {
     visual.setAttribute("role", "meter");
     visual.setAttribute(
       "aria-label",
-      "Selected historical-period funding frequency",
+      cases
+        ? "Central economic-case funding frequency"
+        : "Selected historical-period funding frequency",
     );
     visual.setAttribute("aria-valuemin", "0");
     visual.setAttribute("aria-valuemax", "100");
     visual.setAttribute("aria-valuenow", String(p * 100));
     visual.setAttribute(
       "aria-valuetext",
-      `${rangeText} across histories; selected history ${probabilityText}; ${status}; target ${pct(sim.threshold)}`,
+      `${rangeText} across ${cases ? "economic cases" : "histories"}; ${sim.period} ${probabilityText}; ${status}; target ${pct(sim.threshold)}`,
     );
   }
   card.append(visual);
   if (hasBudget) {
+    if (cases)
+      card.append(
+        el(
+          "p",
+          "Case range, not a confidence interval. The cases have no assigned probabilities; sector-price validation is weak. Arc and detailed outcomes use the central case.",
+          "hint",
+        ),
+      );
     card.append(
       el(
         "p",
@@ -579,7 +606,7 @@ export function successGauge(sim, sensitivity = null) {
     card.append(
       el(
         "p",
-        `Selected-period sampling interval ${samplingRangeText(p, sim.trials)}. This measures sample noise and excludes model uncertainty. The arc reaches yellow at 45%, light green at 60%, and dark green at your target. Target status is shown separately.`,
+        `${cases ? "Central-case" : "Selected-period"} sampling interval ${samplingRangeText(p, sim.trials)}. This measures sample noise and excludes model uncertainty. The arc reaches yellow at 45%, light green at 60%, and dark green at your target. Target status is shown separately.`,
         "hint",
       ),
     );
@@ -595,14 +622,14 @@ export function successGauge(sim, sensitivity = null) {
   );
   return card;
 }
-export function simulationView(sim, sensitivity = null) {
+export function simulationView(sim, sensitivity = null, cases = null) {
   const s = section(
     "Funding outlook",
-    `${sim.trials.toLocaleString()} historical paths`,
+    `${sim.trials.toLocaleString()} ${cases ? "paths per economic case" : "historical paths"}`,
   );
   const overview = el("div", "", "funding-summary");
   overview.append(
-    successGauge(sim, sensitivity),
+    successGauge(sim, sensitivity, cases),
     stats([
       ["Median funding gap", money(sim.gap.p50), "Unpaid covered expenses"],
       [
@@ -616,18 +643,20 @@ export function simulationView(sim, sensitivity = null) {
   s.append(
     el(
       "p",
-      `${sim.period} observations · ${sim.blockYears}-year blocks · ${PROFILES[sim.profile].name}. ${sim.costMode === "historical" ? "Investment returns and expense-growth deviations use the same historical months." : "Investment returns vary; expense-growth rates are fixed."}`,
+      `${sim.period} · ${sim.blockYears}-year blocks · ${PROFILES[sim.profile].name}. ${sim.costMode === "historical" ? (sim.calibrationCase ? "Market months and published annual cost changes stay paired within sampled source years." : "Investment returns and expense-growth deviations use the same historical months.") : "Investment returns vary; expense-growth rates are fixed."}`,
       "hint",
     ),
   );
   s.append(
     el(
       "p",
-      sim.costMode === "fixed"
-        ? `Fixed expense growth: tuition ${pct(sim.tuitionTrend)} per year; living costs use the entered fixed rate. Historical investment returns still vary.`
-        : sim.tuitionBasis === "published"
-          ? `Published-price planning: tuition uses your ${pct(sim.tuitionTrend)} annual trend, with historical tuition-index deviations as an imperfect variability proxy. The index mean is removed because it includes some aid adjustments. Grants remain separate.`
-          : "Tuition-index planning: uses the observed BLS tuition index, including some aid-adjusted prices. It is not a pure published-price series.",
+      sim.calibrationCase && sim.costMode !== "fixed"
+        ? "Published sector tuition and on-campus room/board are modeled relative to inflation. Other expenses and off-campus/at-home housing use CPI. Joint annual blocks retain observed market/cost associations; the sector cost trend also varies between paths. Grants remain separate."
+        : sim.costMode === "fixed"
+          ? `Fixed expense growth: tuition ${pct(sim.tuitionTrend)} per year; living costs use the entered fixed rate. Historical investment returns still vary.`
+          : sim.tuitionBasis === "published"
+            ? `Published-price planning: tuition uses your ${pct(sim.tuitionTrend)} annual trend, with historical tuition-index deviations as an imperfect variability proxy. The index mean is removed because it includes some aid adjustments. Grants remain separate.`
+            : "Tuition-index planning: uses the observed BLS tuition index, including some aid-adjusted prices. It is not a pure published-price series.",
       "hint",
     ),
   );
@@ -696,7 +725,7 @@ export function simulationView(sim, sensitivity = null) {
   solver.append(
     el(
       "strong",
-      `Selected-period monthly savings · ${pct(sim.threshold)} target${sim.confirmation && !sim.confirmation.meets ? " · provisional" : ""}`,
+      `${sim.calibrationCase ? "Central-case" : "Selected-period"} monthly savings · ${pct(sim.threshold)} target${sim.confirmation && !sim.confirmation.meets ? " · provisional" : ""}`,
     ),
   );
   if (!sim.cost)
@@ -1109,6 +1138,17 @@ export function householdView(h) {
       ["Combined higher gap", money(h.gap.p90), "90th percentile"],
     ]),
   );
+  if (h.cases)
+    wrap.append(
+      table(
+        "Household economic-case sensitivity",
+        ["Case", "All students funded"],
+        h.cases.map((c) => [
+          c.name,
+          c.probability === null ? "—" : pct(c.probability),
+        ]),
+      ),
+    );
   const annual = el("details");
   annual.append(el("summary", "Annual household costs & savings deposits"));
   annual.append(
@@ -1157,5 +1197,98 @@ export function householdView(h) {
         "hint",
       ),
     );
+  return wrap;
+}
+
+export function calibrationContextView(result) {
+  const c = result.calibration,
+    sim = result.simulation;
+  const wrap = section(
+    "Economic assumptions & observed-price checks",
+    "Provisional · " + c.asOf,
+  );
+  wrap.append(
+    table(
+      "Named assumptions · annual nominal anchors before fees",
+      [
+        "Case",
+        "Stocks",
+        "Treasury proxy",
+        "Cash",
+        "Inflation",
+        "Covered bills funded",
+      ],
+      c.cases.map((k) => [
+        k.name,
+        pct(k.anchors.stocks),
+        pct(k.anchors.bonds),
+        pct(k.anchors.cash),
+        pct(k.anchors.inflation),
+        sim.cost ? pct(k.probability) : "—",
+      ]),
+    ),
+  );
+  wrap.append(
+    el(
+      "p",
+      `SPF common vintage ${c.macro.commonVintage}: stocks and cash are annual-average return forecasts; the bond input is a Treasury yield used provisionally as a return anchor. Equity expectations are a broad-market proxy. Ten-year anchors are held constant beyond ten years. Forecaster quartiles measure disagreement, not predictive bounds. The cautious stock anchor also uses the lower end of Vanguard’s published equity outlook. Cases have no probability weights.`,
+      "hint",
+    ),
+  );
+  const current = c.validation.results.filter((r) => r.sector === c.sector);
+  wrap.append(
+    table(
+      "Published-price back-test · " + c.sector,
+      [
+        "Horizon",
+        "Year-cutoff folds",
+        "P10–P90 coverage",
+        "Non-overlapping periods",
+        "Median forecast MAPE",
+        "Fixed 4%/3% MAPE",
+      ],
+      current.map((r) => [
+        r.horizon + " years",
+        String(r.folds.length),
+        r.coverage === null ? "Unavailable" : pct(r.coverage),
+        String(r.nonoverlapping),
+        r.mape === null ? "—" : pct(r.mape),
+        r.baselineMape === null ? "—" : pct(r.baselineMape),
+      ]),
+    ),
+  );
+  wrap.append(
+    el("p", c.validation.method + " " + c.validation.limitations, "hint"),
+  );
+  wrap.append(
+    el(
+      "p",
+      `Price data: ${c.source.name}, through 2023–24. Sector proxy ${c.sector}; custom/public out-of-state paths use public in-district growth, which does not validate out-of-state prices. Off-campus/at-home housing uses CPI. Your entered budget sets the starting price; the dataset supplies growth, not a replacement budget.`,
+      "hint",
+    ),
+  );
+  for (const note of c.notes) wrap.append(el("p", note, "hint"));
+  const details = el("details");
+  details.append(el("summary", "Source snapshot & reproducibility"));
+  details.append(
+    el(
+      "p",
+      `${c.id} · SHA-256 ${c.hash}. History windows 2000–2023, jointly sampled in ${sim.blockYears}-year blocks. Source aggregates may be revised. Changing model assumptions can materially change funding frequencies.`,
+      "hint",
+    ),
+  );
+  for (const [label, url] of [
+    ["NCES published-price table", c.source.url],
+    [
+      "Philadelphia Fed forecasts",
+      "https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/survey-of-professional-forecasters",
+    ],
+    ["Vanguard equity cross-check", c.macro.equityCrosscheck.url],
+  ]) {
+    const a = el("a", label);
+    a.href = url;
+    details.append(a, el("br"));
+  }
+  wrap.append(details);
   return wrap;
 }

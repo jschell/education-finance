@@ -8,8 +8,8 @@
       content="Plan college costs and savings one student at a time. Compare projections, Monte Carlo funding ranges, and saved scenarios locally."
     />
     <title>Education Finance · College funding planner</title>
-    <link rel="stylesheet" href="./assets/styles.css?v=0.5.0" />
-    <script type="module" src="./js/app.js?v=0.5.0"></script>
+    <link rel="stylesheet" href="./assets/styles.css?v=0.6.0" />
+    <script type="module" src="./js/app.js?v=0.6.0"></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to planner</a>
@@ -584,7 +584,7 @@
                     Investment rates apply to the custom reference projection;
                     living-cost and discount rates also apply when fixed cost
                     growth is selected. The tuition trend above applies to
-                    published-price planning. Historical outcome ranges use the
+                    published-price planning. Economic cases & historical replay use the
                     selected investment profile and observed return sequences.
                   </p>
                   <div class="pair">
@@ -655,6 +655,17 @@
               Calculation settings <span class="optional">optional</span>
             </summary>
             <div class="fields">
+              <label
+                >Economic model<select id="economic-method">
+                  <option value="calibrated">
+                    Economic cases · provisional
+                  </option>
+                  <option value="historical">
+                    Historical replay & period sensitivity
+                  </option>
+                </select></label
+              >
+              <p id="economic-method-note" class="hint"></p>
               <div class="pair">
                 <label
                   >Trials<select id="trials">
@@ -750,7 +761,7 @@
             </p>
           </div>
           <div>
-            <h3>Historical outcome ranges</h3>
+            <h3>Economic cases & historical replay</h3>
             <p>
               One calculation resamples aligned historical market returns,
               tuition inflation, and general inflation. It also compares actual

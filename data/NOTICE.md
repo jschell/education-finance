@@ -11,3 +11,11 @@ Application code is MIT licensed. The historical observations have separate sour
 School-budget preset data also has separate attribution and source terms. See [published budget snapshots](school-costs.md). Application MIT licensing does not relicense College Board or university source content.
 
 Runtime model 3.0.0 additionally offers published-price planning using a user-specified annual tuition trend with demeaned BLS tuition-index log changes as an imperfect variability proxy. The source snapshot/checksum is unchanged. The mean adjustment does not convert the source into pure gross tuition history or remove aid effects from volatility. Raw index mode remains explicitly selectable. See [BLS pricing methodology](https://www.bls.gov/cpi/factsheets/college-tuition.htm).
+
+## Economic calibration snapshot (2026-11-16)
+
+MIT applies to application code, not upstream source content. Pinned raw NCES federal statistical table and Philadelphia Fed SPF data workbooks are retained for reproducibility with original attribution; see their source terms. No Vanguard article or proprietary simulation code is copied; the cross-check records two published numerical range endpoints and source/date/hash.
+
+- NCES Digest 2024 Table 330.10: https://nces.ed.gov/programs/digest/d24/tables/dt24_330.10.asp (prepared November 2024, levels through 2023–24). Public tuition is in-district; room/board covers institutions reporting on-campus charges.
+- Philadelphia Fed SPF: https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/survey-of-professional-forecasters . STOCK10/BILL10 are annual-average return forecasts; BOND10 is expected Treasury yield. Common forecast/dispersion vintage 2026Q1, despite later CPI releases being present. Original workbook URLs and raw hashes are in the calibration manifest.
+- Vanguard public equity outlook: https://corporate.vanguard.com/content/corporatesite/us/en/corp/vemo/vemo-return-forecasts.html . September 30, 2026 US equity ten-year 4.8–6.8% forecast range around its median, not a predictive confidence interval. Used only as an alternative expectation anchor; no affiliation or replication of Vanguard's model is claimed.

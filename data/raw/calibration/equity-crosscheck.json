@@ -1,0 +1,13 @@
+{
+  "source": "Vanguard VCMM public US equity 10-year outlook",
+  "url": "https://corporate.vanguard.com/content/corporatesite/us/en/corp/vemo/vemo-return-forecasts.html",
+  "forecastAsOf": "2026-09-30",
+  "published": "2026-10-21",
+  "retrieved": "2026-11-16",
+  "nominalAnnualizedRange": [
+    0.048,
+    0.068
+  ],
+  "rangeMeaning": "Two-percentage-point range around median expectations, not prediction-interval endpoints. Used only as an alternative planning anchor.",
+  "sourceHtmlSha256": "154dbbbb64e18efd16b5d9cf1808d1904a5f8ee418bb79c16a0f4f57695d3b2f"
+}

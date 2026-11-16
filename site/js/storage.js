@@ -1,4 +1,4 @@
-import { validatePlan, clone, SCHEMA } from "./domain.js?v=0.5.0";
+import { validatePlan, clone, SCHEMA } from "./domain.js?v=0.6.0";
 const DB = "education-finance",
   KEY = "workspace";
 function database() {

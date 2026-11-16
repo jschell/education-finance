@@ -1,0 +1,113 @@
+{
+  "id": "us-sector-calibration-2026-11-16-v1",
+  "asOf": "2026-11-16",
+  "source": {
+    "name": "NCES Digest 2024 Table 330.10",
+    "url": "https://nces.ed.gov/programs/digest/d24/tables/dt24_330.10.asp",
+    "prepared": "2024-11",
+    "coverage": "Sector-average published tuition/required fees and on-campus room/board, not net prices or individual-school forecasts. Public fees use in-district charges; out-of-state growth is a proxy. Private series is nonprofit four-year.",
+    "deflator": "Academic-year CPI deflator implied by current/constant-dollar columns; median across 12 reported ratios reduces rounding noise.",
+    "breaks": [
+      "Start at 1986 to exclude earlier board-definition break.",
+      "Institution population definition changes after 1995–96; retained and disclosed.",
+      "Aggregates reflect enrollment/composition changes and later revisions, not a fixed-school panel."
+    ]
+  },
+  "historyDataset": "us-joint-monthly-1978-2024-v1",
+  "historyHash": "2428c0397502642b2a672473f3a4ad83c0026d64cacef2df99db909ca37c1e4f",
+  "macro": {
+    "commonVintage": "2026Q1",
+    "horizonYears": 10,
+    "surveyQuartiles": {
+      "STOCK10": [
+        0.059000000000000004,
+        0.07,
+        0.085
+      ],
+      "BOND10": [
+        0.0378,
+        0.04,
+        0.042053
+      ],
+      "BILL10": [
+        0.028769,
+        0.03,
+        0.032
+      ],
+      "CPI10": [
+        0.022000000000000002,
+        0.023,
+        0.025
+      ]
+    },
+    "equityCrosscheck": {
+      "source": "Vanguard VCMM public US equity 10-year outlook",
+      "url": "https://corporate.vanguard.com/content/corporatesite/us/en/corp/vemo/vemo-return-forecasts.html",
+      "forecastAsOf": "2026-09-30",
+      "published": "2026-10-21",
+      "retrieved": "2026-11-16",
+      "nominalAnnualizedRange": [
+        0.048,
+        0.068
+      ],
+      "rangeMeaning": "Two-percentage-point range around median expectations, not prediction-interval endpoints. Used only as an alternative planning anchor.",
+      "sourceHtmlSha256": "154dbbbb64e18efd16b5d9cf1808d1904a5f8ee418bb79c16a0f4f57695d3b2f"
+    },
+    "cases": [
+      {
+        "id": "cautious",
+        "name": "Lower returns / higher costs",
+        "anchors": {
+          "stocks": 0.048,
+          "bonds": 0.0378,
+          "cash": 0.028769,
+          "inflation": 0.025
+        },
+        "costShift": 1
+      },
+      {
+        "id": "central",
+        "name": "Central assumptions",
+        "anchors": {
+          "stocks": 0.07,
+          "bonds": 0.04,
+          "cash": 0.03,
+          "inflation": 0.023
+        },
+        "costShift": 0
+      },
+      {
+        "id": "favorable",
+        "name": "Higher returns / lower costs",
+        "anchors": {
+          "stocks": 0.085,
+          "bonds": 0.042053,
+          "cash": 0.032,
+          "inflation": 0.022000000000000002
+        },
+        "costShift": -1
+      }
+    ],
+    "interpretation": "Named assumption cases, not probability-weighted scenarios. Survey quartiles measure forecaster disagreement, not predictive coverage. BOND10 is expected Treasury yield used as a provisional return anchor, not a measured fund-return forecast."
+  },
+  "rawHashes": {
+    "Dispersion_BILL10.xlsx": "d33c1d345d47ace63b9cdf44ab962b5537d5546a7e40f5caf98f1de326d0d5d4",
+    "Dispersion_BOND10.xlsx": "1969986c8929db9d4a28f830c16fd8bb15780a6c68d36fcb357426ff009f9f47",
+    "Dispersion_CPI10.xlsx": "5b17dbbfe936b22850c2cd586e898ecb186b34ac755200762cc85f52fea3595a",
+    "Dispersion_STOCK10.xlsx": "beb7d9da1031493ac76fa6e3070d2a938bbe1d8394ffa4e591df5f5f833d3883",
+    "Median_BILL10_Level.xlsx": "d9f45ee09964c2bb0639b62ad56a508f0393b4e89a383f21ad9b5304347511bd",
+    "Median_BOND10_Level.xlsx": "74b69380a03b80083da6cb9740a9f71937e5e3c6a986f13251852fc05dc82417",
+    "Median_STOCK10_Level.xlsx": "f7a671a2c2580b4c13c430836b65f18b4de79467331317670cc8d72e69fe967d",
+    "equity-crosscheck.json": "c1a5c746e3ec35c2a901eb76bb360f438494c3587d9277edf25f582b4c4cc41a",
+    "nces33010-2024.html.gz": "0200f6d30e895a1c9f09859620ada06505cf83269ccd64801b326f664944ddf5",
+    "spf-inflation.xlsx": "2b2147fb5bf756ec0a48e70a376aedac8ea5b6eccaab02d03da480878e7a8a9e"
+  },
+  "notes": [
+    "24 common academic-year transitions, 2000–2023. Each carries 12 consecutive September–August market months. Block starts align to model years, not calendar months.",
+    "General inflation is interpolated monthly from the source academic-year deflator; it is not observed monthly CPI in this model.",
+    "Other expenses use general inflation. Off-campus/at-home housing uses CPI; on-campus housing uses published room/board growth.",
+    "Treasury returns retain the existing reconstructed nominal bond proxy; total-market stocks use S&P 500 expectations as a broad-equity proxy.",
+    "Data-calibrated assumptions and retrospective sector checks do not establish calibrated individual-family success probabilities."
+  ],
+  "sha256": "8a42ccd22ad94e093f32343761ad4c89948243f2d2a9525f00c4f6407025c35e"
+}

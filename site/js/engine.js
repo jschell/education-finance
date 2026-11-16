@@ -1,10 +1,10 @@
-import { termOffsets, allocationAt } from "./planning.js?v=0.5.0";
+import { termOffsets, allocationAt } from "./planning.js?v=0.6.0";
 import {
   month,
   monthText,
   categories,
   resolveScenario,
-} from "./domain.js?v=0.5.0";
+} from "./domain.js?v=0.6.0";
 export const portion = (annual, index, count) => {
   const units = Math.round((annual + Number.EPSILON) * 100),
     base = Math.floor(units / count);
@@ -43,7 +43,12 @@ export function compile(plan, student, scenario, mode = "all") {
               ? 0
               : portion(scenario.costs[k], term, terms.length)
             : portion(scenario.costs[k], within, livingMonths);
-        const growth = k === "tuition" ? a.tuitionGrowth : a.livingGrowth;
+        const growth =
+          k === "tuition"
+            ? a.tuitionGrowth
+            : k === "housing"
+              ? a.livingGrowth
+              : (a.otherGrowth ?? a.livingGrowth);
         valuationCosts[k] = payment * (1 + growth) ** ((start - base) / 12);
         const priceMonth =
           k === "tuition" ? Math.max(start, entry + year * 12) : t;
@@ -288,14 +293,24 @@ export function requiredContribution(c, growth) {
   return Math.max(0, required);
 }
 
-export function repriceRow(row, tuitionFactor, livingFactor, discount) {
+export function repriceRow(
+  row,
+  tuitionFactor,
+  livingFactor,
+  discount,
+  otherFactor = livingFactor,
+) {
   if (!row.attending) return row;
   const costs = Object.fromEntries(
     categories.map((k) => [
       k,
       cents(
         row.valuationCosts[k] *
-          (k === "tuition" ? tuitionFactor : livingFactor),
+          (k === "tuition"
+            ? tuitionFactor
+            : k === "housing"
+              ? livingFactor
+              : otherFactor),
       ),
     ]),
   );

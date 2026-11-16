@@ -41,3 +41,8 @@ Automated financial checks are separate from browser event/storage/worker checks
 28. v0.5.0 deliberately resets incompatible local plans. Confirm a fresh zero-funded student, explanatory notice, and rejection of old backups; new-format data and unfinished drafts must save/reload normally.
 29. Enter student funding, create/switch/duplicate education scenarios, and verify savings, monthly deposits, general aid, coverage and investments remain shared. Costs, duration and school-specific aid must remain independent. Edit funding in one path; all paths must see the update after reload.
 30. Confirm the gauge's central range covers both equal-sized historical samples, while its arc/marker are labeled for the selected period. Stresses must include a matched unchanged baseline and percentage-point changes; no-aid assumptions with zero awards must have exactly zero change.
+
+
+## v0.6.0 economic cases (2026-11-16)
+
+Remote Chrome, synthetic data only. Verified existing schema-5 students load under model-5 metadata with funding visible; central and two alternate cases render from one assessment; household missing-budget percentage stays suppressed. Phone iframe 390×844 (body 375 px) and iPad landscape 1024×768 (body 1009 px) show no horizontal body overflow. Project prefix /education-finance/ loads worker/data/modules and both economic-case and historical-replay results. Changing method enables/disables history period controls; keyboard Tab from method reaches trials. Gauge still fills to central frequency, remaining track gray, with the case envelope in its center. Physical iOS/Safari remains unverified. Evidence: evidence/v0.6.0-calibration-phone.jpg and evidence/v0.6.0-calibration-ipad.jpg.

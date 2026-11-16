@@ -1,14 +1,18 @@
-import { clone, validatePlan, resolveScenario } from "./domain.js?v=0.5.0";
-import { compile, runPath } from "./engine.js?v=0.5.0";
+import {
+  compileCalibrated,
+  calibrationFactory,
+} from "./calibration.js?v=0.6.0";
+import { clone, validatePlan, resolveScenario } from "./domain.js?v=0.6.0";
+import { compile, runPath } from "./engine.js?v=0.6.0";
 import {
   observations,
   referenceScenario,
   historicalPath,
   blockIndices,
   tuitionLogMean,
-} from "./history.js?v=0.5.0";
-import { quantile } from "./simulation.js?v=0.5.0";
-import { periodLabel } from "./history-config.js?v=0.5.0";
+} from "./history.js?v=0.6.0";
+import { quantile } from "./simulation.js?v=0.6.0";
+import { periodLabel } from "./history-config.js?v=0.6.0";
 const range = (values) => {
   values.sort((a, b) => a - b);
   return {
@@ -39,6 +43,7 @@ export function assessHousehold(
   settings,
   commonHistory,
   progress = () => {},
+  calibration = null,
 ) {
   validatePlan(plan);
   const selected = plan.students.map((st) => ({
@@ -51,7 +56,15 @@ export function assessHousehold(
     const sc = resolveScenario(student, scenario);
     sc.history.period = commonHistory.period;
     sc.history.blockYears = commonHistory.blockYears;
-    return compile(plan, student, referenceScenario(sc, data));
+    return calibration
+      ? compileCalibrated(
+          plan,
+          student,
+          sc,
+          calibration.bundle,
+          calibration.assumptionCase,
+        ).c
+      : compile(plan, student, referenceScenario(sc, data));
   });
   const contributionSchedule = capHouseholdContributions(
       compiled,
@@ -60,6 +73,16 @@ export function assessHousehold(
     rows = observations(data, commonHistory.period),
     center = tuitionLogMean(rows),
     length = Math.max(...compiled.map((c) => c.rows.length));
+  const factories = calibration
+    ? compiled.map((c) =>
+        calibrationFactory(
+          c,
+          calibration.bundle,
+          settings,
+          calibration.assumptionCase,
+        ),
+      )
+    : null;
   const missingBudgets = selected
     .filter(({ scenario }) => !Object.values(scenario.costs).some((x) => x > 0))
     .map(({ student }) => student.alias);
@@ -83,8 +106,10 @@ export function assessHousehold(
       cost = 0,
       ending = 0;
     const yearly = new Map();
-    for (const c of compiled) {
-      const path = historicalPath(c, rows, indices, center),
+    for (const [j, c] of compiled.entries()) {
+      const path = factories
+          ? factories[j].make(t)
+          : historicalPath(c, rows, indices, center),
         result = runPath(path.compiled, (i) => path.gross[i], c.monthly, false);
       success &&= result.success;
       gap += result.shortfall;
@@ -124,7 +149,9 @@ export function assessHousehold(
   return {
     trials,
     seed: settings.seed,
-    period: periodLabel(commonHistory.period),
+    period: calibration
+      ? calibration.assumptionCase.name + " · forward-anchored"
+      : periodLabel(commonHistory.period),
     blockYears: commonHistory.blockYears,
     probability: missingBudgets.length ? null : passed / trials,
     missingBudgets,

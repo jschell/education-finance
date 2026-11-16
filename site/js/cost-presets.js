@@ -1,4 +1,4 @@
-import { clone, month } from "./domain.js?v=0.5.0";
+import { clone, month } from "./domain.js?v=0.6.0";
 const board =
   "https://research.collegeboard.org/media/pdf/trends-in-college-pricing-and-student-aid-2026.pdf";
 const common = {

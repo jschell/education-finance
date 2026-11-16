@@ -1,7 +1,23 @@
-import { assessHousehold } from "./household.js?v=0.5.0";
-import { validatePlan } from "./domain.js?v=0.5.0";
-import { assessHistorical, verifyHistory } from "./history.js?v=0.5.0";
-let dataPromise;
+import { assessCalibrated, verifyCalibration } from "./calibration.js?v=0.6.0";
+import { assessHousehold } from "./household.js?v=0.6.0";
+import { validatePlan } from "./domain.js?v=0.6.0";
+import { assessHistorical, verifyHistory } from "./history.js?v=0.6.0";
+let dataPromise, calibrationPromise;
+async function calibrationData(history) {
+  return (calibrationPromise ??= Promise.all(
+    ["calibration.json", "calibration-validation.json"].map((name) =>
+      fetch(new URL("../data/" + name, import.meta.url)).then((r) => {
+        if (!r.ok) throw Error("Calibration data could not be loaded.");
+        return r.json();
+      }),
+    ),
+  ).then(async ([bundle, validation]) => {
+    await verifyCalibration(bundle, history);
+    if (validation.bundleHash !== bundle.sha256)
+      throw Error("Validation report does not match the economic snapshot.");
+    return { bundle, validation };
+  }));
+}
 function data() {
   return (dataPromise ??= fetch(
     new URL("../data/history.json", import.meta.url),
@@ -21,6 +37,21 @@ self.onmessage = async ({ data: input }) => {
     const st = plan.students.find((s) => s.id === studentId);
     if (!st) throw Error("Student not found.");
     const progress = (p) => self.postMessage({ runId, type: "progress", ...p });
+    const calibrated = settings.method !== "historical";
+    const calibration = calibrated ? await calibrationData(dataset) : null;
+    const assess = (plan, student, scenario, data, settings, progress) =>
+      calibrated
+        ? assessCalibrated(
+            plan,
+            student,
+            scenario,
+            data,
+            calibration.bundle,
+            calibration.validation,
+            settings,
+            progress,
+          )
+        : assessHistorical(plan, student, scenario, data, settings, progress);
     let result;
     if (action === "compare") {
       result = st.scenarios.map((scenario, i) => {
@@ -32,7 +63,7 @@ self.onmessage = async ({ data: input }) => {
         return {
           id: scenario.id,
           name: scenario.name,
-          ...assessHistorical(plan, st, scenario, dataset, settings, (p) =>
+          ...assess(plan, st, scenario, dataset, settings, (p) =>
             progress({ ...p, scenario: scenario.name }),
           ),
         };
@@ -40,24 +71,41 @@ self.onmessage = async ({ data: input }) => {
     } else {
       const scenario = st.scenarios.find((s) => s.id === scenarioId);
       if (!scenario) throw Error("Scenario not found.");
-      result = assessHistorical(
-        plan,
-        st,
-        scenario,
-        dataset,
-        settings,
-        progress,
-      );
+      result = assess(plan, st, scenario, dataset, settings, progress);
     }
     if (plan.students.length > 1) {
       const chosen = st.scenarios.find((s) => s.id === scenarioId);
-      const household = assessHousehold(
+      let household = assessHousehold(
         plan,
         dataset,
         settings,
         chosen.history,
         progress,
+        calibrated
+          ? {
+              bundle: calibration.bundle,
+              assumptionCase: calibration.bundle.macro.cases[1],
+            }
+          : null,
       );
+      if (calibrated) {
+        household.cases = calibration.bundle.macro.cases.map(
+          (assumptionCase) => ({
+            name: assumptionCase.name,
+            probability:
+              assumptionCase.id === calibration.bundle.macro.cases[1].id
+                ? household.probability
+                : assessHousehold(
+                    plan,
+                    dataset,
+                    settings,
+                    chosen.history,
+                    progress,
+                    { bundle: calibration.bundle, assumptionCase },
+                  ).probability,
+          }),
+        );
+      }
       if (Array.isArray(result))
         result.forEach((r) => (r.household = household));
       else result.household = household;

@@ -1,5 +1,5 @@
-import { COST_PRESETS, applyCostPreset } from "./cost-presets.js?v=0.5.0";
-import { sessionSeed, updateSessionSeed } from "./session-seed.js?v=0.5.0";
+import { COST_PRESETS, applyCostPreset } from "./cost-presets.js?v=0.6.0";
+import { sessionSeed, updateSessionSeed } from "./session-seed.js?v=0.6.0";
 import {
   MODEL,
   PRNG,
@@ -20,9 +20,9 @@ import {
   pick,
   expenseKeys,
   investmentKeys,
-} from "./domain.js?v=0.5.0";
-import { PROFILES, periodLabel } from "./history-config.js?v=0.5.0";
-import { compile, runPath, annualRows } from "./engine.js?v=0.5.0";
+} from "./domain.js?v=0.6.0";
+import { PROFILES, periodLabel } from "./history-config.js?v=0.6.0";
+import { compile, runPath, annualRows } from "./engine.js?v=0.6.0";
 import {
   savePlan,
   loadPlan,
@@ -36,7 +36,7 @@ import {
   loadDraft,
   clearDraft,
   resetIncompatibleStorage,
-} from "./storage.js?v=0.5.0";
+} from "./storage.js?v=0.6.0";
 import {
   el,
   money,
@@ -45,11 +45,12 @@ import {
   simulationView,
   comparisonView,
   historyContextView,
+  calibrationContextView,
   annualFundingView,
   familyCalendarView,
   householdView,
   csvText,
-} from "./render.js?v=0.5.0";
+} from "./render.js?v=0.6.0";
 const $ = (s) => document.querySelector(s),
   form = $("#planner");
 const editing = await acquireEditor().catch((error) => ({
@@ -592,9 +593,19 @@ function hasAmounts() {
   );
 }
 function updateDefaultsSummary(st, sc) {
+  const calibrated = $("#economic-method").value === "calibrated";
+  for (const name of ["period", "tuitionBasis"])
+    form.querySelector(`[data-history=${name}]`).disabled = calibrated;
+  for (const name of ["tuitionGrowth", "livingGrowth", "inflation"])
+    form.querySelector(`[data-assumption=${name}]`).disabled =
+      calibrated && sc.history.costMode === "historical";
+  $("#economic-method-note").textContent = calibrated
+    ? "Published sector growth and forward return anchors replace the historical period, tuition basis and cost-growth fields when variable costs are selected. Annual blocks share market and cost shocks. Validation is provisional."
+    : "Historical replay mode uses the selected period and tuition basis. The economic calibration cases are not applied.";
+
   const profile = PROFILES[st.funding.history.profile];
   $("#defaults-summary").textContent =
-    `${sc.years} attendance years · ${sc.billing.calendar === "quarter" ? "3 quarter" : "2 semester"} tuition bills · ${sc.billing.livingMonths} living months · ${profile.name} · historical outcomes from ${periodLabel(sc.history.period)}. One calculation includes investment and expense ranges.`;
+    `${sc.years} attendance years · ${sc.billing.calendar === "quarter" ? "3 quarter" : "2 semester"} tuition bills · ${sc.billing.livingMonths} living months · ${profile.name} · ${$("#economic-method").value === "calibrated" ? "three provisional economic cases" : "historical outcomes from " + periodLabel(sc.history.period)}. One calculation includes investment and expense ranges.`;
   $("#cost-source-status").textContent = sc.costSource.presetId
     ? `${sc.costSource.modified ? "Edited budget based on" : "Published budget from"} ${sc.source}. Baseline ${sc.baseline}; checked ${sc.sourceDate}.`
     : "Your own estimate; source details are optional.";
@@ -829,9 +840,15 @@ function assessmentContents(result) {
           ),
         ]
       : []),
-    simulationView(result.simulation, result.sensitivity),
+    simulationView(
+      result.simulation,
+      result.sensitivity,
+      result.calibration?.cases,
+    ),
     ...(result.household ? [householdView(result.household)] : []),
-    historyContextView(result),
+    result.calibration
+      ? calibrationContextView(result)
+      : historyContextView(result),
     referencePanel(result),
   ];
 }
@@ -866,6 +883,7 @@ function settings() {
       throw Error("Review simulation settings.");
   currentSeed = updateSessionSeed($("#seed").valueAsNumber);
   return {
+    method: $("#economic-method").value,
     seed: currentSeed,
     trials: Number($("#trials").value),
     threshold: Number($("#threshold").value),
@@ -887,15 +905,15 @@ function startAssessment(
   )
     showProjection();
   message("");
-  calculationStatus("Calculating historical outcome ranges…");
+  calculationStatus("Calculating outcome ranges…");
   const thisRun = ++runId,
     snapshot = clone(plan);
   $("#run-status").hidden = false;
-  $("#progress-text").textContent = "Loading historical data…";
+  $("#progress-text").textContent = "Loading economic data…";
   $("#progress").value = 0;
   if (scroll)
     $("#run-status").scrollIntoView({ block: "start", behavior: "smooth" });
-  worker = new Worker(new URL("./worker.js?v=0.5.0", import.meta.url), {
+  worker = new Worker(new URL("./worker.js?v=0.6.0", import.meta.url), {
     type: "module",
   });
   worker.onmessage = ({ data }) => {
@@ -962,6 +980,11 @@ function startAssessment(
 form.addEventListener("input", (e) => {
   if (e.target.id === "cost-preset") return;
   if (
+    e.target.id === "economic-method" ||
+    e.target.dataset.history === "costMode"
+  )
+    updateDefaultsSummary(student(), scenario());
+  if (
     (e.target.dataset.cost !== undefined ||
       e.target.dataset.source !== undefined ||
       e.target.dataset.billing === "livingMonths") &&
@@ -979,6 +1002,11 @@ form.addEventListener("input", (e) => {
 });
 form.addEventListener("change", (e) => {
   if (e.target.id === "cost-preset") return;
+  if (
+    e.target.id === "economic-method" ||
+    e.target.dataset.history === "costMode"
+  )
+    updateDefaultsSummary(student(), scenario());
   if (
     e.target.tagName === "SELECT" ||
     e.target.type === "month" ||
