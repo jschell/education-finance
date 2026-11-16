@@ -177,7 +177,7 @@ test("single assessment returns primary ranges, actual periods, sensitivity, sou
   assert.equal(r.dataset.sources.length, 4);
   assert.ok(r.simulation.contribution > 0);
   assert.ok(r.simulation.confirmation.calibrationProbability >= 0.9);
-  assert.equal(r.simulation.confirmation.trials, 1000);
+  assert.equal(r.simulation.confirmation.trials, 5000);
 });
 test("path-specific solver covers repriced bills using the same historical sequence", () => {
   const { p, st, s, f } = fixture();

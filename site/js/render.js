@@ -1,9 +1,9 @@
-import { samplingRangeText, targetStatus } from "./probability.js?v=0.9.0";
-import { resolveScenario } from "./domain.js?v=0.9.0";
-import { attendanceCalendar } from "./planning.js?v=0.9.0";
-import { gaugeColor } from "./gauge-colors.js?v=0.9.0";
-import { PROFILES } from "./history-config.js?v=0.9.0";
-import { annualRows, compile, runPath } from "./engine.js?v=0.9.0";
+import { samplingRangeText, targetStatus } from "./probability.js?v=0.10.0";
+import { resolveScenario } from "./domain.js?v=0.10.0";
+import { attendanceCalendar } from "./planning.js?v=0.10.0";
+import { gaugeColor } from "./gauge-colors.js?v=0.10.0";
+import { PROFILES } from "./history-config.js?v=0.10.0";
+import { annualRows, compile, runPath } from "./engine.js?v=0.10.0";
 export const money = (x) =>
   x === null
     ? "—"
@@ -476,7 +476,7 @@ export function successGauge(sim, sensitivity = null, cases = null) {
     el(
       "p",
       cases
-        ? "Cautious, central and favorable assumptions"
+        ? "Cautious, central and favorable assumptions · no confidence level"
         : "Sensitivity across both historical periods",
       "gauge-subtitle",
     ),
@@ -738,7 +738,7 @@ export function simulationView(sim, sensitivity = null, cases = null) {
     solver.append(
       el(
         "p",
-        `Not attainable within ${money(sim.ceiling)}/month and the entered contribution dates. Adjust the schedule, available funding, or coverage goal.`,
+        `No estimate within ${money(sim.ceiling)}/month satisfies the fit target including its sampling reserve and contribution dates. Adjust the schedule, available funding, or coverage goal.`,
       ),
     );
   else {
@@ -749,10 +749,18 @@ export function simulationView(sim, sensitivity = null, cases = null) {
       ),
     );
     const check = sim.confirmation;
+    if (check?.fitProbability)
+      solver.append(
+        el(
+          "p",
+          `The requested target stays ${pct(sim.threshold)}. The solver fits ${pct(check.fitProbability)} with a sampling reserve, then checks separate paths. This reserve addresses simulation noise only.${check.reserveCapped ? " The reserve reaches the maximum sampled quantile; its full cushion is unavailable, so rely on the independent check." : ""}`,
+          "hint",
+        ),
+      );
     solver.append(
       el(
         "p",
-        `Independent seeded check: ${pct(check.probability)} across ${check.trials.toLocaleString()} paths. ${check.meets ? "The selected threshold was met in this sample; this is not a guaranteed funding rate." : "This estimate did not meet the target in the check. Review a larger contribution; more trials alone do not improve funding."}`,
+        `Independent seeded check: ${pct(check.probability)} across ${check.trials.toLocaleString()} paths.${check.lowerBound !== undefined ? " One-sided 95% lower sampling bound: " + pct(check.lowerBound) + "." : ""} ${check.meets ? "The lower sampling bound meets the requested target." : "The independent check did not confirm the target. Review a larger contribution."}`,
       ),
     );
   }
@@ -1237,6 +1245,7 @@ export function calibrationContextView(result) {
       "hint",
     ),
   );
+  if (c.validation.funding) wrap.append(wholePlanValidationView(c.validation));
   if (c.economicState) wrap.append(economicProcessView(c));
   const comparison = c.validation.comparison;
   if (comparison) {
@@ -1642,6 +1651,71 @@ export function broadHistoryView(c) {
       "hint",
     ),
   );
+  wrap.append(details);
+  return wrap;
+}
+
+function wholePlanValidationView(validation) {
+  const f = validation.funding,
+    r = validation.critique,
+    wrap = el("div");
+  wrap.append(el("h3", "Whole-plan historical checks"));
+  wrap.append(
+    table(
+      "Synthetic plans · production simulation and bill ledger",
+      [
+        "Years until university",
+        "Distinct start years",
+        "Funding Brier score ↓",
+        "Nominal 80% cost-band coverage",
+      ],
+      f.summary.map((x) => [
+        x.wait,
+        x.originYears,
+        x.brier.toFixed(3),
+        pct(x.costCoverage),
+      ]),
+    ),
+  );
+  wrap.append(
+    el(
+      "p",
+      "Cost coverage is weak for longer waits. These historical checks do not establish calibrated future funding probabilities. Each plan includes four attendance years; starts and sectors share overlapping economic outcomes. A 50% funding guess scores 0.250. There are no eligible complete 18-year-wait checks.",
+      "hint",
+    ),
+  );
+  const details = el("details");
+  details.append(
+    el("summary", "Whole-plan methods and cost uncertainty comparison"),
+  );
+  details.append(
+    table(
+      "Funding frequency comparison · dependent synthetic cases",
+      [
+        "Predicted band",
+        "Cases",
+        "Start years",
+        "Mean prediction",
+        "Observed funded",
+      ],
+      f.reliability.map((x) => [
+        x.band,
+        x.cases,
+        x.originYears,
+        x.predicted === null ? "Unavailable" : pct(x.predicted),
+        x.observed === null ? "Unavailable" : pct(x.observed),
+      ]),
+    ),
+  );
+  details.append(
+    el(
+      "p",
+      `Cost uncertainty candidate ${r.spreadGate.passed ? "enabled" : "rejected; existing cost process retained"}. Equal-period interval score ${r.spreadGate.baseline.score.toFixed(3)} → ${r.spreadGate.expanded.score.toFixed(3)} (lower is better); coverage ${pct(r.spreadGate.baseline.coverage)} → ${pct(r.spreadGate.expanded.coverage)}. The candidate must improve distance from 80% coverage without increasing the score by more than 10%.`,
+      "hint",
+    ),
+  );
+  for (const note of [...f.limitations, ...r.limitations])
+    details.append(el("p", note, "hint"));
   wrap.append(details);
   return wrap;
 }

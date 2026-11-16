@@ -1,3 +1,5 @@
+> Historical requirements/planning record. For current shipped behavior, see [the current model](model.md) and [release status](critique-fix-status.md).
+
 # Requirements and scope
 
 ## Goal

@@ -14,7 +14,20 @@ import {
   annualRows,
   requiredContribution,
 } from "../site/js/engine.js";
-import { quantile, simulate, trialGrowth } from "../site/js/simulation.js";
+import { quantile } from "../site/js/random.js";
+import { simulateHistorical } from "../site/js/history.js";
+import { readFileSync } from "node:fs";
+const history = JSON.parse(
+  readFileSync(new URL("../site/data/history.json", import.meta.url)),
+);
+const simulate = (c, settings) => simulateHistorical(c, history, settings);
+const fixedFactory = (c) => {
+  const make = () => ({
+    compiled: c,
+    gross: Float64Array.from(c.rates, (r) => (1 + r.returnRate) ** (1 / 12)),
+  });
+  return { make, verify: make, metadata: { method: "Controlled fixed path" } };
+};
 const close = (x, y, tol = 0.011) =>
   assert.ok(Math.abs(x - y) < tol, `${x} != ${y}`);
 function fixture() {
@@ -139,7 +152,7 @@ test("stage returns change by calendar month; no hidden extra entry growth", () 
   close(r.enrollmentBalance, 10000 * 1.1 ** 2 * 1.02 ** 2);
   close(r.ledger.at(-1).earned, 0);
 });
-test("zero-volatility Monte Carlo agrees with deterministic projection", () => {
+test("live Monte Carlo ledger with controlled fixed paths agrees with deterministic projection", () => {
   const { p, st, s, f } = fixture();
   f.balance = 5000;
   f.monthly = 500;
@@ -151,48 +164,17 @@ test("zero-volatility Monte Carlo agrees with deterministic projection", () => {
   }
   const c = compile(p, st, s),
     r = runPath(c),
-    sim = simulate(c, { trials: 100, seed: 7 });
+    sim = simulateHistorical(
+      c,
+      history,
+      { trials: 100, seed: 7 },
+      () => {},
+      true,
+      fixedFactory(c),
+    );
   close(sim.gap.p50, r.shortfall);
   close(sim.gap.p10, sim.gap.p90);
   assert.equal(sim.probability, r.success ? 1 : 0);
-});
-test("seeded trials reproduce, change with seed, and gross returns stay positive", () => {
-  const { p, st, s, f } = fixture();
-  f.assumptions.mean = 0.06;
-  f.assumptions.volatility = 0.2;
-  f.assumptions.lateMean = 0.04;
-  f.assumptions.lateVolatility = 0.15;
-  const c = compile(p, st, s),
-    a = trialGrowth(c, 123, 3),
-    b = trialGrowth(c, 123, 3),
-    d = trialGrowth(c, 124, 3);
-  let different = false;
-  for (let i = 0; i < c.rows.length; i++) {
-    const x = a(i);
-    assert.equal(x, b(i));
-    assert.ok(x > 0);
-    if (x !== d(i)) different = true;
-  }
-  assert.ok(different);
-});
-test("annual simulated mean and volatility reflect supplied arithmetic values", () => {
-  const { p, st, s, f } = fixture();
-  f.assumptions.lateMean = 0.06;
-  f.assumptions.lateVolatility = 0.15;
-  const c = compile(p, st, s);
-  let sum = 0,
-    squares = 0,
-    n = 30000;
-  for (let t = 0; t < n; t++) {
-    const g = trialGrowth(c, 4321, t);
-    let gross = 1;
-    for (let i = 0; i < 12; i++) gross *= g(i);
-    const r = gross - 1;
-    sum += r;
-    squares += r * r;
-  }
-  close(sum / n, 0.06, 0.004);
-  close(Math.sqrt(squares / n - (sum / n) ** 2), 0.15, 0.004);
 });
 test("percentiles use documented linear interpolation including infinities", () => {
   close(quantile([0, 10, 20, 30], 0.1), 3);
@@ -279,11 +261,12 @@ test("education scenarios need no acknowledgement flags to project or compare", 
   const { p, st, s, f } = fixture();
   validatePlan(p);
   assert.ok(runPath(compile(p, st, s)).total > 0);
-  const { compareScenarios } = await import("../site/js/simulation.js");
-  assert.equal(
-    compareScenarios(p, st, { trials: 100, seed: 7, ceiling: 0 }).length,
-    1,
-  );
+  const result = simulate(compile(p, st, s), {
+    trials: 100,
+    seed: 7,
+    ceiling: 0,
+  });
+  assert.ok(result.cost > 0);
   assert.deepEqual(parseImport(exportPlan(p)), p);
 });
 test("discounted expenses and coverage percentage are independent of general inflation", () => {
@@ -310,7 +293,7 @@ test("stochastic solver verifies the selected sample threshold after refinement"
   });
   assert.ok(result.confirmation.meets);
   assert.ok(result.confirmation.probability >= 0.9);
-  assert.equal(result.confirmation.trials, 20000);
+  assert.equal(result.confirmation.trials, 5000);
   assert.ok(Number.isInteger(result.contribution));
 });
 test("identical settings reproduce entire simulation summaries", () => {

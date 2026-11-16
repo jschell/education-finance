@@ -6,7 +6,7 @@ import {
   treasuryGross,
   billGross,
 } from "../site/js/economy.js";
-import { quantile } from "../site/js/simulation.js";
+import { quantile } from "../site/js/random.js";
 const bundle = JSON.parse(readFileSync("site/data/economy.json", "utf8")),
   years = bundle.validationYears;
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;

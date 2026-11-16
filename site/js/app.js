@@ -1,5 +1,5 @@
-import { COST_PRESETS, applyCostPreset } from "./cost-presets.js?v=0.9.0";
-import { sessionSeed, updateSessionSeed } from "./session-seed.js?v=0.9.0";
+import { COST_PRESETS, applyCostPreset } from "./cost-presets.js?v=0.10.0";
+import { sessionSeed, updateSessionSeed } from "./session-seed.js?v=0.10.0";
 import {
   MODEL,
   PRNG,
@@ -20,9 +20,9 @@ import {
   pick,
   expenseKeys,
   investmentKeys,
-} from "./domain.js?v=0.9.0";
-import { PROFILES, periodLabel } from "./history-config.js?v=0.9.0";
-import { compile, runPath, annualRows } from "./engine.js?v=0.9.0";
+} from "./domain.js?v=0.10.0";
+import { PROFILES, periodLabel } from "./history-config.js?v=0.10.0";
+import { compile, runPath, annualRows } from "./engine.js?v=0.10.0";
 import {
   savePlan,
   loadPlan,
@@ -36,7 +36,7 @@ import {
   loadDraft,
   clearDraft,
   resetIncompatibleStorage,
-} from "./storage.js?v=0.9.0";
+} from "./storage.js?v=0.10.0";
 import {
   el,
   money,
@@ -50,7 +50,7 @@ import {
   familyCalendarView,
   householdView,
   csvText,
-} from "./render.js?v=0.9.0";
+} from "./render.js?v=0.10.0";
 const $ = (s) => document.querySelector(s),
   form = $("#planner");
 const editing = await acquireEditor().catch((error) => ({
@@ -913,7 +913,7 @@ function startAssessment(
   $("#progress").value = 0;
   if (scroll)
     $("#run-status").scrollIntoView({ block: "start", behavior: "smooth" });
-  worker = new Worker(new URL("./worker.js?v=0.9.0", import.meta.url), {
+  worker = new Worker(new URL("./worker.js?v=0.10.0", import.meta.url), {
     type: "module",
   });
   worker.onmessage = ({ data }) => {

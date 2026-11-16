@@ -1,10 +1,10 @@
-import { termOffsets, allocationAt } from "./planning.js?v=0.9.0";
+import { termOffsets, allocationAt } from "./planning.js?v=0.10.0";
 import {
   month,
   monthText,
   categories,
   resolveScenario,
-} from "./domain.js?v=0.9.0";
+} from "./domain.js?v=0.10.0";
 export const portion = (annual, index, count) => {
   const units = Math.round((annual + Number.EPSILON) * 100),
     base = Math.floor(units / count);
@@ -150,13 +150,6 @@ export function compile(plan, student, scenario, mode = "all") {
     enrollmentIndex: entry - start,
     crashIndex: Math.max(0, entry - start - 1),
     stress: scenario.stress,
-  };
-}
-export function logParameters(mean, volatility) {
-  const sigma2 = Math.log1p(volatility ** 2 / (1 + mean) ** 2);
-  return {
-    mu: (Math.log1p(mean) - sigma2 / 2) / 12,
-    sigma: Math.sqrt(sigma2 / 12),
   };
 }
 export function deterministicGrowth(compiled, i = 0) {

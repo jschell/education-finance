@@ -1,6 +1,8 @@
-# Economic calibration · current v0.8.0
+# Economic calibration · archived v0.8 and earlier source notes
 
-Application 0.8.0; model college-funding-7.0.0; live bundle us-state-economic-calibration-2026-11-16-v3. Implemented on 2026-11-16. Read the [fix plan](economic-model-fix-plan.md) and [results](economic-model-results.md) for current behavior. The following v0.7 and earlier sections document retained source data and preceding experiments, not the current stochastic investment process.
+Current behavior is specified in [model.md](model.md) (app v0.10.0, model 9). This document retains earlier source and methodology notes for reproduction.
+
+Archived application 0.8.0; model college-funding-7.0.0; live bundle us-state-economic-calibration-2026-11-16-v3. Implemented on 2026-11-16. Read the [fix plan](economic-model-fix-plan.md) and [results](economic-model-results.md) for that archived release. The following v0.7 and earlier sections document retained source data and preceding experiments, not the current stochastic investment process.
 
 - Bonds: five-year hypothetical Treasury, semiannual coupon schedule, monthly roll and dirty-price repricing; starting GS5 4.93% for October 2026. SPF's ten-year yield is a provisional long-run five-year yield-level proxy, never a direct total-return forecast.
 - Cash: October 2026 TB3MS 4.05% bank-discount quote converted using a 91-day bill price; annual survey return targets are converted back to consistent discount quotes. Accrual uses the beginning quote, with next-month reinvestment.

@@ -1,3 +1,5 @@
+> Historical requirements/planning record. For current shipped behavior, see [the current model](model.md) and [release status](critique-fix-status.md).
+
 # Assumption register
 
 As of 2026-11-15; current model `college-funding-4.0.0`. Historical observations are verified against a pinned snapshot, not verified forecasts. Portfolio weights and planning conventions are provisional developer choices and user-editable.

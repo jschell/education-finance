@@ -138,7 +138,7 @@ test("calibrated assessment integrates all cases and leaves saved student funds 
   assert.equal(r.simulation.calibrationHash, b.sha256);
   assert.ok(Number.isFinite(r.simulation.costRange.p50));
   assert.equal(r.simulation.period, b.macro.cases[1].name);
-  assert.equal(r.simulation.confirmation.trials, 1000);
+  assert.equal(r.simulation.confirmation.trials, 5000);
   assert.equal(JSON.stringify(p), before);
   const joint = assessHousehold(p, h, settings, sc.history, () => {}, {
     bundle: b,

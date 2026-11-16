@@ -1,20 +1,25 @@
-import { allocationAt } from "./planning.js?v=0.9.0";
-import { outcomeDistribution } from "./distribution.js?v=0.9.0";
-import { MODEL, clone, resolveScenario } from "./domain.js?v=0.9.0";
+import {
+  VERIFICATION_TRIALS,
+  savingsFitProbability,
+  savingsConfirmation,
+} from "./savings-target.js?v=0.10.0";
+import { allocationAt } from "./planning.js?v=0.10.0";
+import { outcomeDistribution } from "./distribution.js?v=0.10.0";
+import { MODEL, clone, resolveScenario } from "./domain.js?v=0.10.0";
 import {
   compile,
   runPath,
   repriceRow,
   requiredContribution,
   annualRows,
-} from "./engine.js?v=0.9.0";
-import { random, quantile } from "./simulation.js?v=0.9.0";
+} from "./engine.js?v=0.10.0";
+import { random, quantile } from "./random.js?v=0.10.0";
 import {
   DATASET_ID,
   HISTORY_PRNG,
   PROFILES,
   periodLabel,
-} from "./history-config.js?v=0.9.0";
+} from "./history-config.js?v=0.10.0";
 const sort = (x) => x.sort((a, b) => a - b);
 const percentiles = (x) => {
   sort(x);
@@ -331,12 +336,15 @@ export function simulateHistorical(
         progress({ stage: "Monthly savings target", done: t, total: count });
     }
     sort(requirements);
-    const target = requirements[Math.ceil(threshold * count) - 1];
+    const target =
+      requirements[
+        Math.ceil(savingsFitProbability(threshold, count) * count) - 1
+      ];
     if (Number.isFinite(target) && Math.ceil(target) <= ceiling) {
       contribution = Math.ceil(target);
       const passes = requirements.filter((x) => x <= contribution).length;
       // Verify actual capped-balance ledgers on a separate seeded set; do not fit to it.
-      const verify = 1000;
+      const verify = VERIFICATION_TRIALS;
       let passed = 0;
       for (let t = 0; t < verify; t++) {
         const path = pathFactory
@@ -360,9 +368,7 @@ export function simulateHistorical(
           passed++;
       }
       confirmation = {
-        trials: verify,
-        probability: passed / verify,
-        meets: passed / verify >= threshold,
+        ...savingsConfirmation(passed, verify, threshold, count),
         calibrationTrials: count,
         calibrationProbability: passes / count,
       };

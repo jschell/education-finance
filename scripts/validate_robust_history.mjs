@@ -11,7 +11,7 @@ import {
   costForecastPaths,
   intervalScore,
 } from "../site/js/cost-correction.js";
-import { quantile } from "../site/js/simulation.js";
+import { quantile } from "../site/js/random.js";
 const read = (f) => JSON.parse(readFileSync(f, "utf8")),
   bundle = read("site/data/economy-broad.json"),
   years = bundle.macroYears,

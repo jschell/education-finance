@@ -8,7 +8,7 @@ import {
   mean,
 } from "../site/js/cost-trends.js";
 import { annualIndices, canonical } from "../site/js/calibration.js";
-import { random, quantile } from "../site/js/simulation.js";
+import { random, quantile } from "../site/js/random.js";
 const panel = JSON.parse(readFileSync("site/data/ipeds-panel.json", "utf8"));
 const protocolHash = createHash("sha256")
   .update(readFileSync("docs/cost-model-protocol.md"))

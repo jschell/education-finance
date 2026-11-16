@@ -1,12 +1,17 @@
-import { costDonorIndices } from "./robust-history.js?v=0.9.0";
-import { fitEconomy, economyPath } from "./economy.js?v=0.9.0";
-import { fitCostTrends, costGrowth, realTrend } from "./cost-trends.js?v=0.9.0";
-import { clone, resolveScenario } from "./domain.js?v=0.9.0";
-import { compile, runPath, repriceRow } from "./engine.js?v=0.9.0";
-import { simulateHistorical } from "./history.js?v=0.9.0";
-import { PROFILES } from "./history-config.js?v=0.9.0";
-import { allocationAt } from "./planning.js?v=0.9.0";
-import { random, quantile } from "./simulation.js?v=0.9.0";
+import { costSpreadDraw } from "./cost-uncertainty.js?v=0.10.0";
+import { costDonorIndices } from "./robust-history.js?v=0.10.0";
+import { fitEconomy, economyPath } from "./economy.js?v=0.10.0";
+import {
+  fitCostTrends,
+  costGrowth,
+  realTrend,
+} from "./cost-trends.js?v=0.10.0";
+import { clone, resolveScenario } from "./domain.js?v=0.10.0";
+import { compile, runPath, repriceRow } from "./engine.js?v=0.10.0";
+import { simulateHistorical } from "./history.js?v=0.10.0";
+import { PROFILES } from "./history-config.js?v=0.10.0";
+import { allocationAt } from "./planning.js?v=0.10.0";
+import { random, quantile } from "./random.js?v=0.10.0";
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const q = (xs, p) =>
   quantile(
@@ -405,6 +410,16 @@ export function calibrationFactory(
         housing: y.housing * Math.exp(drift.housing),
       }));
     }
+    if (bundle.costUncertainty) {
+      const extra = Math.exp(
+        costSpreadDraw(bundle.costUncertainty, seed, trial),
+      );
+      years = years.map((y) => ({
+        ...y,
+        tuition: y.tuition * extra,
+        housing: y.housing * extra,
+      }));
+    }
     const gross = new Float64Array(c.rows.length),
       rows = [];
     let tuition = 1,
@@ -466,6 +481,7 @@ export function calibrationFactory(
       calibrationHash: bundle.sha256,
       costModel: bundle.costModel || "recent10",
       robustHistory: bundle.robustness || null,
+      costUncertainty: bundle.costUncertainty || null,
       economicState: bundle.economy
         ? {
             id: bundle.economy.id,
@@ -567,6 +583,7 @@ export function assessCalibrated(
         : null,
       correctionGate: bundle.correctionGate,
       robustHistory: bundle.robustness || null,
+      costUncertainty: bundle.costUncertainty || null,
       validation,
     },
     dataset: { id: bundle.id, hash: bundle.sha256, asOf: bundle.asOf },

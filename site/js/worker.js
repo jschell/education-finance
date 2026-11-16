@@ -2,20 +2,22 @@ import {
   assessCalibrated,
   verifyCalibration,
   snapshotHash,
-} from "./calibration.js?v=0.9.0";
-import { assessHousehold } from "./household.js?v=0.9.0";
-import { validatePlan } from "./domain.js?v=0.9.0";
-import { assessHistorical, verifyHistory } from "./history.js?v=0.9.0";
+} from "./calibration.js?v=0.10.0";
+import { assessHousehold } from "./household.js?v=0.10.0";
+import { validatePlan } from "./domain.js?v=0.10.0";
+import { assessHistorical, verifyHistory } from "./history.js?v=0.10.0";
 let dataPromise, calibrationPromise;
 async function calibrationData(history) {
   return (calibrationPromise ??= Promise.all(
     [
-      "calibration-robust.json",
+      "calibration-reviewed.json",
       "calibration-validation.json",
       "cost-model-comparison.json",
       "economy-validation.json",
       "cost-correction.json",
       "robustness-validation.json",
+      "critique-validation.json",
+      "funding-validation.json",
     ].map((name) =>
       fetch(new URL("../data/" + name, import.meta.url)).then((r) => {
         if (!r.ok) throw Error("Calibration data could not be loaded.");
@@ -30,6 +32,8 @@ async function calibrationData(history) {
       processValidation,
       correction,
       robustness,
+      critique,
+      funding,
     ]) => {
       await verifyCalibration(bundle, history);
       if (
@@ -52,6 +56,16 @@ async function calibrationData(history) {
         robustness.macroDataHash !== bundle.economy.sha256
       )
         throw Error("Broad-history validation identity mismatch.");
+      if (
+        (await snapshotHash(critique)) !== bundle.review.critiqueHash ||
+        (await snapshotHash(funding)) !== bundle.review.fundingHash ||
+        funding.critiqueHash !== bundle.review.critiqueHash ||
+        critique.baseHash !== bundle.review.baseHash ||
+        funding.baseHash !== bundle.review.baseHash ||
+        critique.protocolHash !== bundle.review.protocolHash ||
+        funding.protocolHash !== bundle.review.protocolHash
+      )
+        throw Error("Whole-plan validation identity mismatch.");
       return {
         bundle,
         validation: {
@@ -60,6 +74,8 @@ async function calibrationData(history) {
           processValidation,
           correction,
           robustness,
+          critique,
+          funding,
         },
       };
     },

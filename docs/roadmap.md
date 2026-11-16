@@ -1,3 +1,5 @@
+> Historical requirements/planning record. For current shipped behavior, see [the current model](model.md) and [release status](critique-fix-status.md).
+
 # Roadmap and acceptance criteria
 
 v0.2.0 provides a working single-student historical assessment on GitHub Pages.

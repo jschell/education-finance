@@ -61,3 +61,8 @@ Remote Chrome, synthetic stored students. The new state model, exact validation-
 ## v0.9.0 broader-history release
 
 Verified with synthetic schema-5 students at the project-prefixed URL. Phone (390 × 844) and iPad landscape (1024 × 768) had no horizontal page overflow. Keyboard Tab and Space operated the method controls and validation disclosure. The worker loaded the broader-history bundle and verified its hashes. The UI displayed 70 macro years, 24 college-cost level years, seven disjoint decade windows, and the actual multi-period comparison scores. Existing student funding remained intact. Desktop, phone and iPad screenshots are in `tests/evidence/v0.9.0-*.jpg`.
+
+
+## v0.10.0 critique fixes
+
+Phone 390 × 844 and iPad landscape 1024 × 768: page widths matched scroll widths (375/375 and 1009/1009); wide evidence tables scroll inside their containers. Keyboard Space opened the new methods/candidate comparison disclosure. Project-prefixed worker/data imports loaded the reviewed bundle and linked reports. Existing synthetic schema-5 students and funding remained intact. One Calculate control remained. The savings card showed 5,000 independent verification paths and its one-sided lower bound. Whole-plan results displayed 76%/20%/10% cost coverage with 10/6/2 distinct start years and disclosed the rejected uncertainty candidate. Desktop, phone and iPad screenshots are retained under `tests/evidence/v0.10.0-*.jpg`. Physical iOS Safari persistence is not verified by this browser run.

@@ -1,7 +1,8 @@
+import { costSpreadDraw } from "./cost-uncertainty.js?v=0.10.0";
 // Persistent paired residual correction; fitting and final gate are offline.
-import { fitCostTrends, costGrowth, mean } from "./cost-trends.js?v=0.9.0";
-import { annualIndices } from "./calibration.js?v=0.9.0";
-import { random, quantile } from "./simulation.js?v=0.9.0";
+import { fitCostTrends, costGrowth, mean } from "./cost-trends.js?v=0.10.0";
+import { annualIndices } from "./calibration.js?v=0.10.0";
+import { random, quantile } from "./random.js?v=0.10.0";
 const qs = (xs) => {
   xs.sort((a, b) => a - b);
   return {
@@ -13,7 +14,13 @@ const qs = (xs) => {
 export function costForecastPaths(
   training,
   horizon,
-  { seed = 972461, trials = 1000, correction = null, series = null } = {},
+  {
+    seed = 972461,
+    trials = 1000,
+    correction = null,
+    series = null,
+    spread = null,
+  } = {},
 ) {
   const fit = fitCostTrends(training),
     origin = training.at(-1),
@@ -32,14 +39,15 @@ export function costForecastPaths(
           )
         ].series[series]
       : { tuition: 0, housing: 0 };
+    const extra = costSpreadDraw(spread, seed, t);
     let tuition = 1,
       housing = 1;
     for (const [year, index] of draws.entries()) {
       const r = fit.changes[index],
         inflation = r.inflation * Math.exp(fit.inflation - piMean);
       const g = costGrowth(fit, "fixed", r, year, 0.5, inflation);
-      tuition *= g.tuition * Math.exp(drift.tuition);
-      housing *= g.housing * Math.exp(drift.housing);
+      tuition *= g.tuition * Math.exp(drift.tuition + extra);
+      housing *= g.housing * Math.exp(drift.housing + extra);
     }
     paths.push({
       tuition,

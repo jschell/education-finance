@@ -1,97 +1,54 @@
 # Education Finance
 
-A static, browser-local college funding planner for GitHub Pages. Enter students one at a time and compare education paths using a shared funding plan for each student.
+A static, browser-local college funding planner. **App v0.10.0 · model college-funding-9.0.0 · schema 5 · MIT license.**
 
-**Working release v0.9.0 · model college-funding-8.0.0 · schema 5.**
-
-Live application: https://jschell.github.io/education-finance/
-
-## Breaking change: student funding
-
-Savings, contributions, gifts, general scholarships, direct income, coverage goals and investment settings now belong to the **student**. Switching education scenarios never replaces these values. Each education scenario contains its own costs, attendance length, school-specific aid, expense growth, billing and source information.
-
-There is deliberately **no migration or balance reconciliation** from schemas 1–4. Schema 1–4 browser plans, recovery copies and unfinished drafts are discarded when the editing tab opens this release. Old exported backups are not supported. Enter a new plan; new schema-5 data and format-2 backups save and restore normally. Close an older editing tab before opening the new release elsewhere.
+[Open the planner](https://jschell.github.io/education-finance/)
 
 ## Use the planner
 
-1. Start with current student savings, enrollment month, annual tuition/fees and annual housing/food. Other inputs are optional. Try an example opens temporary fictional data; Exit example restores the real workspace.
-2. Under More details, name the student and education scenario, choose attendance length, living/billing schedules, school-specific aid, extra expenses or a published budget preset. Applying a preset changes education costs/source, never student funding.
-3. Student funding holds deposits, gifts, general scholarship amounts/duration, income support and shared-pool allocation. Enter these once for the student. General awards and the selected school's award are combined once and capped at bills.
-4. Assumptions separates student investments from the selected education path's expense/sampling settings. Investment profile, fees, dated allocations and investment reference rates apply to every education scenario for that student. Tuition/living growth and the school's aid offer can differ by scenario.
-5. One Calculate action produces three provisional economic cases, complete central-case paths, a central-case contribution estimate, observed-price validation and a collapsed fixed-rate reference. Historical replay and its stress diagnostics remain selectable under Calculation settings. Valid edits also refresh the same assessment. Manage → Compare scenarios uses the same student funding across alternatives.
-6. Add another student for independent savings and funding. Duplicating a student copies education settings but resets balances, monthly deposits, gifts, general aid, school-specific aid, income and shared allocation to zero; it cannot duplicate the same money into a second student's plan.
-7. For multiple students, select one education scenario per student under Household scenarios & attendance. An optional monthly household savings-deposit limit prorates planned deposits. Economic paths are shared across students; success requires every selected goal to be funded. Money stays earmarked; unallocated shared funds are excluded.
-8. Changes save automatically in this browser. Export a current-format plan backup for portability. Assessment JSON records exact inputs, seed, versions and results. Browser storage does not sync devices.
+1. Enter a student's current savings, enrollment month and annual tuition/housing budget. Other inputs are optional. Try an example opens temporary fictional data; Exit example restores your workspace.
+2. Savings, contributions, investments, gifts and general aid belong to the student. Education scenarios share that funding while keeping their own costs, attendance and school-specific aid. Copying or switching a school path never copies money.
+3. Calculate produces one assessment: a range across cautious/central/favorable assumptions, simulated outcome bands, an estimated central-case monthly contribution and historical validation. These cases have no probability weights or confidence level. The fixed-rate reference is a separate illustration inside the same assessment. Historical replay remains an optional calculation method.
+4. Multiple students share economic paths. Household success requires all selected goals to be funded; earmarked money is not automatically transferred between students. A household deposit limit can constrain planned contributions.
+5. Edits save in the current browser. Export a backup for another device; no cloud sync or telemetry exists. Example data does not replace saved plans. Schema-5 plans receive a metadata-only model upgrade. Incompatible schemas 1–4 and old backup formats remain unsupported.
 
-## Broader history and overfit controls (v0.9.0)
+## Current model and evidence
 
-Investment/rate/inflation fitting now uses **70 complete joint years, 1954–2023**, separately from the shorter college-price panel. Seven disjoint decade blocks supply expectation variation. Persistence estimates are regularized toward declared fixed priors, reducing reliance on a small recent sample.
+- Investments, rates and inflation use 70 complete joint years (1954–2023), regularized persistence and seven disjoint decade windows. Five-year Treasury bonds are repriced monthly; cash uses three-month bill discount-price accrual. Forward anchors are documented survey assumptions.
+- College prices use separate fixed-institution IPEDS panels (2000–2023), with in-state/out-of-state and on-campus housing series. Older macro years use inflation-conditioned cost donors. These are indexed published prices, not net family costs or measured pre-2000 school prices.
+- Rolling cost corrections stop at each forecast origin and shrink by unique target-year count. A further uncertainty candidate was evaluated in v0.10: coverage improved but the interval score worsened beyond the declared limit. It was rejected; the v0.9 cost process remains the default.
+- The production path factory and bill ledger now undergo whole-plan historical checks with 0/4/8-year waits, four attendance years, five cost sectors and three funding levels. Results include reliability bands, Brier scores, cost coverage and distinct start-year counts. They expose poor cost-band coverage for longer waits. There are no eligible complete 18-year-wait checks.
+- Monthly contribution estimates include a declared sampling reserve, then a separate 5,000-path check. Confirmation requires its one-sided 95% Wilson lower sampling bound to meet the requested target. This controls simulation noise; it does not establish future economic accuracy.
 
-Every rolling cost correction now uses only error targets through its forecast origin and is shrunk toward zero by the number of unique target years. This fixes a v0.8 validation error: a 2014-origin forecast could previously use correction errors learned through 2016. The single-2024 release gate has been replaced by multi-period comparisons. Defaults require an overall score improvement and no tested period more than 10% worse than the benchmark. Both selected policies passed: macro interval score 0.397 → 0.392; cost score 0.165 → 0.156. Those are retrospective robustness scores, not new unseen prospective evidence.
+The component comparisons and whole-plan checks are retrospective. Overlapping starts, related sectors, selected surviving schools, reconstructed instruments, training-mean historical anchors and long-horizon extrapolation limit their interpretation. **Passing software checks does not establish calibrated future funding probabilities.** Actual-price uncertainty remains an open model issue, with failure results visible in the app.
 
-The single Calculate workflow uses these defaults directly. Current source spans, score gates and period results are visible in the app. Current schema-5 student funding is preserved. [Plan](docs/robust-history-plan.md) · [Results](docs/robust-history-results.md).
+[Current model](docs/model.md) · [Fix plan](docs/critique-fix-plan.md) · [Completion status](docs/critique-fix-status.md) · [Fresh review](docs/critique-review-v0.10.0.md)
 
-Rebuild offline: `python3 scripts/prepare_broad_history.py`, `node scripts/validate_robust_history.mjs`, `node scripts/build_robust_release.mjs`. Earlier build commands below recreate archived inputs; the live bundle is `calibration-robust.json`.
+## Develop and reproduce
 
-## Preceding v0.8.0 changes and evidence
-
-
-
-The [fix plan and frozen evaluation protocol](docs/economic-model-fix-plan.md) is implemented. Economic cases now use explicit five-year Treasury repricing and three-month bill discount-price accrual, starting from observed October 2026 yields. The Treasury survey anchor is a future yield level, not a total return. A small fitted state process conditions joint source blocks on inflation and rates. Central-case source choices and random draws are shared across cases/students, with path prefixes independent of plan length. Persistent joint ten-year-window expectation deviations add long-run assumption uncertainty. No new required input or Calculate action is introduced.
-
-A paired cost-error correction, fitted only through 2016, passed its predeclared check on newly obtained 2024–25 published prices. The normalized interval score fell from 0.221 to 0.167; 13/15 series/horizon checks were inside the model P10–P90 range, versus 10/15 before correction. **Those checks share one target-year shock and are not 15 independent validation observations.** The earlier 2020–2023 comparison below is consumed evidence for the preceding model. Reported investment/inflation process hindcasts also have weak coverage in some outcomes; they do not certify family funding probabilities. See [results and limitations](docs/economic-model-results.md).
-
-The live bundle is `calibration-economic.json` (v3), separate from preserved v0.6/v0.7 inputs. Raw FRED tables and the new IPEDS archive/dictionary are pinned. Rebuild with `python3 scripts/prepare_economy.py`, `python3 scripts/prepare_cost_holdout.py`, `node scripts/validate_cost_correction.mjs`, `node scripts/validate_economy.mjs`, then `node scripts/build_economic_release.mjs`. Source refreshes remain deliberate, never browser network lookups. Model-6 schema-5 student funding receives a metadata-only upgrade.
-
-## College-price comparison retained from v0.7.0
-
-The v0.7 price bundle uses fixed-institution IPEDS tuition and on-campus housing histories for 2000–2023, separating public in-state and out-of-state prices. Consistent UNITID panels remove changing membership from their growth indices; incomplete and reclassified institutions are excluded and counted. These are equal-school geometric price indices, not national enrollment-weighted averages. User-entered budgets remain the starting values.
-
-Four cost models were compared under a [predeclared protocol](docs/cost-model-protocol.md): fixed 4%/3% nominal trends with historical deviations, the previous recent-ten-year trend, a damped-five-year trend and a changing-regime model. Targets through 2019 selected the candidate; reserved 2020–2023 targets checked it. **The simple 4% tuition / 3% housing benchmark won**, reducing the mean normalized interval score from about 0.263 to 0.185 and mean median-forecast error from 5.7% to 4.8% on two/five-year reserved tests. Nominal trends remain developer benchmarks tested here, not established economic laws. Candidate parameters were not retuned after final-period evaluation.
-
-**Coverage remains inadequate:** the selected model's nominal 80% bands cover about 50% of reserved comparable-school price-index outcomes. The app shows all candidates, per-horizon index coverage, separate school-level coverage and the limited number of independent economic periods. There are no eligible 18-year tests in this panel. The reserved years are held out within this comparison, not a prospective or historical-release-vintage experiment; earlier aggregate diagnostics had examined the same economic era.
-
-SPF return/inflation anchors and the Vanguard equity cross-check remain unchanged from v0.6.0. One Calculate evaluates the same three economic cases; the gauge shows their frequency envelope. Historical annual deviations remain paired with market years; the selected benchmark cost trends shift across cases using half the IQR of observed five-year real-growth windows. Cases have no assigned probability weights. Detailed paths and the savings solver use the central case. No extra required fields or buttons were added, and schema-5 student funding is preserved.
-
-Rebuild offline with `python3 scripts/prepare_ipeds.py`, then `node scripts/compare_cost_models.mjs`. The compact original-field subset, original archive URLs/member names/hashes, retained UNITIDs and comparison results are pinned. Full ZIP downloads are cached outside source control; `python3 scripts/fetch_ipeds.py` is an explicit network refresh. Original v0.6 aggregate inputs and their validation remain separate and reproducible. Review [results](docs/cost-model-results.md) and [methodology](docs/economic-calibration.md).
-
-## Historical replay method (optional)
-
-The bundled snapshot contains 564 complete paired months, January 1978–December 2024. Stocks/cash use Fama/French factors; bonds use a reconstructed US 10-year sovereign proxy. General CPI proxies non-tuition expenses. Published-price tuition planning uses your selected trend (initial 4%, illustrative) plus demeaned historical tuition-index changes as an imperfect variability proxy; raw BLS tuition-index mode is explicitly labeled. Aid remains separate. Tuition prices stay fixed within an academic year.
-
-The calendar-aligned bootstrap uses one/three/five-year joint blocks. Allocation profiles are illustrative developer choices. Ranges are conditional on those assumptions, not calibrated future probabilities. Held-out historical diagnostics have shown weak cost-range coverage; the app flags this and includes explicit stress cases. Physical Safari persistence testing remains unverified.
-
-The gauge prominently shows the range across both historical periods, using matching trial counts. Its arc and marker show the selected period’s frequency, with gray track beyond that point. This is a model-sensitivity range, not a confidence interval. Its filled segment changes smoothly: yellow at 45%, light green at 60%, dark green at the selected target. Target status is independent of color and accounts for Monte Carlo sampling noise. At 0% no colored fill is drawn; a missing college budget shows no percentage.
-
-Actual simulated path examples keep savings, costs and shortfalls paired. Marginal percentiles and pointwise bands rank independently. Household probabilities are calculated jointly, never averaged or multiplied. School-specific published-price volatility, account/tax rules, automatic aid eligibility, dynamic fund transfers and allocation optimization remain outside this model.
-
-## Development and verification
-
-Static semantic HTML/CSS and vanilla JS modules; no framework, runtime service, telemetry or dependencies. Requires Node.js 24 for checks; the app runs in a modern browser.
+No framework, installation or build step is required for the static app. Use a local HTTP server rooted at `site/`. Node 24+ runs checks:
 
 ```sh
 npm run check
-python3 -m http.server 8000 --directory site
-node scripts/validate-history.mjs
 ```
 
-Only `site/` is deployed through GitHub Actions. Relative URLs support `/education-finance/`. Tests use synthetic data only. The synthetic historical diagnostic report can be reproduced with the last command. The source snapshot can be rebuilt offline with `python3 scripts/prepare_history.py`.
+Rebuild the current release from pinned existing bundles:
 
-- [Calculation and simulation methodology](docs/model.md)
-- [Economic calibration plan](docs/economic-calibration.md)
-- [Assumptions](docs/assumptions.md)
-- [Requirements](docs/requirements.md)
-- [Architecture](docs/architecture.md)
-- [Verification](docs/verification.md)
-- [Roadmap](docs/roadmap.md)
-- [GitHub Pages setup](docs/deployment.md)
-- [Historical data attribution](data/NOTICE.md)
-- [Published school budgets](data/school-costs.md)
+```sh
+node scripts/review-calibration.mjs
+node scripts/build_reviewed_release.mjs
+node scripts/validate-savings-stability.mjs
+```
 
-No real student information, account values, private workbook contents or exports belong in commits.
+The worker loads `site/data/calibration-reviewed.json` and verifies linked validation hashes. `site/data/critique-validation.json` and `site/data/funding-validation.json` are the v0.10 evaluation reports. Generation is deterministic; validation does not send user plans anywhere.
 
-## License
+[Data sources and rights](data/NOTICE.md) · [Deployment](docs/deployment.md) · [Browser checks](tests/browser-results.md) · [Archived v0.9 documentation and older rebuild instructions](docs/archive/v0.9.0-readme.md)
 
-[MIT](LICENSE) · Copyright (c) 2026 J. Schell. Application code is MIT; source data retains its own attribution and terms.
+## Repository layout
 
-Stress cases now compare with an unchanged baseline using the same 1,000 seeds and calendar blocks. An absent-grants stress has exactly zero effect when no grants are entered. The temporary fictional example now includes $60,000 savings and $500/month contributions, showing a more useful planning case without changing the model defaults. Application source is formatted for review; no runtime dependencies were added. Legacy Gaussian helpers remain for a separate cleanup; the live assessment continues to use the historical engine.
+- `site/`: buildless HTML, CSS, pure finance modules, browser persistence, worker, presentation and pinned data.
+- `scripts/`: offline data preparation and reproducible evaluation.
+- `tests/`: financial behavior, provenance, persistence, versioning and browser evidence.
+- `docs/`: current methodology, plans/results and archived release history.
+
+GitHub Actions checks the repository and deploys `site/` to GitHub Pages. Physical iOS Safari persistence testing remains outstanding; browser recovery and locking have automated tests.
