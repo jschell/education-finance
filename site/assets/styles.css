@@ -20,3 +20,5 @@
 @media(max-width:520px){.outcome-distribution table{min-width:0;table-layout:fixed}.outcome-distribution th:last-child,.outcome-distribution td:last-child{display:none}.outcome-distribution th:first-child{width:52%}.outcome-distribution td:nth-child(2){min-width:0;width:48%}.outcome-distribution th,.outcome-distribution td{padding:10px 8px;overflow-wrap:anywhere}}
 
 .example-notice{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--pale);border:1px solid var(--line);border-left:4px solid var(--accent);padding:16px 20px;border-radius:8px;margin:0 0 24px}.example-notice p{font-size:.82rem;line-height:1.6;margin:5px 0 0}.example-notice button{flex-shrink:0}@media(max-width:520px){.example-notice{align-items:stretch;flex-direction:column;gap:12px}}
+
+#save-state.error{color:var(--red);font-weight:650}

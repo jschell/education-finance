@@ -1,13 +1,43 @@
-import { MODEL,PRNG,ASSUMPTIONS,clone,id,newPlan,newStudent,defaultScenario,duplicateStudent,validatePlan,exportPlan,parseImport,currentMonth,monthText,month,assumptionKeys } from './domain.js?v=0.2.1';
-import { PROFILES,periodLabel } from './history-config.js?v=0.2.1';
-import { compile,runPath,annualRows } from './engine.js?v=0.2.1';
-import { savePlan,loadPlan,clearPlan } from './storage.js?v=0.2.1';
-import { el,money,table,deterministicView,simulationView,comparisonView,historyContextView,csvText } from './render.js?v=0.2.1';
+import { MODEL,PRNG,ASSUMPTIONS,clone,id,newPlan,newStudent,defaultScenario,duplicateStudent,validatePlan,exportPlan,parseImport,currentMonth,monthText,month,assumptionKeys } from './domain.js?v=0.2.2';
+import { PROFILES,periodLabel } from './history-config.js?v=0.2.2';
+import { compile,runPath,annualRows } from './engine.js?v=0.2.2';
+import { savePlan,loadPlan,clearPlan,saveRecovery,loadRecovery,markRecoverySaved,clearRecovery } from './storage.js?v=0.2.2';
+import { el,money,table,deterministicView,simulationView,comparisonView,historyContextView,csvText } from './render.js?v=0.2.2';
 const $=s=>document.querySelector(s),form=$('#planner');
 let plan=newPlan(),studentId=plan.students[0].id,scenarioId=plan.students[0].scenarios[0].id;
-let revision=0,dirty=false,worker=null,runId=0,lastResult=null,pendingImport=null,assumptionEdited=false,refreshTimer=null,exampleWorkspace=null;
+let revision=0,dirty=false,worker=null,runId=0,lastResult=null,pendingImport=null,assumptionEdited=false,refreshTimer=null,exampleWorkspace=null,saveQueued=false,saveQueue=Promise.resolve(),saveEpoch=0;
 const student=()=>plan.students.find(s=>s.id===studentId),scenario=()=>student().scenarios.find(s=>s.id===scenarioId);
 const message=(text,error=false)=>{ $('#message').textContent=text;$('#message').classList.toggle('error',error); };
+function saveStatus(text,error=false){$('#save-state').textContent=text;$('#save-state').classList.toggle('error',error);}
+function persistSnapshot(){
+  if(exampleWorkspace)return Promise.resolve();
+  const snapshot=clone(plan),selection={studentId,scenarioId},savedRevision=revision,epoch=saveEpoch,signature=JSON.stringify(snapshot);
+  let token=null;
+  try{token=saveRecovery(snapshot,selection);}catch{try{clearRecovery();}catch{}}
+  saveStatus('Saving automatically…');
+  const job=saveQueue.catch(()=>{}).then(async()=>{
+    if(epoch!==saveEpoch)return;
+    await savePlan(snapshot);
+    if(token){try{markRecoverySaved(token);}catch{}}
+    if(exampleWorkspace&&exampleWorkspace.revision===savedRevision&&JSON.stringify(exampleWorkspace.plan)===signature){exampleWorkspace.dirty=false;exampleWorkspace.saveState='Saved in this browser';}
+    else if(!exampleWorkspace&&epoch===saveEpoch&&revision===savedRevision&&JSON.stringify(plan)===signature){dirty=false;saveStatus('Saved in this browser');}
+  });
+  saveQueue=job;
+  return job.catch(error=>{
+    if(!exampleWorkspace&&epoch===saveEpoch&&revision===savedRevision)saveStatus(token?'Recovery copy saved; retry Save now':'Not saved — retry Save now or export',true);
+    throw error;
+  });
+}
+function checkpoint(){
+  if(exampleWorkspace||!dirty)return;
+  try{commit({normalize:false,report:false});return persistSnapshot();}
+  catch{saveStatus('Not saved — complete invalid fields',true);}
+}
+function scheduleSave(){
+  if(saveQueued||exampleWorkspace)return;
+  saveQueued=true;
+  queueMicrotask(()=>{saveQueued=false;checkpoint()?.catch(()=>{});});
+}
 function cancel(show=false) { if(worker){worker.terminate();worker=null;runId++;if(show)message('Simulation cancelled. Inputs are unchanged.');}$('#run-status').hidden=true; }
 function calculationStatus(text,error=false) {
   let status=$('#calculation-status');
@@ -31,7 +61,7 @@ function invalidate() {
   }
 }
 function changed() {
-  revision++;dirty=true;$('#save-state').textContent=exampleWorkspace?'Example mode':'Unsaved changes';invalidate();message('');
+  revision++;dirty=true;saveStatus(exampleWorkspace?'Example mode — changes are temporary':'Saving automatically…');invalidate();message('');scheduleSave();
   calculationStatus('Updating assessment…');
 }
 function scheduleProjection() {
@@ -168,7 +198,7 @@ function startAssessment(action='single',{committed=false,scroll=true}={}) {
   message('');calculationStatus('Calculating historical outcome ranges…');
   const thisRun=++runId,snapshot=clone(plan);$('#run-status').hidden=false;$('#progress-text').textContent='Loading historical data…';$('#progress').value=0;
   if(scroll)$('#run-status').scrollIntoView({block:'start',behavior:'smooth'});
-  worker=new Worker(new URL('./worker.js?v=0.2.1',import.meta.url),{type:'module'});
+  worker=new Worker(new URL('./worker.js?v=0.2.2',import.meta.url),{type:'module'});
   worker.onmessage=({data})=>{
     if(data.runId!==runId)return;
     if(data.type==='progress'){$('#progress').value=data.done/Math.max(1,data.total);$('#progress-text').textContent=`${data.scenario?data.scenario+' · ':''}${data.stage} · ${Math.round(data.done/Math.max(1,data.total)*100)}%`;}
@@ -192,11 +222,11 @@ form.addEventListener('change',e=>{if(e.target.tagName==='SELECT'||e.target.type
 form.addEventListener('submit',e=>{e.preventDefault();guard(()=>startAssessment());});
 $('#compare').onclick=()=>guard(()=>startAssessment('compare'));$('#cancel').onclick=()=>{cancel(true);calculationStatus('Calculation cancelled. Previous results remain visible.');};
 $('#add-gift').onclick=()=>{if($('#gifts').children.length>=24)return message('A scenario allows up to 24 gifts.',true);$('#gifts').append(giftRow());changed();scheduleProjection();};
-$('#student-select').onchange=()=>guard(()=>{const selected=$('#student-select').value;try{commit();studentId=selected;scenarioId=student().scenarios[0].id;invalidate();renderForm();message('Student selected.');}catch(e){$('#student-select').value=studentId;throw e;}});
-$('#scenario-select').onchange=()=>guard(()=>{const selected=$('#scenario-select').value;try{commit();scenarioId=selected;invalidate();renderForm();message('Scenario selected.');}catch(e){$('#scenario-select').value=scenarioId;throw e;}});
+$('#student-select').onchange=()=>guard(()=>{const selected=$('#student-select').value;try{commit();studentId=selected;scenarioId=student().scenarios[0].id;invalidate();renderForm();if(!exampleWorkspace)persistSnapshot().catch(()=>{});message('Student selected.');}catch(e){$('#student-select').value=studentId;throw e;}});
+$('#scenario-select').onchange=()=>guard(()=>{const selected=$('#scenario-select').value;try{commit();scenarioId=selected;invalidate();renderForm();if(!exampleWorkspace)persistSnapshot().catch(()=>{});message('Scenario selected.');}catch(e){$('#scenario-select').value=scenarioId;throw e;}});
 $('#add-student').onclick=()=>guard(()=>{commit();if(plan.students.length>=30)throw Error('Maximum 30 students.');const st=newStudent(plan.valuation);st.alias=`Student ${plan.students.length+1}`;st.scenarios[0].assumptions=clone(plan.defaults);st.scenarios[0].assumptionsStatus='user-defined';const candidate=clone(plan);candidate.students.push(st);validatePlan(candidate);plan=candidate;studentId=st.id;scenarioId=st.scenarios[0].id;changed();renderForm();});
 $('#copy-student').onclick=()=>guard(()=>{commit();if(plan.students.length>=30)throw Error('Maximum 30 students.');const st=duplicateStudent(student());const candidate=clone(plan);candidate.students.push(st);validatePlan(candidate);plan=candidate;studentId=st.id;scenarioId=st.scenarios[0].id;changed();renderForm();message('Student duplicated. Shared allocation reset to zero to prevent double counting.');});
-$('#delete-student').onclick=()=>guard(async()=>{if(plan.students.length<2)return;if(!await confirmAction('Delete this student?',`Remove ${student().alias} and all their scenarios from this workspace? Save locally afterward to update stored data.`))return;plan.students=plan.students.filter(s=>s.id!==studentId);studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;changed();renderForm();});
+$('#delete-student').onclick=()=>guard(async()=>{if(plan.students.length<2)return;if(!await confirmAction('Delete this student?',`Remove ${student().alias} and all their scenarios from this workspace? The change is saved automatically in this browser.`))return;plan.students=plan.students.filter(s=>s.id!==studentId);studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;changed();renderForm();});
 function addScenario(copy=false) {
   commit();const st=student();if(st.scenarios.length>=20)throw Error('Maximum 20 scenarios per student.');
   const s=copy?clone(scenario()):defaultScenario(plan.valuation,st.enrollment);s.id=id();s.name=copy?`${s.name.slice(0,85)} copy`:`Path ${st.scenarios.length+1}`;
@@ -205,23 +235,23 @@ function addScenario(copy=false) {
 }
 $('#add-scenario').onclick=()=>guard(()=>addScenario());$('#copy-scenario').onclick=()=>guard(()=>addScenario(true));
 $('#delete-scenario').onclick=()=>guard(async()=>{if(student().scenarios.length<2)return;if(!await confirmAction('Delete this scenario?',`Remove ${scenario().name} from this workspace?`))return;student().scenarios=student().scenarios.filter(s=>s.id!==scenarioId);scenarioId=student().scenarios[0].id;changed();renderForm();});
-$('#set-defaults').onclick=()=>guard(()=>{commit();plan.defaults=clone(scenario().assumptions);changed();renderForm();message('Reference defaults updated. Existing scenarios retain their values. Save locally to keep these defaults.');});
+$('#set-defaults').onclick=()=>guard(()=>{commit();plan.defaults=clone(scenario().assumptions);changed();renderForm();message('Reference defaults updated. Existing scenarios retain their values. Defaults save automatically.');});
 $('#apply-defaults').onclick=()=>guard(()=>{commit();scenario().assumptions=clone(plan.defaults);scenario().assumptionsStatus='user-defined';scenario().assumptionsDate=currentMonth();changed();renderForm();message('Reference defaults copied into this scenario.');});
-$('#save').onclick=()=>guard(async()=>{if(exampleWorkspace)throw Error('Exit the example to save your plan.');commit();const snapshot=clone(plan);const signature=JSON.stringify(snapshot),savedRevision=revision;await savePlan(snapshot);if(revision===savedRevision&&JSON.stringify(plan)===signature){dirty=false;$('#save-state').textContent='Saved in this browser';}message('Plan saved locally. Export a backup for portability.');});
+$('#save').onclick=()=>guard(async()=>{if(exampleWorkspace)throw Error('Exit the example to save your plan.');commit();await persistSnapshot();message('Plan saved in this browser. Export a backup for portability.');});
 $('#export').onclick=()=>guard(()=>{commit();download('education-finance-plan.json',exportPlan(plan),'application/json');message('Plan exported. The JSON contains financial inputs; store it privately.');});
 $('#import').onclick=()=>$('#import-file').click();
 $('#import-file').onchange=()=>guard(async()=>{const file=$('#import-file').files[0];$('#import-file').value='';if(!file)return;if(file.size>2_000_000)throw Error('Import file must be under 2 MB.');pendingImport=parseImport(await file.text());$('#import-preview').textContent=`${pendingImport.students.length} students · ${pendingImport.students.reduce((n,s)=>n+s.scenarios.length,0)} scenarios · valuation ${pendingImport.valuation}. Students: ${pendingImport.students.map(s=>s.alias).join(', ')}.`;$('#import-dialog').showModal();$('#import-cancel').focus();});
 $('#import-cancel').onclick=()=>{pendingImport=null;$('#import-dialog').close();};$('#import-dialog').oncancel=()=>{pendingImport=null;};
-$('#import-confirm').onclick=()=>guard(()=>{if(!pendingImport)return;plan=pendingImport;pendingImport=null;studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;$('#import-dialog').close();changed();renderForm();message('Imported into this workspace. Review, then Save locally to persist.');});
-$('#delete-local').onclick=()=>guard(async()=>{if(!await confirmAction('Delete all local data?','This deletes the stored plan and resets the current workspace. Export first if you need a backup. Other open tabs may still hold their own in-memory copy.'))return;await clearPlan();plan=newPlan();studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;dirty=false;invalidate();renderForm();$('#save-state').textContent='Not saved locally';message('Stored plan deleted; workspace reset.');});
+$('#import-confirm').onclick=()=>guard(()=>{if(!pendingImport)return;plan=pendingImport;pendingImport=null;studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;$('#import-dialog').close();changed();renderForm();message('Imported into this workspace and saving automatically.');});
+$('#delete-local').onclick=()=>guard(async()=>{if(!await confirmAction('Delete all local data?','This deletes the stored plan and resets the current workspace. Export first if you need a backup. Other open tabs may still hold their own in-memory copy.'))return;saveEpoch++;await saveQueue.catch(()=>{});await clearPlan();clearRecovery();plan=newPlan();studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;dirty=false;invalidate();renderForm();$('#save-state').textContent='Not saved locally';message('Stored plan deleted; workspace reset.');});
 function showExampleMode(active){
   $('#example-notice').hidden=!active;
   for(const selector of ['#save','#import','#delete-local','#example'])$(selector).disabled=active;
 }
 $('#example').onclick=()=>guard(()=>{
   if(exampleWorkspace)return;
-  commit(); // Capture all valid pending edits before switching to fictional data.
-  exampleWorkspace={plan:clone(plan),studentId,scenarioId,dirty,saveState:$('#save-state').textContent};
+  commit();if(dirty)persistSnapshot().catch(()=>{}); // Capture all valid pending edits before switching to fictional data.
+  exampleWorkspace={plan:clone(plan),studentId,scenarioId,dirty,saveState:$('#save-state').textContent,revision};
   plan=newPlan();const st=plan.students[0],s=st.scenarios[0];st.alias='Fictional student';s.name='Illustrative in-state';s.path='Public in-state';s.costs={tuition:14000,housing:16000,books:1200,transport:2000,other:1500};s.balance=25000;s.monthly=0;s.costConfirmed=true;s.source='Fictional example, not a school quote or national benchmark';s.acknowledged=false;
   studentId=st.id;scenarioId=s.id;changed();renderForm();showExampleMode(true);$('#exit-example').focus();message('');
 });
@@ -230,9 +260,17 @@ $('#exit-example').onclick=()=>guard(()=>{
   clearRefresh();cancel();const kept=exampleWorkspace;exampleWorkspace=null;
   plan=kept.plan;studentId=kept.studentId;scenarioId=kept.scenarioId;dirty=kept.dirty;revision++;
   lastResult=null;showExampleMode(false);renderForm();$('#save-state').textContent=kept.saveState;
-  message('Your plan is restored.');form.querySelector('[data-scenario=balance]').focus();
+  if(dirty)scheduleSave();message('Your plan is restored.');form.querySelector('[data-scenario=balance]').focus();
 });
-window.addEventListener('beforeunload',e=>{if(exampleWorkspace?exampleWorkspace.dirty:dirty){e.preventDefault();e.returnValue='';}});
-renderForm();
-try { const stored=await loadPlan();if(stored&&!dirty){plan=stored;studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;$('#save-state').textContent='Loaded from this browser';message('');renderForm();} }
-catch(e){message(`Could not load local data: ${e.message}. Import a backup or continue; exporting remains available.`,true);}
+window.addEventListener('beforeunload',e=>{checkpoint()?.catch(()=>{});if(exampleWorkspace?exampleWorkspace.dirty:dirty){e.preventDefault();e.returnValue='';}});
+window.addEventListener('pagehide',()=>checkpoint()?.catch(()=>{}));
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')checkpoint()?.catch(()=>{});});
+let recovered=false;
+try{
+  const saved=loadRecovery();
+  if(saved){plan=saved.plan;studentId=saved.selection.studentId;scenarioId=saved.selection.scenarioId;dirty=saved.pending;recovered=true;saveStatus(saved.pending?'Recovering recent edits…':'Loaded from this browser');}
+}catch{message('Could not read the recovery copy. Trying the last saved plan.',true);}
+renderForm();if(recovered&&dirty)scheduleSave();
+const loadRevision=revision;
+try { const stored=await loadPlan();if(stored&&!recovered&&!dirty&&!exampleWorkspace&&revision===loadRevision){plan=stored;studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;saveStatus('Loaded from this browser');message('');renderForm();} }
+catch(e){if(!recovered)message(`Could not load local data: ${e.message}. Import a backup or continue; exporting remains available.`,true);}

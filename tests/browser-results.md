@@ -17,3 +17,7 @@ Automated financial checks are separate from browser event/storage/worker checks
 
 11. Try an example with valid unsaved changes. Confirm the example banner, disabled local save/import/delete, and one Calculate action. Edit fictional inputs, then Exit example by keyboard; restore original values, student/scenario selection and dirty status. Repeat starting from an empty plan. No delete operation is needed.
 12. Gauge target/status and probability-band counts must agree with the same assessment; switch displayed outcome without starting a new worker. No budget shows a neutral gauge and no funded-percentage distribution.
+
+13. Add students and scenarios, change names/costs/balances, then reload without Save now. Confirm count, selection and values persist. Repeat before the simulation completes. The header must report actual save completion, not calculation completion.
+14. Invalid input shows Not saved and retains last valid data. Correct it and confirm autosave recovers. Example edits must never overwrite real saves; reloading from the example restores the real plan.
+15. Exercise a blocked-storage save: display failure or recovery-only status, preserve inputs for export and allow Save now to retry. Clear-local must remove both database and recovery copy after pending writes finish.

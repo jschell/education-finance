@@ -2,7 +2,7 @@
 
 A browser-local college funding planner, entered one student at a time, designed for GitHub Pages.
 
-**Status: working v0.2.1 calculator.** One Calculate action produces historical investment, expense, and funding-gap ranges, a savings target, actual historical-period comparisons, and a fixed-rate reference. Multiple students/scenarios, explicit local saves, and portable backup are implemented. No school-price lookup, tax/aid eligibility calculation, or joint family simulation is included.
+**Status: working v0.2.2 calculator.** One Calculate action produces historical investment, expense, and funding-gap ranges, a savings target, actual historical-period comparisons, and a fixed-rate reference. Multiple students/scenarios, automatic local saves, and portable backup are implemented. No school-price lookup, tax/aid eligibility calculation, or joint family simulation is included.
 
 Live application: https://jschell.github.io/education-finance/
 
@@ -13,7 +13,7 @@ Live application: https://jschell.github.io/education-finance/
 3. Optional assumptions select an allocation profile, historical period, block length, fees, or fixed expense growth. The default uses jointly sampled monthly stock/bond/cash returns, general CPI, and tuition CPI from 1978–2024. Allocation presets are illustrative developer choices.
 4. Click Calculate for the full assessment. Valid edits also refresh the same assessment after a short pause. The fixed-rate reference is collapsed within results; no separate Monte Carlo button is needed. The solver uses your contribution dates even when the current contribution is zero.
 5. Duplicate a scenario to change education costs, funding, or return assumptions; compare alternatives for the same student.
-6. Save locally, export a plan backup, and optionally export the calculated assessment (exact inputs, model, seed, trial count, and results) or outcome-range CSV. New students can be assessed independently.
+6. Changes save automatically in this browser. Export a plan backup, and optionally export the calculated assessment (exact inputs, model, seed, trial count, and results) or outcome-range CSV. New students can be assessed independently.
 
 A shared pool supports explicit allocations only. Restrict each student's earmarked balance to their own funds; do not also include shared money there. Scenario alternatives reuse that student's allocation. Browser storage is not a backup and does not synchronize devices.
 
@@ -28,7 +28,7 @@ A shared pool supports explicit allocations only. Restrict each student's earmar
 3. Enter earmarked savings, planned contributions, and college-year income support.
 4. Review dated assumptions and run one historical assessment.
 5. Compare funding gaps, payment timing, and additional savings requirements.
-6. Save locally and export a portable backup; add another student independently.
+6. Export a portable backup; add another student independently.
 
 Family-wide allocation and joint simulation follow the validated single-student engine.
 
@@ -73,3 +73,7 @@ The funding outlook includes a semicircular likelihood-of-success gauge. Its per
 Outcome distributions display actual simulation frequencies across dollar bands for funding gaps, entry savings and total college costs. Fully funded paths are counted separately. The selector changes only the displayed summary and does not rerun the calculation. Percentile columns rank rows independently and do not describe a single combined scenario.
 
 Try an example opens a temporary fictional workspace. Exit example restores the previous student/scenario selection and all valid unsaved edits. Example mode disables local save, import and local-data deletion so a demonstration cannot overwrite the stored plan. It does not add a separate calculation action. Unsaved real work retains the normal navigation warning; example edits can be discarded by exiting.
+
+## Automatic saves and reload recovery (v0.2.2)
+
+Valid real-plan changes—including adding students/scenarios—automatically save. Save now forces an immediate save. A synchronous local recovery copy protects the latest valid plan while the browser database transaction is pending; reload restores the selected student/scenario and retries interrupted saves. Header status reports completion or storage/validation failures. Invalid/incomplete inputs retain the last valid saved plan. Example-mode changes are deliberately temporary and never replace the real plan; exit before entering real students. Changes that existed only in memory in earlier releases cannot be reconstructed after the tab is gone. Exported backups remain portable; browser saves do not sync devices.

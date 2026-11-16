@@ -1,6 +1,6 @@
 # Implemented architecture and data contract
 
-Release: v0.2.1; model `college-funding-2.0.0`; schema 2.
+Release: v0.2.2; model `college-funding-2.0.0`; schema 2.
 
 ## Modules
 
@@ -28,9 +28,9 @@ Family defaults are copied snapshots. Editing defaults does not mutate existing 
 
 ## Persistence and portability
 
-Explicit Save locally writes the full validated plan to IndexedDB database education-finance, store plans, key workspace. Input edits show unsaved status and a navigation warning. Saves wait for transaction completion; storage failures leave inputs available for export. On load, corrupt/unsupported records produce a visible error and are not silently replaced. Reports are not auto-persisted; rerun calculations after reload or export an assessment.
+Every valid real-plan edit automatically writes a synchronous localStorage recovery snapshot and queues the full validated plan to IndexedDB database education-finance, store plans, key workspace. Save now requests the same write explicitly. The header reports Saving automatically, completion, invalid fields or storage failure. Saves wait for transaction completion; storage failures leave inputs available for export. On load, corrupt/unsupported records produce a visible error and are not silently replaced. Reports are not auto-persisted; rerun calculations after reload or export an assessment.
 
-Plan JSON wrapper: format=education-finance-1, exportedAt ISO timestamp, plan. Import parses and validates before any mutation, previews student/scenario counts and aliases, and requires Replace workspace. It replaces only tab memory until Save locally. Export assessments separately as JSON with full plan snapshot, model/PRNG/assumption versions, seed/trial settings, timestamp, and results; outcome-range CSV is spreadsheet-safe; reports can be printed.
+Plan JSON wrapper: format=education-finance-1, exportedAt ISO timestamp, plan. Import parses and validates before any mutation, previews student/scenario counts and aliases, and requires Replace workspace. Confirmed replacement is saved automatically. Export assessments separately as JSON with full plan snapshot, model/PRNG/assumption versions, seed/trial settings, timestamp, and results; outcome-range CSV is spreadsheet-safe; reports can be printed.
 
 Use textContent and value, never user HTML. Validate imports as data; no evaluation. Browser storage is not secure archival storage or cross-device sync. GitHub receives ordinary page/asset requests, but financial inputs are processed locally. Only site/ is deployed; never commit exports or actual student data.
 
@@ -50,6 +50,12 @@ Raw inputs, source hashes, transformations and attribution are committed in `dat
 
 ## Temporary example workspace (v0.2.1)
 
-Try an example validates and snapshots the current in-memory plan, selected student/scenario and dirty/save status, then switches to a separate fictional plan. Exit example restores that snapshot and recalculates; it does not commit example edits. Save locally, import, repeated example entry and local-data deletion are disabled during example mode. Existing stored data is untouched. The real snapshot is tab memory, not a second stored plan; unsaved real work keeps the normal navigation warning, while disposable example edits do not create one. Export remains available.
+Try an example validates and snapshots the current in-memory plan, selected student/scenario and dirty/save status, then switches to a separate fictional plan. Exit example restores that snapshot and recalculates; it does not commit example edits. Save now, import, repeated example entry and local-data deletion are disabled during example mode. Real pending edits are checkpointed before entering the example. The original selection and status remain in tab memory; the real plan persists through reload via autosave/recovery. Disposable example edits never enter either save store. Export remains available.
 
 `distribution.js` derives actual dollar-band counts from the existing simulation samples. `history.js` includes those summaries in assessments, and `render.js` supplies the gauge and an outcome selector without a second computation control. Schema and financial formulas are unchanged.
+
+## Save ordering and recovery
+
+Changes schedule a microtask checkpoint after structural UI updates, avoiding copying the previous student form into a newly added student. Validation is independent of simulation/worker completion. Recovery records use education-finance-recovery-1 with the validated plan, selected IDs and pending flag. On reload, a valid recovery copy takes priority and pending saves are retried; missing/corrupt recovery falls back to the browser database with a visible read error. Invalid IDs fall back to the first valid student/scenario.
+
+Database writes are serialized. An older completion can neither mark a newer recovery record saved nor clear a newer dirty revision. Initial database reads cannot replace edits made since startup. Clear-local waits for prior writes and removes both stores, preventing a queued save from resurrecting deleted data. Page hide, hidden visibility and beforeunload checkpoint pending valid edits; reload safety does not depend on a mobile unload prompt. When recovery storage fails, database saves are still attempted; when database saves fail but the recovery copy succeeded, the header says so and Save now can retry. No cloud requests or new persistence dependency are introduced.

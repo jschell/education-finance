@@ -1,8 +1,8 @@
-import { outcomeDistribution } from './distribution.js?v=0.2.1';
-import { MODEL,clone } from './domain.js?v=0.2.1';
-import { compile,runPath,repriceRow,requiredContribution } from './engine.js?v=0.2.1';
-import { random,quantile } from './simulation.js?v=0.2.1';
-import { DATASET_ID,HISTORY_PRNG,PROFILES,periodLabel } from './history-config.js?v=0.2.1';
+import { outcomeDistribution } from './distribution.js?v=0.2.2';
+import { MODEL,clone } from './domain.js?v=0.2.2';
+import { compile,runPath,repriceRow,requiredContribution } from './engine.js?v=0.2.2';
+import { random,quantile } from './simulation.js?v=0.2.2';
+import { DATASET_ID,HISTORY_PRNG,PROFILES,periodLabel } from './history-config.js?v=0.2.2';
 const sort=x=>x.sort((a,b)=>a-b);
 const percentiles=x=>{sort(x);return {p10:quantile(x,.1),p50:quantile(x,.5),p90:quantile(x,.9)};};
 export function validateHistory(data) {
