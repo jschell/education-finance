@@ -1,6 +1,6 @@
 # Critique fix status · v0.10.0
 
-Implementation complete; all 123 checks passed. Deployment is in progress. Final deployment and fresh-review status will be recorded after live verification.
+**Deployed and reviewed.** GitHub Actions Check and Pages deployment succeeded for v0.10.0 (`d4e75fddf56f2ad27ddb91655a2b6da71ab4efb9`). Live app/code/report verification passed. A fresh post-deployment review is complete; findings are recorded separately.
 
 - Whole-plan checks implemented using production compile, path factory and ledger; origin-limited inputs, published cost levels, reliability bins and unavailable long horizons are recorded.
 - Cost uncertainty candidate evaluated and rejected by the frozen gate: score 0.156 → 0.236, coverage 71.6% → 80.3%. The prior cost process is retained; undercoverage remains unresolved.
@@ -16,3 +16,7 @@ Implementation complete; all 123 checks passed. Deployment is in progress. Final
 - Candidate/whole-plan outputs rebuilt identically; current bundle hashes match. Phone/iPad/desktop and project-path checks passed. An updated live savings card will be checked after deployment.
 
 [Original frozen plan](critique-fix-plan.md) · [Savings reserve amendment](savings-reserve-rule.md) · [Fresh review](critique-review-v0.10.0.md)
+
+## Post-deployment conclusion
+
+The [fresh review](critique-review-v0.10.0.md) confirms the deployed engineering and savings-stability fixes. Statistical findings remain open: all longer-wait cost misses were below the forecast lower bound in these historical tests, and short/overlapping histories do not establish future funding calibration. The failed uncertainty candidate was not promoted. No additional calculation control or required input was added.
