@@ -198,7 +198,7 @@ Lower normalized 80% interval scores are better. Equal weight is given to waits,
 | --- | ---: | ---: | ---: |
 ${summaries.map((r) => `| ${r.model} | ${r.score.toFixed(3)} | ${(r.covered * 100).toFixed(1)}% | ${(r.bias * 100).toFixed(1)}% |`).join("\n")}
 
-Predeclared release recommendation: **${report.cost.recommendation}**. Production remains unchanged pending review. Chronologically selected score: ${report.cost.chronologicalSummary.score.toFixed(3)}. Selection excludes all outcomes whose final bill year is at or after the forecast origin; early origins default to the benchmark.
+Predeclared release recommendation: **${report.cost.recommendation}**. The production financial model is retained. Chronologically selected score: ${report.cost.chronologicalSummary.score.toFixed(3)}. Selection excludes all outcomes whose final bill year is at or after the forecast origin; early origins default to the benchmark.
 
 | Enrollment wait | Distinct origins | Benchmark coverage | Actual below band | Actual above band |
 | --- | ---: | ---: | ---: | ---: |

@@ -70,3 +70,38 @@ test("missing realized CPI is rejected rather than silently using a future or co
   assert.throws(() => actualBillRows(fixture(),
     [{year:2011,tuition:10000,housing:9000}],new Map(),2011), /preceding-month CPI/);
 });
+
+import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { canonical } from "../site/js/calibration.js";
+test("follow-up report hashes, complete bill scores and chronology match committed evidence", () => {
+  const read = (p) => readFileSync(new URL("../" + p, import.meta.url));
+  const report = JSON.parse(read("site/data/cost-followup.json"));
+  const { sha256, ...body } = report;
+  const hash = (s) => createHash("sha256").update(s).digest("hex");
+  assert.equal(hash(canonical(body)), sha256);
+  assert.equal(hash(read("docs/cost-followup-protocol.md")), report.protocolHash);
+  for (const [p, h] of Object.entries(report.sourceHashes)) assert.equal(hash(read(p)), h);
+  assert.equal(report.cost.folds.length, 90);
+  assert.equal(report.funding.cases.length, 1350);
+  assert.equal(report.audit.bills, 3240);
+  assert.ok(report.audit.maxAbsoluteDifference <= 0.03);
+  assert.ok(report.audit.maxAbsoluteTotalDifference <= 0.11);
+  for (const row of report.cost.folds) {
+    assert.ok(row.macroLast < row.origin);
+    assert.ok(row.costLast <= row.origin);
+    for (const s of Object.values(row.models)) {
+      assert.equal(s.covered + s.below + s.above, 1);
+      assert.ok(Math.abs(s.score -
+        (s.p90 - s.p10 + 10 * Math.max(0,s.p10 - s.actual) +
+          10 * Math.max(0,s.actual - s.p90)) / s.actual) < 1e-12);
+    }
+  }
+  for (const s of report.cost.chronologicalSelection)
+    assert.ok(s.targetYears.every((y) => y < s.origin));
+  assert.equal(report.cost.recommendation, recommendation(report.cost.summaries));
+  assert.equal(report.newborn.folds.length,14);
+  assert.equal(report.newborn.distinctOrigins,7);
+  assert.equal(report.newborn.nonoverlappingWindows.length,1);
+  assert.ok(report.newborn.folds.every((r) => r.lastBillYear === r.origin + 21));
+});

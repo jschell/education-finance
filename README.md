@@ -1,6 +1,6 @@
 # Education Finance
 
-A static, browser-local college funding planner. **App v0.10.0 · model college-funding-9.0.0 · schema 5 · MIT license.**
+A static, browser-local college funding planner. **App v0.10.1 · model college-funding-9.0.0 · schema 5 · MIT license.**
 
 [Open the planner](https://jschell.github.io/education-finance/)
 
@@ -24,6 +24,14 @@ The component comparisons and whole-plan checks are retrospective. Overlapping s
 
 [Current model](docs/model.md) · [Fix plan](docs/critique-fix-plan.md) · [Completion status](docs/critique-fix-status.md) · [Fresh review](docs/critique-review-v0.10.0.md)
 
+## Completed cost follow-up
+
+v0.10.1 reconstructs the prior session's uncommitted evaluation from a separately frozen protocol. The complete-bill comparison retains the existing financial model: the benchmark score is 0.284 versus 1.042/1.143/1.072 for the three trend alternatives. A 3,240-invoice audit found at most $0.02 per invoice and $0.10 over a complete bill window from cent allocation; realized CPI is rebased to the preceding August.
+
+The denser funding evaluation includes 1,350 synthetic cases across five funding levels and three profiles. Chronological selection uses only completed earlier bill outcomes. Older public aggregate cost tests cover seven overlapping origins and one nonoverlapping complete window: all 14 benchmark bills after an 18-year wait exceed the upper cost band. That aggregate test is distinct from a fixed-school or whole-plan funding test. Forecast coverage remains unresolved; the financial model and schema are unchanged.
+
+[Follow-up protocol](docs/cost-followup-protocol.md) · [Results](docs/cost-followup-results.md) · [Completion review](docs/completion-review.md)
+
 ## Develop and reproduce
 
 No framework, installation or build step is required for the static app. Use a local HTTP server rooted at `site/`. Node 24+ runs checks:
@@ -38,6 +46,7 @@ Rebuild the current release from pinned existing bundles:
 node scripts/review-calibration.mjs
 node scripts/build_reviewed_release.mjs
 node scripts/validate-savings-stability.mjs
+node scripts/validate-cost-followup.mjs
 ```
 
 The worker loads `site/data/calibration-reviewed.json` and verifies linked validation hashes. `site/data/critique-validation.json` and `site/data/funding-validation.json` are the v0.10 evaluation reports. Generation is deterministic; validation does not send user plans anywhere.
