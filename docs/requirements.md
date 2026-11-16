@@ -31,7 +31,7 @@ Loans are financing, not cost reductions. Work income is funding when received, 
 
 ## Family support
 
-Store multiple students from the beginning. Initially allocate shared money explicitly to students; enforce allocations no greater than the pool. Individual success probabilities are not a family success probability. Later joint simulation shares calendar-aligned market/inflation paths and applies household income limits and an explicit allocation policy.
+Store multiple students from the beginning. Initially allocate shared money explicitly to students; enforce allocations no greater than the pool. Individual success probabilities are not a family success probability. Implemented joint simulation shares calendar-aligned market/inflation paths and applies an optional household savings-deposit limit with proportional monthly allocation. Direct income payments remain outside that limit. Dynamic fund transfers and allocation optimization remain future work.
 
 ## Boundaries
 

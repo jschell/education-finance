@@ -23,9 +23,17 @@ Automated financial checks are separate from browser event/storage/worker checks
 15. Exercise a blocked-storage save: display failure or recovery-only status, preserve inputs for export and allow Save now to retry. Clear-local must remove both database and recovery copy after pending writes finish.
 
 16. New independent tab: random seed populated; reload: same seed. Edit to zero, reload, and verify it persists. Recalculate unchanged inputs and verify matching summaries. Clearing the input reuses the current session seed.
-17. Gauge states below, at and above the chosen target: inspect red/orange/yellow shades and green at/above the target, dark marker outline, target tick, accessible meter value, and neutral no-budget state. Verify phone/iPad layouts and keyboard Calculate.
+17. Gauge states below, at and above the chosen target: inspect yellow at 45%, light green at 60%, and dark green at the target, dark marker outline, target tick, accessible meter value, and neutral no-budget state. Verify phone/iPad layouts and keyboard Calculate.
 
 18. Existing schema-1/2 plans load as schema 3/model 2.1 without changing amounts, dates, IDs or manual rates. Defaults remain semester and nine living months. New settings persist through autosave/reload and JSON backups.
 19. Preview a published budget without applying: inputs/results/save status remain unchanged. Apply explicitly: all five categories and structured source fields match the preview; total is not added again. Funding and tuition calendar remain, living months become nine, and editing costs marks the estimate adapted.
 20. Choose quarter tuition and twelve living months, calculate once, and inspect the visible annual reference and detailed budget table. Optional dated allocation changes must affect historical paths and the history-derived reference, persist after reload, and reject duplicate dates/weights above 100%.
 21. Expand family attendance and new controls at phone/iPad widths. Tables scroll locally, no page overflow, and no family funding-success probability is inferred.
+
+22. v0.4.0: enter a negative savings amount, reload, verify the unfinished value/dynamic rows return and no new assessment is treated as valid. Correct it and verify normal autosave resumes.
+23. Open a second tab: editing/storage mutations must be disabled. Close the editor and reload a reader; it must become editable. Test actual Safari separately.
+24. Set household monthly savings-deposit limit to zero, reload, and verify zero is retained rather than interpreted as unlimited. Choose one household scenario per student; joint output must list these choices and the shared sampling basis.
+25. Select adverse/middle/favorable complete paths without a new worker. Compare the annual reconciliation. Marginal ranges and the fixed-rate reference stay separate.
+26. Inspect sensitivity/stress/walk-forward diagnostics, including insufficient-history states and weak-coverage warning. Below-target independent contribution checks must be provisional; a near-target gauge must not imply materially different readiness from sample noise.
+
+27. As the calculated percentage changes, the entire semicircle must recolor uniformly (low brown/red, yellow at 45%, light green at 60%, dark green at target), rather than leaving a static gradient along the arc. Keep the marker, target tick and gray no-budget state.

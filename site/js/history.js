@@ -1,9 +1,9 @@
-import { allocationAt } from './planning.js?v=0.3.0';
-import { outcomeDistribution } from './distribution.js?v=0.3.0';
-import { MODEL,clone } from './domain.js?v=0.3.0';
-import { compile,runPath,repriceRow,requiredContribution } from './engine.js?v=0.3.0';
-import { random,quantile } from './simulation.js?v=0.3.0';
-import { DATASET_ID,HISTORY_PRNG,PROFILES,periodLabel } from './history-config.js?v=0.3.0';
+import { allocationAt } from './planning.js?v=0.4.0';
+import { outcomeDistribution } from './distribution.js?v=0.4.0';
+import { MODEL,clone } from './domain.js?v=0.4.0';
+import { compile,runPath,repriceRow,requiredContribution,annualRows } from './engine.js?v=0.4.0';
+import { random,quantile } from './simulation.js?v=0.4.0';
+import { DATASET_ID,HISTORY_PRNG,PROFILES,periodLabel } from './history-config.js?v=0.4.0';
 const sort=x=>x.sort((a,b)=>a-b);
 const percentiles=x=>{sort(x);return {p10:quantile(x,.1),p50:quantile(x,.5),p90:quantile(x,.9)};};
 export function validateHistory(data) {
@@ -32,7 +32,7 @@ export function referenceScenario(scenario,data) {
   const annual=fn=>Math.expm1(rows.reduce((v,row)=>v+Math.log(fn(row)),0)/rows.length*12);
   const rates=stages.map(w=>annual(row=>portfolioGross(row,w,s.history.fee)));
   s.assumptions.returnRate=rates[0];s.assumptions.lateReturn=rates[1];s.assumptions.attendanceReturn=rates[2];
-  if(s.history.costMode==='historical'){s.assumptions.tuitionGrowth=annual(row=>1+row[5]);s.assumptions.livingGrowth=annual(row=>1+row[4]);s.assumptions.inflation=s.assumptions.livingGrowth;}
+  if(s.history.costMode==='historical'){if(s.history.tuitionBasis==='index')s.assumptions.tuitionGrowth=annual(row=>1+row[5]);s.assumptions.livingGrowth=annual(row=>1+row[4]);s.assumptions.inflation=s.assumptions.livingGrowth;}
   for(const entry of s.history.allocations)entry.referenceRate=annual(row=>portfolioGross(row,[entry.stocks,entry.bonds,entry.cash],s.history.fee));
   s.assumptionsStatus='user-defined';s.assumptionsDate=data.asOf.slice(0,7);return s;
 }
@@ -44,13 +44,15 @@ export function blockIndices(rows,length,startMonth,blockYears,seed,trial) {
   while(indices.length<length){const first=starts[Math.floor(rand()*starts.length)];for(let i=0;i<block&&indices.length<length;i++)indices.push(first+i);}
   return indices;
 }
-export function historicalPath(c,rows,indices) {
+export const tuitionLogMean=rows=>rows.reduce((v,row)=>v+Math.log1p(row[5]),0)/rows.length;
+export function historicalPath(c,rows,indices,center=tuitionLogMean(rows)) {
   const stages=PROFILES[c.history.profile].stages,gross=new Float64Array(c.rows.length),priced=[];
-  let tuition=1,living=1,discount=1;
+  let tuition=1,living=1,discount=1,academicTuition=1;
   for(let i=0;i<c.rows.length;i++){
     const observation=rows[indices[i]];const allocation=allocationAt(c.rows[i].date,c.history.allocations),weights=allocation?[allocation.stocks,allocation.bonds,allocation.cash]:stages[stage(c,i)];gross[i]=portfolioGross(observation,weights,c.history.fee);
-    priced.push(c.history.costMode==='historical'?repriceRow(c.rows[i],tuition,living,discount):c.rows[i]);
-    tuition*=1+observation[5];living*=1+observation[4];discount*=1+observation[4];
+    if(i===0||(i-c.enrollmentIndex>=0&&(i-c.enrollmentIndex)%12===0))academicTuition=tuition;
+    priced.push(c.history.costMode==='historical'?repriceRow(c.rows[i],academicTuition,living,discount):c.rows[i]);
+    tuition*=c.history.tuitionBasis==='published'?Math.exp(Math.log1p(c.a.tuitionGrowth)/12+Math.log1p(observation[5])-center):1+observation[5];living*=1+observation[4];discount*=1+observation[4];
   }
   return {compiled:{...c,rows:priced},gross};
 }
@@ -67,10 +69,12 @@ export function simulateHistorical(c,data,settings={},progress=()=>{},solve=true
   if(!Number.isInteger(trials)||trials<100||trials>50000||!Number.isInteger(seed)||seed<0||seed>4294967295||threshold<.5||threshold>.99||ceiling<0||!Number.isFinite(ceiling))throw Error('Invalid assessment settings.');
   const rows=observations(data,c.history.period),requirements=[],gaps=[],realGaps=[],costs=[],realCosts=[],tuitionCosts=[],ending=[],enrollment=[],failed=[];
   const dates=[...new Set([0,...c.rows.map((r,i)=>i).filter(i=>i%12===11),c.rows.length-1])],samples=dates.map(()=>[]);let successes=0;
-  const make=t=>historicalPath(c,rows,blockIndices(rows,c.rows.length,c.valuationMonth,c.history.blockYears,seed,t));
+  const ranked=[],center=tuitionLogMean(rows);
+  const make=t=>historicalPath(c,rows,blockIndices(rows,c.rows.length,c.valuationMonth,c.history.blockYears,seed,t),center);
   for(let t=0;t<trials;t++){
     const path=make(t),r=runPath(path.compiled,i=>path.gross[i],c.monthly,'bands');
     if(r.success)successes++;else failed.push(r.shortfall);
+    ranked.push({trial:t,score:r.ending-r.shortfall});
     gaps.push(r.shortfall);realGaps.push(r.realShortfall);costs.push(r.total);realCosts.push(r.realTotal);tuitionCosts.push(r.tuitionTotal);ending.push(r.ending);if(r.enrollmentBalance!==null)enrollment.push(r.enrollmentBalance);
     dates.forEach((i,j)=>samples[j].push(r.balances[i]));
     if(solve)requirements.push(requiredContribution(path.compiled,i=>path.gross[i]));
@@ -92,7 +96,12 @@ export function simulateHistorical(c,data,settings={},progress=()=>{},solve=true
       confirmation={trials:verify,probability:passed/verify,meets:passed/verify>=threshold,calibrationTrials:count,calibrationProbability:passes/count};
     }
   }
-  return {modelVersion:MODEL,prngVersion:HISTORY_PRNG,assumptionsVersion:DATASET_ID,seed,trials,threshold,ceiling,
+  ranked.sort((a,b)=>a.score-b.score||a.trial-b.trial);
+  const representativePaths=[['Adverse',.1],['Middle',.5],['Favorable',.9]].map(([label,q])=>{
+    const chosen=ranked[Math.floor((ranked.length-1)*q)],path=make(chosen.trial),result=runPath(path.compiled,i=>path.gross[i]);
+    return {label,trial:chosen.trial,score:chosen.score,...result,annual:annualRows(result)};
+  });
+  return {representativePaths,tuitionBasis:c.history.tuitionBasis,tuitionTrend:c.a.tuitionGrowth,modelVersion:MODEL,prngVersion:HISTORY_PRNG,assumptionsVersion:DATASET_ID,seed,trials,threshold,ceiling,
     distributions:{gap:outcomeDistribution(failed,{fundedCount:successes,total:trials,bands:6}),enrollment:outcomeDistribution(enrollment),cost:outcomeDistribution(costs)},
     method:'Calendar-aligned joint historical block bootstrap',period:periodLabel(c.history.period),blockYears:c.history.blockYears,profile:c.history.profile,allocations:clone(c.history.allocations),costMode:c.history.costMode,fee:c.history.fee,
     probability:successes/trials,samplingSE:Math.sqrt(successes/trials*(1-successes/trials)/trials),gap:percentiles(gaps),realGap:percentiles(realGaps),costRange:percentiles(costs),realCostRange:percentiles(realCosts),tuitionRange:percentiles(tuitionCosts),
@@ -107,6 +116,43 @@ export function assessHistorical(plan,student,scenario,data,settings,progress=()
   const alternateScenario=clone(scenario);alternateScenario.history.period=alternate;
   const alternateReference=referenceScenario(alternateScenario,data);
   const sensitivity=simulateHistorical(compile(plan,student,alternateReference),data,{...settings,trials:1000},p=>progress({...p,stage:'Historical-period comparison'}),false);
-  return {simulation,historicalReplay,sensitivity,deterministic:runPath(c),referenceScenario:reference,snapshot:clone(scenario),
+  const robustness=robustnessChecks(plan,student,scenario,data,settings,c,progress);
+  return {simulation,historicalReplay,sensitivity,robustness,deterministic:runPath(c),referenceScenario:reference,snapshot:clone(scenario),
     dataset:{id:data.id,hash:data.observationsSha256,start:data.start,end:data.end,asOf:data.asOf,observations:data.observations.length,sources:data.sources,notes:data.notes}};
+}
+
+// These are diagnostics and explicit planning stresses, never probability-weighted forecasts.
+export function robustnessChecks(plan,student,scenario,data,settings,c,progress=()=>{}) {
+  const sample={...settings,trials:1000},blocks=[];
+  for(const blockYears of [1,3,5].filter(x=>x!==c.history.blockYears)){
+    progress({stage:`Block sensitivity · ${blockYears} years`,done:0,total:1});
+    const sim=simulateHistorical({...c,history:{...c.history,blockYears}},data,sample,()=>{},false);
+    blocks.push({blockYears,probability:sim.probability,gap:sim.gap});
+  }
+  const stresses=[];
+  const higher=referenceScenario(scenario,data);higher.history.reference='manual';higher.assumptions.tuitionGrowth=Math.min(.15,higher.assumptions.tuitionGrowth+.02);
+  higher.assumptions.livingGrowth=Math.min(.15,higher.assumptions.livingGrowth+.02);higher.history.costMode='fixed';
+  const lostAid=structuredClone(scenario);lostAid.grant=0;
+  const extended=structuredClone(student);extended.years+=1;
+  const housing=structuredClone(scenario);housing.costs.housing*=1.2;
+  for(const [name,st,sc] of [['25% loss at entry + cost growth 2 percentage points higher',student,{...higher,stress:true}],['No future grants or scholarships',student,lostAid],['Housing and food budget 20% higher',student,housing],['One additional attendance year',extended,scenario]]){
+    try{const compiled=compile(plan,st,referenceScenario(sc,data)),sim=simulateHistorical(compiled,data,sample,()=>{},false);stresses.push({name,probability:sim.probability,gap:sim.gap});}
+    catch(error){stresses.push({name,unavailable:error.message});}
+  }
+  const validation=walkForward(plan,student,scenario,data,settings);
+  return {trials:1000,blocks,stresses,validation};
+}
+export function walkForward(plan,student,scenario,data,settings) {
+  const source=observations(data,scenario.history.period),length=compile(plan,student,scenario).rows.length,folds=[];
+  // Expanding training samples; every held-out observation follows the training cutoff.
+  for(let first=180;first+length<=source.length;first++){
+    if(Number(source[first][0].slice(5))-1!==Number(plan.valuation.slice(5))-1)continue;
+    if(folds.length&&first-folds.at(-1).index<60)continue;
+    const train={...data,observations:source.slice(0,first)},ref=referenceScenario(scenario,train),compiled=compile(plan,student,ref);
+    const predicted=simulateHistorical(compiled,train,{...settings,trials:200},()=>{},false);
+    const actualPath=historicalPath(compiled,source,Array.from({length},(_,i)=>first+i),tuitionLogMean(train.observations));
+    const actual=runPath(actualPath.compiled,i=>actualPath.gross[i],compiled.monthly,false);
+    folds.push({index:first,trainEnd:source[first-1][0],start:source[first][0],end:source[first+length-1][0],predicted:predicted.probability,actual:actual.success,cost:actual.total,costP10:predicted.costRange.p10,costP90:predicted.costRange.p90,costInRange:actual.total>=predicted.costRange.p10&&actual.total<=predicted.costRange.p90});
+  }
+  return {folds,pathsPerFold:200,minimumTrainingMonths:180,brier:folds.length?folds.reduce((v,f)=>v+(f.predicted-Number(f.actual))**2,0)/folds.length:null,coverage:folds.length?folds.filter(f=>f.costInRange).length/folds.length:null};
 }

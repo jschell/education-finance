@@ -1,4 +1,4 @@
-import {month} from './domain.js?v=0.3.0';
+import {month} from './domain.js?v=0.4.0';
 export const termOffsets=calendar=>calendar==='quarter'?[0,3,6]:[0,5];
 export function allocationAt(date,allocations){let current=null;for(const entry of allocations)if(entry.date<=date&&(!current||entry.date>current.date))current=entry;return current;}
 export function attendanceCalendar(plan){

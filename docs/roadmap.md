@@ -49,3 +49,7 @@ One Calculate action replaces separate projection and Monte Carlo buttons. Joint
 ## v0.3 — Workbook-inspired improvements completed
 
 Semester/quarter tuition and grant timing; optional twelve-month living schedule; exact cent allocation; visible reconciled annual fixed-reference cash flow; source-attributed school-budget presets and structured metadata; dated asset-allocation overrides; and family attendance overlap. Financial model 2.1/schema 3 migrations preserve older saved plans. Remaining M4 work includes transfer/year-specific cost changes and restricted accounts. Joint family cash-flow simulation, correlated success and shared-pool priorities remain M5.
+
+## v0.4.0 delivered
+
+Implemented draft recovery, single-editor protection, cent-safe splitting, annual tuition pricing, explicit tuition basis, coherent example paths, uncertainty-aware target presentation, block/stress/walk-forward diagnostics and joint household assessment with a monthly savings-deposit limit. Next data-quality work: school/sector published-price histories and richer cost proxies. Household allocation optimization and real iOS verification remain open.

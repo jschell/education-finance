@@ -20,11 +20,11 @@ test('separate cost and fund growth match FV at entry with exactly 12 periods',(
   const {p,st,s}=fixture();s.balance=10000;s.assumptions.returnRate=.1;s.assumptions.lateReturn=.1;s.assumptions.attendanceReturn=0;s.assumptions.tuitionGrowth=.05;
   const r=runPath(compile(p,st,s));close(r.enrollmentBalance,11000);close(r.ledger.find(r=>r.date==='2027-08').costs.tuition,6300);
 });
-test('costs continue inflating through attendance; nine monthly living payments',()=>{
+test('tuition reprices once per academic year; nine monthly living payments',()=>{
   const {p,st,s}=fixture();st.years=2;s.assumptions.tuitionGrowth=.1;
   const c=compile(p,st,s);assert.equal(c.rows.filter(r=>r.costs.housing>0).length,18);
   close(c.rows.find(r=>r.date==='2028-08').costs.tuition,6000*1.1**2);
-  assert.ok(c.rows.find(r=>r.date==='2028-01').costs.tuition>c.rows.find(r=>r.date==='2027-08').costs.tuition);
+  assert.equal(c.rows.find(r=>r.date==='2028-01').costs.tuition,c.rows.find(r=>r.date==='2027-08').costs.tuition);
 });
 test('a later gift and positive ending balance do not erase earlier failure',()=>{
   const {p,st,s}=fixture();s.gifts=[{date:'2028-04',amount:50000}];

@@ -1,6 +1,6 @@
-import { termOffsets,allocationAt } from './planning.js?v=0.3.0';
-import { month, monthText, categories } from './domain.js?v=0.3.0';
-const portion=(annual,index,count)=>index===count-1?cents(annual-cents(annual/count)*(count-1)):cents(annual/count);
+import { termOffsets,allocationAt } from './planning.js?v=0.4.0';
+import { month, monthText, categories } from './domain.js?v=0.4.0';
+export const portion=(annual,index,count)=>{const units=Math.round((annual+Number.EPSILON)*100),base=Math.floor(units/count);return (base+(index<units%count?1:0))/100;};
 const cents = x => Math.round((x+Number.EPSILON)*100)/100;
 export function compile(plan, student, scenario, mode='all') {
   const start=month(plan.valuation), entry=month(student.enrollment), end=entry+(student.years-1)*12+scenario.billing.livingMonths-1;
@@ -18,7 +18,8 @@ export function compile(plan, student, scenario, mode='all') {
       const payment=k==='tuition'?(term<0?0:portion(scenario.costs[k],term,terms.length)):portion(scenario.costs[k],within,livingMonths);
       const growth=k==='tuition'?a.tuitionGrowth:a.livingGrowth;
       valuationCosts[k]=payment*(1+growth)**((start-base)/12);
-      costs[k]=cents(payment*(1+growth)**((t-base)/12));
+      const priceMonth=k==='tuition'?Math.max(start,entry+year*12):t;
+      costs[k]=cents(payment*(1+growth)**((priceMonth-base)/12));
     }
     const total=cents(Object.values(costs).reduce((v,x)=>v+x,0));
     // Grants spread across the same tuition-payment months, tuition first, then other costs.
@@ -53,7 +54,7 @@ export function runPath(c, growth=i=>deterministicGrowth(c,i), monthly=c.monthly
     const draw=Math.min(balance,r.need);balance=Math.max(0,balance-draw);
     const unpaid=Math.max(0,r.need-draw);
     tuitionTotal+=r.costs.tuition;realTotal+=r.total/r.discount;shortfall+=unpaid;realShortfall+=unpaid/r.discount;total+=r.total;net+=r.net;obligation+=r.obligation;grants+=r.grant;income+=r.income;deposits+=contribution;withdrawals+=draw;
-    if(unpaid>.01&&!firstShortfall)firstShortfall=r.date;
+    if(unpaid>1e-7&&!firstShortfall)firstShortfall=r.date;
     if(detail)balances.push(balance);
     if(detail===true)ledger.push({...r,opening,earned,contribution,withdrawal:draw,shortfall:unpaid,balance});
   }
@@ -75,7 +76,7 @@ export function requiredContribution(c,growth) {
   for(let i=0;i<c.rows.length;i++) {
     const r=c.rows[i],g=growth(i)*(c.stress&&i===c.crashIndex?.75:1);
     fixed=fixed*g+r.gift-r.need;sensitivity=sensitivity*g+r.factor;
-    if(fixed<-.01) {
+    if(fixed<-1e-7) {
       if(sensitivity===0)return Infinity;
       required=Math.max(required,(-fixed)/sensitivity);
     }

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {sessionSeed,updateSessionSeed} from '../site/js/session-seed.js';
-import {gaugeColor,gaugeSegments} from '../site/js/gauge-colors.js';
+import {gaugeColor} from '../site/js/gauge-colors.js';
 const memory=()=>{const m=new Map();return {getItem:k=>m.get(k)??null,setItem:(k,v)=>m.set(k,v)};};
 test('a tab session generates once, survives reload and accepts custom zero or maximum seed',()=>{
  const storage=memory();let calls=0;assert.equal(sessionSeed(storage,()=>{calls++;return 123456789;}),123456789);
@@ -14,8 +14,10 @@ test('invalid saved seeds regenerate and restricted session storage leaves a usa
  const blocked={getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}};assert.equal(sessionSeed(blocked,()=>8),8);assert.equal(updateSessionSeed(9,blocked),9);
  for(const n of [-1,1.5,4294967296,NaN])assert.throws(()=>updateSessionSeed(n,storage));
 });
-test('gauge moves through red and yellow, reserving green for the chosen target',()=>{
- assert.equal(gaugeColor(0,.9),'#8c3029');assert.equal(gaugeColor(.81,.9),'#edc84b');assert.equal(gaugeColor(.9,.9),'#378562');assert.equal(gaugeColor(1,.9),'#174f3b');
- assert.equal(gaugeColor(.8,.8),'#378562');assert.notEqual(gaugeColor(.8,.95),'#378562');assert.notEqual(gaugeColor(.2,.9),gaugeColor(.7,.9));
- for(const target of [.8,.9,.95]){const segments=gaugeSegments(target);assert.equal(segments[0].start,0);assert.equal(segments.at(-1).end,1);assert.ok(segments.some(s=>s.start===target));for(let i=1;i<segments.length;i++)assert.equal(segments[i-1].end,segments[i].start);}
+test('the whole-arc color reaches yellow at 45%, light green at 60%, dark green at the selected target',()=>{
+ for(const target of [.8,.9,.95]){
+  assert.equal(gaugeColor(0,target),'#8c3029');assert.equal(gaugeColor(.45,target),'#edc84b');assert.equal(gaugeColor(.6,target),'#a8cf8c');assert.equal(gaugeColor(target,target),'#195e50');assert.equal(gaugeColor(1,target),'#12493e');
+  assert.notEqual(gaugeColor(.3,target),gaugeColor(.45,target));assert.notEqual(gaugeColor(.6,target),gaugeColor(.75,target));
+ }
+ assert.equal(gaugeColor(-1,.9),gaugeColor(0,.9));assert.equal(gaugeColor(2,.9),gaugeColor(1,.9));assert.throws(()=>gaugeColor(.5,1));
 });

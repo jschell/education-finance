@@ -1,4 +1,4 @@
-import {clone,month} from './domain.js?v=0.3.0';
+import {clone,month} from './domain.js?v=0.4.0';
 const board='https://research.collegeboard.org/media/pdf/trends-in-college-pricing-and-student-aid-2026.pdf';
 const common={academicYear:'2026-2027',baseline:'2026-09',sourceDate:'2026-11',asOf:'2026-11-15',livingMonths:9};
 export const COST_PRESETS={
@@ -10,6 +10,6 @@ export const COST_PRESETS={
 export function applyCostPreset(scenario,key,valuation){
   const preset=COST_PRESETS[key];if(!preset)throw Error('Choose a listed school-cost estimate.');
   if(month(preset.baseline)>month(valuation))throw Error('This estimate starts in September 2026. Choose a later valuation or enter your own earlier budget.');
-  const s=clone(scenario);s.costs=clone(preset.costs);s.path=preset.path;s.living='On campus';s.baseline=preset.baseline;s.source=preset.source;s.sourceDate=preset.sourceDate;s.billing.livingMonths=preset.livingMonths;
+  const s=clone(scenario);s.history.tuitionBasis='published';s.costs=clone(preset.costs);s.path=preset.path;s.living='On campus';s.baseline=preset.baseline;s.source=preset.source;s.sourceDate=preset.sourceDate;s.billing.livingMonths=preset.livingMonths;
   s.costSource={school:preset.school,academicYear:preset.academicYear,residency:preset.residency,url:preset.url,presetId:key,modified:false};return s;
 }

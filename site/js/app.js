@@ -1,11 +1,12 @@
-import { COST_PRESETS,applyCostPreset } from './cost-presets.js?v=0.3.0';
-import { sessionSeed,updateSessionSeed } from './session-seed.js?v=0.3.0';
-import { MODEL,PRNG,ASSUMPTIONS,clone,id,newPlan,newStudent,defaultScenario,duplicateStudent,validatePlan,exportPlan,parseImport,currentMonth,monthText,month,assumptionKeys } from './domain.js?v=0.3.0';
-import { PROFILES,periodLabel } from './history-config.js?v=0.3.0';
-import { compile,runPath,annualRows } from './engine.js?v=0.3.0';
-import { savePlan,loadPlan,clearPlan,saveRecovery,loadRecovery,markRecoverySaved,clearRecovery } from './storage.js?v=0.3.0';
-import { el,money,table,deterministicView,simulationView,comparisonView,historyContextView,annualFundingView,familyCalendarView,csvText } from './render.js?v=0.3.0';
+import { COST_PRESETS,applyCostPreset } from './cost-presets.js?v=0.4.0';
+import { sessionSeed,updateSessionSeed } from './session-seed.js?v=0.4.0';
+import { MODEL,PRNG,ASSUMPTIONS,clone,id,newPlan,newStudent,defaultScenario,duplicateStudent,validatePlan,exportPlan,parseImport,currentMonth,monthText,month,assumptionKeys } from './domain.js?v=0.4.0';
+import { PROFILES,periodLabel } from './history-config.js?v=0.4.0';
+import { compile,runPath,annualRows } from './engine.js?v=0.4.0';
+import { savePlan,loadPlan,clearPlan,saveRecovery,loadRecovery,markRecoverySaved,clearRecovery,acquireEditor,saveDraft,loadDraft,clearDraft } from './storage.js?v=0.4.0';
+import { el,money,table,deterministicView,simulationView,comparisonView,historyContextView,annualFundingView,familyCalendarView,householdView,csvText } from './render.js?v=0.4.0';
 const $=s=>document.querySelector(s),form=$('#planner');
+const editing=await acquireEditor().catch(error=>({editable:false,reason:`Safe editing unavailable: ${error.message}`}));
 let plan=newPlan(),studentId=plan.students[0].id,scenarioId=plan.students[0].scenarios[0].id;
 let revision=0,dirty=false,worker=null,runId=0,lastResult=null,pendingImport=null,assumptionEdited=false,refreshTimer=null,exampleWorkspace=null,saveQueued=false,saveQueue=Promise.resolve(),saveEpoch=0;
 let currentSeed=sessionSeed();
@@ -15,10 +16,10 @@ const student=()=>plan.students.find(s=>s.id===studentId),scenario=()=>student()
 const message=(text,error=false)=>{ $('#message').textContent=text;$('#message').classList.toggle('error',error); };
 function saveStatus(text,error=false){$('#save-state').textContent=text;$('#save-state').classList.toggle('error',error);}
 function persistSnapshot(){
-  if(exampleWorkspace)return Promise.resolve();
+  if(exampleWorkspace||!editing.editable)return Promise.resolve();
   const snapshot=clone(plan),selection={studentId,scenarioId},savedRevision=revision,epoch=saveEpoch,signature=JSON.stringify(snapshot);
   let token=null;
-  try{token=saveRecovery(snapshot,selection);}catch{try{clearRecovery();}catch{}}
+  try{token=saveRecovery(snapshot,selection);clearDraft();}catch{try{clearRecovery();}catch{}}
   saveStatus('Saving automatically…');
   const job=saveQueue.catch(()=>{}).then(async()=>{
     if(epoch!==saveEpoch)return;
@@ -34,9 +35,21 @@ function persistSnapshot(){
   });
 }
 function checkpoint(){
-  if(exampleWorkspace||!dirty)return;
+  if(exampleWorkspace||!editing.editable||!dirty)return;
+  let draftSaved=false;
+  try{saveDraft(plan,{studentId,scenarioId},rawFields(),{gifts:$('#gifts').children.length,allocations:$('#allocation-changes').children.length});draftSaved=true;}catch{}
   try{commit({normalize:false,report:false});return persistSnapshot();}
-  catch{saveStatus('Not saved — complete invalid fields',true);}
+  catch{saveStatus(draftSaved?'Unfinished draft saved — complete highlighted fields to calculate':'Draft not saved — storage unavailable',!draftSaved);}
+}
+function rawFields(){return [...form.querySelectorAll('input,select')].map(n=>({key:n.id||JSON.stringify(n.dataset),value:n.value,checked:n.checked===true}));}
+function restoreFields(draft){
+  $('#gifts').replaceChildren(...Array.from({length:draft.structure.gifts},()=>giftRow()));
+  $('#allocation-changes').replaceChildren(...Array.from({length:draft.structure.allocations},()=>allocationRow()));
+  const fields=[...form.querySelectorAll('input,select')];
+  if(fields.length!==draft.fields.length)throw Error('Draft controls have changed; last valid plan retained.');
+  fields.forEach((n,i)=>{const field=draft.fields[i];if(field.key!==(n.id||JSON.stringify(n.dataset)))throw Error('Draft field no longer matches.');});
+  fields.forEach((n,i)=>{n.value=draft.fields[i].value;if(n.type==='checkbox')n.checked=draft.fields[i].checked;});
+  const share=form.querySelector('[data-scenario=share]');share.disabled=form.querySelector('[data-scenario=coverage]').value!=='percent';
 }
 function scheduleSave(){
   if(saveQueued||exampleWorkspace)return;
@@ -66,6 +79,7 @@ function invalidate() {
   }
 }
 function changed() {
+  if(!editing.editable)throw Error(editing.reason);
   revision++;dirty=true;saveStatus(exampleWorkspace?'Example mode — changes are temporary':'Saving automatically…');invalidate();message('');scheduleSave();
   calculationStatus('Updating assessment…');
 }
@@ -154,7 +168,7 @@ for(const [key,p] of Object.entries(COST_PRESETS))option($('#cost-preset'),key,p
 $('#cost-preset').addEventListener('change',previewPreset);
 $('#apply-preset').onclick=()=>guard(()=>{commit();const st=student(),index=st.scenarios.findIndex(s=>s.id===scenarioId);st.scenarios[index]=applyCostPreset(scenario(),$('#cost-preset').value,plan.valuation);validatePlan(plan);changed();renderForm();message('Published budget applied. Adjust the categories for your school; no aid amount was inferred.');});
 $('#add-allocation').onclick=()=>{if($('#allocation-changes').children.length>=24)return message('Up to 24 allocation changes.');$('#allocation-changes').append(allocationRow());changed();scheduleProjection();};
-function hasAmounts(){return scenario().balance+student().sharedAllocation>0||Object.values(scenario().costs).some(x=>x>0);}
+function hasAmounts(){return plan.students.some(st=>st.scenarios.some(sc=>sc.balance+st.sharedAllocation>0||Object.values(sc.costs).some(x=>x>0)));}
 function updateDefaultsSummary(st,sc) {
   const profile=PROFILES[sc.history.profile];
   $('#defaults-summary').textContent=`${st.years} attendance years · ${sc.billing.calendar==='quarter'?'3 quarter':'2 semester'} tuition bills · ${sc.billing.livingMonths} living months · ${profile.name} · historical outcomes from ${periodLabel(sc.history.period)}. One calculation includes investment and expense ranges.`;
@@ -166,6 +180,7 @@ function updateAllocation() {
   const allocated=plan.students.reduce((v,s)=>v+s.sharedAllocation,0);$('#allocation-note').textContent=`Pool assigned across students: ${money(allocated)} of ${money(plan.sharedPool)}. This student's share is reused across their alternative scenarios and counted once across students.`;
 }
 function renderForm() {
+  for(const [sid,cid] of Object.entries(plan.family.scenarios))if(!plan.students.some(st=>st.id===sid&&st.scenarios.some(sc=>sc.id===cid)))delete plan.family.scenarios[sid];
   const st=student(),sc=scenario();
   $('#student-select').replaceChildren();plan.students.forEach(s=>option($('#student-select'),s.id,s.alias));$('#student-select').value=studentId;
   $('#scenario-select').replaceChildren();st.scenarios.forEach(s=>option($('#scenario-select'),s.id,s.name));$('#scenario-select').value=scenarioId;
@@ -177,7 +192,7 @@ function renderForm() {
   form.querySelectorAll('[data-billing]').forEach(n=>fill(n,sc.billing[n.dataset.billing]));
   form.querySelectorAll('[data-source]').forEach(n=>fill(n,sc.costSource[n.dataset.source]));
   $('#allocation-changes').replaceChildren(...sc.history.allocations.map(allocationRow));
-  $('#family-calendar').replaceChildren(familyCalendarView(plan));
+  $('#family-calendar').replaceChildren(familyCalendarView(plan));renderFamilyControls();
   $('#valuation').value=plan.valuation;$('#shared-pool').value=plan.sharedPool;$('#gifts').replaceChildren(...sc.gifts.map(giftRow));
   $('#assumption-status').textContent=`Assumptions updated ${sc.assumptionsDate}.`;
   updateDefaultsSummary(st,sc);
@@ -185,7 +200,7 @@ function renderForm() {
   $('#delete-student').disabled=plan.students.length===1;$('#delete-scenario').disabled=st.scenarios.length===1;updateAllocation();assumptionEdited=false;
   try {if(hasAmounts())startAssessment('single',{committed:true,scroll:false});else showProjection();}catch(error){calculationStatus(error.message,true);}
 }
-async function guard(action){try{await action();}catch(e){message(e.message||String(e),true);calculationStatus(e.message||String(e),true);}}
+async function guard(action){try{if(!editing.editable)throw Error(editing.reason);await action();}catch(e){message(e.message||String(e),true);calculationStatus(e.message||String(e),true);}}
 function confirmAction(title,body) {
   return new Promise(resolve=>{const d=$('#confirm-dialog');$('#dialog-title').textContent=title;$('#dialog-body').textContent=body;
     const finish=v=>{d.close();$('#dialog-yes').onclick=null;$('#dialog-no').onclick=null;d.oncancel=null;resolve(v);};
@@ -209,10 +224,11 @@ function resultActions() {
 }
 function referencePanel(result) {
   const details=el('details','','reference-panel');details.append(el('summary','Reference projection & assumptions'));
-  details.append(deterministicView(plan,student(),result.referenceScenario||scenario(),result.deterministic));return details;
+  details.append(annualFundingView(plan,student(),result.referenceScenario||scenario(),result.deterministic),deterministicView(plan,student(),result.referenceScenario||scenario(),result.deterministic));return details;
 }
 function assessmentContents(result) {
-  return [simulationView(result.simulation),annualFundingView(plan,student(),result.referenceScenario,result.deterministic),historyContextView(result),referencePanel(result)];
+  const validation=result.robustness?.validation,testingNote=validation?.folds.length&&validation.coverage<.5?[el('p',`Historical cost-range coverage was weak: ${validation.folds.filter(f=>f.costInRange).length} of ${validation.folds.length} held-out costs fell inside P10–P90. Compare the stress cases and sensitivity results; the range is conditional on this model.`,'callout warning')]:[];
+  return [...testingNote,...(result.household?.monthlyLimit!==null&&result.household?[el('p','Student results use this student’s entered contributions. The household section below applies the combined savings-deposit limit.','callout')]:[]),simulationView(result.simulation),...(result.household?[householdView(result.household)]:[]),historyContextView(result),referencePanel(result)];
 }
 
 function showProjection() {
@@ -235,7 +251,7 @@ function startAssessment(action='single',{committed=false,scroll=true}={}) {
   message('');calculationStatus('Calculating historical outcome ranges…');
   const thisRun=++runId,snapshot=clone(plan);$('#run-status').hidden=false;$('#progress-text').textContent='Loading historical data…';$('#progress').value=0;
   if(scroll)$('#run-status').scrollIntoView({block:'start',behavior:'smooth'});
-  worker=new Worker(new URL('./worker.js?v=0.3.0',import.meta.url),{type:'module'});
+  worker=new Worker(new URL('./worker.js?v=0.4.0',import.meta.url),{type:'module'});
   worker.onmessage=({data})=>{
     if(data.runId!==runId)return;
     if(data.type==='progress'){$('#progress').value=data.done/Math.max(1,data.total);$('#progress-text').textContent=`${data.scenario?data.scenario+' · ':''}${data.stage} · ${Math.round(data.done/Math.max(1,data.total)*100)}%`;}
@@ -280,7 +296,7 @@ $('#import').onclick=()=>$('#import-file').click();
 $('#import-file').onchange=()=>guard(async()=>{const file=$('#import-file').files[0];$('#import-file').value='';if(!file)return;if(file.size>2_000_000)throw Error('Import file must be under 2 MB.');pendingImport=parseImport(await file.text());$('#import-preview').textContent=`${pendingImport.students.length} students · ${pendingImport.students.reduce((n,s)=>n+s.scenarios.length,0)} scenarios · valuation ${pendingImport.valuation}. Students: ${pendingImport.students.map(s=>s.alias).join(', ')}.`;$('#import-dialog').showModal();$('#import-cancel').focus();});
 $('#import-cancel').onclick=()=>{pendingImport=null;$('#import-dialog').close();};$('#import-dialog').oncancel=()=>{pendingImport=null;};
 $('#import-confirm').onclick=()=>guard(()=>{if(!pendingImport)return;plan=pendingImport;pendingImport=null;studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;$('#import-dialog').close();changed();renderForm();message('Imported into this workspace and saving automatically.');});
-$('#delete-local').onclick=()=>guard(async()=>{if(!await confirmAction('Delete all local data?','This deletes the stored plan and resets the current workspace. Export first if you need a backup. Other open tabs may still hold their own in-memory copy.'))return;saveEpoch++;await saveQueue.catch(()=>{});await clearPlan();clearRecovery();plan=newPlan();studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;dirty=false;invalidate();renderForm();$('#save-state').textContent='Not saved locally';message('Stored plan deleted; workspace reset.');});
+$('#delete-local').onclick=()=>guard(async()=>{if(!await confirmAction('Delete all local data?','This deletes the stored plan and resets the current workspace. Export first if you need a backup. Other open tabs may still hold their own in-memory copy.'))return;saveEpoch++;await saveQueue.catch(()=>{});await clearPlan();clearRecovery();clearDraft();plan=newPlan();studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;dirty=false;invalidate();renderForm();$('#save-state').textContent='Not saved locally';message('Stored plan deleted; workspace reset.');});
 function showExampleMode(active){
   $('#example-notice').hidden=!active;
   for(const selector of ['#save','#import','#delete-local','#example'])$(selector).disabled=active;
@@ -302,12 +318,30 @@ $('#exit-example').onclick=()=>guard(()=>{
 window.addEventListener('beforeunload',e=>{checkpoint()?.catch(()=>{});if(exampleWorkspace?exampleWorkspace.dirty:dirty){e.preventDefault();e.returnValue='';}});
 window.addEventListener('pagehide',()=>checkpoint()?.catch(()=>{}));
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')checkpoint()?.catch(()=>{});});
-let recovered=false;
+let recovered=false,unfinished=null;
+try{unfinished=loadDraft();}catch{message('Could not restore the unfinished draft. The last valid plan is still available.',true);}
 try{
   const saved=loadRecovery();
   if(saved){plan=saved.plan;studentId=saved.selection.studentId;scenarioId=saved.selection.scenarioId;dirty=saved.pending;recovered=true;saveStatus(saved.pending?'Recovering recent edits…':'Loaded from this browser');}
 }catch{message('Could not read the recovery copy. Trying the last saved plan.',true);}
-renderForm();if(recovered&&dirty)scheduleSave();
+if(unfinished){plan=unfinished.plan;studentId=unfinished.selection.studentId;scenarioId=unfinished.selection.scenarioId;dirty=true;recovered=true;}
+renderForm();
+if(unfinished){try{cancel();restoreFields(unfinished);invalidate();saveStatus('Unfinished draft restored — complete fields to calculate');calculationStatus('Your unfinished entries were restored. Complete them, then Calculate.');}catch(error){dirty=false;renderForm();message(`The draft layout could not be restored: ${error.message} The last valid plan is available.`,true);}}
+else if(recovered&&dirty)scheduleSave();
 const loadRevision=revision;
 try { const stored=await loadPlan();if(stored&&!recovered&&!dirty&&!exampleWorkspace&&revision===loadRevision){plan=stored;studentId=plan.students[0].id;scenarioId=student().scenarios[0].id;saveStatus('Loaded from this browser');message('');renderForm();} }
 catch(e){if(!recovered)message(`Could not load local data: ${e.message}. Import a backup or continue; exporting remains available.`,true);}
+
+function renderFamilyControls(){
+  const target=$('#family-settings');target.replaceChildren();
+  const limitLabel=el('label','Household monthly savings-deposit limit ($, optional)'),limit=el('input');limit.type='number';limit.min='0';limit.max='1000000';limit.step='0.01';limit.value=plan.family.monthlyLimit??'';limit.placeholder='No limit';limit.id='household-limit';limitLabel.append(limit);target.append(limitLabel);
+  limit.oninput=()=>guard(()=>{if(!limit.checkValidity())return;commit();plan.family.monthlyLimit=limit.value===''?null:limit.valueAsNumber;changed();scheduleProjection();});
+  for(const st of plan.students){const label=el('label',`${st.alias} · household scenario`),select=el('select');select.dataset.familyStudent=st.id;
+    st.scenarios.forEach(sc=>option(select,sc.id,sc.name));select.value=plan.family.scenarios[st.id]||st.scenarios[0].id;
+    select.onchange=()=>guard(()=>{commit();plan.family.scenarios[st.id]=select.value;changed();scheduleProjection();});label.append(select);target.append(label);
+  }
+}
+if(!editing.editable){
+  document.querySelectorAll('input,select,button').forEach(n=>n.disabled=true);
+  saveStatus('Read-only · another tab or unsupported editing',true);message(editing.reason,true);
+}

@@ -73,3 +73,7 @@ Database writes are serialized. An older completion can neither mark a newer rec
 Schema 1/model 1 and schema 2/model 2.0 migrate explicitly to schema 3/model 2.1. Existing numbers, IDs, dates, sources, flags and manual return assumptions remain. New defaults are semester, nine months, empty structured metadata and no allocation overrides. IndexedDB and synchronous recovery both use the migration. Unknown versions still fail.
 
 Budget preview selection does not commit inputs or rerun an assessment. Use selected budget explicitly applies the preview. Four basic inputs and one Calculate action remain. Year-by-year funding is a visible fixed-reference result; underlying ledger and JSON export preserve the payment schedule and cent precision. Annual table summaries do not create a new stochastic path. The optional family overview reads the plan's enrollment/duration only and makes no funding-probability claim.
+
+## v0.4.0
+
+Saved schema 4 adds `family: {monthlyLimit: number|null, scenarios: {studentId:scenarioId}}` and per-scenario `history.tuitionBasis`. `household.js` sums paired-path student obligations and applies a proportional monthly deposit cap before running the pure ledgers. `probability.js` supplies sampling intervals and target status. `storage.js` owns the exclusive browser Web Lock and separate raw draft persistence. No dependencies, backend, telemetry or third-party runtime requests were added.

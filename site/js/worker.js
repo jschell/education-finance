@@ -1,5 +1,6 @@
-import { validatePlan } from './domain.js?v=0.3.0';
-import { assessHistorical,verifyHistory } from './history.js?v=0.3.0';
+import { assessHousehold } from './household.js?v=0.4.0';
+import { validatePlan } from './domain.js?v=0.4.0';
+import { assessHistorical,verifyHistory } from './history.js?v=0.4.0';
 let dataPromise;
 function data(){return dataPromise??=fetch(new URL('../data/history.json',import.meta.url)).then(r=>{if(!r.ok)throw Error('Historical data could not be loaded. Reload and retry.');return r.json();}).then(verifyHistory);}
 self.onmessage=async({data:input})=>{
@@ -18,6 +19,7 @@ self.onmessage=async({data:input})=>{
       const scenario=st.scenarios.find(s=>s.id===scenarioId);if(!scenario)throw Error('Scenario not found.');
       result=assessHistorical(plan,st,scenario,dataset,settings,progress);
     }
+    if(plan.students.length>1){const chosen=st.scenarios.find(s=>s.id===scenarioId);const household=assessHousehold(plan,dataset,settings,chosen.history,progress);if(Array.isArray(result))result.forEach(r=>r.household=household);else result.household=household;}
     self.postMessage({runId,type:'result',result});
   }catch(error){self.postMessage({runId,type:'error',message:error.message});}
 };

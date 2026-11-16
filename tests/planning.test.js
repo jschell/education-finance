@@ -13,7 +13,7 @@ test('quarter tuition/grants have three dated bills and exact annual cent totals
  const {p,st,s}=fixture();s.grant=1000.01;const c=compile(p,st,s),r=runPath(c);
  assert.deepEqual(c.rows.filter(r=>r.costs.tuition>0).map(r=>r.date),['2026-08','2026-11','2027-02']);
  close(r.tuitionTotal,10000);close(r.grants,1000.01);close(r.total,19000);
- assert.deepEqual(c.rows.filter(r=>r.costs.tuition>0).map(r=>r.costs.tuition),[3333.33,3333.33,3333.34]);assert.ok(c.rows.every(r=>r.costs.housing===1000));
+ assert.deepEqual(c.rows.filter(r=>r.costs.tuition>0).map(r=>r.costs.tuition),[3333.34,3333.33,3333.33]);assert.ok(c.rows.every(r=>r.costs.housing===1000));
 });
 test('payment frequency does not alter annual compounding and grants match bill dates',()=>{
  const {p,st,s}=fixture();s.costs={tuition:0,housing:0,books:0,transport:0,other:0};s.balance=10000;s.billing.livingMonths=12;s.assumptions.attendanceReturn=.06;
@@ -38,9 +38,9 @@ test('annual reference roll-forwards reconcile through returns, gifts and deplet
 });
 test('published budget categories reconcile and applying one preserves funding and calendar',()=>{
  for(const preset of Object.values(COST_PRESETS))assert.equal(Object.values(preset.costs).reduce((a,b)=>a+b,0),preset.total);
- const {s}=fixture();s.balance=12345;s.grant=1000;const out=applyCostPreset(s,'public-in-2026','2026-11');
+ const {s}=fixture();s.balance=12345;s.grant=1000;s.history.tuitionBasis='index';const out=applyCostPreset(s,'public-in-2026','2026-11');
  assert.equal(out.costs.tuition,12290);assert.equal(out.costs.housing,14430);assert.equal(Object.values(out.costs).reduce((a,b)=>a+b,0),32030);
- assert.equal(out.billing.calendar,'quarter');assert.equal(out.balance,12345);assert.equal(out.grant,1000);assert.equal(out.costSource.academicYear,'2026-2027');assert.equal(s.costs.tuition,10000);
+ assert.equal(out.history.tuitionBasis,'published');assert.equal(out.billing.calendar,'quarter');assert.equal(out.balance,12345);assert.equal(out.grant,1000);assert.equal(out.costSource.academicYear,'2026-2027');assert.equal(s.costs.tuition,10000);
  assert.throws(()=>applyCostPreset(s,'public-in-2026','2026-01'));assert.throws(()=>applyCostPreset(s,'missing','2026-11'));
 });
 test('schema-2 plans migrate without changing saved amounts, dates, flags or seed-independent assumptions',()=>{
@@ -63,9 +63,9 @@ test('attendance overview counts actual monthly overlap rather than adding stude
 test('invalid calendar, source links, duplicate allocation dates and leveraged weights are rejected',()=>{
  for(const mutate of [s=>s.billing.calendar='monthly',s=>s.billing.livingMonths=10,s=>s.history.allocations=[{date:'2026-08',stocks:0,bonds:0,cash:1,referenceRate:null},{date:'2026-08',stocks:0,bonds:0,cash:1,referenceRate:null}],s=>s.costSource.url='javascript:alert(1)',s=>s.costSource.academicYear='2026-2028',s=>s.history.allocations=[{date:'2026-08',stocks:.8,bonds:.5,cash:-.3,referenceRate:null}]]){const {p,s}=fixture();mutate(s);assert.throws(()=>validatePlan(p));}
 });
-test('quarter historical inflation applies once at each actual tuition bill',()=>{
+test('historical tuition holds its academic-year price across all quarter bills',()=>{
  const {p,st,s}=fixture();s.history.reference='manual';s.grant=1000;s.costs.housing=10000.01;
  const c=compile(p,st,s),rows=Array.from({length:c.rows.length},(_,i)=>['2000-01',0,0,0,.01,.01]),path=historicalPath(c,rows,rows.map((_,i)=>i));
- const expected=[3333.33,3333.33*1.01**3,3333.34*1.01**6].reduce((v,x)=>v+Math.round(x*100)/100,0);
+ const expected=10000;
  close(runPath(path.compiled,()=>1).tuitionTotal,expected);close(c.rows.reduce((v,r)=>v+r.costs.housing,0),10000.01);close(runPath(path.compiled,()=>1).grants,1000);
 });

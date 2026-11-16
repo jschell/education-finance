@@ -1,0 +1,390 @@
+{
+  "model": "college-funding-3.0.0",
+  "dataset": "us-joint-monthly-1978-2024-v1",
+  "seed": 90210,
+  "primaryTrials": 1000,
+  "description": "Synthetic repeatable model diagnostics; overlapping historical tests cannot establish future calibration.",
+  "results": [
+    {
+      "yearsToEntry": 3,
+      "probability": 0,
+      "gap": {
+        "p10": 46804.02276547867,
+        "p50": 61406.42497530552,
+        "p90": 76845.65604623574
+      },
+      "contribution": 2200,
+      "confirmation": {
+        "trials": 1000,
+        "probability": 0.907,
+        "meets": true,
+        "calibrationTrials": 20000,
+        "calibrationProbability": 0.9002
+      },
+      "blocks": [
+        {
+          "blockYears": 1,
+          "probability": 0,
+          "gap": {
+            "p10": 48248.73285592825,
+            "p50": 62147.32021234403,
+            "p90": 77802.88865056401
+          }
+        },
+        {
+          "blockYears": 5,
+          "probability": 0,
+          "gap": {
+            "p10": 45440.266982869995,
+            "p50": 59540.99262622929,
+            "p90": 74910.95768778055
+          }
+        }
+      ],
+      "stresses": [
+        {
+          "name": "25% loss at entry + cost growth 2 percentage points higher",
+          "probability": 0,
+          "gap": {
+            "p10": 93571.39416302716,
+            "p50": 106017.92064889357,
+            "p90": 115225.07964450693
+          }
+        },
+        {
+          "name": "No future grants or scholarships",
+          "probability": 0,
+          "gap": {
+            "p10": 46804.02276547867,
+            "p50": 61406.42497530552,
+            "p90": 76845.65604623574
+          }
+        },
+        {
+          "name": "Housing and food budget 20% higher",
+          "probability": 0,
+          "gap": {
+            "p10": 62201.59152610497,
+            "p50": 76746.20983870362,
+            "p90": 93089.38392840693
+          }
+        },
+        {
+          "name": "One additional attendance year",
+          "probability": 0,
+          "gap": {
+            "p10": 88793.00757304615,
+            "p50": 104734.10701497093,
+            "p90": 122915.60550832558
+          }
+        }
+      ],
+      "walkForward": {
+        "folds": [
+          {
+            "index": 190,
+            "trainEnd": "1993-10",
+            "start": "1993-11",
+            "end": "2000-07",
+            "predicted": 0,
+            "actual": false,
+            "cost": 146137.35000000003,
+            "costP10": 158019.02400000003,
+            "costP90": 185902.15300000002,
+            "costInRange": false
+          },
+          {
+            "index": 250,
+            "trainEnd": "1998-10",
+            "start": "1998-11",
+            "end": "2005-07",
+            "predicted": 0,
+            "actual": false,
+            "cost": 150552.08,
+            "costP10": 153823.036,
+            "costP90": 182013.66499999998,
+            "costInRange": false
+          },
+          {
+            "index": 310,
+            "trainEnd": "2003-10",
+            "start": "2003-11",
+            "end": "2010-07",
+            "predicted": 0,
+            "actual": false,
+            "cost": 155460.91999999998,
+            "costP10": 150089.49399999998,
+            "costP90": 177756.46000000002,
+            "costInRange": true
+          },
+          {
+            "index": 370,
+            "trainEnd": "2008-10",
+            "start": "2008-11",
+            "end": "2015-07",
+            "predicted": 0,
+            "actual": false,
+            "cost": 144907.08,
+            "costP10": 152842.11799999996,
+            "costP90": 177369.49499999994,
+            "costInRange": false
+          },
+          {
+            "index": 430,
+            "trainEnd": "2013-10",
+            "start": "2013-11",
+            "end": "2020-07",
+            "predicted": 0,
+            "actual": false,
+            "cost": 140878.27,
+            "costP10": 151509.69199999998,
+            "costP90": 172782.36099999998,
+            "costInRange": false
+          }
+        ],
+        "pathsPerFold": 200,
+        "minimumTrainingMonths": 180,
+        "brier": 0,
+        "coverage": 0.2
+      }
+    },
+    {
+      "yearsToEntry": 8,
+      "probability": 0.558,
+      "gap": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 44308.02098284992
+      },
+      "contribution": 722,
+      "confirmation": {
+        "trials": 1000,
+        "probability": 0.891,
+        "meets": false,
+        "calibrationTrials": 20000,
+        "calibrationProbability": 0.90015
+      },
+      "blocks": [
+        {
+          "blockYears": 1,
+          "probability": 0.575,
+          "gap": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 48922.683756046026
+          }
+        },
+        {
+          "blockYears": 5,
+          "probability": 0.609,
+          "gap": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 39007.578117396035
+          }
+        }
+      ],
+      "stresses": [
+        {
+          "name": "25% loss at entry + cost growth 2 percentage points higher",
+          "probability": 0.002,
+          "gap": {
+            "p10": 49663.91498516966,
+            "p50": 92417.88497845414,
+            "p90": 127416.42130062755
+          }
+        },
+        {
+          "name": "No future grants or scholarships",
+          "probability": 0.558,
+          "gap": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 44308.02098284992
+          }
+        },
+        {
+          "name": "Housing and food budget 20% higher",
+          "probability": 0.383,
+          "gap": {
+            "p10": 0,
+            "p50": 13115.384429911053,
+            "p90": 63302.6399230141
+          }
+        },
+        {
+          "name": "One additional attendance year",
+          "probability": 0.158,
+          "gap": {
+            "p10": 0,
+            "p50": 45135.11243122927,
+            "p90": 96940.11185672146
+          }
+        }
+      ],
+      "walkForward": {
+        "folds": [
+          {
+            "index": 190,
+            "trainEnd": "1993-10",
+            "start": "1993-11",
+            "end": "2005-07",
+            "predicted": 0.98,
+            "actual": true,
+            "cost": 159014.88999999998,
+            "costP10": 191104.065,
+            "costP90": 238817.388,
+            "costInRange": false
+          },
+          {
+            "index": 250,
+            "trainEnd": "1998-10",
+            "start": "1998-11",
+            "end": "2010-07",
+            "predicted": 0.97,
+            "actual": false,
+            "cost": 172368.65999999997,
+            "costP10": 179960.08700000003,
+            "costP90": 235029.03600000005,
+            "costInRange": false
+          },
+          {
+            "index": 310,
+            "trainEnd": "2003-10",
+            "start": "2003-11",
+            "end": "2015-07",
+            "predicted": 0.825,
+            "actual": false,
+            "cost": 167949.29,
+            "costP10": 175257.27300000002,
+            "costP90": 229200.10199999998,
+            "costInRange": false
+          },
+          {
+            "index": 370,
+            "trainEnd": "2008-10",
+            "start": "2008-11",
+            "end": "2020-07",
+            "predicted": 0.74,
+            "actual": true,
+            "cost": 149556.83,
+            "costP10": 177039.53299999997,
+            "costP90": 222892.20600000003,
+            "costInRange": false
+          }
+        ],
+        "pathsPerFold": 200,
+        "minimumTrainingMonths": 180,
+        "brier": 0.42238125,
+        "coverage": 0
+      }
+    },
+    {
+      "yearsToEntry": 18,
+      "probability": 0.992,
+      "gap": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "contribution": 141,
+      "confirmation": {
+        "trials": 1000,
+        "probability": 0.921,
+        "meets": true,
+        "calibrationTrials": 20000,
+        "calibrationProbability": 0.9006
+      },
+      "blocks": [
+        {
+          "blockYears": 1,
+          "probability": 0.984,
+          "gap": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          }
+        },
+        {
+          "blockYears": 5,
+          "probability": 0.998,
+          "gap": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          }
+        }
+      ],
+      "stresses": [
+        {
+          "name": "25% loss at entry + cost growth 2 percentage points higher",
+          "probability": 0.568,
+          "gap": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 127761.88104406351
+          }
+        },
+        {
+          "name": "No future grants or scholarships",
+          "probability": 0.992,
+          "gap": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          }
+        },
+        {
+          "name": "Housing and food budget 20% higher",
+          "probability": 0.984,
+          "gap": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          }
+        },
+        {
+          "name": "One additional attendance year",
+          "probability": 0.964,
+          "gap": {
+            "p10": 0,
+            "p50": 0,
+            "p90": 0
+          }
+        }
+      ],
+      "walkForward": {
+        "folds": [
+          {
+            "index": 190,
+            "trainEnd": "1993-10",
+            "start": "1993-11",
+            "end": "2015-07",
+            "predicted": 1,
+            "actual": true,
+            "cost": 189552.75999999998,
+            "costP10": 280991.63300000003,
+            "costP90": 393938.2079999999,
+            "costInRange": false
+          },
+          {
+            "index": 250,
+            "trainEnd": "1998-10",
+            "start": "1998-11",
+            "end": "2020-07",
+            "predicted": 1,
+            "actual": true,
+            "cost": 189336.58,
+            "costP10": 265046.33300000004,
+            "costP90": 368299.957,
+            "costInRange": false
+          }
+        ],
+        "pathsPerFold": 200,
+        "minimumTrainingMonths": 180,
+        "brier": 0,
+        "coverage": 0
+      }
+    }
+  ]
+}

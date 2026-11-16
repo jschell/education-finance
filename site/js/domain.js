@@ -1,6 +1,6 @@
-import { HISTORY_DEFAULTS,PROFILES } from './history-config.js?v=0.3.0';
-export const MODEL = 'college-funding-2.1.0';
-export const SCHEMA = 3;
+import { HISTORY_DEFAULTS,PROFILES } from './history-config.js?v=0.4.0';
+export const MODEL = 'college-funding-3.0.0';
+export const SCHEMA = 4;
 export const PRNG = 'mulberry32-boxmuller-1';
 export const ASSUMPTIONS = 'user-defined-1';
 export const categories = ['tuition', 'housing', 'books', 'transport', 'other'];
@@ -34,7 +34,7 @@ export function newStudent(valuation) {
 export function newPlan() {
   const valuation = currentMonth(); const student = newStudent(valuation);
   return { schemaVersion: SCHEMA, modelVersion: MODEL, currency: 'USD', valuation, sharedPool: 0,
-    defaults: clone(student.scenarios[0].assumptions), students: [student] };
+    family: {monthlyLimit:null,scenarios:{}}, defaults: clone(student.scenarios[0].assumptions), students: [student] };
 }
 function object(x, keys, label) {
   if (!x || typeof x !== 'object' || Array.isArray(x)) throw Error(`${label} must be an object.`);
@@ -56,13 +56,14 @@ export function validateAssumptions(a) {
 }
 export function migratePlan(plan) {
   const legacy=plan?.schemaVersion===1&&plan?.modelVersion==='college-funding-1.0.0';
-  if(legacy||(plan?.schemaVersion===2&&plan?.modelVersion==='college-funding-2.0.0')){
-    const next=clone(plan);next.schemaVersion=SCHEMA;next.modelVersion=MODEL;
+  if(legacy||(plan?.schemaVersion===2&&plan?.modelVersion==='college-funding-2.0.0')||(plan?.schemaVersion===3&&plan?.modelVersion==='college-funding-2.1.0')){
+    const next=clone(plan);next.schemaVersion=SCHEMA;next.modelVersion=MODEL;next.family={monthlyLimit:null,scenarios:{}};
     if(Array.isArray(next.students))for(const st of next.students)if(Array.isArray(st.scenarios))for(const sc of st.scenarios){
       if(legacy)sc.history={...HISTORY_DEFAULTS};
       sc.billing??={calendar:'semester',livingMonths:9};
       sc.costSource??={school:'',academicYear:'',residency:'unspecified',url:'',presetId:'',modified:false};
       if(sc.history&&!Object.hasOwn(sc.history,'allocations'))sc.history.allocations=[];
+      if(sc.history)sc.history.tuitionBasis='published';
     }
     return next;
   }
@@ -70,8 +71,12 @@ export function migratePlan(plan) {
 }
 export function validatePlan(plan) {
   plan=migratePlan(plan);
-  object(plan,['schemaVersion','modelVersion','currency','valuation','sharedPool','defaults','students'],'Plan');
+  object(plan,['schemaVersion','modelVersion','currency','valuation','sharedPool','family','defaults','students'],'Plan');
   if(plan.schemaVersion!==SCHEMA||plan.modelVersion!==MODEL||plan.currency!=='USD') throw Error('Unsupported schema, model version, or currency.');
+  object(plan.family,['monthlyLimit','scenarios'],'Household settings');
+  if(plan.family.monthlyLimit!==null)number(plan.family.monthlyLimit,0,1e6,'Household monthly savings limit');
+  if(!plan.family.scenarios||typeof plan.family.scenarios!=='object'||Array.isArray(plan.family.scenarios))throw Error('Invalid household scenario choices.');
+  for(const [studentId,scenarioId] of Object.entries(plan.family.scenarios))if(!plan.students.some(st=>st.id===studentId&&st.scenarios.some(sc=>sc.id===scenarioId)))throw Error('Household scenario choice no longer exists.');
   const now=month(plan.valuation); number(plan.sharedPool,0,1e8,'Shared pool'); validateAssumptions(plan.defaults);
   array(plan.students,30,'Students'); if(!plan.students.length) throw Error('Keep at least one student.');
   const ids = new Set(); let allocated=0,totalScenarios=0;
@@ -84,8 +89,9 @@ export function validatePlan(plan) {
     array(st.scenarios,20,'Scenarios'); if(!st.scenarios.length)throw Error('Each student needs a scenario.'); totalScenarios+=st.scenarios.length;
     for(const s of st.scenarios) {
       object(s,['billing','costSource','history','id','name','path','living','baseline','costs','source','sourceDate','costConfirmed','balance','monthly','contributionStart','contributionEnd','stepUp','gifts','grant','grantYears','income','coverage','share','assumptions','assumptionsDate','assumptionsStatus','stress','acknowledged'],'Scenario');
-      object(s.history,['profile','period','blockYears','costMode','reference','fee','allocations'],'Historical settings');
+      object(s.history,['profile','period','blockYears','costMode','reference','fee','allocations','tuitionBasis'],'Historical settings');
       if(!Object.hasOwn(PROFILES,s.history.profile)||!['full','recent'].includes(s.history.period)||![1,3,5].includes(s.history.blockYears)||!['historical','fixed'].includes(s.history.costMode)||!['historical','manual'].includes(s.history.reference))throw Error('Unsupported historical settings.');
+      if(!['published','index'].includes(s.history.tuitionBasis))throw Error('Unsupported tuition pricing basis.');
       number(s.history.fee,0,.05,'Annual investment fee');
       object(s.billing,['calendar','livingMonths'],'Billing');
       if(!['semester','quarter'].includes(s.billing.calendar)||![9,12].includes(s.billing.livingMonths))throw Error('Choose semester/quarter and 9/12 living months.');

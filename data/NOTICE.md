@@ -9,3 +9,5 @@ Application code is MIT licensed. The historical observations have separate sour
 `python3 scripts/prepare_history.py` reproducibly builds `site/data/history.json` from the committed inputs without network access. The common complete period is January 1978–December 2024. Dataset ID, raw hashes, derived-observation hash and transformations are in `manifest.json` and the bundled data file.
 
 School-budget preset data also has separate attribution and source terms. See [published budget snapshots](school-costs.md). Application MIT licensing does not relicense College Board or university source content.
+
+Runtime model 3.0.0 additionally offers published-price planning using a user-specified annual tuition trend with demeaned BLS tuition-index log changes as an imperfect variability proxy. The source snapshot/checksum is unchanged. The mean adjustment does not convert the source into pure gross tuition history or remove aid effects from volatility. Raw index mode remains explicitly selectable. See [BLS pricing methodology](https://www.bls.gov/cpi/factsheets/college-tuition.htm).
