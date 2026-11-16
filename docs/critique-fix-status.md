@@ -30,4 +30,6 @@ The evaluation is complete: 132 tests pass, reports reproduce exactly twice and 
 
 Cost coverage and independent evidence remain unresolved: fixed-panel longer-wait tests overforecast costs, while the new aggregate 18-year-wait benchmark underforecasts all 14 bills across seven overlapping origins. These findings do not justify a blanket correction or certify future funding probabilities.
 
-Deployment is pending the final branch checks and merge; the prior verified deployed release is v0.10.0.
+**v0.10.1 is deployed.** [PR #1](https://github.com/jschell/education-finance/pull/1) merged as `a1846b6a5df546a0d06c447a159597087023f6c9`; [main checks](https://github.com/jschell/education-finance/actions/runs/43975728871) and [Pages deployment](https://github.com/jschell/education-finance/actions/runs/43975728963) succeeded. [The live verification run](https://github.com/jschell/education-finance/actions/runs/43975844011) compares deployed page/worker/report bytes and repeats the synthetic browser checks against the public URL.
+
+The unresolved statistical finding is tracked in [issue #2](https://github.com/jschell/education-finance/issues/2). Completing this release does not close that finding.
