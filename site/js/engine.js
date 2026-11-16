@@ -1,10 +1,10 @@
-import { termOffsets, allocationAt } from "./planning.js?v=0.6.0";
+import { termOffsets, allocationAt } from "./planning.js?v=0.7.0";
 import {
   month,
   monthText,
   categories,
   resolveScenario,
-} from "./domain.js?v=0.6.0";
+} from "./domain.js?v=0.7.0";
 export const portion = (annual, index, count) => {
   const units = Math.round((annual + Number.EPSILON) * 100),
     base = Math.floor(units / count);

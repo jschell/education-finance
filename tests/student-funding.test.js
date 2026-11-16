@@ -159,7 +159,7 @@ test("duplicating a student never duplicates account balances, gifts or shared a
 test("new backups round trip the normalized schema; older schemas and backup formats are rejected", () => {
   const { plan } = fixture();
   assert.equal(SCHEMA, 5);
-  assert.equal(MODEL, "college-funding-5.0.0");
+  assert.equal(MODEL, "college-funding-6.0.0");
   assert.deepEqual(parseImport(exportPlan(plan)), plan);
   const old = clone(plan);
   old.schemaVersion = 4;

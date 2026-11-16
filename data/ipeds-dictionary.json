@@ -1,0 +1,10 @@
+{
+  "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2023_AY_Dict.zip",
+  "file": "raw/ipeds/IC2023_AY_Dict.zip",
+  "sha256": "45ce5ace49c5f1e965c1704e531bd2a8224b39fd74765792899e86e0bb0788b9",
+  "fields": {
+    "CHG2AY3": "Current academic-year published in-state tuition including required fees",
+    "CHG3AY3": "Current academic-year published out-of-state tuition including required fees",
+    "CHG5AY3": "Current academic-year on-campus food and housing budget"
+  }
+}

@@ -1,9 +1,10 @@
-import { clone, resolveScenario } from "./domain.js?v=0.6.0";
-import { compile, runPath, repriceRow } from "./engine.js?v=0.6.0";
-import { simulateHistorical } from "./history.js?v=0.6.0";
-import { PROFILES } from "./history-config.js?v=0.6.0";
-import { allocationAt } from "./planning.js?v=0.6.0";
-import { random, quantile } from "./simulation.js?v=0.6.0";
+import { fitCostTrends, costGrowth, realTrend } from "./cost-trends.js?v=0.7.0";
+import { clone, resolveScenario } from "./domain.js?v=0.7.0";
+import { compile, runPath, repriceRow } from "./engine.js?v=0.7.0";
+import { simulateHistorical } from "./history.js?v=0.7.0";
+import { PROFILES } from "./history-config.js?v=0.7.0";
+import { allocationAt } from "./planning.js?v=0.7.0";
+import { random, quantile } from "./simulation.js?v=0.7.0";
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const q = (xs, p) =>
   quantile(
@@ -38,7 +39,7 @@ export async function verifyCalibration(bundle, history) {
   if (
     sha256 !== hash ||
     bundle.historyHash !== history.observationsSha256 ||
-    bundle.annual.length !== 24 ||
+    bundle.annual.length !== (bundle.panel ? 23 : 24) ||
     bundle.macro.cases.length !== 3
   )
     throw Error(
@@ -48,10 +49,14 @@ export async function verifyCalibration(bundle, history) {
 }
 export const sectorFor = (s) =>
   /Community/.test(s.path)
-    ? "public2"
+    ? /out-of-state/.test(s.path)
+      ? "public2out"
+      : "public2"
     : /private|Private/.test(s.path)
       ? "private4"
-      : "public4";
+      : /out-of-state/.test(s.path)
+        ? "public4out"
+        : "public4";
 export function costFit(prices) {
   if (prices.length < 11)
     throw Error("At least 11 annual price levels are required.");
@@ -93,9 +98,11 @@ export function calibratedEconomy(
   sector,
   assumptionCase = bundle.macro.cases[1],
 ) {
+  if (!bundle.prices[sector]) sector = sector.replace("out", "");
   // Fit on the same common years in all sectors so joint drift draws remain aligned.
   const first = bundle.annual[0].year - 1;
   const fit = costFit(bundle.prices[sector].filter((p) => p.year >= first));
+  const trends = bundle.panel ? fitCostTrends(bundle.prices[sector]) : null;
   const anchors = assumptionCase.anchors;
   const annualMeans = [0, 1, 2].map((k) =>
     mean(
@@ -120,26 +127,47 @@ export function calibratedEconomy(
       );
     return f.center + f.deviations[i] + assumptionCase.costShift * f.shift;
   };
-  const transform = (index, u = 0.5, includeDrift = true) => {
+  const adjustedMonths = bundle.annual.map((r) =>
+    r.months.map((m) => m.map((x, k) => (1 + x) * adjustment[k] - 1)),
+  );
+  const transform = (index, u = 0.5, includeDrift = true, year = 0) => {
     const r = bundle.annual[index],
       inflation = r.inflation * inflationShift;
     const costs = {};
-    for (const key of ["tuition", "housing"]) {
-      const target = includeDrift
-        ? drift(key, u)
-        : fit[key].center + assumptionCase.costShift * fit[key].shift;
-      costs[key] =
-        (r.sectors[sector][key] / r.inflation) *
-        Math.exp(target - costCenter[key]) *
-        inflation;
+    if (!trends)
+      for (const key of ["tuition", "housing"]) {
+        const target = includeDrift
+          ? drift(key, u)
+          : fit[key].center + assumptionCase.costShift * fit[key].shift;
+        costs[key] =
+          (r.sectors[sector][key] / r.inflation) *
+          Math.exp(target - costCenter[key]) *
+          inflation;
+      }
+    if (trends) {
+      Object.assign(
+        costs,
+        costGrowth(
+          trends,
+          bundle.costModel,
+          r.sectors[sector]
+            ? { ...r.sectors[sector], inflation: r.inflation }
+            : r,
+          year,
+          u,
+          inflation,
+          assumptionCase.costShift,
+        ),
+      );
+      delete costs.inflation;
     }
     return {
-      months: r.months.map((m) => m.map((x, k) => (1 + x) * adjustment[k] - 1)),
+      months: adjustedMonths[index],
       inflation,
       ...costs,
     };
   };
-  return { fit, adjustment, transform, anchors, assumptionCase };
+  return { fit, trends, adjustment, transform, anchors, assumptionCase };
 }
 export function calibrationReference(
   scenario,
@@ -190,6 +218,53 @@ export function calibrationReference(
           )
         : economy.anchors.inflation;
   }
+  if (bundle.panel && s.history.costMode === "historical") {
+    // Fixed-rate reference is the model's initial trend, without residual shocks.
+    const tr = economy.trends;
+    if (bundle.costModel === "fixed") {
+      const source = {
+        inflation: Math.exp(tr.inflation),
+        tuition: Math.exp(tr.tuition.nominal),
+        housing: Math.exp(tr.housing.nominal),
+      };
+      const g = costGrowth(
+        tr,
+        "fixed",
+        source,
+        0,
+        0.5,
+        1 + economy.anchors.inflation,
+        assumptionCase.costShift,
+      );
+      s.assumptions.tuitionGrowth = g.tuition - 1;
+      s.assumptions.livingGrowth =
+        s.living === "On campus" ? g.housing - 1 : economy.anchors.inflation;
+    } else {
+      s.assumptions.tuitionGrowth = Math.expm1(
+        realTrend(
+          tr,
+          "tuition",
+          bundle.costModel,
+          0,
+          0.5,
+          assumptionCase.costShift,
+        ) + Math.log1p(economy.anchors.inflation),
+      );
+      s.assumptions.livingGrowth =
+        s.living === "On campus"
+          ? Math.expm1(
+              realTrend(
+                tr,
+                "housing",
+                bundle.costModel,
+                0,
+                0.5,
+                assumptionCase.costShift,
+              ) + Math.log1p(economy.anchors.inflation),
+            )
+          : economy.anchors.inflation;
+    }
+  }
   s.assumptionsDate = bundle.asOf.slice(0, 7);
   return s;
 }
@@ -216,7 +291,7 @@ export function calibrationFactory(
     const u = random(
       (seed ^ Math.imul(trial + 1, 0x85ebca6b) ^ 0xc2b2ae35) >>> 0,
     )();
-    const years = indices.map((i) => e.transform(i, u));
+    const years = indices.map((i, year) => e.transform(i, u, true, year));
     const gross = new Float64Array(c.rows.length),
       rows = [];
     let tuition = 1,
@@ -274,6 +349,7 @@ export function calibrationFactory(
       assumptionsVersion: bundle.id,
       calibrationCase: assumptionCase.id,
       calibrationHash: bundle.sha256,
+      costModel: bundle.costModel || "recent10",
     },
   };
 }
@@ -350,6 +426,8 @@ export function assessCalibrated(
       sector: sectorFor(scenario),
       cases,
       notes: bundle.notes,
+      panel: bundle.panel,
+      costModel: bundle.costModel,
       validation,
     },
     dataset: { id: bundle.id, hash: bundle.sha256, asOf: bundle.asOf },

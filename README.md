@@ -2,7 +2,7 @@
 
 A static, browser-local college funding planner for GitHub Pages. Enter students one at a time and compare education paths using a shared funding plan for each student.
 
-**Working release v0.6.0 · model college-funding-5.0.0 · schema 5.**
+**Working release v0.7.0 · model college-funding-6.0.0 · schema 5.**
 
 Live application: https://jschell.github.io/education-finance/
 
@@ -25,13 +25,15 @@ There is deliberately **no migration or balance reconciliation** from schemas 1�
 
 ## Economic cases (default)
 
-The pinned economic bundle combines NCES published tuition and room/board prices through 2023–24 with SPF 2026Q1 long-term expectations, the latest common vintage for stocks, Treasury yields, cash and inflation. A Vanguard 2026-09-30 equity outlook supplies a cautious equity cross-check. Annual arithmetic investment returns are recentered to the nominal anchors; cost growth is modeled relative to the same inflation process. Three named cases use matched draws and no probability weights. The gauge shows their funding-frequency envelope; detailed outcomes and the savings target use the central case. Historical associations and persistent empirical tuition/housing trend variation remain in simulated paths.
+The live bundle now uses fixed-institution IPEDS tuition and on-campus housing histories for 2000–2023, separating public in-state and out-of-state prices. Consistent UNITID panels remove changing membership from their growth indices; incomplete and reclassified institutions are excluded and counted. These are equal-school geometric price indices, not national enrollment-weighted averages. User-entered budgets remain the starting values.
 
-**Validation remains weak.** Expanding year-cutoff tests compare price forecasts with actual observed sector prices, separately by horizon. Published P10–P90 cost bands under-cover many realized prices. This release provides source-based economic assumptions, not established individual-family success probabilities. School-specific and public out-of-state growth use sector proxies. Treasury yields are provisional return anchors, and ten-year expectations are held constant beyond their forecast horizon. See [economic calibration](docs/economic-calibration.md) for scope, transformations and evidence.
+Four cost models were compared under a [predeclared protocol](docs/cost-model-protocol.md): fixed 4%/3% nominal trends with historical deviations, the previous recent-ten-year trend, a damped-five-year trend and a changing-regime model. Targets through 2019 selected the candidate; reserved 2020–2023 targets checked it. **The simple 4% tuition / 3% housing benchmark won**, reducing the mean normalized interval score from about 0.263 to 0.185 and mean median-forecast error from 5.7% to 4.8% on two/five-year reserved tests. Nominal trends remain developer benchmarks tested here, not established economic laws. Candidate parameters were not retuned after final-period evaluation.
 
-Current schema-5 student funding is preserved: model 4.0.0 plans receive a metadata-only upgrade. The earlier schema 1–4 reset still applies. No extra Calculate button or required input was added.
+**Coverage remains inadequate:** the selected model's nominal 80% bands cover about 50% of reserved comparable-school price-index outcomes. The app shows all candidates, per-horizon index coverage, separate school-level coverage and the limited number of independent economic periods. There are no eligible 18-year tests in this panel. The reserved years are held out within this comparison, not a prospective or historical-release-vintage experiment; earlier aggregate diagnostics had examined the same economic era.
 
-Rebuild offline with `python3 scripts/prepare_calibration.py`, then `node scripts/validate_calibration.mjs`. Both raw and derived inputs are pinned and checksummed; deliberate source refreshes require review. Review annually and when source definitions change; updates are not fetched by the browser.
+SPF return/inflation anchors and the Vanguard equity cross-check remain unchanged from v0.6.0. One Calculate evaluates the same three economic cases; the gauge shows their frequency envelope. Historical annual deviations remain paired with market years; the selected benchmark cost trends shift across cases using half the IQR of observed five-year real-growth windows. Cases have no assigned probability weights. Detailed paths and the savings solver use the central case. No extra required fields or buttons were added, and schema-5 student funding is preserved.
+
+Rebuild offline with `python3 scripts/prepare_ipeds.py`, then `node scripts/compare_cost_models.mjs`. The compact original-field subset, original archive URLs/member names/hashes, retained UNITIDs and comparison results are pinned. Full ZIP downloads are cached outside source control; `python3 scripts/fetch_ipeds.py` is an explicit network refresh. Original v0.6 aggregate inputs and their validation remain separate and reproducible. Review [results](docs/cost-model-results.md) and [methodology](docs/economic-calibration.md).
 
 ## Historical replay method (optional)
 

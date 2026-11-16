@@ -1,0 +1,439 @@
+{
+  "retrieved": "2026-11-16",
+  "extraction": "Original current-year fields only; names normalized to uppercase and whitespace stripped. Source X flags retained. Full source archives are cached locally, not published.",
+  "selectedSha256": "0ee1dbedd0392f103ce5f6fc4c8b3b2b947ea3d69c906ea0e59c831677cf903c",
+  "files": [
+    {
+      "year": 2000,
+      "kind": "prices",
+      "file": "IC2000_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2000_AY.zip",
+      "member": "ic2000_ay.csv",
+      "bytes": 255196,
+      "sha256": "6bcf30459ed06cd3aa4a94f027da03f74edc6e4a12ed27364389d8d05aa45cd8"
+    },
+    {
+      "year": 2000,
+      "kind": "directory",
+      "file": "FA2000HD.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/FA2000HD.zip",
+      "member": "fa2000hd.csv",
+      "bytes": 948313,
+      "sha256": "a3c91094e8e2b953a54d322c0d6a298e909a55fe15ecdf7f8e14800eba1bbcb8"
+    },
+    {
+      "year": 2001,
+      "kind": "prices",
+      "file": "IC2001_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2001_AY.zip",
+      "member": "ic2001_ay.csv",
+      "bytes": 288694,
+      "sha256": "caa183cdf1b24cde440af0ddb1c9aee98a40ad4dc61441b4aa811fd952b921dc"
+    },
+    {
+      "year": 2001,
+      "kind": "directory",
+      "file": "FA2001HD.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/FA2001HD.zip",
+      "member": "fa2001hd.csv",
+      "bytes": 1016157,
+      "sha256": "b84854005d7e384991ce628a0110b856bca87085bc26b19cce9aad98583203f8"
+    },
+    {
+      "year": 2002,
+      "kind": "prices",
+      "file": "IC2002_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2002_AY.zip",
+      "member": "ic2002_ay.csv",
+      "bytes": 265507,
+      "sha256": "f67bde7e964428c419dfb2f31e0289d51c98c7e36028c6c0dc9a851775f724ac"
+    },
+    {
+      "year": 2002,
+      "kind": "directory",
+      "file": "HD2002.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2002.zip",
+      "member": "hd2002.csv",
+      "bytes": 886363,
+      "sha256": "92c59fbfc243f6afd1420f2fcb7ddac2b227f699672434da5f626f7736080c16"
+    },
+    {
+      "year": 2003,
+      "kind": "prices",
+      "file": "IC2003_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2003_AY.zip",
+      "member": "ic2003_ay.csv",
+      "bytes": 337708,
+      "sha256": "1834180852772b1c0c4b734efc830979b0be189f735f1140fd7fc735fab738e5"
+    },
+    {
+      "year": 2003,
+      "kind": "directory",
+      "file": "HD2003.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2003.zip",
+      "member": "hd2003.csv",
+      "bytes": 755188,
+      "sha256": "1448f42f112f8127c1d003caec8d983317c433c0e98d636ae1b5f19c7880f349"
+    },
+    {
+      "year": 2004,
+      "kind": "prices",
+      "file": "IC2004_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2004_AY.zip",
+      "member": "ic2004_ay.csv",
+      "bytes": 310647,
+      "sha256": "a6fea7216764c10ab462eea7aa4d22d792d9acc47133f96868a938fd2dfefc3d"
+    },
+    {
+      "year": 2004,
+      "kind": "directory",
+      "file": "HD2004.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2004.zip",
+      "member": "hd2004.csv",
+      "bytes": 559584,
+      "sha256": "92a3dc3079f3e7cd5dcd2693361ee8a84661c373851682a9d4a21a36fd95aa5f"
+    },
+    {
+      "year": 2005,
+      "kind": "prices",
+      "file": "IC2005_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2005_AY.zip",
+      "member": "ic2005_ay.csv",
+      "bytes": 303508,
+      "sha256": "0fd8a830a35504676a364b4cfab2c6613ea1d19a1e0ff61f3b1e3b806712371d"
+    },
+    {
+      "year": 2005,
+      "kind": "directory",
+      "file": "HD2005.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2005.zip",
+      "member": "hd2005.csv",
+      "bytes": 587283,
+      "sha256": "b6c9c0e4634f4404d0670c907e22964ea96932eb2cebbc2efb0759fe055ecbb7"
+    },
+    {
+      "year": 2006,
+      "kind": "prices",
+      "file": "IC2006_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2006_AY.zip",
+      "member": "ic2006_ay.csv",
+      "bytes": 268092,
+      "sha256": "b708eb8e3d045b9a45c0cbcf85e5887720a9f9f9828557828c96051d73cccb92"
+    },
+    {
+      "year": 2006,
+      "kind": "directory",
+      "file": "HD2006.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2006.zip",
+      "member": "hd2006.csv",
+      "bytes": 625527,
+      "sha256": "2fe089ae93b3df0085e31ee76471db2cedbc8d2d1d08a6497f460d5cec68cab6"
+    },
+    {
+      "year": 2007,
+      "kind": "prices",
+      "file": "IC2007_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2007_AY.zip",
+      "member": "ic2007_ay.csv",
+      "bytes": 268254,
+      "sha256": "c39ed2823ef0be94b27d1b129d31e87c33d20e5d3b7477c589791f2a2d2baecc"
+    },
+    {
+      "year": 2007,
+      "kind": "directory",
+      "file": "HD2007.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2007.zip",
+      "member": "hd2007.csv",
+      "bytes": 620694,
+      "sha256": "ee66cd0e6676b63dd051d4469d93ddf9492b1d6a2983105a061d2ddc0ac0717d"
+    },
+    {
+      "year": 2008,
+      "kind": "prices",
+      "file": "IC2008_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2008_AY.zip",
+      "member": "ic2008_ay.csv",
+      "bytes": 268784,
+      "sha256": "e71ee2c2fac9469b656c41c5a1f09aaedba9bc14c567b9676a754ec6ba29ac51"
+    },
+    {
+      "year": 2008,
+      "kind": "directory",
+      "file": "HD2008.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2008.zip",
+      "member": "hd2008.csv",
+      "bytes": 645108,
+      "sha256": "eb760d8fd5fa8591e2e4149af1c1954e52ba9a8aacbb5327d066511ff8d7d25b"
+    },
+    {
+      "year": 2009,
+      "kind": "prices",
+      "file": "IC2009_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2009_AY.zip",
+      "member": "ic2009_ay_rv.csv",
+      "bytes": 746770,
+      "sha256": "c66c07f80eb9f7d9fa1bc7bb589c66f3c4630e21f1f0d9fed2f721d30ee308a5"
+    },
+    {
+      "year": 2009,
+      "kind": "directory",
+      "file": "HD2009.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2009.zip",
+      "member": "hd2009.csv",
+      "bytes": 816097,
+      "sha256": "6639ed79d93a4313e0be5830d8250709924811f8dec3fb664a9dea56f7dc1774"
+    },
+    {
+      "year": 2010,
+      "kind": "prices",
+      "file": "IC2010_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2010_AY.zip",
+      "member": "ic2010_ay_rv.csv",
+      "bytes": 798336,
+      "sha256": "bb7efdbc9a2cd8cbe43a599b540eddf25196aabfecaaa205e745ab0e4a26d2fb"
+    },
+    {
+      "year": 2010,
+      "kind": "directory",
+      "file": "HD2010.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2010.zip",
+      "member": "hd2010.csv",
+      "bytes": 911357,
+      "sha256": "72874b792f3c17c143002261af505340742f361645814f120216bda0ccaddb9c"
+    },
+    {
+      "year": 2011,
+      "kind": "prices",
+      "file": "IC2011_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2011_AY.zip",
+      "member": "ic2011_ay_rv.csv",
+      "bytes": 865023,
+      "sha256": "08b17a540e8290f4ceb50f14141619d5cd06eeb295869de7ab020e8cb69c2f06"
+    },
+    {
+      "year": 2011,
+      "kind": "directory",
+      "file": "HD2011.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2011.zip",
+      "member": "hd2011.csv",
+      "bytes": 999029,
+      "sha256": "cc25e07c20380b1254f3a2d000d118cb1ec920d989a3071058c21ac8732548b6"
+    },
+    {
+      "year": 2012,
+      "kind": "prices",
+      "file": "IC2012_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2012_AY.zip",
+      "member": "ic2012_ay.csv",
+      "bytes": 413634,
+      "sha256": "9892fcb2fb661516fc4c2defd9ae6cee54760415fc02e46eadc281fbded77ca4"
+    },
+    {
+      "year": 2012,
+      "kind": "directory",
+      "file": "HD2012.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2012.zip",
+      "member": "hd2012.csv",
+      "bytes": 1021812,
+      "sha256": "8d806d818194ccefdc594204025d4c17610338770a0ff130d28f251eec05691e"
+    },
+    {
+      "year": 2013,
+      "kind": "prices",
+      "file": "IC2013_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2013_AY.zip",
+      "member": "ic2013_ay.csv",
+      "bytes": 367929,
+      "sha256": "0087453fed459ce345be4f1bcbd0f823524609e4a1cbeaa9772ecb6a01c77853"
+    },
+    {
+      "year": 2013,
+      "kind": "directory",
+      "file": "HD2013.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2013.zip",
+      "member": "hd2013.csv",
+      "bytes": 1006235,
+      "sha256": "d9690d6c37c1616f5c7e9f5ea845a9a9a72ea06665db2626bfb07c5c5dff809f"
+    },
+    {
+      "year": 2014,
+      "kind": "prices",
+      "file": "IC2014_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2014_AY.zip",
+      "member": "ic2014_ay.csv",
+      "bytes": 360545,
+      "sha256": "41532e3c54639b33ecef1c902fc2ed4e6efb72f49d9a64fc224b2cebc607e5b7"
+    },
+    {
+      "year": 2014,
+      "kind": "directory",
+      "file": "HD2014.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2014.zip",
+      "member": "hd2014.csv",
+      "bytes": 1076134,
+      "sha256": "ff890e8305d3576c9ab9a0f3c6837ebce4fe5ce5c0d92374a0773f0a9f4150b8"
+    },
+    {
+      "year": 2015,
+      "kind": "prices",
+      "file": "IC2015_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2015_AY.zip",
+      "member": "ic2015_ay.csv",
+      "bytes": 392319,
+      "sha256": "86ccc1ce7f37c185cc403c356f6e7c64ec74a85c9cddb81e36357867cc719208"
+    },
+    {
+      "year": 2015,
+      "kind": "directory",
+      "file": "HD2015.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2015.zip",
+      "member": "hd2015.csv",
+      "bytes": 1090917,
+      "sha256": "17db8753dd1dc404899d8a40fbc4c1eb3d96dd07d06b4b21e6ad994c778351df"
+    },
+    {
+      "year": 2016,
+      "kind": "prices",
+      "file": "IC2016_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2016_AY.zip",
+      "member": "ic2016_ay.csv",
+      "bytes": 380891,
+      "sha256": "3af0950b4c7a3cfe03d5ccc90afa06e6d3b4be30b52af45633dc436df61b1403"
+    },
+    {
+      "year": 2016,
+      "kind": "directory",
+      "file": "HD2016.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2016.zip",
+      "member": "hd2016.csv",
+      "bytes": 1194954,
+      "sha256": "a09e91d3e3b7ef63fb30b5372402f3805c5da1c74959925486036745f2fb664e"
+    },
+    {
+      "year": 2017,
+      "kind": "prices",
+      "file": "IC2017_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2017_AY.zip",
+      "member": "ic2017_ay.csv",
+      "bytes": 374470,
+      "sha256": "1cd4585ab008fb0d4c719adf6912ca0726e73ea0bc2dcce295b67034e5e106cc"
+    },
+    {
+      "year": 2017,
+      "kind": "directory",
+      "file": "HD2017.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2017.zip",
+      "member": "hd2017.csv",
+      "bytes": 1147093,
+      "sha256": "4dbb7905c0436ed97920d4d876e4c598f5f18c2c742dab9972b804b6ee133e57"
+    },
+    {
+      "year": 2018,
+      "kind": "prices",
+      "file": "IC2018_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2018_AY.zip",
+      "member": "ic2018_ay.csv",
+      "bytes": 333486,
+      "sha256": "f7558af5f0ef45c80bc5d91574b864dd40499fcce7c62abe40f6beddc84ba27b"
+    },
+    {
+      "year": 2018,
+      "kind": "directory",
+      "file": "HD2018.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2018.zip",
+      "member": "hd2018.csv",
+      "bytes": 1080905,
+      "sha256": "4e632bc76441c12e8e42b4e66dd6af99aa332342c4879920c09d7d8317cf9b29"
+    },
+    {
+      "year": 2019,
+      "kind": "prices",
+      "file": "IC2019_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2019_AY.zip",
+      "member": "ic2019_ay.csv",
+      "bytes": 326991,
+      "sha256": "0f18101faa9aaa9790662096b8a072ef123c07a6ce19de95f34c9359a325b11a"
+    },
+    {
+      "year": 2019,
+      "kind": "directory",
+      "file": "HD2019.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2019.zip",
+      "member": "hd2019.csv",
+      "bytes": 1048337,
+      "sha256": "727cb3484666e5fea8669ce0fb2ad4606ed19531b47cf428d6748072d7e7ab26"
+    },
+    {
+      "year": 2020,
+      "kind": "prices",
+      "file": "IC2020_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2020_AY.zip",
+      "member": "ic2020_ay.csv",
+      "bytes": 319750,
+      "sha256": "cdc09e834b1ab59e51a086e911662d1f7ac2cd7a6a003c5f1aab4e92daa489be"
+    },
+    {
+      "year": 2020,
+      "kind": "directory",
+      "file": "HD2020.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2020.zip",
+      "member": "hd2020.csv",
+      "bytes": 1032613,
+      "sha256": "cfbdf04201f4be4ae6f98b3800424b6fffd498ec2932f34d287b3d9f17aa3475"
+    },
+    {
+      "year": 2021,
+      "kind": "prices",
+      "file": "IC2021_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2021_AY.zip",
+      "member": "ic2021_ay.csv",
+      "bytes": 313169,
+      "sha256": "5bf330f7b0b91e39166f6d69894d5cb380861278947de179fdf41322d13ac824"
+    },
+    {
+      "year": 2021,
+      "kind": "directory",
+      "file": "HD2021.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2021.zip",
+      "member": "hd2021.csv",
+      "bytes": 1022829,
+      "sha256": "6ea1a974e2994cfcf066b4910bcdad7b0df6f927e6871f3d55532af94b965389"
+    },
+    {
+      "year": 2022,
+      "kind": "prices",
+      "file": "IC2022_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2022_AY.zip",
+      "member": "ic2022_ay.csv",
+      "bytes": 305910,
+      "sha256": "ae38fa644dd5fff073a00dbb6c940448188eed08f52078c20b712ff408d3d6da"
+    },
+    {
+      "year": 2022,
+      "kind": "directory",
+      "file": "HD2022.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2022.zip",
+      "member": "hd2022.csv",
+      "bytes": 1053927,
+      "sha256": "e36389b793741bf6886b8d85fa9b42614644162b0d0b1d024a663a9c1865c782"
+    },
+    {
+      "year": 2023,
+      "kind": "prices",
+      "file": "IC2023_AY.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2023_AY.zip",
+      "member": "ic2023_ay.csv",
+      "bytes": 309736,
+      "sha256": "42d3ee39a107d69b6da02df2ffa934ebe3bb76657568fb9efb7027b6ce0d69ee"
+    },
+    {
+      "year": 2023,
+      "kind": "directory",
+      "file": "HD2023.zip",
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/HD2023.zip",
+      "member": "HD2023.csv",
+      "bytes": 1110720,
+      "sha256": "e11d35af6f50fbe2f51d8ddd5a9d4f49860abbab7d73beae1f8524f13ad8945b"
+    }
+  ]
+}

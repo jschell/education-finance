@@ -1,4 +1,34 @@
-# Economic calibration · first implementation
+# Economic calibration · fixed-institution model comparison
+
+Application 0.7.0; methodology college-funding-6.0.0; live assumptions us-panel-calibration-2026-11-16-v2. Provisional, as of 2026-11-16.
+
+## Implemented scope
+
+Priorities 1–2 from the review are complete: comparable-college histories, separate public residency prices, changing-trend candidates, stronger development/reserved-period evaluation and app integration. Existing forward investment/CPI anchors, asset proxies, student funding, the single Calculate action and historical replay remain. Bond/cash modeling and dynamic macro drivers were not part of this release.
+
+Annual NCES IPEDS files are matched by UNITID for 2000–2023. Field definitions are checked against the pinned IC2023_AY dictionary: CHG2AY3 is in-state tuition/required fees; CHG3AY3 is out-of-state tuition/required fees; CHG5AY3 is on-campus food/housing. Private nonprofit uses CHG2AY3. No double addition of tuition and fees occurs. Missing/nonpositive prices are excluded, never forward-filled. Current-year fields are used from each collection, rather than combining repeated historical columns across later files. Normalized original fields and source imputation flags are pinned; URLs, archive member names and full ZIP SHA-256 are retained. Definitions and final/revised source values may differ across vintages.
+
+Each component uses a fixed complete-record panel with stable sector classification across all 24 years. Annual levels are geometric means of that component's institution prices; changes therefore equally weight log growth of the same institutions. Tuition and housing panels differ. This is an index of comparable schools, not an enrollment-weighted national bill, and includes eligible IPEDS reporters without a separate geography filter. Survivorship/complete-record selection uses full-period membership; retrospective training does not remove that selection bias. It is disclosed, not hidden as real-time forecasting.
+
+## Candidate models and selection
+
+The [protocol](cost-model-protocol.md) was written before final-period scores were inspected. The shared pure module `site/js/cost-trends.js` supplies both testing and live annual growth. Candidates: fixed nominal 4%/3% trends with centered empirical deviations; last-ten-year real trend with persistent ten-year drift; damped-five-year real trend converging to the training mean at persistence 0.8; and a five-year trend converging to a sampled five-year historical regime at persistence 0.8. Three-year blocks preserve paired tuition/housing/inflation deviations. Rates are annual; real growth is nominal gross growth divided by the same inflation gross factor. No post-hoc interval widening was performed.
+
+Targets through 2019 select using equal-series/equal-horizon normalized 80% interval score on 2/5-year tests. Final targets 2020–2023 are reserved from candidate selection, with 2/5/10/18-year reporting. Current SPF forecasts never enter retrospective training. The simple fixed-trend benchmark won development and passed the final score gate against recent10. It is now live; the other models remain implemented and their scores are visible. Those nominal trends are tested planning benchmarks, not data-estimated long-run expectations. Case shifts add plus/minus half the IQR of five-year real-growth means; the central case has no shift. Variable cost mode still samples historical annual cost deviations even when its selected trend model is called fixed. User-selected fixed expense mode retains its separate deterministic expense rates.
+
+See [actual results](cost-model-results.md). Interval coverage remains materially below the nominal 80% level. School-level forecasts reuse sector growth paths and origin-specific school prices; their coverage/error is reported separately. School counts and residency series do not increase independent macro histories. No 18-year test is feasible with this 24-level panel and eleven-level minimum training requirement. More simulations do not address this history limit.
+
+The 2020–2023 split is reserved within this new comparison, not genuinely unknown prospective data: previous aggregate diagnostics already examined this economic era. Holdout results are now consumed evidence and must not be reused for tuning without stating that change. Future work needs new final observations, historical release vintages, or a new explicitly retrospective protocol. These tests validate neither current macro expectations nor individual-family funding probabilities.
+
+## Rebuild and presentation
+
+Run `python3 scripts/prepare_ipeds.py` and `node scripts/compare_cost_models.mjs` offline. The latter writes development selection before it evaluates reserved outcomes, records the protocol hash, publishes all candidates, applies the release gate and emits a separately checksummed live bundle. Source refresh is explicit through `python3 scripts/fetch_ipeds.py`; archives are cached in .cache/ipeds and only needed original fields are committed. Input changes require a new reviewed vintage. The app verifies the live bundle checksum, paired market-data hash and comparison panel identity. Reports carry seed, model, assumptions version and source hashes. Schema-5 funding from models 4 and 5 survives metadata-only upgrade.
+
+The older aggregate-price bundle and validation remain available as separate files and as a collapsed older-dataset diagnostic in the app. They are not represented as tests of the new panel model.
+
+## Preceding release: retained macro assumptions and aggregate diagnostic
+
+### v0.6 aggregate-price methodology
 
 Application 0.6.0; model college-funding-5.0.0; assumptions us-sector-calibration-2026-11-16-v1. Implemented 2026-11-16. This is a provisional economic-assumption release, not a validated funding-probability model.
 

@@ -46,3 +46,8 @@ Automated financial checks are separate from browser event/storage/worker checks
 ## v0.6.0 economic cases (2026-11-16)
 
 Remote Chrome, synthetic data only. Verified existing schema-5 students load under model-5 metadata with funding visible; central and two alternate cases render from one assessment; household missing-budget percentage stays suppressed. Phone iframe 390×844 (body 375 px) and iPad landscape 1024×768 (body 1009 px) show no horizontal body overflow. Project prefix /education-finance/ loads worker/data/modules and both economic-case and historical-replay results. Changing method enables/disables history period controls; keyboard Tab from method reaches trials. Gauge still fills to central frequency, remaining track gray, with the case envelope in its center. Physical iOS/Safari remains unverified. Evidence: evidence/v0.6.0-calibration-phone.jpg and evidence/v0.6.0-calibration-ipad.jpg.
+
+
+## v0.7.0 fixed-institution cost models (2026-11-16)
+
+Remote Chrome, synthetic data only. Desktop shows the selected benchmark, all four candidate scores and reserved-period diagnostics. Phone 390×844 and iPad landscape 1024×768 use /education-finance/ project paths; body width equals scroll width (375/1009 px after scrollbars). Wide diagnostic tables scroll within their cards; desktop tables wrap to fit. Public out-of-state selection loads public4out and its separate historical results. Keyboard Tab moves from education path to living arrangement; Space toggles the comparison disclosure. Existing schema-5 funding loads after metadata upgrade, and results render under the same Calculate action. Physical iOS/Safari remains unverified. Evidence: evidence/v0.7.0-phone.jpg and evidence/v0.7.0-model-comparison.jpg.

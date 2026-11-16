@@ -1,21 +1,28 @@
-import { assessCalibrated, verifyCalibration } from "./calibration.js?v=0.6.0";
-import { assessHousehold } from "./household.js?v=0.6.0";
-import { validatePlan } from "./domain.js?v=0.6.0";
-import { assessHistorical, verifyHistory } from "./history.js?v=0.6.0";
+import { assessCalibrated, verifyCalibration } from "./calibration.js?v=0.7.0";
+import { assessHousehold } from "./household.js?v=0.7.0";
+import { validatePlan } from "./domain.js?v=0.7.0";
+import { assessHistorical, verifyHistory } from "./history.js?v=0.7.0";
 let dataPromise, calibrationPromise;
 async function calibrationData(history) {
   return (calibrationPromise ??= Promise.all(
-    ["calibration.json", "calibration-validation.json"].map((name) =>
+    [
+      "calibration-panel.json",
+      "calibration-validation.json",
+      "cost-model-comparison.json",
+    ].map((name) =>
       fetch(new URL("../data/" + name, import.meta.url)).then((r) => {
         if (!r.ok) throw Error("Calibration data could not be loaded.");
         return r.json();
       }),
     ),
-  ).then(async ([bundle, validation]) => {
+  ).then(async ([bundle, validation, comparison]) => {
     await verifyCalibration(bundle, history);
-    if (validation.bundleHash !== bundle.sha256)
+    if (
+      comparison.panelHash !== bundle.panel.hash ||
+      comparison.liveModel !== bundle.costModel
+    )
       throw Error("Validation report does not match the economic snapshot.");
-    return { bundle, validation };
+    return { bundle, validation: { ...validation, comparison } };
   }));
 }
 function data() {

@@ -1,9 +1,9 @@
-import { samplingRangeText, targetStatus } from "./probability.js?v=0.6.0";
-import { resolveScenario } from "./domain.js?v=0.6.0";
-import { attendanceCalendar } from "./planning.js?v=0.6.0";
-import { gaugeColor } from "./gauge-colors.js?v=0.6.0";
-import { PROFILES } from "./history-config.js?v=0.6.0";
-import { annualRows, compile, runPath } from "./engine.js?v=0.6.0";
+import { samplingRangeText, targetStatus } from "./probability.js?v=0.7.0";
+import { resolveScenario } from "./domain.js?v=0.7.0";
+import { attendanceCalendar } from "./planning.js?v=0.7.0";
+import { gaugeColor } from "./gauge-colors.js?v=0.7.0";
+import { PROFILES } from "./history-config.js?v=0.7.0";
+import { annualRows, compile, runPath } from "./engine.js?v=0.7.0";
 export const money = (x) =>
   x === null
     ? "—"
@@ -651,7 +651,9 @@ export function simulationView(sim, sensitivity = null, cases = null) {
     el(
       "p",
       sim.calibrationCase && sim.costMode !== "fixed"
-        ? "Published sector tuition and on-campus room/board are modeled relative to inflation. Other expenses and off-campus/at-home housing use CPI. Joint annual blocks retain observed market/cost associations; the sector cost trend also varies between paths. Grants remain separate."
+        ? sim.costModel === "fixed"
+          ? "Validation-selected cost model: 4% tuition and 3% on-campus housing nominal trends, with paired historical annual deviations. Economic cases shift those trends using observed five-year growth variation. CPI applies to other expenses and off-campus/at-home housing. The entered fixed-growth fields are not used in variable-cost mode."
+          : "Published sector tuition and on-campus room/board are modeled relative to inflation. Other expenses and off-campus/at-home housing use CPI. Joint annual blocks retain observed market/cost associations; the sector cost trend also varies between paths. Grants remain separate."
         : sim.costMode === "fixed"
           ? `Fixed expense growth: tuition ${pct(sim.tuitionTrend)} per year; living costs use the entered fixed rate. Historical investment returns still vary.`
           : sim.tuitionBasis === "published"
@@ -1235,8 +1237,16 @@ export function calibrationContextView(result) {
       "hint",
     ),
   );
-  const current = c.validation.results.filter((r) => r.sector === c.sector);
-  wrap.append(
+  const comparison = c.validation.comparison;
+  if (comparison) wrap.append(costModelComparisonView(c));
+  const current = c.validation.results.filter(
+    (r) => r.sector === c.sector.replace("out", ""),
+  );
+  const legacy = el("details");
+  legacy.append(
+    el("summary", "Earlier sector-aggregate diagnostic · separate dataset"),
+  );
+  legacy.append(
     table(
       "Published-price back-test · " + c.sector,
       [
@@ -1257,13 +1267,14 @@ export function calibrationContextView(result) {
       ]),
     ),
   );
-  wrap.append(
+  legacy.append(
     el("p", c.validation.method + " " + c.validation.limitations, "hint"),
   );
+  wrap.append(legacy);
   wrap.append(
     el(
       "p",
-      `Price data: ${c.source.name}, through 2023–24. Sector proxy ${c.sector}; custom/public out-of-state paths use public in-district growth, which does not validate out-of-state prices. Off-campus/at-home housing uses CPI. Your entered budget sets the starting price; the dataset supplies growth, not a replacement budget.`,
+      `Price data: ${c.source.name}, through 2023–24. Sector proxy ${c.sector}; public in-state and out-of-state tuition now use separate fixed-institution histories. Custom paths use public four-year in-state growth; forecasts remain sector proxies for individual schools. Off-campus/at-home housing uses CPI. Your entered budget sets the starting price; the dataset supplies growth, not a replacement budget.`,
       "hint",
     ),
   );
@@ -1273,12 +1284,12 @@ export function calibrationContextView(result) {
   details.append(
     el(
       "p",
-      `${c.id} · SHA-256 ${c.hash}. History windows 2000–2023, jointly sampled in ${sim.blockYears}-year blocks. Source aggregates may be revised. Changing model assumptions can materially change funding frequencies.`,
+      `${c.id} · SHA-256 ${c.hash}. History transitions ${c.panel ? "2001–2023" : "2000–2023"}, jointly sampled in ${sim.blockYears}-year blocks. Source aggregates may be revised. Changing model assumptions can materially change funding frequencies.`,
       "hint",
     ),
   );
   for (const [label, url] of [
-    ["NCES published-price table", c.source.url],
+    ["NCES price data", c.source.url],
     [
       "Philadelphia Fed forecasts",
       "https://www.philadelphiafed.org/surveys-and-data/real-time-data-research/survey-of-professional-forecasters",
@@ -1290,5 +1301,92 @@ export function calibrationContextView(result) {
     details.append(a, el("br"));
   }
   wrap.append(details);
+  return wrap;
+}
+
+const costModelName = (id) =>
+  ({
+    fixed: "4% tuition / 3% housing + historical deviations",
+    recent10: "Recent ten-year trend",
+    damped5: "Damped five-year trend",
+    regime: "Changing historical growth regime",
+  })[id] || id;
+export function costModelComparisonView(c) {
+  const report = c.validation.comparison,
+    wrap = el("div", "", "cost-model-comparison");
+  wrap.append(el("h3", "College-cost model comparison"));
+  wrap.append(
+    el(
+      "p",
+      `Selected: ${costModelName(report.liveModel)}. Models were selected using targets through 2019, then checked against reserved 2020–2023 targets. ${report.gatePassed ? "The selection passed the predeclared score comparison with the recent-trend model." : "The selected candidate failed the release gate; recent10 was retained."} This does not establish adequate interval coverage.`,
+      "hint",
+    ),
+  );
+  const active = report.holdout.find((r) => r.model === report.liveModel),
+    rows = active.rows.filter((r) => r.series === c.sector);
+  wrap.append(
+    table(
+      "Reserved-period results · " + c.sector,
+      [
+        "Horizon",
+        "Origin clusters",
+        "P10–P90 index coverage",
+        "Index median MAPE",
+        "School-level coverage",
+        "Non-overlapping periods",
+      ],
+      rows.map((r) => [
+        r.horizon + " years",
+        String(r.folds.length),
+        r.coverage === null ? "Unavailable" : pct(r.coverage),
+        r.mape === null ? "—" : pct(r.mape),
+        r.schoolCoverage === null ? "—" : pct(r.schoolCoverage),
+        String(r.nonoverlapping),
+      ]),
+    ),
+  );
+  const counts = c.panel.counts[c.sector];
+  wrap.append(
+    el(
+      "p",
+      `Fixed panels: ${counts.tuitionInstitutions} tuition institutions, ${counts.housingInstitutions} on-campus housing institutions; ${counts.jointInstitutions} have both for school-level tests. ${counts.excludedUnstableOrAbsent} institutions were absent in some years or changed sector. Among stable institutions, ${counts.excludedTuitionMissing} lack a complete positive tuition history and ${counts.excludedHousingMissing} lack a complete positive housing history. School counts do not increase the number of independent economic periods.`,
+      "hint",
+    ),
+  );
+  const all = el("details");
+  all.append(el("summary", "Compare all tested models"));
+  all.append(
+    table(
+      "Average 2/5-year scores across five price series",
+      [
+        "Model",
+        "Development interval score",
+        "Reserved interval score",
+        "Reserved index coverage",
+        "Reserved median MAPE",
+      ],
+      report.holdout.map((m) => {
+        const included = m.rows.filter(
+          (r) => r.folds.length && [2, 5].includes(r.horizon),
+        );
+        return [
+          costModelName(m.model),
+          report.development.find((d) => d.model === m.model).score.toFixed(3),
+          m.score.toFixed(3),
+          pct(included.reduce((a, r) => a + r.coverage, 0) / included.length),
+          pct(included.reduce((a, r) => a + r.mape, 0) / included.length),
+        ];
+      }),
+    ),
+  );
+  for (const note of report.limitations) all.append(el("p", note, "hint"));
+  all.append(
+    el(
+      "p",
+      "The reserved years were held out from candidate selection in this comparison, not a prospective experiment; earlier aggregate diagnostics had already examined these economic years. Lower interval scores are better. No parameter was retuned after the reserved scores were evaluated.",
+      "hint",
+    ),
+  );
+  wrap.append(all);
   return wrap;
 }

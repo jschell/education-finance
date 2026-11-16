@@ -1270,3 +1270,16 @@ svg text {
 .gauge-color-key .met::before {
   background: #195e50;
 }
+
+/* Diagnostics fit their own card; narrow screens scroll inside the table. */
+.cost-model-comparison table {
+  white-space: normal;
+  min-width: 560px;
+}
+.cost-model-comparison th,
+.cost-model-comparison td {
+  padding: 9px 8px;
+}
+.cost-model-comparison td:not(:first-child) {
+  white-space: nowrap;
+}

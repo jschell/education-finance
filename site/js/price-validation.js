@@ -1,6 +1,6 @@
 // Component validation only: no current macro forecasts enter a historical fold.
-import { costFit, annualIndices } from "./calibration.js?v=0.6.0";
-import { random, quantile } from "./simulation.js?v=0.6.0";
+import { costFit, annualIndices } from "./calibration.js?v=0.7.0";
+import { random, quantile } from "./simulation.js?v=0.7.0";
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
 export function priceForecast(
   training,

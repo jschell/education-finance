@@ -1,5 +1,5 @@
-import { HISTORY_DEFAULTS, PROFILES } from "./history-config.js?v=0.6.0";
-export const MODEL = "college-funding-5.0.0",
+import { HISTORY_DEFAULTS, PROFILES } from "./history-config.js?v=0.7.0";
+export const MODEL = "college-funding-6.0.0",
   SCHEMA = 5,
   PRNG = "mulberry32-boxmuller-1",
   ASSUMPTIONS = "user-defined-1";
@@ -204,7 +204,9 @@ export function validatePlan(plan) {
   // Same student-funding schema; only the methodology metadata changes.
   if (
     plan?.schemaVersion === SCHEMA &&
-    plan?.modelVersion === "college-funding-4.0.0"
+    ["college-funding-4.0.0", "college-funding-5.0.0"].includes(
+      plan?.modelVersion,
+    )
   ) {
     plan = clone(plan);
     plan.modelVersion = MODEL;

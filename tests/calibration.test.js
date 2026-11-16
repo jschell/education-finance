@@ -72,7 +72,7 @@ test("source columns, common vintage, sector proxies and annual matching remain 
     h.observations.find((r) => r[0] === "2000-09").slice(1, 4),
   );
   assert.equal(sectorFor({ path: "Private nonprofit" }), "private4");
-  assert.equal(sectorFor({ path: "Public out-of-state" }), "public4");
+  assert.equal(sectorFor({ path: "Public out-of-state" }), "public4out");
 });
 test("arithmetic one-year return anchors and inflation align exactly without double inflation", () => {
   for (const ac of b.macro.cases) {
