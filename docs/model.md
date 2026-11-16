@@ -1,6 +1,6 @@
 # Financial model and historical simulation methodology
 
-Implemented model `college-funding-3.0.0`, saved schema 4, application v0.4.0. Dataset `us-joint-monthly-1978-2024-v1` contains 564 complete monthly observations (January 1978–December 2024), retrieved 2026-11-15. Primary PRNG: `mulberry32-calendar-block-1`. One Calculate action includes the complete assessment. All monetary amounts are nominal USD unless labeled purchasing power.
+Implemented model `college-funding-3.0.0`, saved schema 4, application v0.4.1. Dataset `us-joint-monthly-1978-2024-v1` contains 564 complete monthly observations (January 1978–December 2024), retrieved 2026-11-15. Primary PRNG: `mulberry32-calendar-block-1`. One Calculate action includes the complete assessment. All monetary amounts are nominal USD unless labeled purchasing power.
 
 ## Cash flow and timing
 
@@ -42,7 +42,7 @@ Mulberry32 selects block starts using seed XOR imul(trial+1,0x9e3779b9). Identic
 
 ## Results and contribution estimate
 
-The gauge displays a whole percentage: the frequency of paying all covered bills in the chosen historical model. The entire semicircle changes to one shade based on the current percentage, from brown/red to yellow at 45%, light green at 60% and dark green at the selected target; it is not a static multicolor scale. Its target tick and status reflect the chosen preference; lowering the target changes the status, not the funding. A Wilson 95% sampling interval describes Monte Carlo noise only. If that interval crosses the target, status reads Near target. Structural model uncertainty is not included in that interval. With no entered budget, no percentage is shown.
+The gauge displays a whole percentage: the frequency of paying all covered bills in the chosen historical model. The colored arc extends from zero to the calculated percentage, stopping at its marker; the remaining semicircle stays gray. The filled portion changes to one shade based on the current percentage, from brown/red to yellow at 45%, light green at 60% and dark green at the selected target; it is not a static multicolor scale. Its target tick and status reflect the chosen preference; lowering the target changes the status, not the funding. A Wilson 95% sampling interval describes Monte Carlo noise only. If that interval crosses the target, status reads Near target. Structural model uncertainty is not included in that interval. With no entered budget, no percentage is shown.
 
 Actual simulated gaps, entry savings and costs determine histogram counts. Fully funded paths are a separate category. Marginal P10/P50/P90 rows and pointwise balance bands are independently ranked and cannot be combined into a single path.
 

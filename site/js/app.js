@@ -4,7 +4,7 @@ import { MODEL,PRNG,ASSUMPTIONS,clone,id,newPlan,newStudent,defaultScenario,dupl
 import { PROFILES,periodLabel } from './history-config.js?v=0.4.0';
 import { compile,runPath,annualRows } from './engine.js?v=0.4.0';
 import { savePlan,loadPlan,clearPlan,saveRecovery,loadRecovery,markRecoverySaved,clearRecovery,acquireEditor,saveDraft,loadDraft,clearDraft } from './storage.js?v=0.4.0';
-import { el,money,table,deterministicView,simulationView,comparisonView,historyContextView,annualFundingView,familyCalendarView,householdView,csvText } from './render.js?v=0.4.0';
+import { el,money,table,deterministicView,simulationView,comparisonView,historyContextView,annualFundingView,familyCalendarView,householdView,csvText } from './render.js?v=0.4.1';
 const $=s=>document.querySelector(s),form=$('#planner');
 const editing=await acquireEditor().catch(error=>({editable:false,reason:`Safe editing unavailable: ${error.message}`}));
 let plan=newPlan(),studentId=plan.students[0].id,scenarioId=plan.students[0].scenarios[0].id;

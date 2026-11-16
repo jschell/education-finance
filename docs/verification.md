@@ -91,3 +91,9 @@ The full semicircle now uses the color corresponding to the current percentage, 
 Full-arc color anchors are now yellow at 45% (`#edc84b`), light green at 60% (`#a8cf8c`), and dark green at the selected goal (`#195e50`), with smooth interpolation. Gauge status remains independently based on the chosen target and sampling interval.
 
 Final color browser check: with fictional savings of $100,000, the example produced 74% and one uniformly green-tinted arc (`#669b70`), while the independent badge correctly remained Below target (90%). The 45%/60%/target legend matched the revised anchors. [Screenshot with synthetic values](../tests/evidence/v0.4.0-whole-arc.jpg).
+
+## v0.4.1 gauge progress
+
+Presentation-only correction: color fills from zero to the calculated percentage; the remaining semicircle stays gray. At 0% no colored fill path is drawn; at 100% the full track is filled. The entire filled segment retains the percentage-based color, with yellow at 45%, light green at 60% and dark green at the chosen target. Marker, target tick, probability and model remain unchanged. The previous v0.4.0 screenshot records the older full-track behavior.
+
+Chromium preview: a 72.61% model frequency produced normalized fill length 72.61 of the 100-unit semicircle, ending at its marker with gray track beyond. Keyboard Calculate completed. Phone 390×844 and iPad landscape 1024×768 /education-finance/ views retained matching document client/scroll widths (375/375, 1009/1009). [Synthetic progress screenshot](../tests/evidence/v0.4.1-progress.jpg). Financial model/version and the existing 72 passing checks are unchanged.

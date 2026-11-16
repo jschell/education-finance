@@ -101,7 +101,7 @@ export function successGauge(sim) {
   const arc={d:'M30 184 A150 150 0 0 1 330 184',fill:'none','stroke-width':15,'stroke-linecap':'round',pathLength:100};
   add('path',{...arc,class:'gauge-track'});
   if(hasBudget){
-    add('path',{...arc,stroke:gaugeColor(p,sim.threshold),class:'gauge-fill'});
+    if(p>0)add('path',{...arc,stroke:gaugeColor(p,sim.threshold),'stroke-dasharray':`${p*100} 100`,class:'gauge-fill'});
     const angle=Math.PI*(1-p),target=Math.PI*(1-sim.threshold);
     add('line',{x1:180+137*Math.cos(target),y1:184-137*Math.sin(target),x2:180+164*Math.cos(target),y2:184-164*Math.sin(target),class:'gauge-target'});
     add('circle',{cx:180+150*Math.cos(angle),cy:184-150*Math.sin(angle),r:12,class:'gauge-marker-outline'});

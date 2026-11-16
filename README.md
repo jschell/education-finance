@@ -2,7 +2,7 @@
 
 A browser-local college funding planner, entered one student at a time, designed for GitHub Pages.
 
-**Status: working v0.4.0 calculator.** One Calculate action produces historical investment, expense, and funding-gap ranges, a savings target, actual historical-period comparisons, and a fixed-rate reference. Multiple students/scenarios, automatic local saves, and portable backup are implemented. Static published school-budget presets and an attendance-overlap overview are included. Joint household assessment now uses shared economic paths, saved scenario choices and an optional monthly savings-deposit limit. Live school-price lookup and tax/aid eligibility calculation remain future work.
+**Status: working v0.4.1 calculator.** One Calculate action produces historical investment, expense, and funding-gap ranges, a savings target, actual historical-period comparisons, and a fixed-rate reference. Multiple students/scenarios, automatic local saves, and portable backup are implemented. Static published school-budget presets and an attendance-overlap overview are included. Joint household assessment now uses shared economic paths, saved scenario choices and an optional monthly savings-deposit limit. Live school-price lookup and tax/aid eligibility calculation remain future work.
 
 Live application: https://jschell.github.io/education-finance/
 
@@ -82,7 +82,7 @@ Valid real-plan changes—including adding students/scenarios—automatically sa
 
 Each independent tab session starts with a cryptographically generated unsigned 32-bit seed. Reloads and repeated calculations retain it; edit Random seed under Calculation settings to choose another sample. Clearing the field reuses the current session seed. The seed is included in assessment exports, so a report can be reproduced with the same inputs/model/data. Browser-duplicated or restored tabs may retain copied session state. If session storage is blocked, the seed remains stable in the current page but cannot be retained through reload.
 
-The entire gauge arc changes to a single shade as the percentage updates: brown/red at low likelihood, yellow by 45%, light green at 60%, and dark green at the selected target, with smooth interpolation between these points. A contrasting marker shows the actual result and a tick shows the target. Percentages and Below target / Near target / Target met labels remain available; no budget remains neutral gray. No extra calculation button is introduced.
+The colored part of the gauge stops at the calculated percentage, with gray track beyond it. The filled part changes to a single shade as the percentage updates: brown/red at low likelihood, yellow by 45%, light green at 60%, and dark green at the selected target, with smooth interpolation between these points. A contrasting marker shows the actual result and a tick shows the target. Percentages and Below target / Near target / Target met labels remain available; no budget remains neutral gray. No extra calculation button is introduced.
 
 ## Workbook-inspired planning improvements (v0.3.0)
 
