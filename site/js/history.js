@@ -1,8 +1,9 @@
-import { outcomeDistribution } from './distribution.js?v=0.2.3';
-import { MODEL,clone } from './domain.js?v=0.2.3';
-import { compile,runPath,repriceRow,requiredContribution } from './engine.js?v=0.2.3';
-import { random,quantile } from './simulation.js?v=0.2.3';
-import { DATASET_ID,HISTORY_PRNG,PROFILES,periodLabel } from './history-config.js?v=0.2.3';
+import { allocationAt } from './planning.js?v=0.3.0';
+import { outcomeDistribution } from './distribution.js?v=0.3.0';
+import { MODEL,clone } from './domain.js?v=0.3.0';
+import { compile,runPath,repriceRow,requiredContribution } from './engine.js?v=0.3.0';
+import { random,quantile } from './simulation.js?v=0.3.0';
+import { DATASET_ID,HISTORY_PRNG,PROFILES,periodLabel } from './history-config.js?v=0.3.0';
 const sort=x=>x.sort((a,b)=>a-b);
 const percentiles=x=>{sort(x);return {p10:quantile(x,.1),p50:quantile(x,.5),p90:quantile(x,.9)};};
 export function validateHistory(data) {
@@ -26,12 +27,13 @@ export function observations(data,period='full') {return data.observations.filte
 function stage(c,i) {return i>=c.enrollmentIndex?2:i>=c.enrollmentIndex-c.a.transitionYears*12?1:0;}
 export function portfolioGross(row,weights,fee=0) { return (1+row[1]*weights[0]+row[2]*weights[1]+row[3]*weights[2])*(1-fee)**(1/12); }
 export function referenceScenario(scenario,data) {
-  const s=clone(scenario);if(s.history.reference==='manual')return s;
+  const s=clone(scenario);for(const entry of s.history.allocations)entry.referenceRate=null;if(s.history.reference==='manual')return s;
   const rows=observations(data,s.history.period),stages=PROFILES[s.history.profile].stages;
   const annual=fn=>Math.expm1(rows.reduce((v,row)=>v+Math.log(fn(row)),0)/rows.length*12);
   const rates=stages.map(w=>annual(row=>portfolioGross(row,w,s.history.fee)));
   s.assumptions.returnRate=rates[0];s.assumptions.lateReturn=rates[1];s.assumptions.attendanceReturn=rates[2];
   if(s.history.costMode==='historical'){s.assumptions.tuitionGrowth=annual(row=>1+row[5]);s.assumptions.livingGrowth=annual(row=>1+row[4]);s.assumptions.inflation=s.assumptions.livingGrowth;}
+  for(const entry of s.history.allocations)entry.referenceRate=annual(row=>portfolioGross(row,[entry.stocks,entry.bonds,entry.cash],s.history.fee));
   s.assumptionsStatus='user-defined';s.assumptionsDate=data.asOf.slice(0,7);return s;
 }
 export function blockIndices(rows,length,startMonth,blockYears,seed,trial) {
@@ -46,7 +48,7 @@ export function historicalPath(c,rows,indices) {
   const stages=PROFILES[c.history.profile].stages,gross=new Float64Array(c.rows.length),priced=[];
   let tuition=1,living=1,discount=1;
   for(let i=0;i<c.rows.length;i++){
-    const observation=rows[indices[i]];gross[i]=portfolioGross(observation,stages[stage(c,i)],c.history.fee);
+    const observation=rows[indices[i]];const allocation=allocationAt(c.rows[i].date,c.history.allocations),weights=allocation?[allocation.stocks,allocation.bonds,allocation.cash]:stages[stage(c,i)];gross[i]=portfolioGross(observation,weights,c.history.fee);
     priced.push(c.history.costMode==='historical'?repriceRow(c.rows[i],tuition,living,discount):c.rows[i]);
     tuition*=1+observation[5];living*=1+observation[4];discount*=1+observation[4];
   }
@@ -92,7 +94,7 @@ export function simulateHistorical(c,data,settings={},progress=()=>{},solve=true
   }
   return {modelVersion:MODEL,prngVersion:HISTORY_PRNG,assumptionsVersion:DATASET_ID,seed,trials,threshold,ceiling,
     distributions:{gap:outcomeDistribution(failed,{fundedCount:successes,total:trials,bands:6}),enrollment:outcomeDistribution(enrollment),cost:outcomeDistribution(costs)},
-    method:'Calendar-aligned joint historical block bootstrap',period:periodLabel(c.history.period),blockYears:c.history.blockYears,profile:c.history.profile,costMode:c.history.costMode,fee:c.history.fee,
+    method:'Calendar-aligned joint historical block bootstrap',period:periodLabel(c.history.period),blockYears:c.history.blockYears,profile:c.history.profile,allocations:clone(c.history.allocations),costMode:c.history.costMode,fee:c.history.fee,
     probability:successes/trials,samplingSE:Math.sqrt(successes/trials*(1-successes/trials)/trials),gap:percentiles(gaps),realGap:percentiles(realGaps),costRange:percentiles(costs),realCostRange:percentiles(realCosts),tuitionRange:percentiles(tuitionCosts),
     ending:percentiles(ending),enrollment:percentiles(enrollment),failedCount:failed.length,conditionalGap:percentiles(failed),cost:quantile(sort([...costs]),.5),
     bands:dates.map((i,j)=>({date:c.rows[i].date,...percentiles(samples[j])})),contribution,additional:contribution===null?null:Math.max(0,contribution-c.monthly),confirmation,infeasible:solve&&contribution===null};

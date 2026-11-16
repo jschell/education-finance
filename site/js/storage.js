@@ -1,4 +1,4 @@
-import { validatePlan,clone } from './domain.js?v=0.2.3';
+import { validatePlan,clone } from './domain.js?v=0.3.0';
 const DB='education-finance',KEY='workspace';
 function database() {
   return new Promise((resolve,reject)=>{
@@ -11,7 +11,7 @@ function database() {
   });
 }
 export async function savePlan(plan) {
-  validatePlan(plan);const db=await database();
+  plan=validatePlan(plan);const db=await database();
   try {await new Promise((resolve,reject)=>{const tx=db.transaction('plans','readwrite');tx.objectStore('plans').put(clone(plan),KEY);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||Error('Save was interrupted.'));});}
   finally{db.close();}
 }

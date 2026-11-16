@@ -1,9 +1,10 @@
-import { sessionSeed,updateSessionSeed } from './session-seed.js?v=0.2.3';
-import { MODEL,PRNG,ASSUMPTIONS,clone,id,newPlan,newStudent,defaultScenario,duplicateStudent,validatePlan,exportPlan,parseImport,currentMonth,monthText,month,assumptionKeys } from './domain.js?v=0.2.3';
-import { PROFILES,periodLabel } from './history-config.js?v=0.2.3';
-import { compile,runPath,annualRows } from './engine.js?v=0.2.3';
-import { savePlan,loadPlan,clearPlan,saveRecovery,loadRecovery,markRecoverySaved,clearRecovery } from './storage.js?v=0.2.3';
-import { el,money,table,deterministicView,simulationView,comparisonView,historyContextView,csvText } from './render.js?v=0.2.3';
+import { COST_PRESETS,applyCostPreset } from './cost-presets.js?v=0.3.0';
+import { sessionSeed,updateSessionSeed } from './session-seed.js?v=0.3.0';
+import { MODEL,PRNG,ASSUMPTIONS,clone,id,newPlan,newStudent,defaultScenario,duplicateStudent,validatePlan,exportPlan,parseImport,currentMonth,monthText,month,assumptionKeys } from './domain.js?v=0.3.0';
+import { PROFILES,periodLabel } from './history-config.js?v=0.3.0';
+import { compile,runPath,annualRows } from './engine.js?v=0.3.0';
+import { savePlan,loadPlan,clearPlan,saveRecovery,loadRecovery,markRecoverySaved,clearRecovery } from './storage.js?v=0.3.0';
+import { el,money,table,deterministicView,simulationView,comparisonView,historyContextView,annualFundingView,familyCalendarView,csvText } from './render.js?v=0.3.0';
 const $=s=>document.querySelector(s),form=$('#planner');
 let plan=newPlan(),studentId=plan.students[0].id,scenarioId=plan.students[0].scenarios[0].id;
 let revision=0,dirty=false,worker=null,runId=0,lastResult=null,pendingImport=null,assumptionEdited=false,refreshTimer=null,exampleWorkspace=null,saveQueued=false,saveQueue=Promise.resolve(),saveEpoch=0;
@@ -93,6 +94,12 @@ function commit({normalize=true,report=true}={}) {
   for(const n of form.querySelectorAll('[data-student]'))st[n.dataset.student]=inputValue(n,st[n.dataset.student]);
   for(const n of form.querySelectorAll('[data-scenario]'))sc[n.dataset.scenario]=inputValue(n,sc[n.dataset.scenario]);
   for(const n of form.querySelectorAll('[data-cost]'))sc.costs[n.dataset.cost]=inputValue(n,0);
+  for(const n of form.querySelectorAll('[data-billing]'))sc.billing[n.dataset.billing]=n.dataset.billing==='livingMonths'?Number(n.value):n.value;
+  for(const n of form.querySelectorAll('[data-source]'))sc.costSource[n.dataset.source]=n.value.trim();
+  sc.history.allocations=[...$('#allocation-changes').querySelectorAll('.allocation-row')].map(row=>{
+    const stocks=row.querySelector('[data-stocks]').valueAsNumber/100,bonds=row.querySelector('[data-bonds]').valueAsNumber/100;
+    return {date:row.querySelector('[data-date]').value,stocks,bonds,cash:1-stocks-bonds,referenceRate:null};
+  });
   for(const n of form.querySelectorAll('[data-history]'))sc.history[n.dataset.history]=n.dataset.history==='blockYears'?Number(n.value):inputValue(n,sc.history[n.dataset.history]);
   for(const n of form.querySelectorAll('[data-assumption]'))sc.assumptions[n.dataset.assumption]=inputValue(n,sc.assumptions[n.dataset.assumption]);
   for(const key of ['balance','monthly','grant','income','stepUp']) { const node=form.querySelector(`[data-scenario=${key}]`); if(node.value.trim()==='')sc[key]=0; }
@@ -115,6 +122,7 @@ function commit({normalize=true,report=true}={}) {
   for(const n of form.querySelectorAll('[data-history]'))fill(n,sc.history[n.dataset.history]);
   $('#valuation').value=plan.valuation;$('#shared-pool').value=plan.sharedPool;
   }
+  $('#family-calendar').replaceChildren(familyCalendarView(plan));
   updateDefaultsSummary(st,sc);
   const studentOption=[...$('#student-select').options].find(x=>x.value===studentId);if(studentOption)studentOption.textContent=st.alias;
   const scenarioOption=[...$('#scenario-select').options].find(x=>x.value===scenarioId);if(scenarioOption)scenarioOption.textContent=sc.name;
@@ -127,10 +135,30 @@ function giftRow(g={date:plan.valuation,amount:0}) {
   di.type='month';di.required=true;di.dataset.date='';di.value=g.date;ai.type='number';ai.min='0';ai.max='100000000';ai.step='.01';ai.required=true;ai.dataset.amount='';ai.value=g.amount;date.append(di);amount.append(ai);remove.type='button';
   remove.addEventListener('click',()=>{row.remove();changed();scheduleProjection();});row.append(date,amount,remove);return row;
 }
+function allocationRow(entry={date:plan.valuation,stocks:.3,bonds:.4,cash:.3}){
+  const row=el('div','','allocation-row');
+  for(const [label,key,type,value] of [['From month','date','month',entry.date],['Stocks (%)','stocks','number',entry.stocks*100],['Bonds (%)','bonds','number',entry.bonds*100]]){
+    const l=el('label',label),input=el('input');input.type=type;input.dataset[key]='';input.required=true;input.value=type==='number'?Number(value.toFixed(6)):value;if(type==='number'){input.min='0';input.max='100';input.step='.1';}l.append(input);row.append(l);
+  }
+  const cash=el('p',`Cash: ${(entry.cash*100).toFixed(1)}%`,'hint');row.append(cash);
+  row.addEventListener('input',()=>{const stocks=row.querySelector('[data-stocks]').valueAsNumber,bonds=row.querySelector('[data-bonds]').valueAsNumber;cash.textContent=`Cash: ${(100-stocks-bonds).toFixed(1)}%`;});
+  const remove=el('button','Remove');remove.type='button';remove.onclick=()=>{row.remove();changed();scheduleProjection();};row.append(remove);return row;
+}
+function previewPreset(){
+  const p=COST_PRESETS[$('#cost-preset').value];$('#apply-preset').disabled=!p;
+  if(!p){$('#preset-preview').replaceChildren();return;}
+  const link=el('a',p.source);link.href=p.url;
+  $('#preset-preview').replaceChildren(el('p',`${p.academicYear} · on campus · annual school budget · modeled over ${p.livingMonths} months · before grants`),table('Published annual budget',['Category','Amount'],Object.entries(p.costs).map(([k,v])=>[({tuition:'Tuition & fees',housing:'Housing & food',books:'Books & supplies',transport:'Transportation',other:'Other expenses'})[k],money(v)]).concat([['Total (includes tuition)',money(p.total)]])),link,el('p',`${p.note} Source checked ${p.asOf}.`,'hint'));
+}
+for(const [key,p] of Object.entries(COST_PRESETS))option($('#cost-preset'),key,p.name);
+$('#cost-preset').addEventListener('change',previewPreset);
+$('#apply-preset').onclick=()=>guard(()=>{commit();const st=student(),index=st.scenarios.findIndex(s=>s.id===scenarioId);st.scenarios[index]=applyCostPreset(scenario(),$('#cost-preset').value,plan.valuation);validatePlan(plan);changed();renderForm();message('Published budget applied. Adjust the categories for your school; no aid amount was inferred.');});
+$('#add-allocation').onclick=()=>{if($('#allocation-changes').children.length>=24)return message('Up to 24 allocation changes.');$('#allocation-changes').append(allocationRow());changed();scheduleProjection();};
 function hasAmounts(){return scenario().balance+student().sharedAllocation>0||Object.values(scenario().costs).some(x=>x>0);}
 function updateDefaultsSummary(st,sc) {
   const profile=PROFILES[sc.history.profile];
-  $('#defaults-summary').textContent=`${st.years} years of attendance · ${profile.name} · historical outcomes from ${periodLabel(sc.history.period)}. One calculation includes investment and expense ranges.`;
+  $('#defaults-summary').textContent=`${st.years} attendance years · ${sc.billing.calendar==='quarter'?'3 quarter':'2 semester'} tuition bills · ${sc.billing.livingMonths} living months · ${profile.name} · historical outcomes from ${periodLabel(sc.history.period)}. One calculation includes investment and expense ranges.`;
+  $('#cost-source-status').textContent=sc.costSource.presetId?`${sc.costSource.modified?'Edited budget based on':'Published budget from'} ${sc.source}. Baseline ${sc.baseline}; checked ${sc.sourceDate}.`:'Your own estimate; source details are optional.';
   const labels=['Early saving','Final saving years','During university'];
   $('#portfolio-summary').replaceChildren(...profile.stages.map((weights,i)=>el('p',`${labels[i]}: ${weights.map((w,j)=>`${Math.round(w*100)}% ${['stocks','bonds','cash'][j]}`).join(' / ')}.`)));
 }
@@ -146,6 +174,10 @@ function renderForm() {
   form.querySelectorAll('[data-cost]').forEach(n=>fill(n,sc.costs[n.dataset.cost]));
   form.querySelectorAll('[data-assumption]').forEach(n=>fill(n,sc.assumptions[n.dataset.assumption]));
   form.querySelectorAll('[data-history]').forEach(n=>fill(n,sc.history[n.dataset.history]));
+  form.querySelectorAll('[data-billing]').forEach(n=>fill(n,sc.billing[n.dataset.billing]));
+  form.querySelectorAll('[data-source]').forEach(n=>fill(n,sc.costSource[n.dataset.source]));
+  $('#allocation-changes').replaceChildren(...sc.history.allocations.map(allocationRow));
+  $('#family-calendar').replaceChildren(familyCalendarView(plan));
   $('#valuation').value=plan.valuation;$('#shared-pool').value=plan.sharedPool;$('#gifts').replaceChildren(...sc.gifts.map(giftRow));
   $('#assumption-status').textContent=`Assumptions updated ${sc.assumptionsDate}.`;
   updateDefaultsSummary(st,sc);
@@ -176,11 +208,11 @@ function resultActions() {
   print.onclick=()=>window.print();actions.append(report,csv,print);return actions;
 }
 function referencePanel(result) {
-  const details=el('details','','reference-panel');details.append(el('summary','Reference projection & annual cash flow'));
+  const details=el('details','','reference-panel');details.append(el('summary','Reference projection & assumptions'));
   details.append(deterministicView(plan,student(),result.referenceScenario||scenario(),result.deterministic));return details;
 }
 function assessmentContents(result) {
-  return [simulationView(result.simulation),historyContextView(result),referencePanel(result)];
+  return [simulationView(result.simulation),annualFundingView(plan,student(),result.referenceScenario,result.deterministic),historyContextView(result),referencePanel(result)];
 }
 
 function showProjection() {
@@ -203,7 +235,7 @@ function startAssessment(action='single',{committed=false,scroll=true}={}) {
   message('');calculationStatus('Calculating historical outcome ranges…');
   const thisRun=++runId,snapshot=clone(plan);$('#run-status').hidden=false;$('#progress-text').textContent='Loading historical data…';$('#progress').value=0;
   if(scroll)$('#run-status').scrollIntoView({block:'start',behavior:'smooth'});
-  worker=new Worker(new URL('./worker.js?v=0.2.3',import.meta.url),{type:'module'});
+  worker=new Worker(new URL('./worker.js?v=0.3.0',import.meta.url),{type:'module'});
   worker.onmessage=({data})=>{
     if(data.runId!==runId)return;
     if(data.type==='progress'){$('#progress').value=data.done/Math.max(1,data.total);$('#progress-text').textContent=`${data.scenario?data.scenario+' · ':''}${data.stage} · ${Math.round(data.done/Math.max(1,data.total)*100)}%`;}
@@ -222,8 +254,8 @@ function startAssessment(action='single',{committed=false,scroll=true}={}) {
   worker.postMessage({runId:thisRun,plan:snapshot,studentId,scenarioId,settings:config,action});
 }
 
-form.addEventListener('input',e=>{changed();if(e.target.dataset.assumption!==undefined||e.target.dataset.scenario==='stress'){assumptionEdited=true;}scheduleProjection();});
-form.addEventListener('change',e=>{if(e.target.tagName==='SELECT'||e.target.type==='month'||e.target.type==='checkbox'){changed();scheduleProjection();}if(e.target.dataset.scenario==='coverage')form.querySelector('[data-scenario=share]').disabled=e.target.value!=='percent';});
+form.addEventListener('input',e=>{if(e.target.id==='cost-preset')return;if((e.target.dataset.cost!==undefined||e.target.dataset.source!==undefined||e.target.dataset.billing==='livingMonths')&&scenario().costSource.presetId)scenario().costSource.modified=true;changed();if(e.target.dataset.assumption!==undefined||e.target.dataset.scenario==='stress'){assumptionEdited=true;}scheduleProjection();});
+form.addEventListener('change',e=>{if(e.target.id==='cost-preset')return;if(e.target.tagName==='SELECT'||e.target.type==='month'||e.target.type==='checkbox'){changed();scheduleProjection();}if(e.target.dataset.scenario==='coverage')form.querySelector('[data-scenario=share]').disabled=e.target.value!=='percent';});
 form.addEventListener('submit',e=>{e.preventDefault();guard(()=>startAssessment());});
 $('#compare').onclick=()=>guard(()=>startAssessment('compare'));$('#cancel').onclick=()=>{cancel(true);calculationStatus('Calculation cancelled. Previous results remain visible.');};
 $('#add-gift').onclick=()=>{if($('#gifts').children.length>=24)return message('A scenario allows up to 24 gifts.',true);$('#gifts').append(giftRow());changed();scheduleProjection();};

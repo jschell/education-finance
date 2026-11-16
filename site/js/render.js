@@ -1,6 +1,7 @@
-import { gaugeColor,gaugeSegments } from './gauge-colors.js?v=0.2.3';
-import { PROFILES } from './history-config.js?v=0.2.3';
-import { annualRows,compile,runPath } from './engine.js?v=0.2.3';
+import { attendanceCalendar } from './planning.js?v=0.3.0';
+import { gaugeColor,gaugeSegments } from './gauge-colors.js?v=0.3.0';
+import { PROFILES } from './history-config.js?v=0.3.0';
+import { annualRows,compile,runPath } from './engine.js?v=0.3.0';
 export const money=x=>x===null?'—':Number.isFinite(x)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(x):'Not attainable';
 const pct=x=>`${(x*100).toLocaleString('en-US',{maximumFractionDigits:1})}%`;
 export function el(tag,text='',className='') { const node=document.createElement(tag);if(text!==null)node.textContent=text;if(className)node.className=className;return node; }
@@ -41,8 +42,6 @@ export function deterministicView(plan,student,scenario,result) {
     ['Current savings only',money(only.shortfall),money(only.ending)],['Savings + contributions & gifts',money(withC.shortfall),money(withC.ending)],['All planned funding + income',money(result.shortfall),money(result.ending)]
   ]));
   s.append(el('p',`Coverage goal: ${scenario.coverage==='tuition'?'tuition and fees':scenario.coverage==='percent'?pct(scenario.share)+' of net full cost':'full attendance cost'}, after grants. Covered obligation: ${money(result.obligation)} (${result.obligation?((result.obligation-result.shortfall)/result.obligation*100).toFixed(0):'100'}% funded in this projection). Grants applied: ${money(result.grants)}. Unused income is not deposited. ${result.firstShortfall?'First shortfall: '+result.firstShortfall+'.':'No missed covered payment in this projection.'}`,'hint'));
-  s.append(table('Calendar-year cash flow · all planned funding',['Year','Total costs','Grants','Covered goal','Income used','Deposits','Withdrawals','Unpaid','Ending funds'],annualRows(result).map(r=>[r.year,...['total','grant','obligation','income','contribution','withdrawal','shortfall','balance'].map(k=>money(r[k]))])));
-  s.append(el('p','Tuition: half at entry and half five months later. Other costs: nine monthly payments per attendance year. Contributions arrive at month-end, after growth and before bills. Growth continues during attendance.','hint'));
   const assumptions=el('details');assumptions.append(el('summary','Assumptions used in this projection'));
   const a=scenario.assumptions;
   assumptions.append(table('Annual nominal assumptions',['Stage / item','Compound annual growth'],[
@@ -50,8 +49,19 @@ export function deterministicView(plan,student,scenario,result) {
     [`Final ${a.transitionYears} years`,pct(a.lateReturn)],
     ['During attendance',pct(a.attendanceReturn)],
     ['Tuition cost growth',pct(a.tuitionGrowth)],['Other cost growth',pct(a.livingGrowth)],['General inflation',pct(a.inflation)]
-  ]));assumptions.append(el('p',`Costs: ${scenario.source} · checked ${scenario.sourceDate} · baseline ${scenario.baseline}. Return assumptions: ${scenario.assumptionsStatus}, as of ${scenario.assumptionsDate}. No recommended investment allocation or aid eligibility is inferred.`,'hint'));s.append(assumptions);
+  ]));if(scenario.history.allocations.length)assumptions.append(table('Dated allocation changes used in this reference',['From','Stocks','Bonds','Cash','Annual reference rate'],scenario.history.allocations.map(a=>[a.date,pct(a.stocks),pct(a.bonds),pct(a.cash),a.referenceRate===null?'Custom stage rates':pct(a.referenceRate)])));assumptions.append(el('p',`Costs: ${scenario.source} · checked ${scenario.sourceDate} · baseline ${scenario.baseline}. Return assumptions: ${scenario.assumptionsStatus}, as of ${scenario.assumptionsDate}. No recommended investment allocation or aid eligibility is inferred.`,'hint'));s.append(assumptions);
   return s;
+}
+export function annualFundingView(plan,student,scenario,result){
+  const sectionNode=section('Year-by-year funding','Fixed-rate reference');sectionNode.classList.add('annual-funding');
+  sectionNode.append(el('p',`Tuition: ${scenario.billing.calendar==='quarter'?'thirds at enrollment, three months and six months later':'halves at enrollment and five months later'}. Living costs and income support: ${scenario.billing.livingMonths} monthly payments per school year. Grants follow tuition dates.`,'hint'));
+  sectionNode.append(table('Calendar-year savings flow · nominal dollars',['Year','Opening','Growth','Deposits','Withdrawals','Unpaid','Ending'],annualRows(result).map(row=>[row.year,...['opening','earned','contribution','withdrawal','shortfall','balance'].map(k=>money(row[k]))])));
+  sectionNode.append(el('p','Opening savings + investment growth + deposits − withdrawals = ending savings. Deposits include contributions and gifts. Grants and direct income reduce the college bill before withdrawals. Unpaid bills are recorded separately; investments never go below zero. Displayed dollars are rounded; the underlying ledger retains cents. This reference schedule is not a median simulated path.','hint'));
+  const detail=el('details');detail.append(el('summary','Annual costs, grants and direct income'),table('Annual college budget and coverage',['Year','College costs','Grants','Covered obligation','Income used','Withdrawals','Unpaid'],annualRows(result).map(row=>[row.year,...['total','grant','obligation','income','withdrawal','shortfall'].map(k=>money(row[k]))])));sectionNode.append(detail);return sectionNode;
+}
+export function familyCalendarView(plan){
+  const wrapper=el('div');wrapper.append(table('Calendar-year attendance · remaining plan',['Year','Peak simultaneous students',...plan.students.map(s=>s.alias)],attendanceCalendar(plan).map(row=>[row.year,row.peak,...plan.students.map(s=>row.counts[s.id]?`${row.counts[s.id]} months`:'—')])));
+  wrapper.append(el('p','Assumes nine academic months per school year from each student’s enrollment month. Counts show attendance months within each calendar year; peak overlap counts students in the same month. Summer living costs can continue separately. This is an attendance overview, not a joint funding-success calculation.','hint'));return wrapper;
 }
 function distributionView(sim) {
   const wrapper=el('section','','outcome-distribution');wrapper.append(el('h3','Range of possible outcomes'));
@@ -165,6 +175,7 @@ export function historyContextView(result) {
   const info=el('details');info.append(el('summary','Historical data & assumptions'));
   info.append(el('p',`${dataset.observations} matched monthly observations, ${dataset.start} through ${dataset.end}. Snapshot ${dataset.id}, prepared ${dataset.asOf}. Profile rebalances monthly; annual fee ${pct(sim.fee)}.`));
   info.append(table('Stocks / bonds / cash allocation',['Stage','Stocks','Bonds','Cash'],PROFILES[sim.profile].stages.map((w,i)=>[['Early saving','Final saving years','During university'][i],...w.map(pct)])));
+  if(sim.allocations?.length)info.append(table('Dated allocation overrides',['From','Stocks','Bonds','Cash'],sim.allocations.map(a=>[a.date,pct(a.stocks),pct(a.bonds),pct(a.cash)])));
   for(const source of dataset.sources){const p=el('p'),a=el('a',source.name);a.href=source.url;p.append(a,el('span',' · '+source.transform));info.append(p);}
   for(const note of dataset.notes)info.append(el('p',note,'hint'));
   info.append(el('p',`Observation checksum: ${dataset.hash}`,'hash-note'));

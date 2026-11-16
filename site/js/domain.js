@@ -1,6 +1,6 @@
-import { HISTORY_DEFAULTS,PROFILES } from './history-config.js?v=0.2.3';
-export const MODEL = 'college-funding-2.0.0';
-export const SCHEMA = 2;
+import { HISTORY_DEFAULTS,PROFILES } from './history-config.js?v=0.3.0';
+export const MODEL = 'college-funding-2.1.0';
+export const SCHEMA = 3;
 export const PRNG = 'mulberry32-boxmuller-1';
 export const ASSUMPTIONS = 'user-defined-1';
 export const categories = ['tuition', 'housing', 'books', 'transport', 'other'];
@@ -17,7 +17,7 @@ export function currentMonth() { const d = new Date(); return `${d.getFullYear()
 export const clone = x => structuredClone(x);
 export function defaultScenario(valuation = currentMonth(), enrollment = `${Number(valuation.slice(0,4))+8}-08`) {
   return {
-    history: {...HISTORY_DEFAULTS}, id: id(), name: 'Path 1', path: 'Custom path', living: 'On campus', baseline: valuation,
+    billing:{calendar:'semester',livingMonths:9},costSource:{school:'',academicYear:'',residency:'unspecified',url:'',presetId:'',modified:false},history: {...HISTORY_DEFAULTS,allocations:[]}, id: id(), name: 'Path 1', path: 'Custom path', living: 'On campus', baseline: valuation,
     costs: { tuition: 0, housing: 0, books: 0, transport: 0, other: 0 },
     // Legacy flags are retained only for version-1 backup compatibility; no UI gates.
     costConfirmed: false, source: 'User estimate', sourceDate: valuation,
@@ -55,9 +55,15 @@ export function validateAssumptions(a) {
   for(const k of ['tuitionGrowth','livingGrowth','inflation']) number(a[k],-.05,.15,k);
 }
 export function migratePlan(plan) {
-  if(plan?.schemaVersion===1&&plan?.modelVersion==='college-funding-1.0.0') {
+  const legacy=plan?.schemaVersion===1&&plan?.modelVersion==='college-funding-1.0.0';
+  if(legacy||(plan?.schemaVersion===2&&plan?.modelVersion==='college-funding-2.0.0')){
     const next=clone(plan);next.schemaVersion=SCHEMA;next.modelVersion=MODEL;
-    if(Array.isArray(next.students))for(const st of next.students)if(Array.isArray(st.scenarios))for(const sc of st.scenarios)sc.history={...HISTORY_DEFAULTS};
+    if(Array.isArray(next.students))for(const st of next.students)if(Array.isArray(st.scenarios))for(const sc of st.scenarios){
+      if(legacy)sc.history={...HISTORY_DEFAULTS};
+      sc.billing??={calendar:'semester',livingMonths:9};
+      sc.costSource??={school:'',academicYear:'',residency:'unspecified',url:'',presetId:'',modified:false};
+      if(sc.history&&!Object.hasOwn(sc.history,'allocations'))sc.history.allocations=[];
+    }
     return next;
   }
   return plan;
@@ -77,10 +83,26 @@ export function validatePlan(plan) {
     number(st.sharedAllocation,0,1e8,'Shared allocation'); allocated+=st.sharedAllocation;
     array(st.scenarios,20,'Scenarios'); if(!st.scenarios.length)throw Error('Each student needs a scenario.'); totalScenarios+=st.scenarios.length;
     for(const s of st.scenarios) {
-      object(s,['history','id','name','path','living','baseline','costs','source','sourceDate','costConfirmed','balance','monthly','contributionStart','contributionEnd','stepUp','gifts','grant','grantYears','income','coverage','share','assumptions','assumptionsDate','assumptionsStatus','stress','acknowledged'],'Scenario');
-      object(s.history,['profile','period','blockYears','costMode','reference','fee'],'Historical settings');
+      object(s,['billing','costSource','history','id','name','path','living','baseline','costs','source','sourceDate','costConfirmed','balance','monthly','contributionStart','contributionEnd','stepUp','gifts','grant','grantYears','income','coverage','share','assumptions','assumptionsDate','assumptionsStatus','stress','acknowledged'],'Scenario');
+      object(s.history,['profile','period','blockYears','costMode','reference','fee','allocations'],'Historical settings');
       if(!Object.hasOwn(PROFILES,s.history.profile)||!['full','recent'].includes(s.history.period)||![1,3,5].includes(s.history.blockYears)||!['historical','fixed'].includes(s.history.costMode)||!['historical','manual'].includes(s.history.reference))throw Error('Unsupported historical settings.');
       number(s.history.fee,0,.05,'Annual investment fee');
+      object(s.billing,['calendar','livingMonths'],'Billing');
+      if(!['semester','quarter'].includes(s.billing.calendar)||![9,12].includes(s.billing.livingMonths))throw Error('Choose semester/quarter and 9/12 living months.');
+      object(s.costSource,['school','academicYear','residency','url','presetId','modified'],'Cost source metadata');
+      for(const [key,max] of [['school',150],['academicYear',9],['url',1000],['presetId',100]])if(typeof s.costSource[key]!=='string'||s.costSource[key].length>max)throw Error('Invalid cost source metadata.');
+      if(s.costSource.academicYear&&!/^\d{4}-\d{4}$/.test(s.costSource.academicYear))throw Error('Academic year must look like 2026-2027.');
+      if(s.costSource.academicYear&&Number(s.costSource.academicYear.slice(5))!==Number(s.costSource.academicYear.slice(0,4))+1)throw Error('Academic year must span consecutive years.');
+      if(!['unspecified','in-state','out-of-state','private'].includes(s.costSource.residency)||typeof s.costSource.modified!=='boolean')throw Error('Invalid residency/source status.');
+      if(s.costSource.url){let url;try{url=new URL(s.costSource.url);}catch{throw Error('Enter a valid https source URL.');}if(url.protocol!=='https:'||url.username||url.password)throw Error('Source URL must use https without embedded credentials.');}
+      array(s.history.allocations,24,'Allocation changes');const changes=new Set();
+      for(const entry of s.history.allocations){
+        object(entry,['date','stocks','bonds','cash','referenceRate'],'Allocation change');const date=month(entry.date);
+        if(date<now||date>enrollment+(st.years-1)*12+s.billing.livingMonths-1||changes.has(entry.date))throw Error('Allocation dates must be unique and within the remaining plan.');changes.add(entry.date);
+        for(const key of ['stocks','bonds','cash'])number(entry[key],0,1,'Allocation weight');
+        if(Math.abs(entry.stocks+entry.bonds+entry.cash-1)>1e-8)throw Error('Stocks, bonds and cash must total 100%.');
+        if(entry.referenceRate!==null)number(entry.referenceRate,-.99,1,'Resolved reference rate');
+      }
       unique(s.id); text(s.name,100,'Scenario name'); text(s.path,150,'Education path');text(s.living,100,'Living arrangement');text(s.source,500,'Cost source');
       if(month(s.baseline)>now || now-month(s.baseline)>40*12)throw Error('Cost baseline must be within 40 years before the valuation month.');
       month(s.sourceDate);month(s.assumptionsDate);
@@ -92,7 +114,7 @@ export function validatePlan(plan) {
       number(s.stepUp,0,.2,'Contribution annual increase');number(s.grantYears,0,8,'Grant years',true);number(s.share,0,1,'Coverage fraction');
       if(!['full','tuition','percent'].includes(s.coverage))throw Error('Unknown coverage goal.');
       if(typeof s.costConfirmed!=='boolean'||typeof s.stress!=='boolean'||typeof s.acknowledged!=='boolean')throw Error('Invalid checkbox value.');
-      array(s.gifts,24,'Gifts'); for(const g of s.gifts) {object(g,['date','amount'],'Gift');if(month(g.date)<now||month(g.date)>enrollment+st.years*12-4)throw Error('Gift date must be within the remaining projection.');number(g.amount,0,1e8,'Gift');}
+      array(s.gifts,24,'Gifts'); for(const g of s.gifts) {object(g,['date','amount'],'Gift');if(month(g.date)<now||month(g.date)>enrollment+(st.years-1)*12+s.billing.livingMonths-1)throw Error('Gift date must be within the remaining projection.');number(g.amount,0,1e8,'Gift');}
       validateAssumptions(s.assumptions);
     }
   }

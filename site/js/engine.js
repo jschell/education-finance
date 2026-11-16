@@ -1,36 +1,39 @@
-import { month, monthText, categories } from './domain.js?v=0.2.3';
+import { termOffsets,allocationAt } from './planning.js?v=0.3.0';
+import { month, monthText, categories } from './domain.js?v=0.3.0';
+const portion=(annual,index,count)=>index===count-1?cents(annual-cents(annual/count)*(count-1)):cents(annual/count);
 const cents = x => Math.round((x+Number.EPSILON)*100)/100;
 export function compile(plan, student, scenario, mode='all') {
-  const start=month(plan.valuation), entry=month(student.enrollment), end=entry+(student.years-1)*12+8;
+  const start=month(plan.valuation), entry=month(student.enrollment), end=entry+(student.years-1)*12+scenario.billing.livingMonths-1;
   const length=end-start+1;
   if(length<1||length>600)throw Error('Projection must contain 1–600 remaining months.');
   const a=scenario.assumptions, base=month(scenario.baseline), cs=month(scenario.contributionStart), ce=month(scenario.contributionEnd);
-  const rows=[];
+  const rows=[],livingMonths=scenario.billing.livingMonths,terms=termOffsets(scenario.billing.calendar);
   for(let t=start;t<=end;t++) {
     const elapsed=t-entry, year=Math.floor(elapsed/12), within=((elapsed%12)+12)%12;
-    const attending=elapsed>=0&&year<student.years&&within<9;
+    const attending=elapsed>=0&&year<student.years&&within<livingMonths;
     const costs=Object.fromEntries(categories.map(k=>[k,0]));
     const valuationCosts=Object.fromEntries(categories.map(k=>[k,0]));
     if(attending) for(const k of categories) {
-      const weight=k==='tuition'?(within===0||within===5?.5:0):1/9;
+      const term=terms.indexOf(within);
+      const payment=k==='tuition'?(term<0?0:portion(scenario.costs[k],term,terms.length)):portion(scenario.costs[k],within,livingMonths);
       const growth=k==='tuition'?a.tuitionGrowth:a.livingGrowth;
-      valuationCosts[k]=scenario.costs[k]*weight*(1+growth)**((start-base)/12);
-      costs[k]=cents(scenario.costs[k]*weight*(1+growth)**((t-base)/12));
+      valuationCosts[k]=payment*(1+growth)**((start-base)/12);
+      costs[k]=cents(payment*(1+growth)**((t-base)/12));
     }
     const total=cents(Object.values(costs).reduce((v,x)=>v+x,0));
     // Grants spread across the same tuition-payment months, tuition first, then other costs.
-    const grantOffer=attending&&year<scenario.grantYears&&(within===0||within===5)?scenario.grant/2:0;
+    const grantOffer=attending&&year<scenario.grantYears&&terms.includes(within)?portion(scenario.grant,terms.indexOf(within),terms.length):0;
     const grant=cents(Math.min(total,grantOffer));
     const tuitionGrant=Math.min(costs.tuition,grant);
     const net=cents(total-grant);
     const obligation=cents(scenario.coverage==='tuition'?Math.max(0,costs.tuition-tuitionGrant):net*(scenario.coverage==='percent'?scenario.share:1));
-    const income=mode==='all'&&attending?cents(Math.min(obligation,scenario.income/9)):0;
+    const income=mode==='all'&&attending?cents(Math.min(obligation,portion(scenario.income,within,livingMonths))):0;
     const factor=mode!=='savings'&&t>=cs&&t<=ce?(1+scenario.stepUp)**Math.floor((t-cs)/12):0;
     const gift=mode!=='savings'?scenario.gifts.filter(g=>month(g.date)===t).reduce((sum,g)=>sum+g.amount,0):0;
-    rows.push({date:monthText(t),year:Math.floor(t/12),costs,valuationCosts,grantOffer,incomeAllowance: mode==='all'&&attending?scenario.income/9:0,coverage:scenario.coverage,share:scenario.share,total,grant,net,obligation,income,need:cents(obligation-income),factor,gift,discount:(1+a.inflation)**((t-start)/12),attending});
+    rows.push({date:monthText(t),year:Math.floor(t/12),costs,valuationCosts,grantOffer,incomeAllowance: mode==='all'&&attending?portion(scenario.income,within,livingMonths):0,coverage:scenario.coverage,share:scenario.share,total,grant,net,obligation,income,need:cents(obligation-income),factor,gift,discount:(1+a.inflation)**((t-start)/12),attending});
   }
   return { rows, opening:scenario.balance+student.sharedAllocation, monthly:scenario.monthly, a, history:scenario.history, valuationMonth:start%12,
-    rates: rows.map((_,i)=> { const t=start+i; return t>=entry? {returnRate:a.attendanceReturn,mean:a.attendanceMean,volatility:a.attendanceVolatility}: t>=entry-a.transitionYears*12? {returnRate:a.lateReturn,mean:a.lateMean,volatility:a.lateVolatility}: a; }),
+    rates: rows.map((row,i)=> { const t=start+i,override=allocationAt(row.date,scenario.history.allocations); if(override?.referenceRate!==null&&override?.referenceRate!==undefined)return {returnRate:override.referenceRate,mean:override.referenceRate,volatility:0};return t>=entry? {returnRate:a.attendanceReturn,mean:a.attendanceMean,volatility:a.attendanceVolatility}: t>=entry-a.transitionYears*12? {returnRate:a.lateReturn,mean:a.lateMean,volatility:a.lateVolatility}: a; }),
     enrollmentIndex:entry-start, crashIndex:Math.max(0,entry-start-1), stress:scenario.stress };
 }
 export function logParameters(mean,volatility) {
@@ -60,8 +63,8 @@ export function runPath(c, growth=i=>deterministicGrowth(c,i), monthly=c.monthly
 export function annualRows(result) {
   const groups=new Map();
   for(const r of result.ledger) {
-    if(!groups.has(r.year))groups.set(r.year,{year:r.year,total:0,grant:0,obligation:0,income:0,contribution:0,withdrawal:0,shortfall:0,balance:0});
-    const g=groups.get(r.year);for(const k of ['total','grant','obligation','income','contribution','withdrawal','shortfall'])g[k]+=r[k];g.balance=r.balance;
+    if(!groups.has(r.year))groups.set(r.year,{year:r.year,opening:r.opening,earned:0,total:0,grant:0,obligation:0,income:0,contribution:0,withdrawal:0,shortfall:0,balance:0});
+    const g=groups.get(r.year);for(const k of ['earned','total','grant','obligation','income','contribution','withdrawal','shortfall'])g[k]+=r[k];g.balance=r.balance;
   }
   return [...groups.values()];
 }

@@ -2,16 +2,16 @@
 
 A browser-local college funding planner, entered one student at a time, designed for GitHub Pages.
 
-**Status: working v0.2.3 calculator.** One Calculate action produces historical investment, expense, and funding-gap ranges, a savings target, actual historical-period comparisons, and a fixed-rate reference. Multiple students/scenarios, automatic local saves, and portable backup are implemented. No school-price lookup, tax/aid eligibility calculation, or joint family simulation is included.
+**Status: working v0.3.0 calculator.** One Calculate action produces historical investment, expense, and funding-gap ranges, a savings target, actual historical-period comparisons, and a fixed-rate reference. Multiple students/scenarios, automatic local saves, and portable backup are implemented. Static published school-budget presets and an attendance-overlap overview are included. Live school-price lookup, tax/aid eligibility calculation, and joint family simulation remain future work.
 
 Live application: https://jschell.github.io/education-finance/
 
 ## Use the planner
 
 1. Start with four inputs: current savings, university start month, annual tuition/fees, and annual housing/food (or try the example).
-2. Names, attendance length (four years by default), extra costs, and source notes are under More details. Future contributions, gifts, scholarships, and income payments are optional.
-3. Optional assumptions select an allocation profile, historical period, block length, fees, or fixed expense growth. The default uses jointly sampled monthly stock/bond/cash returns, general CPI, and tuition CPI from 1978–2024. Allocation presets are illustrative developer choices.
-4. Click Calculate for the full assessment. Valid edits also refresh the same assessment after a short pause. The fixed-rate reference is collapsed within results; no separate Monte Carlo button is needed. The solver uses your contribution dates even when the current contribution is zero.
+2. Names, attendance length (four years by default), semester/quarter tuition billing, nine/twelve living months, published budget presets, extra costs, and structured source notes are under More details. Future contributions, gifts, scholarships, and income payments are optional.
+3. Optional assumptions select an allocation profile, dated asset-allocation overrides, historical period, block length, fees, or fixed expense growth. The default uses jointly sampled monthly stock/bond/cash returns, general CPI, and tuition CPI from 1978–2024. Allocation presets are illustrative developer choices.
+4. Click Calculate for the full assessment. Valid edits also refresh the same assessment after a short pause. The annual fixed-rate schedule appears below the simulation; additional reference assumptions are collapsed. No separate Monte Carlo button is needed. The solver uses your contribution dates even when the current contribution is zero.
 5. Duplicate a scenario to change education costs, funding, or return assumptions; compare alternatives for the same student.
 6. Changes save automatically in this browser. Export a plan backup, and optionally export the calculated assessment (exact inputs, model, seed, trial count, and results) or outcome-range CSV. New students can be assessed independently.
 
@@ -83,3 +83,14 @@ Valid real-plan changes—including adding students/scenarios—automatically sa
 Each independent tab session starts with a cryptographically generated unsigned 32-bit seed. Reloads and repeated calculations retain it; edit Random seed under Calculation settings to choose another sample. Clearing the field reuses the current session seed. The seed is included in assessment exports, so a report can be reproduced with the same inputs/model/data. Browser-duplicated or restored tabs may retain copied session state. If session storage is blocked, the seed remains stable in the current page but cannot be retained through reload.
 
 The gauge is a full shaded scale: dark red at low likelihood, orange/yellow approaching the selected goal, green when the target is met and darker green above it. A contrasting marker shows the actual result and a tick shows the target. Percentages and Below target / On course labels remain available; no budget remains neutral gray. No extra calculation button is introduced.
+
+## Workbook-inspired planning improvements (v0.3.0)
+
+- Semester tuition/grants: two bills at enrollment and five months later. Quarter tuition/grants: three bills at enrollment and three/six months later. Investment compounding remains monthly.
+- Living costs and direct income support can span nine or twelve months per school year. Choosing twelve changes timing; enter a full-year budget if including summer costs.
+- Preview published 2026–27 on-campus budgets for public in-state, public out-of-state and private nonprofit sectors, or a specifically labeled Harvard high-cost example. Use selected budget replaces five cost categories and source metadata, preserves funding/tuition calendar, and sets nine living months. All amounts remain editable; no aid is inferred. See [budget sources and attribution](data/school-costs.md).
+- Year-by-year funding now appears directly in results as a clearly labeled fixed-rate reference, with opening savings, growth, deposits, withdrawals, unpaid bills and closing savings. It is not a median Monte Carlo path.
+- Family attendance calendar shows remaining academic months and peak simultaneous students, not a joint funding probability.
+- Dated allocation changes optionally replace automatic investment stages from their starting month onward. Cash is the remainder after stocks/bonds. These affect historical simulations and the history-derived reference; custom fixed reference rates remain separate.
+
+Saved schema-1 and schema-2 plans migrate to schema 3/model college-funding-2.1.0 while preserving existing amounts, dates, IDs and manual rates. The default remains semester tuition and nine living months. Cent remainders are assigned to the final payment in each annual category so a zero-growth annual budget reconciles exactly.

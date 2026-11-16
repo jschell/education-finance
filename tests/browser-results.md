@@ -24,3 +24,8 @@ Automated financial checks are separate from browser event/storage/worker checks
 
 16. New independent tab: random seed populated; reload: same seed. Edit to zero, reload, and verify it persists. Recalculate unchanged inputs and verify matching summaries. Clearing the input reuses the current session seed.
 17. Gauge states below, at and above the chosen target: inspect red/orange/yellow shades and green at/above the target, dark marker outline, target tick, accessible meter value, and neutral no-budget state. Verify phone/iPad layouts and keyboard Calculate.
+
+18. Existing schema-1/2 plans load as schema 3/model 2.1 without changing amounts, dates, IDs or manual rates. Defaults remain semester and nine living months. New settings persist through autosave/reload and JSON backups.
+19. Preview a published budget without applying: inputs/results/save status remain unchanged. Apply explicitly: all five categories and structured source fields match the preview; total is not added again. Funding and tuition calendar remain, living months become nine, and editing costs marks the estimate adapted.
+20. Choose quarter tuition and twelve living months, calculate once, and inspect the visible annual reference and detailed budget table. Optional dated allocation changes must affect historical paths and the history-derived reference, persist after reload, and reject duplicate dates/weights above 100%.
+21. Expand family attendance and new controls at phone/iPad widths. Tables scroll locally, no page overflow, and no family funding-success probability is inferred.

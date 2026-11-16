@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Plan college costs and savings one student at a time. Compare projections, Monte Carlo funding ranges, and saved scenarios locally.">
 <title>Education Finance · College funding planner</title>
-<link rel="stylesheet" href="./assets/styles.css?v=0.2.3"><script type="module" src="./js/app.js?v=0.2.3"></script>
+<link rel="stylesheet" href="./assets/styles.css?v=0.3.0"><script type="module" src="./js/app.js?v=0.3.0"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to planner</a>
@@ -17,25 +17,30 @@
 <div><label for="student-select">Student</label><select id="student-select"></select></div><div class="button-group"><button id="add-student">+ Student</button><details class="profile-actions"><summary>Manage</summary><div><button id="copy-student">Duplicate student</button><button id="delete-student" class="quiet danger">Delete student</button></div></details></div>
 <div><label for="scenario-select">Scenario</label><select id="scenario-select"></select></div><div class="button-group"><button id="add-scenario">+ Scenario</button><details class="profile-actions"><summary>Manage</summary><div><button id="copy-scenario">Duplicate scenario</button><button id="compare">Compare scenarios</button><button id="delete-scenario" class="quiet danger">Delete scenario</button></div></details></div>
 </section>
+<details class="family-overview"><summary>Family attendance calendar <span class="optional">overview</span></summary><div id="family-calendar"></div></details>
 <div class="layout">
 <form id="planner" class="editor" novalidate>
 <section class="quick-start" aria-labelledby="quick-title"><p class="eyebrow">Start here</p><h2 id="quick-title">The basics</h2><div class="fields">
 <label>Current savings ($)<input data-scenario="balance" type="number" min="0" max="100000000" step="0.01" placeholder="0" inputmode="decimal"></label>
 <label>University starts<input data-student="enrollment" type="month" required min="2000-01" max="2100-12"></label>
 <div class="pair"><label>Tuition & fees ($/year)<input data-cost="tuition" type="number" min="0" max="1000000" step="0.01" placeholder="0" inputmode="decimal"></label><label>Housing & food ($/year)<input data-cost="housing" type="number" min="0" max="1000000" step="0.01" placeholder="0" inputmode="decimal"></label></div>
-<p class="hint">Use annual costs at today's prices. Contributions start at zero; books and other costs can be added below.</p>
+<p class="hint">Use annual costs at the budget baseline (today by default). Contributions start at zero; books and other costs can be added below.</p>
 <p id="defaults-summary" class="defaults-summary"></p>
 </div></section>
 <p id="calculation-status" class="calculation-status" role="status" aria-live="polite"></p>
 <div class="run-controls"><button id="calculate" type="submit" class="primary">Calculate</button></div>
 <details id="more-details"><summary>More details <span class="optional">optional</span></summary><div class="fields">
 <div class="pair"><label>Student name<input data-student="alias" maxlength="100" placeholder="Student" autocomplete="off"></label><label>Scenario name<input data-scenario="name" maxlength="100" placeholder="Path 1"></label></div>
+<details class="cost-estimates"><summary>Start from a published school budget <span class="optional">optional</span></summary><label>School-cost estimate<select id="cost-preset"><option value="">Choose an estimate to preview</option></select></label><div id="preset-preview"></div><button type="button" id="apply-preset" disabled>Use selected budget</button><p class="hint">Replaces the five expense amounts and their source. Your savings, contributions, grants and tuition calendar are kept. Living costs are scheduled over nine academic months by default. Review the estimate for your school.</p></details>
+<div class="pair"><label>Tuition payment calendar<select data-billing="calendar"><option value="semester">Semester · 2 tuition bills</option><option value="quarter">Quarter · 3 tuition bills</option></select></label><label>Living-cost months per school year<select data-billing="livingMonths"><option value="9">9 months · academic year</option><option value="12">12 months · including summer</option></select></label></div><p class="hint">Bill dates are simplified; review your school’s calendar. Tuition and grants follow the selected terms. Other costs and income support are spread monthly. For summer living, enter a full 12-month annual budget; choosing 12 months changes timing, not the annual amount.</p>
 <label>Attendance years<input data-student="years" type="number" min="1" max="8" step="1" placeholder="4"></label>
-<div class="pair"><label>Education path<select data-scenario="path"><option>Custom path</option><option>Public in-state</option><option>Public out-of-state</option><option>Private nonprofit</option><option>Community college</option></select></label><label>Living arrangement<select data-scenario="living"><option>On campus</option><option>At home</option><option>Off campus</option></select></label></div>
-<div class="pair"><label>Books & equipment ($/year)<input data-cost="books" type="number" min="0" max="1000000" step="0.01" placeholder="0"></label><label>Transport & personal ($/year)<input data-cost="transport" type="number" min="0" max="1000000" step="0.01" placeholder="0"></label></div>
+<div class="pair"><label>Education path<select data-scenario="path"><option>Custom path</option><option>Public in-state</option><option>Public out-of-state</option><option>Private nonprofit</option><option>Community college</option><option>High-cost private</option></select></label><label>Living arrangement<select data-scenario="living"><option>On campus</option><option>At home</option><option>Off campus</option></select></label></div>
+<div class="pair"><label>Books & equipment ($/year)<input data-cost="books" type="number" min="0" max="1000000" step="0.01" placeholder="0"></label><label>Transport / travel ($/year)<input data-cost="transport" type="number" min="0" max="1000000" step="0.01" placeholder="0"></label></div>
 <label>Other costs ($/year)<input data-cost="other" type="number" min="0" max="1000000" step="0.01" placeholder="0"></label>
 <div class="pair"><label>Funding goal<select data-scenario="coverage"><option value="full">Full cost after grants</option><option value="tuition">Tuition & fees after grants</option><option value="percent">Percentage of net full cost</option></select></label><label>Coverage percentage<input data-scenario="share" data-percent type="number" min="0" max="100" step="0.1"></label></div>
 <div class="pair"><label>Savings valued as of<input id="valuation" type="month" min="2000-01" max="2100-12"></label><label>Cost baseline month<input data-scenario="baseline" type="month" min="2000-01" max="2100-12"></label></div>
+<div class="pair"><label>School or benchmark name<input data-source="school" maxlength="150"></label><label>Academic year<input data-source="academicYear" maxlength="9" placeholder="2026-2027" pattern="[0-9]{4}-[0-9]{4}"></label></div>
+<div class="pair"><label>Residency / sector<select data-source="residency"><option value="unspecified">Unspecified</option><option value="in-state">Public in-state</option><option value="out-of-state">Public out-of-state</option><option value="private">Private</option></select></label><label>Source URL<input data-source="url" type="url" maxlength="1000" placeholder="https://…"></label></div><p id="cost-source-status" class="hint"></p>
 <label>Cost notes or source<input data-scenario="source" maxlength="500" placeholder="User estimate"></label><label>Source date<input data-scenario="sourceDate" type="month"></label>
 </div></details>
 <details><summary>Contributions & other funding <span class="optional">optional</span></summary><div class="fields">
@@ -50,6 +55,7 @@
 <details><summary>Assumptions <span class="optional">optional</span></summary><div class="fields">
 <label>Investment profile<select data-history="profile"><option value="balanced">Balanced to conservative</option><option value="growth">Stock-heavy to conservative</option><option value="cautious">Conservative</option><option value="cash">Cash only</option></select></label>
 <div id="portfolio-summary" class="hint"></div>
+<details class="allocation-details"><summary>Dated allocation changes <span class="optional">advanced</span></summary><p class="hint">Optional: replace the automatic stages from a chosen month onward. Each change stays active until the next entry, including during college. Stocks and bonds determine the remaining cash share; total must not exceed 100%.</p><div id="allocation-changes"></div><button type="button" id="add-allocation">+ Allocation change</button></details>
 <label>Historical period<select data-history="period"><option value="full">1978–2024 · full history</option><option value="recent">2000–2024 · recent history</option></select></label>
 <label>Historical block length<select data-history="blockYears"><option value="1">1 year</option><option value="3">3 years</option><option value="5">5 years</option></select></label>
 <label>College cost growth<select data-history="costMode"><option value="historical">Vary tuition and living costs with historical inflation</option><option value="fixed">Use fixed cost-growth rates below</option></select></label>

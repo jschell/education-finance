@@ -45,3 +45,7 @@ M1–M3 are implemented in v0.1.0. The user's staged-return refinement is also i
 ## v0.2 — Historical range assessment implemented
 
 One Calculate action replaces separate projection and Monte Carlo buttons. Joint calendar blocks use pinned stock/bond/cash and tuition/general-inflation observations from 1978–2024. Each run includes cost and savings ranges, paired gaps, actual complete historical windows, alternative-period sensitivity, contribution solving with an independent seeded check, and a collapsed fixed-rate reference. Source attribution, reproducible data preparation and schema-1 migration are included. These are historical empirical scenarios, not forward-looking calibrated recommendations. Remaining M4/M5 work is unchanged in scope; national CPI does not replace a school-price database.
+
+## v0.3 — Workbook-inspired improvements completed
+
+Semester/quarter tuition and grant timing; optional twelve-month living schedule; exact cent allocation; visible reconciled annual fixed-reference cash flow; source-attributed school-budget presets and structured metadata; dated asset-allocation overrides; and family attendance overlap. Financial model 2.1/schema 3 migrations preserve older saved plans. Remaining M4 work includes transfer/year-specific cost changes and restricted accounts. Joint family cash-flow simulation, correlated success and shared-pool priorities remain M5.

@@ -1,6 +1,6 @@
 # Assumption register
 
-As of 2026-11-15; model `college-funding-2.0.0`. Historical observations are verified against a pinned snapshot, not verified forecasts. Portfolio weights and planning conventions are provisional developer choices and user-editable.
+As of 2026-11-15; model `college-funding-2.1.0`. Historical observations are verified against a pinned snapshot, not verified forecasts. Portfolio weights and planning conventions are provisional developer choices and user-editable.
 
 | Input / units | Default | Provenance / status |
 | --- | --- | --- |
@@ -38,3 +38,9 @@ The source snapshot, retrieval date, transformations and hashes are in [the mani
 School intake should record academic year, residency, included categories, annual versus term pricing, sticker versus net price, source date and URL. Metadata is optional in the starting form. Blank costs mean zero; omitted categories are not estimated. Never apply a national aid discount or infer account eligibility. Tax/aid/account rules require current official sources if implemented.
 
 As of 2026-11-15, v0.2.3 uses a random unsigned 32-bit seed for each independent tab session rather than UI default 12345. Source: browser crypto.getRandomValues; computational setting, not a financial forecast. The seed is editable and retained through reload using sessionStorage. Identical explicit seed, inputs, model and dataset retain reproducibility.
+
+## v0.3.0 billing and published-budget defaults
+
+As of 2026-11-15; model college-funding-2.1.0. Semester tuition/grants at offsets 0/5 months remain the provisional default. Quarter billing at 0/3/6 months is optional. Nine living months remain default; twelve is optional and does not enlarge annual costs. Cent remainders go to each category's final annual payment. Dated allocation overrides default to none and reflect user choices rather than recommended weights.
+
+Published budget presets are opt-in verified source snapshots, not future school forecasts or net aid offers. See [budget provenance](../data/school-costs.md). They are not copied from the private workbook. Their baseline is September 2026 and source-check date is November 15, 2026. Grants/income/contributions remain user entries. General CPI remains a broad non-tuition proxy.

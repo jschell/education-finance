@@ -7,3 +7,5 @@ Application code is MIT licensed. The historical observations have separate sour
 - **College tuition and fees:** U.S. Bureau of Labor Statistics, CPI-U college tuition and fees, CUUR0000SEEB01, not seasonally adjusted. https://data.bls.gov/timeseries/CUUR0000SEEB01 . Retrieved via https://api.bls.gov/publicAPI/v2/timeseries/data/CUUR0000SEEB01 with startyear/endyear query parameters. See raw response files and manifest hashes.
 
 `python3 scripts/prepare_history.py` reproducibly builds `site/data/history.json` from the committed inputs without network access. The common complete period is January 1978–December 2024. Dataset ID, raw hashes, derived-observation hash and transformations are in `manifest.json` and the bundled data file.
+
+School-budget preset data also has separate attribution and source terms. See [published budget snapshots](school-costs.md). Application MIT licensing does not relicense College Board or university source content.

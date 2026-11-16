@@ -1,6 +1,6 @@
 # Implemented architecture and data contract
 
-Release: v0.2.3; model `college-funding-2.0.0`; schema 2.
+Release: v0.3.0; model `college-funding-2.1.0`; schema 3.
 
 ## Modules
 
@@ -14,8 +14,8 @@ Worker messages contain runId and immutable input snapshots. Input edits/switche
 | --- | --- |
 | Plan | schemaVersion, modelVersion, currency, valuation, sharedPool, defaults, students |
 | Student | id, alias, enrollment, years, sharedAllocation, scenarios |
-| Scenario | id/name, path/living labels, baseline, costs, source/sourceDate, costConfirmed, balance, monthly, contributionStart/End, stepUp, gifts, grant/grantYears, income, coverage/share, assumptions, assumptionsDate/Status, stress, acknowledged, history |
-| History | profile, period, blockYears, costMode, reference, fee; validated enumerations / decimal annual fee |
+| Scenario | id/name, path/living labels, baseline, costs, source/sourceDate, costConfirmed, balance, monthly, contributionStart/End, stepUp, gifts, grant/grantYears, income, coverage/share, assumptions, assumptionsDate/Status, stress, acknowledged, history, billing, costSource |
+| History | profile, period, blockYears, costMode, reference, fee, dated allocations; validated enumerations / decimal annual fee |
 | Costs | tuition, housing, books, transport, other; annual nominal USD |
 | Gift | date YYYY-MM and nonnegative amount |
 | Assumptions | returnRate/mean/volatility for early saving; lateReturn/lateMean/lateVolatility; attendanceReturn/attendanceMean/attendanceVolatility; transitionYears; tuitionGrowth/livingGrowth/inflation |
@@ -65,3 +65,11 @@ Database writes are serialized. An older completion can neither mark a newer rec
 `session-seed.js` generates the initial seed with crypto.getRandomValues, validates stored unsigned integers, and stores the selected seed in sessionStorage under education-finance-session-seed-v1. It is separate from real-plan autosave/recovery, so a new session can produce a new sample without modifying student data. A valid manual edit updates session state immediately, including zero; blank reuses the current value. Restricted session storage falls back to page memory. Reports already include the actual seed; plan backups do not pin it. The PRNG, financial model, data, and calculation/compare controls remain unchanged.
 
 `gauge-colors.js` derives the gauge palette relative to the selected threshold. SVG arc segments shade by angular probability, with a boundary exactly at the target; overlapping segments prevent antialiasing seams. Green is reserved for meeting the goal. The marker and target tick use the same probability coordinates, with a dark marker outline and readable text. No third-party chart dependency is required.
+
+## School planning extensions (v0.3.0)
+
+`planning.js` owns tuition term offsets, dated allocation lookup and the monthly attendance-overlap summary. `cost-presets.js` owns attributed, dated published budget snapshots and a pure apply helper. There is no runtime school-data request. New scenario fields are billing {calendar, livingMonths} and costSource {school, academicYear, residency, url, presetId, modified}. Historical settings add allocations [{date, stocks, bonds, cash, referenceRate}]; input records keep referenceRate null, while assessment reference clones derive it from the selected data. Reference preparation clears derived values before resolving them, so input assumptions remain independent of output.
+
+Schema 1/model 1 and schema 2/model 2.0 migrate explicitly to schema 3/model 2.1. Existing numbers, IDs, dates, sources, flags and manual return assumptions remain. New defaults are semester, nine months, empty structured metadata and no allocation overrides. IndexedDB and synchronous recovery both use the migration. Unknown versions still fail.
+
+Budget preview selection does not commit inputs or rerun an assessment. Use selected budget explicitly applies the preview. Four basic inputs and one Calculate action remain. Year-by-year funding is a visible fixed-reference result; underlying ledger and JSON export preserve the payment schedule and cent precision. Annual table summaries do not create a new stochastic path. The optional family overview reads the plan's enrollment/duration only and makes no funding-probability claim.
