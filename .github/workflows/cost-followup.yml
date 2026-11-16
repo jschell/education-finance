@@ -1,0 +1,58 @@
+name: Cost follow-up evidence
+on:
+  pull_request:
+    paths:
+      - 'scripts/**'
+      - 'tests/**'
+      - 'docs/cost-followup*'
+      - 'site/**'
+      - '.github/workflows/cost-followup.yml'
+permissions:
+  contents: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Preserve committed evidence
+        run: |
+          cp site/data/cost-followup.json /tmp/cost-followup-committed.json
+          cp docs/cost-followup-results.md /tmp/cost-followup-committed.md
+      - name: Generate follow-up evidence
+        env:
+          EMIT_RECOVERY_FILES: '1'
+        run: node scripts/validate-cost-followup.mjs
+      - name: Verify deterministic regeneration
+        run: |
+          cp site/data/cost-followup.json /tmp/cost-followup-first.json
+          cp docs/cost-followup-results.md /tmp/cost-followup-first.md
+          node scripts/validate-cost-followup.mjs
+          cmp site/data/cost-followup.json /tmp/cost-followup-first.json
+          cmp docs/cost-followup-results.md /tmp/cost-followup-first.md
+      - name: Verify committed evidence is current
+        run: |
+          cmp site/data/cost-followup.json /tmp/cost-followup-committed.json
+          cmp docs/cost-followup-results.md /tmp/cost-followup-committed.md
+      - name: Repository checks
+        run: npm run check
+      - name: Install isolated browser QA
+        run: |
+          npm install --prefix /tmp/education-finance-qa playwright
+          /tmp/education-finance-qa/node_modules/.bin/playwright install --with-deps chromium
+      - name: Browser checks at the project prefix
+        run: |
+          mkdir -p /tmp/education-finance-qa-root
+          ln -s "$GITHUB_WORKSPACE/site" /tmp/education-finance-qa-root/education-finance
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory /tmp/education-finance-qa-root >/tmp/education-finance-http.log 2>&1 &
+          node scripts/browser-cost-followup.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cost-followup-evidence
+          path: |
+            site/data/cost-followup.json
+            docs/cost-followup-results.md
+            tests/evidence/followup/

@@ -1,6 +1,6 @@
 # Current model · college-funding-9.0.0
 
-App v0.10.0. Schema 5 and backup format `education-finance-2` remain unchanged. The worker uses `calibration-reviewed.json`; older datasets and protocols are retained for reproduction. [Previous methodology](archive/model-through-v0.9.0.md).
+App v0.10.1. Schema 5 and backup format `education-finance-2` remain unchanged. The worker uses `calibration-reviewed.json`; older datasets and protocols are retained for reproduction. [Previous methodology](archive/model-through-v0.9.0.md).
 
 ## Ownership and cash flows
 
@@ -43,6 +43,12 @@ Verify the candidate without refitting on 5,000 independently seeded ledger path
 Whole-plan tests use production compile, simulation path factory and ledger functions. Synthetic plans start each September in 2011–2020 where complete outcomes exist, with 0/4/8-year waits followed by four attendance years. Five sectors and three funding levels are tested. Macro sources and annual joint observations end before the origin; known cost levels and error targets stop at the origin. Historical return/inflation anchors come from training data; current survey forecasts never enter past tests. Actual ledger paths replay reconstructed asset instruments and published cost levels on the same bill schedule. Outputs include Brier score against a 50% guess, reliability bins, total-cost coverage, source cutoffs and the number of distinct start years.
 
 Policy choices inherited from earlier full-period comparisons are fixed, so this is not a nested policy-selection backtest. Panels use revised data and future-selected membership. Origins overlap; sectors and funding levels share shocks, so case counts do not multiply independent evidence. Simple training anchors do not validate today's forward survey assumptions. There is no complete 18-year-wait test. Multi-student future probability calibration remains unestablished. Neither current component scores nor whole-plan diagnostics certify that a reported future funding frequency is calibrated.
+
+## Follow-up evidence in v0.10.1
+
+[The frozen follow-up](cost-followup-protocol.md) and [results](cost-followup-results.md) add an independent invoice audit, preceding-month CPI rebasing for realized ledger diagnostics, complete-bill trend comparisons, strictly chronological selection, denser funding levels/profiles, and separate aggregate 18-year-wait cost tests. The benchmark wins the predeclared fixed-panel bill comparison. No production model, return assumption, trend, calibration bundle, savings reserve or storage contract changes in this release.
+
+Newborn-horizon aggregate costs use a shifted synthetic calendar, contain no investment forecast, and have seven overlapping origin years with one nonoverlapping complete outcome window. They underforecast all 14 benchmark bills, whereas recent fixed-panel longer-wait tests overforecast. Different source definitions and regimes prevent a blanket correction. Passing software checks does not resolve these forecast-coverage findings.
 
 ## Persistence and compatibility
 

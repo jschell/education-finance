@@ -1,0 +1,44 @@
+name: Verify deployed planner
+on:
+  workflow_run:
+    workflows: ['Deploy GitHub Pages']
+    types: [completed]
+permissions:
+  contents: read
+jobs:
+  live:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Compare deployed source and reports
+        run: |
+          node --input-type=module <<'JS'
+          import { readFileSync } from "node:fs";
+          import assert from "node:assert/strict";
+          const root = "https://jschell.github.io/education-finance/";
+          for (const path of ["index.html", "js/worker.js", "data/calibration-reviewed.json", "data/cost-followup.json"]) {
+            const response = await fetch(root + path + "?verify=" + process.env.GITHUB_SHA, {cache:"no-store"});
+            assert.equal(response.status, 200, path);
+            assert.equal(await response.text(), readFileSync("site/" + path, "utf8"), path + " differs");
+            console.log("Deployed bytes match:", path);
+          }
+          JS
+      - name: Install isolated browser QA
+        run: |
+          npm install --prefix /tmp/education-finance-qa playwright
+          /tmp/education-finance-qa/node_modules/.bin/playwright install --with-deps chromium
+      - name: Run live synthetic browser checks
+        env:
+          QA_URL: https://jschell.github.io/education-finance/
+        run: node scripts/browser-cost-followup.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deployed-planner-browser
+          path: tests/evidence/followup/

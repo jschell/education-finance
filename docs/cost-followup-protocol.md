@@ -1,0 +1,21 @@
+# Cost forecast follow-up protocol
+
+Frozen 2026-11-16 before this reconstruction computes scores. This replaces no earlier evidence: all existing periods have already been inspected and are retrospective diagnostics, not untouched holdouts. The original session's uncommitted code is unavailable; this implementation is reconstructed from committed sources.
+
+## Ledger and timing audit
+Independently allocate each annual tuition bill across its term dates and housing across living months, compare with the production repricing ledger at observed published levels, and report maximum cent-rounding difference. CPI at a September origin is rebased to the preceding August; subsequent monthly ratios may enter realized outcomes, never fitting inputs. Historical academic-year published costs are treated as known at the origin as an explicit retrospective convention; source release vintages are unavailable.
+
+## Bill-score comparison
+Use the production compiler, path factory and ledger. Fit each origin using earlier macro years and cost levels through that origin. Compare the retained fixed-nominal benchmark with three existing training-only alternatives: recent10 real trend, damped5 real trend, and regime real trend. All candidates share seeds, investment shocks, cost donors and the same origin-limited residual correction; this isolates the trend choice. No new spread tuning. Use 400 paths, seed 850213, September origins 2011–2020, waits 0/4/8 years and four attendance years when complete through 2023. Score total billed tuition plus on-campus housing with normalized 80% interval score, signed median error, and below/above-band misses. Average sectors within an origin, origins within a wait, then waits equally. Related sectors are not independent histories.
+
+## Chronological selection
+At each origin choose using only folds whose final bill year is strictly earlier than that origin, with at least three distinct completed final-bill years. Otherwise retain the benchmark. Equal-weight earlier wait/sector cells; ties retain benchmark. Report selection and scoring separately. Full-period diagnostics cannot certify historical policy selection or future calibration. A release recommendation requires at least 5% lower aggregate bill score and no wait-group score more than 10% worse than benchmark; no automatic production promotion.
+
+## Funding discrimination
+For the retained production model test opening-balance factors 0.55/0.70/0.85/1.00/1.15 of four current annual bills, each of cash/conservative/balanced profiles where available, on identical paths. Report Brier scores against both 50% and an expanding prior-origin base rate (0.5 until prior observations exist), reliability bins, distinct origins, and cost-miss direction once per origin/wait/sector. Do not pool funding levels as independent cost observations. These synthetic cases are predeclared, not fitted to their outcomes. Household calibration remains outside this evidence.
+
+## Newborn-horizon cost evidence
+Use the pinned NCES aggregate price history (1986 onward), public four-year and two-year sectors, with at least eleven annual levels at each origin. Test an 18-year wait and four attendance years ending by the last observed year. Reuse the production bill schedule on a shifted synthetic calendar because supported plan dates start in 2000. Simulate training-only cost blocks using the four predeclared trends, without panel residual correction, and score the complete four-year bill. This is aggregate cost-only evidence with composition/definition breaks; it is neither a fixed-school test nor a whole-plan probability backtest. Count overlapping origins and greedily nonoverlapping outcome windows explicitly.
+
+## Completion and release
+Publish deterministic JSON with source/protocol hashes, all candidate cost folds, clustered summaries, audit, chronological cutoffs, funding diagnostics and long-horizon results. Preserve the production financial model unless evidence supports a separately reviewed change. Run repository tests and reproduce reports twice. Run phone/iPad/keyboard/project-prefix browser checks for any UI changes. Publish failures and unresolved calibration findings. Use CI in this session because the local execution environment is unavailable.
