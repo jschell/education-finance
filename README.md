@@ -2,7 +2,7 @@
 
 A static, browser-local college funding planner for GitHub Pages. Enter students one at a time and compare education paths using a shared funding plan for each student.
 
-**Working release v0.8.0 · model college-funding-7.0.0 · schema 5.**
+**Working release v0.9.0 · model college-funding-8.0.0 · schema 5.**
 
 Live application: https://jschell.github.io/education-finance/
 
@@ -23,7 +23,19 @@ There is deliberately **no migration or balance reconciliation** from schemas 1�
 7. For multiple students, select one education scenario per student under Household scenarios & attendance. An optional monthly household savings-deposit limit prorates planned deposits. Economic paths are shared across students; success requires every selected goal to be funded. Money stays earmarked; unallocated shared funds are excluded.
 8. Changes save automatically in this browser. Export a current-format plan backup for portability. Assessment JSON records exact inputs, seed, versions and results. Browser storage does not sync devices.
 
-## Economic model fixes (v0.8.0)
+## Broader history and overfit controls (v0.9.0)
+
+Investment/rate/inflation fitting now uses **70 complete joint years, 1954–2023**, separately from the shorter college-price panel. Seven disjoint decade blocks supply expectation variation. Persistence estimates are regularized toward declared fixed priors, reducing reliance on a small recent sample.
+
+Every rolling cost correction now uses only error targets through its forecast origin and is shrunk toward zero by the number of unique target years. This fixes a v0.8 validation error: a 2014-origin forecast could previously use correction errors learned through 2016. The single-2024 release gate has been replaced by multi-period comparisons. Defaults require an overall score improvement and no tested period more than 10% worse than the benchmark. Both selected policies passed: macro interval score 0.397 → 0.392; cost score 0.165 → 0.156. Those are retrospective robustness scores, not new unseen prospective evidence.
+
+The single Calculate workflow uses these defaults directly. Current source spans, score gates and period results are visible in the app. Current schema-5 student funding is preserved. [Plan](docs/robust-history-plan.md) · [Results](docs/robust-history-results.md).
+
+Rebuild offline: `python3 scripts/prepare_broad_history.py`, `node scripts/validate_robust_history.mjs`, `node scripts/build_robust_release.mjs`. Earlier build commands below recreate archived inputs; the live bundle is `calibration-robust.json`.
+
+## Preceding v0.8.0 changes and evidence
+
+
 
 The [fix plan and frozen evaluation protocol](docs/economic-model-fix-plan.md) is implemented. Economic cases now use explicit five-year Treasury repricing and three-month bill discount-price accrual, starting from observed October 2026 yields. The Treasury survey anchor is a future yield level, not a total return. A small fitted state process conditions joint source blocks on inflation and rates. Central-case source choices and random draws are shared across cases/students, with path prefixes independent of plan length. Persistent joint ten-year-window expectation deviations add long-run assumption uncertainty. No new required input or Calculate action is introduced.
 

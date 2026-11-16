@@ -1,7 +1,7 @@
 // Persistent paired residual correction; fitting and final gate are offline.
-import { fitCostTrends, costGrowth, mean } from "./cost-trends.js?v=0.8.0";
-import { annualIndices } from "./calibration.js?v=0.8.0";
-import { random, quantile } from "./simulation.js?v=0.8.0";
+import { fitCostTrends, costGrowth, mean } from "./cost-trends.js?v=0.9.0";
+import { annualIndices } from "./calibration.js?v=0.9.0";
+import { random, quantile } from "./simulation.js?v=0.9.0";
 const qs = (xs) => {
   xs.sort((a, b) => a - b);
   return {

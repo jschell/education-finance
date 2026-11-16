@@ -1,5 +1,5 @@
 // Joint state-conditioned source blocks, explicit Treasury/bill instruments.
-import { random } from "./simulation.js?v=0.8.0";
+import { random } from "./simulation.js?v=0.9.0";
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const variance = (xs) => mean(xs.map((x) => (x - mean(xs)) ** 2));
@@ -30,32 +30,44 @@ export function billGross(discountQuote) {
 }
 export const returnToBillQuote = (r) =>
   (360 / 91) * (1 - (1 + r) ** (-91 / 365));
-function autoregression(pairs) {
+function autoregression(pairs, prior = null) {
   const center = mean(pairs.flat()),
     den = pairs.reduce((v, [a]) => v + (a - center) ** 2, 0);
+  const numerator = pairs.reduce(
+    (v, [a, b]) => v + (a - center) * (b - center),
+    0,
+  );
+  const penalty = prior ? prior.observations * variance(pairs.flat()) : 0;
   const phi = clamp(
-    den
-      ? pairs.reduce((v, [a, b]) => v + (a - center) * (b - center), 0) / den
+    den + penalty
+      ? (numerator + penalty * (prior?.phi || 0)) / (den + penalty)
       : 0,
     0,
     0.995,
   );
   return { center, phi };
 }
-export function fitEconomy(years) {
+export function fitEconomy(years, options = {}) {
   if (years.length < 10)
     throw Error("At least ten complete source years are required.");
   const inflation = autoregression(
     years.map((y) => [y.previousInflation, Math.log(y.inflation)]),
+    options.regularized ? { phi: 0.5, observations: 10 } : null,
   );
   const long = autoregression(
     years.flatMap((y) => y.rates.map((r) => [r[0], r[1]])),
+    options.regularized ? { phi: 0.95, observations: 120 } : null,
   );
   const short = autoregression(
     years.flatMap((y) => y.rates.map((r) => [r[2], r[3]])),
+    options.regularized ? { phi: 0.95, observations: 120 } : null,
   );
   const windows = [];
-  for (let i = 0; i + 10 <= years.length; i++) {
+  for (
+    let i = 0;
+    i + 10 <= years.length;
+    i += options.nonoverlapping ? 10 : 1
+  ) {
     const window = years.slice(i, i + 10);
     windows.push([
       mean(window.map((y) => y.stockLog - Math.log(y.inflation))),
@@ -71,7 +83,16 @@ export function fitEconomy(years) {
     Math.sqrt(variance(years.map((y) => y.rates[0][0]))),
     Math.sqrt(variance(years.map((y) => y.rates[0][2]))),
   ].map((x) => Math.max(0.005, x));
-  return { inflation, long, short, deviations, scales };
+  return {
+    inflation,
+    long,
+    short,
+    deviations,
+    scales,
+    ...(options.nonoverlapping
+      ? { windowCount: windows.length, windowOverlap: false }
+      : {}),
+  };
 }
 export function blockWeights(years, state, scales, blockYears) {
   return years.slice(0, years.length - blockYears + 1).map((y) => {
@@ -224,6 +245,7 @@ export function economyPath(
     result.push({
       index,
       sourceYear: row.year,
+      sourceInflation: row.inflation,
       inflation,
       months,
       states,

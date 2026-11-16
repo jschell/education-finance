@@ -1,11 +1,12 @@
-import { fitEconomy, economyPath } from "./economy.js?v=0.8.0";
-import { fitCostTrends, costGrowth, realTrend } from "./cost-trends.js?v=0.8.0";
-import { clone, resolveScenario } from "./domain.js?v=0.8.0";
-import { compile, runPath, repriceRow } from "./engine.js?v=0.8.0";
-import { simulateHistorical } from "./history.js?v=0.8.0";
-import { PROFILES } from "./history-config.js?v=0.8.0";
-import { allocationAt } from "./planning.js?v=0.8.0";
-import { random, quantile } from "./simulation.js?v=0.8.0";
+import { costDonorIndices } from "./robust-history.js?v=0.9.0";
+import { fitEconomy, economyPath } from "./economy.js?v=0.9.0";
+import { fitCostTrends, costGrowth, realTrend } from "./cost-trends.js?v=0.9.0";
+import { clone, resolveScenario } from "./domain.js?v=0.9.0";
+import { compile, runPath, repriceRow } from "./engine.js?v=0.9.0";
+import { simulateHistorical } from "./history.js?v=0.9.0";
+import { PROFILES } from "./history-config.js?v=0.9.0";
+import { allocationAt } from "./planning.js?v=0.9.0";
+import { random, quantile } from "./simulation.js?v=0.9.0";
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const q = (xs, p) =>
   quantile(
@@ -189,8 +190,11 @@ export function calibrationReference(
     economy = calibratedEconomy(bundle, sectorFor(s), assumptionCase);
   const observations = bundle.economy
     ? economyPath(
-        bundle.economy.productionYears,
-        fitEconomy(bundle.economy.productionYears),
+        bundle.economy.macroYears || bundle.economy.productionYears,
+        fitEconomy(
+          bundle.economy.macroYears || bundle.economy.productionYears,
+          bundle.economy.fitting,
+        ),
         {
           ...bundle.economy.initial,
           inflation: bundle.macro.cases[1].anchors.inflation,
@@ -204,6 +208,9 @@ export function calibrationReference(
           uncertainty: false,
           innovations: false,
           selectionAnchors: bundle.macro.cases[1].anchors,
+          conditioned: bundle.robustness
+            ? bundle.robustness.marketPolicy === "conditioned"
+            : true,
         },
       )[0].months
     : bundle.annual.flatMap((_, i) => economy.transform(i, 0.5, false).months);
@@ -321,7 +328,10 @@ export function calibrationFactory(
     assumptionCase,
   );
   const stateFit = bundle.economy
-    ? fitEconomy(bundle.economy.productionYears)
+    ? fitEconomy(
+        bundle.economy.macroYears || bundle.economy.productionYears,
+        bundle.economy.fitting,
+      )
     : null;
   const make = (trial, seed = settings.seed) => {
     const indices = annualIndices(
@@ -337,7 +347,7 @@ export function calibrationFactory(
     let years = indices.map((i, year) => e.transform(i, u, true, year));
     if (bundle.economy) {
       const macro = economyPath(
-        bundle.economy.productionYears,
+        bundle.economy.macroYears || bundle.economy.productionYears,
         stateFit,
         {
           ...bundle.economy.initial,
@@ -350,10 +360,22 @@ export function calibrationFactory(
           blockYears: c.history.blockYears,
           length: Math.ceil(c.rows.length / 12),
           selectionAnchors: bundle.macro.cases[1].anchors,
+          conditioned: bundle.robustness
+            ? bundle.robustness.marketPolicy === "conditioned"
+            : true,
         },
       );
+      const donors = bundle.robustness
+        ? costDonorIndices(
+            macro,
+            bundle.annual,
+            seed,
+            trial,
+            c.history.blockYears,
+          )
+        : macro.map((y) => y.index);
       years = macro.map((y, year) => {
-        const raw = bundle.annual[y.index];
+        const raw = bundle.annual[donors[year]];
         const costs = costGrowth(
           e.trends,
           bundle.costModel,
@@ -443,6 +465,7 @@ export function calibrationFactory(
       calibrationCase: assumptionCase.id,
       calibrationHash: bundle.sha256,
       costModel: bundle.costModel || "recent10",
+      robustHistory: bundle.robustness || null,
       economicState: bundle.economy
         ? {
             id: bundle.economy.id,
@@ -543,6 +566,7 @@ export function assessCalibrated(
           }
         : null,
       correctionGate: bundle.correctionGate,
+      robustHistory: bundle.robustness || null,
       validation,
     },
     dataset: { id: bundle.id, hash: bundle.sha256, asOf: bundle.asOf },

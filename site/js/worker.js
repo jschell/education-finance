@@ -2,19 +2,20 @@ import {
   assessCalibrated,
   verifyCalibration,
   snapshotHash,
-} from "./calibration.js?v=0.8.0";
-import { assessHousehold } from "./household.js?v=0.8.0";
-import { validatePlan } from "./domain.js?v=0.8.0";
-import { assessHistorical, verifyHistory } from "./history.js?v=0.8.0";
+} from "./calibration.js?v=0.9.0";
+import { assessHousehold } from "./household.js?v=0.9.0";
+import { validatePlan } from "./domain.js?v=0.9.0";
+import { assessHistorical, verifyHistory } from "./history.js?v=0.9.0";
 let dataPromise, calibrationPromise;
 async function calibrationData(history) {
   return (calibrationPromise ??= Promise.all(
     [
-      "calibration-economic.json",
+      "calibration-robust.json",
       "calibration-validation.json",
       "cost-model-comparison.json",
       "economy-validation.json",
       "cost-correction.json",
+      "robustness-validation.json",
     ].map((name) =>
       fetch(new URL("../data/" + name, import.meta.url)).then((r) => {
         if (!r.ok) throw Error("Calibration data could not be loaded.");
@@ -22,7 +23,14 @@ async function calibrationData(history) {
       }),
     ),
   ).then(
-    async ([bundle, validation, comparison, processValidation, correction]) => {
+    async ([
+      bundle,
+      validation,
+      comparison,
+      processValidation,
+      correction,
+      robustness,
+    ]) => {
       await verifyCalibration(bundle, history);
       if (
         comparison.panelHash !== bundle.panel.hash ||
@@ -30,14 +38,20 @@ async function calibrationData(history) {
       )
         throw Error("Validation report does not match the economic snapshot.");
       if (
-        processValidation.bundleHash !== bundle.economy.sha256 ||
+        processValidation.bundleHash !==
+          (bundle.archivedEconomyHash || bundle.economy.sha256) ||
         (await snapshotHash(processValidation)) !==
           bundle.processValidationHash ||
         (await snapshotHash(correction)) !== bundle.costValidationHash ||
         correction.panelHash !== bundle.panel.hash ||
-        correction.active !== !!bundle.costCorrection
+        (!bundle.robustness && correction.active !== !!bundle.costCorrection)
       )
         throw Error("Economic validation identities differ.");
+      if (
+        (await snapshotHash(robustness)) !== bundle.robustness.reportHash ||
+        robustness.macroDataHash !== bundle.economy.sha256
+      )
+        throw Error("Broad-history validation identity mismatch.");
       return {
         bundle,
         validation: {
@@ -45,6 +59,7 @@ async function calibrationData(history) {
           comparison,
           processValidation,
           correction,
+          robustness,
         },
       };
     },

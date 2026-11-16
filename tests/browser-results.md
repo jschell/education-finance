@@ -56,3 +56,8 @@ Remote Chrome, synthetic data only. Desktop shows the selected benchmark, all fo
 ## v0.8.0 economic model fixes (2026-11-16)
 
 Remote Chrome, synthetic stored students. The new state model, exact validation-report checksums, 2024–25 price gate and mixed investment/inflation hindcast render with the existing Calculate action. Phone 390×844 body width/scroll 375/375; the three-column price summary fits 299 px without horizontal scroll. iPad landscape 1024×768 body 1009/1009 and price summary 483/483. Tested project prefix /education-finance/ including worker imports and all new data files. Keyboard Tab from model selector reaches trials; Space toggles investment hindcast details. Existing schema-5 student funding loads through metadata upgrade. Desktop screenshot shows repricing/current yields, cost score 0.221 vs 0.167, 10/15 vs 13/15 checks, one-independent-year limit and weak inflation coverage. Old cost comparisons are collapsed and labeled as earlier evidence. Footer displays v0.8.0. Physical iOS/Safari remains unverified. Evidence: evidence/v0.8.0-phone.jpg, evidence/v0.8.0-ipad.jpg, evidence/v0.8.0-economic-model.jpg.
+
+
+## v0.9.0 broader-history release
+
+Verified with synthetic schema-5 students at the project-prefixed URL. Phone (390 × 844) and iPad landscape (1024 × 768) had no horizontal page overflow. Keyboard Tab and Space operated the method controls and validation disclosure. The worker loaded the broader-history bundle and verified its hashes. The UI displayed 70 macro years, 24 college-cost level years, seven disjoint decade windows, and the actual multi-period comparison scores. Existing student funding remained intact. Desktop, phone and iPad screenshots are in `tests/evidence/v0.9.0-*.jpg`.

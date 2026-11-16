@@ -2,7 +2,7 @@
 
 Default forward-anchored case methodology is specified in [economic calibration](economic-calibration.md). The historical replay sections below describe the optional legacy method.
 
-Implemented model `college-funding-7.0.0`, saved schema 5, application v0.8.0. Dataset `us-joint-monthly-1978-2024-v1` contains 564 complete monthly observations (January 1978–December 2024), retrieved 2026-11-15. Primary PRNG: `mulberry32-calendar-block-1`. One Calculate action includes the complete assessment. All monetary amounts are nominal USD unless labeled purchasing power.
+Implemented model `college-funding-8.0.0`, saved schema 5, application v0.9.0. Dataset `us-joint-monthly-1978-2024-v1` contains 564 complete monthly observations (January 1978–December 2024), retrieved 2026-11-15. Primary PRNG: `mulberry32-calendar-block-1`. One Calculate action includes the complete assessment. All monetary amounts are nominal USD unless labeled purchasing power.
 
 ## Cash flow and timing
 
@@ -105,3 +105,9 @@ Model 6.0.0 replaces variable college-cost growth with a validation-selected mod
 See the [fix protocol](economic-model-fix-plan.md) and [results](economic-model-results.md). The default economic mode uses five-year Treasury coupon/dirty-price repricing and start-of-month three-month bill accrual, monthly average GS5/TB3MS data, fitted rate/inflation persistence, joint central-state-conditioned block sampling and persistent ten-year-window expectation deviations. Central conditioning is deliberately shared across cases, so case outcomes differ through their economic targets while retaining matched source innovations. The same raw functions evaluate training-only process hindcasts. Numerical rate/inflation bounds, maturity and bill conventions are explicit in the bundle. A gated pre-2017 paired cost-error adjustment is applied per path; its two/five-year residuals extrapolate beyond the evaluated horizons and do not certify long-horizon coverage.
 
 Reference rates are separate fixed-rate illustrations based on the first shock-free economic model year; cost rates include the mean fitted error correction. They are not forecasts of the simulated median. Student-level manual reference rates retain their previous meaning and do not override the stochastic asset process. Model-6 schema-5 records upgrade metadata without changing funds, contributions, grants or school choices.
+
+## Model 8.0.0 broader-history controls
+
+See [plan](robust-history-plan.md) and [results](robust-history-results.md). Macro fitting/resampling spans 1954–2023, independently of 2000–2023 college prices. Exact-year cost matches are preserved when available; older macro years use inflation-conditioned contiguous cost-block donors, keeping paired tuition/housing changes without fabricating older school observations. Regularization uses stated ten-year prior weight for annual inflation persistence and 120-month prior weight for yield persistence. Long-run deviations use seven disjoint decades.
+
+Cost corrections are fitted at each validation origin with no later error targets, and shrunk by n/(n+10), where n counts unique target years. At least three target years are required. The live correction is fitted through 2023 only after policy selection. Multi-era score gates replace the former single-year gate and select the current conditioned sampling and shrunk cost correction. Previously inspected periods remain retrospective evidence. Model-7 schema-5 records upgrade metadata without altering student funding.

@@ -1,9 +1,9 @@
-import { samplingRangeText, targetStatus } from "./probability.js?v=0.8.0";
-import { resolveScenario } from "./domain.js?v=0.8.0";
-import { attendanceCalendar } from "./planning.js?v=0.8.0";
-import { gaugeColor } from "./gauge-colors.js?v=0.8.0";
-import { PROFILES } from "./history-config.js?v=0.8.0";
-import { annualRows, compile, runPath } from "./engine.js?v=0.8.0";
+import { samplingRangeText, targetStatus } from "./probability.js?v=0.9.0";
+import { resolveScenario } from "./domain.js?v=0.9.0";
+import { attendanceCalendar } from "./planning.js?v=0.9.0";
+import { gaugeColor } from "./gauge-colors.js?v=0.9.0";
+import { PROFILES } from "./history-config.js?v=0.9.0";
+import { annualRows, compile, runPath } from "./engine.js?v=0.9.0";
 export const money = (x) =>
   x === null
     ? "—"
@@ -476,7 +476,7 @@ export function successGauge(sim, sensitivity = null, cases = null) {
     el(
       "p",
       cases
-        ? "Cautious, central and favorable assumptions · provisional"
+        ? "Cautious, central and favorable assumptions"
         : "Sensitivity across both historical periods",
       "gauge-subtitle",
     ),
@@ -643,7 +643,7 @@ export function simulationView(sim, sensitivity = null, cases = null) {
   s.append(
     el(
       "p",
-      `${sim.period} · ${sim.blockYears}-year blocks · ${PROFILES[sim.profile].name}. ${sim.costMode === "historical" ? (sim.calibrationCase ? (sim.economicState ? "Source years jointly carry equity, price and rate innovations; central-state conditioning and persistent expectation draws alter future paths." : "Market months and published annual cost changes stay paired within sampled source years.") : "Investment returns and expense-growth deviations use the same historical months.") : "Investment returns vary; expense-growth rates are fixed."}`,
+      `${sim.period} · ${sim.blockYears}-year blocks · ${PROFILES[sim.profile].name}. ${sim.costMode === "historical" ? (sim.calibrationCase ? (sim.economicState ? (sim.robustHistory ? "Investment and inflation paths use the full 1954–2023 history; college costs use a separate matched donor history." : "Source years jointly carry equity, price and rate innovations; central-state conditioning and persistent expectation draws alter future paths.") : "Market months and published annual cost changes stay paired within sampled source years.") : "Investment returns and expense-growth deviations use the same historical months.") : "Investment returns vary; expense-growth rates are fixed."}`,
       "hint",
     ),
   );
@@ -652,7 +652,7 @@ export function simulationView(sim, sensitivity = null, cases = null) {
       "p",
       sim.calibrationCase && sim.costMode !== "fixed"
         ? sim.costModel === "fixed"
-          ? `Validation-selected cost model: 4% tuition and 3% on-campus housing nominal trends, with paired historical annual deviations.${sim.costCorrectionActive ? " A persistent tuition/housing forecast-error correction, fitted through 2016 and gated on 2024–25, is also applied." : ""} Economic cases shift those trends using observed five-year growth variation. CPI applies to other expenses and off-campus/at-home housing. The entered fixed-growth fields are not used in variable-cost mode.`
+          ? `Validation-selected cost model: 4% tuition and 3% on-campus housing nominal trends, with paired historical annual deviations.${sim.costCorrectionActive ? (sim.robustHistory ? " An origin-fitted cost-error correction, shrunk by unique target-year count and selected across multiple periods, is also applied." : " A persistent tuition/housing forecast-error correction, fitted through 2016 and gated on 2024–25, is also applied.") : ""} Economic cases shift those trends using observed five-year growth variation. CPI applies to other expenses and off-campus/at-home housing. The entered fixed-growth fields are not used in variable-cost mode.`
           : "Published sector tuition and on-campus room/board are modeled relative to inflation. Other expenses and off-campus/at-home housing use CPI. Joint annual blocks retain observed market/cost associations; the sector cost trend also varies between paths. Grants remain separate."
         : sim.costMode === "fixed"
           ? `Fixed expense growth: tuition ${pct(sim.tuitionTrend)} per year; living costs use the entered fixed rate. Historical investment returns still vary.`
@@ -1207,7 +1207,7 @@ export function calibrationContextView(result) {
     sim = result.simulation;
   const wrap = section(
     "Economic assumptions & observed-price checks",
-    "Provisional · " + c.asOf,
+    "Assumptions as of " + c.asOf,
   );
   wrap.append(
     table(
@@ -1402,6 +1402,7 @@ export function costModelComparisonView(c) {
 }
 
 export function economicProcessView(c) {
+  if (c.validation.robustness) return broadHistoryView(c);
   const state = c.economicState,
     wrap = el("div", "", "cost-model-comparison");
   wrap.append(el("h3", "Economic process & new validation"));
@@ -1530,6 +1531,117 @@ export function economicProcessView(c) {
     a.href = source.url;
     details.append(a, el("br"));
   }
+  wrap.append(details);
+  return wrap;
+}
+
+export function broadHistoryView(c) {
+  const r = c.validation.robustness,
+    wrap = el("div", "", "cost-model-comparison");
+  wrap.append(el("h3", "Historical coverage & model selection"));
+  wrap.append(
+    table(
+      "Separate histories · current model",
+      ["Component", "Years", "Use"],
+      [
+        [
+          "Investments, rates and inflation",
+          "1954–2023 · 70 years",
+          "Joint macro paths and fitted persistence",
+        ],
+        [
+          "College costs",
+          "2000–2023 · 24 price levels",
+          "Fixed institution panels and cost donors",
+        ],
+        [
+          "Expectation uncertainty",
+          "7 disjoint ten-year windows",
+          "Persistent joint variation between paths",
+        ],
+      ],
+    ),
+  );
+  wrap.append(
+    el(
+      "p",
+      `Default macro policy: ${r.marketPolicy}. Persistence estimates are shrunk toward fixed priors. Cost policy: ${r.costPolicy}. Every historical correction is fitted using error targets through its forecast origin, then shrunk toward zero by the number of unique target years. The former 2014-origin/2016-error look-ahead is removed.`,
+      "hint",
+    ),
+  );
+  const market = table(
+    "Investment sampling · multi-period interval scores",
+    [
+      "Period",
+      "Uniform benchmark",
+      "Conditioned candidate",
+      "Selected coverage",
+    ],
+    r.marketSummary
+      .filter((x) => x.policy === "uniform")
+      .map((base) => {
+        const alt = r.marketSummary.find(
+            (x) => x.policy === "conditioned" && x.era === base.era,
+          ),
+          selected = r.marketPolicy === "conditioned" ? alt : base;
+        return [
+          base.era,
+          base.score.toFixed(3),
+          alt.score.toFixed(3),
+          pct(selected.coverage),
+        ];
+      }),
+  );
+  wrap.append(market);
+  wrap.append(
+    table(
+      "Cost correction · rolling origin comparisons",
+      [
+        "Target period",
+        "Unadjusted benchmark",
+        "Origin-fitted shrunk correction",
+        "Selected coverage",
+      ],
+      r.costSummary
+        .filter((x) => x.policy === "baseline")
+        .map((base) => {
+          const alt = r.costSummary.find(
+              (x) => x.policy === "adjusted" && x.era === base.era,
+            ),
+            selected = r.costGate.passed ? alt : base;
+          return [
+            base.era,
+            base.score.toFixed(3),
+            alt.score.toFixed(3),
+            pct(selected.coverage),
+          ];
+        }),
+    ),
+  );
+  wrap.append(
+    el(
+      "p",
+      `Lower scores are better. The fixed release rule requires overall improvement and no period more than 10% worse. Macro gate: ${r.marketGate.passed ? "passed" : "failed; uniform benchmark retained"}. Cost gate: ${r.costGate.passed ? "passed" : "failed; unadjusted benchmark retained"}. The 2024 price year is one row in the rolling evidence, rather than the sole gate.`,
+      "hint",
+    ),
+  );
+  const details = el("details");
+  details.append(el("summary", "Sampling and validation details"));
+  details.append(
+    el(
+      "p",
+      "Earlier macro years use inflation-conditioned cost-block donors from the shorter school-price history. Observed year matches are retained when available. Tuition/housing pairs and household paths remain shared; pre-2000 college prices are not invented.",
+      "hint",
+    ),
+  );
+  for (const note of r.limitations) details.append(el("p", note, "hint"));
+  details.append(
+    el(
+      "p",
+      `Instrument definitions and initial yields remain: monthly-rolled five-year Treasury repricing and three-month bill accrual, with observed starting rates from ${c.economicState.rateDate}. Longer coverage and regularization address the sample restriction; future probabilities remain conditional on these economic assumptions.`,
+      "hint",
+    ),
+  );
   wrap.append(details);
   return wrap;
 }
