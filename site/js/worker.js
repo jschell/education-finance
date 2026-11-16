@@ -1,29 +1,54 @@
-import { assessCalibrated, verifyCalibration } from "./calibration.js?v=0.7.0";
-import { assessHousehold } from "./household.js?v=0.7.0";
-import { validatePlan } from "./domain.js?v=0.7.0";
-import { assessHistorical, verifyHistory } from "./history.js?v=0.7.0";
+import {
+  assessCalibrated,
+  verifyCalibration,
+  snapshotHash,
+} from "./calibration.js?v=0.8.0";
+import { assessHousehold } from "./household.js?v=0.8.0";
+import { validatePlan } from "./domain.js?v=0.8.0";
+import { assessHistorical, verifyHistory } from "./history.js?v=0.8.0";
 let dataPromise, calibrationPromise;
 async function calibrationData(history) {
   return (calibrationPromise ??= Promise.all(
     [
-      "calibration-panel.json",
+      "calibration-economic.json",
       "calibration-validation.json",
       "cost-model-comparison.json",
+      "economy-validation.json",
+      "cost-correction.json",
     ].map((name) =>
       fetch(new URL("../data/" + name, import.meta.url)).then((r) => {
         if (!r.ok) throw Error("Calibration data could not be loaded.");
         return r.json();
       }),
     ),
-  ).then(async ([bundle, validation, comparison]) => {
-    await verifyCalibration(bundle, history);
-    if (
-      comparison.panelHash !== bundle.panel.hash ||
-      comparison.liveModel !== bundle.costModel
-    )
-      throw Error("Validation report does not match the economic snapshot.");
-    return { bundle, validation: { ...validation, comparison } };
-  }));
+  ).then(
+    async ([bundle, validation, comparison, processValidation, correction]) => {
+      await verifyCalibration(bundle, history);
+      if (
+        comparison.panelHash !== bundle.panel.hash ||
+        comparison.liveModel !== bundle.costModel
+      )
+        throw Error("Validation report does not match the economic snapshot.");
+      if (
+        processValidation.bundleHash !== bundle.economy.sha256 ||
+        (await snapshotHash(processValidation)) !==
+          bundle.processValidationHash ||
+        (await snapshotHash(correction)) !== bundle.costValidationHash ||
+        correction.panelHash !== bundle.panel.hash ||
+        correction.active !== !!bundle.costCorrection
+      )
+        throw Error("Economic validation identities differ.");
+      return {
+        bundle,
+        validation: {
+          ...validation,
+          comparison,
+          processValidation,
+          correction,
+        },
+      };
+    },
+  ));
 }
 function data() {
   return (dataPromise ??= fetch(

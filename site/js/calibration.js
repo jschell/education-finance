@@ -1,10 +1,11 @@
-import { fitCostTrends, costGrowth, realTrend } from "./cost-trends.js?v=0.7.0";
-import { clone, resolveScenario } from "./domain.js?v=0.7.0";
-import { compile, runPath, repriceRow } from "./engine.js?v=0.7.0";
-import { simulateHistorical } from "./history.js?v=0.7.0";
-import { PROFILES } from "./history-config.js?v=0.7.0";
-import { allocationAt } from "./planning.js?v=0.7.0";
-import { random, quantile } from "./simulation.js?v=0.7.0";
+import { fitEconomy, economyPath } from "./economy.js?v=0.8.0";
+import { fitCostTrends, costGrowth, realTrend } from "./cost-trends.js?v=0.8.0";
+import { clone, resolveScenario } from "./domain.js?v=0.8.0";
+import { compile, runPath, repriceRow } from "./engine.js?v=0.8.0";
+import { simulateHistorical } from "./history.js?v=0.8.0";
+import { PROFILES } from "./history-config.js?v=0.8.0";
+import { allocationAt } from "./planning.js?v=0.8.0";
+import { random, quantile } from "./simulation.js?v=0.8.0";
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const q = (xs, p) =>
   quantile(
@@ -26,6 +27,15 @@ export function canonical(value) {
       "}"
     );
   return JSON.stringify(value);
+}
+export async function snapshotHash(value) {
+  const bytes = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(canonical(value)),
+  );
+  return [...new Uint8Array(bytes)]
+    .map((x) => x.toString(16).padStart(2, "0"))
+    .join("");
 }
 export async function verifyCalibration(bundle, history) {
   const { sha256, ...body } = bundle;
@@ -177,9 +187,26 @@ export function calibrationReference(
 ) {
   const s = resolveScenario(student, scenario),
     economy = calibratedEconomy(bundle, sectorFor(s), assumptionCase);
-  const observations = bundle.annual.flatMap(
-    (_, i) => economy.transform(i, 0.5, false).months,
-  );
+  const observations = bundle.economy
+    ? economyPath(
+        bundle.economy.productionYears,
+        fitEconomy(bundle.economy.productionYears),
+        {
+          ...bundle.economy.initial,
+          inflation: bundle.macro.cases[1].anchors.inflation,
+        },
+        assumptionCase.anchors,
+        {
+          seed: 0,
+          trial: 0,
+          length: 1,
+          blockYears: 3,
+          uncertainty: false,
+          innovations: false,
+          selectionAnchors: bundle.macro.cases[1].anchors,
+        },
+      )[0].months
+    : bundle.annual.flatMap((_, i) => economy.transform(i, 0.5, false).months);
   const rate = (weights) =>
     Math.expm1(
       mean(
@@ -265,6 +292,19 @@ export function calibrationReference(
           : economy.anchors.inflation;
     }
   }
+  if (bundle.costCorrection && s.history.costMode === "historical") {
+    const sector = sectorFor(s),
+      drifts = bundle.costCorrection.folds.map((f) => f.series[sector]);
+    s.assumptions.tuitionGrowth =
+      (1 + s.assumptions.tuitionGrowth) *
+        Math.exp(mean(drifts.map((d) => d.tuition))) -
+      1;
+    if (s.living === "On campus")
+      s.assumptions.livingGrowth =
+        (1 + s.assumptions.livingGrowth) *
+          Math.exp(mean(drifts.map((d) => d.housing))) -
+        1;
+  }
   s.assumptionsDate = bundle.asOf.slice(0, 7);
   return s;
 }
@@ -280,6 +320,9 @@ export function calibrationFactory(
     c.calibrationSector || sectorFor(c),
     assumptionCase,
   );
+  const stateFit = bundle.economy
+    ? fitEconomy(bundle.economy.productionYears)
+    : null;
   const make = (trial, seed = settings.seed) => {
     const indices = annualIndices(
       bundle.annual.length,
@@ -291,7 +334,55 @@ export function calibrationFactory(
     const u = random(
       (seed ^ Math.imul(trial + 1, 0x85ebca6b) ^ 0xc2b2ae35) >>> 0,
     )();
-    const years = indices.map((i, year) => e.transform(i, u, true, year));
+    let years = indices.map((i, year) => e.transform(i, u, true, year));
+    if (bundle.economy) {
+      const macro = economyPath(
+        bundle.economy.productionYears,
+        stateFit,
+        {
+          ...bundle.economy.initial,
+          inflation: bundle.macro.cases[1].anchors.inflation,
+        },
+        assumptionCase.anchors,
+        {
+          seed,
+          trial,
+          blockYears: c.history.blockYears,
+          length: Math.ceil(c.rows.length / 12),
+          selectionAnchors: bundle.macro.cases[1].anchors,
+        },
+      );
+      years = macro.map((y, year) => {
+        const raw = bundle.annual[y.index];
+        const costs = costGrowth(
+          e.trends,
+          bundle.costModel,
+          { ...raw.sectors[c.calibrationSector], inflation: raw.inflation },
+          year,
+          u,
+          y.inflation,
+          assumptionCase.costShift,
+        );
+        return { ...y, ...costs };
+      });
+    }
+    if (bundle.costCorrection) {
+      const draw = random(
+        (seed ^ Math.imul(trial + 1, 0x27d4eb2d) ^ 0x165667b1) >>> 0,
+      )();
+      const drift =
+        bundle.costCorrection.folds[
+          Math.min(
+            bundle.costCorrection.folds.length - 1,
+            Math.floor(draw * bundle.costCorrection.folds.length),
+          )
+        ].series[c.calibrationSector];
+      years = years.map((y) => ({
+        ...y,
+        tuition: y.tuition * Math.exp(drift.tuition),
+        housing: y.housing * Math.exp(drift.housing),
+      }));
+    }
     const gross = new Float64Array(c.rows.length),
       rows = [];
     let tuition = 1,
@@ -344,12 +435,24 @@ export function calibrationFactory(
     make: (t) => make(t),
     verify: (t) => make(t, settings.seed ^ 0x51ed270b),
     metadata: {
-      method: "Forward-anchored joint annual-block simulation",
+      method: bundle.economy
+        ? "State-conditioned joint blocks, Treasury repricing and persistent expectation uncertainty"
+        : "Forward-anchored joint annual-block simulation",
       period: assumptionCase.name,
       assumptionsVersion: bundle.id,
       calibrationCase: assumptionCase.id,
       calibrationHash: bundle.sha256,
       costModel: bundle.costModel || "recent10",
+      economicState: bundle.economy
+        ? {
+            id: bundle.economy.id,
+            rateDate: bundle.economy.rateDate,
+            initial: bundle.economy.initial,
+            parameters: bundle.economy.parameters,
+          }
+        : null,
+      costCorrectionActive:
+        !!bundle.costCorrection && c.history.costMode !== "fixed",
     },
   };
 }
@@ -428,6 +531,18 @@ export function assessCalibrated(
       notes: bundle.notes,
       panel: bundle.panel,
       costModel: bundle.costModel,
+      economicState: bundle.economy
+        ? {
+            id: bundle.economy.id,
+            hash: bundle.economy.sha256,
+            rateDate: bundle.economy.rateDate,
+            initial: bundle.economy.initial,
+            sources: bundle.economy.sources,
+            parameters: bundle.economy.parameters,
+            limitations: bundle.economy.limitations,
+          }
+        : null,
+      correctionGate: bundle.correctionGate,
       validation,
     },
     dataset: { id: bundle.id, hash: bundle.sha256, asOf: bundle.asOf },

@@ -1,4 +1,17 @@
-# Economic calibration · fixed-institution model comparison
+# Economic calibration · current v0.8.0
+
+Application 0.8.0; model college-funding-7.0.0; live bundle us-state-economic-calibration-2026-11-16-v3. Implemented on 2026-11-16. Read the [fix plan](economic-model-fix-plan.md) and [results](economic-model-results.md) for current behavior. The following v0.7 and earlier sections document retained source data and preceding experiments, not the current stochastic investment process.
+
+- Bonds: five-year hypothetical Treasury, semiannual coupon schedule, monthly roll and dirty-price repricing; starting GS5 4.93% for October 2026. SPF's ten-year yield is a provisional long-run five-year yield-level proxy, never a direct total-return forecast.
+- Cash: October 2026 TB3MS 4.05% bank-discount quote converted using a 91-day bill price; annual survey return targets are converted back to consistent discount quotes. Accrual uses the beginning quote, with next-month reinvestment.
+- Economy: fitted monthly yield and annual inflation persistence, contiguous source blocks weighted by a central-case conditioning state. That conditioning path is shared by cases; each case's actual state evolves around its own targets. Persistent joint expectation shifts come from centered overlapping ten-year regimes. This is conditional resampling with state dynamics, not a structural macroeconomic forecast or validated parameter confidence distribution.
+- Costs: previous fixed-panel growth process plus a persistent paired tuition/housing error correction trained through 2016. The new 2024–25 score gate passed; coverage improved on that one year without re-tuning to its outcomes. Earlier 2020–2023 scores remain separate. More independent final years and release vintages are required.
+
+Monthly Treasury-average yields smooth tradable mark-to-market changes. There is no credit spread, default, equity valuation model, security-specific tax/account modeling or fund recommendation. Inflation hindcasts are weak; observed Treasury/cash validation uses reconstructed instruments rather than independent fund returns. The initial inflation state is the central case's CPI assumption, not a claim about today's observed CPI. Long-horizon funding probabilities remain provisional.
+
+## Preceding v0.7.0 experiment
+
+### Fixed-institution model comparison
 
 Application 0.7.0; methodology college-funding-6.0.0; live assumptions us-panel-calibration-2026-11-16-v2. Provisional, as of 2026-11-16.
 

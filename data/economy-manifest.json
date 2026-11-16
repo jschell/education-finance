@@ -1,0 +1,49 @@
+{
+  "id": "us-economic-state-2026-11-16-v1",
+  "asOf": "2026-11-16",
+  "historyHash": "2428c0397502642b2a672473f3a4ad83c0026d64cacef2df99db909ca37c1e4f",
+  "panelHash": "1879005dbec3245372b1b591a229d36ba6011450a71738b8392b706bbb34050e",
+  "rateDate": "2026-10",
+  "initial": {
+    "long": 0.0493,
+    "short": 0.0405
+  },
+  "sources": [
+    {
+      "name": "Federal Reserve H.15 via FRED GS5",
+      "url": "https://fred.stlouisfed.org/data/GS5",
+      "units": "Annual investment-basis yield, decimal fraction; monthly average"
+    },
+    {
+      "name": "Federal Reserve H.15 via FRED TB3MS",
+      "url": "https://fred.stlouisfed.org/data/TB3MS",
+      "units": "Annual bank-discount quote, decimal fraction; monthly average"
+    }
+  ],
+  "parameters": {
+    "maturityYears": 5,
+    "billDays": 91,
+    "persistenceCap": 0.995,
+    "rateBounds": [
+      0,
+      0.25
+    ],
+    "inflationGrossBounds": [
+      0.8,
+      1.3
+    ],
+    "conditioningFloor": 0.25,
+    "expectationWindowYears": 10
+  },
+  "rawHashes": {
+    "GS5.html.gz": "65edd087dda36b344f471ea2b87c747cc15eef6c4298edccf5063ff6d4d62f33",
+    "TB3MS.html.gz": "19361ee878af83693cb7e955b6cd42fcadff9c69119f1fa60815458d6feddb07"
+  },
+  "limitations": [
+    "Treasury exposure is a hypothetical monthly-rolled five-year instrument with semiannual coupons and monthly-average yields, not an actual fund return.",
+    "Cash accrues at the start-of-month bill quote; the 91-day/365-day equivalent is a reinvestment approximation.",
+    "State-conditioned blocks change source-year weights, not a structural causal model. Parameter bounds are explicit numerical model limits, not predictive guarantees.",
+    "Persistent expectation dispersion comes from overlapping ten-year windows; no independent probability calibration follows."
+  ],
+  "sha256": "ff205e0cfc95337ed28491fc12a3b4b6605bcd8e5768d136f8e245573844bfcb"
+}

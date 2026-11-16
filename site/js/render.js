@@ -1,9 +1,9 @@
-import { samplingRangeText, targetStatus } from "./probability.js?v=0.7.0";
-import { resolveScenario } from "./domain.js?v=0.7.0";
-import { attendanceCalendar } from "./planning.js?v=0.7.0";
-import { gaugeColor } from "./gauge-colors.js?v=0.7.0";
-import { PROFILES } from "./history-config.js?v=0.7.0";
-import { annualRows, compile, runPath } from "./engine.js?v=0.7.0";
+import { samplingRangeText, targetStatus } from "./probability.js?v=0.8.0";
+import { resolveScenario } from "./domain.js?v=0.8.0";
+import { attendanceCalendar } from "./planning.js?v=0.8.0";
+import { gaugeColor } from "./gauge-colors.js?v=0.8.0";
+import { PROFILES } from "./history-config.js?v=0.8.0";
+import { annualRows, compile, runPath } from "./engine.js?v=0.8.0";
 export const money = (x) =>
   x === null
     ? "—"
@@ -563,7 +563,7 @@ export function successGauge(sim, sensitivity = null, cases = null) {
       card.append(
         el(
           "p",
-          "Case range, not a confidence interval. The cases have no assigned probabilities; sector-price validation is weak. Arc and detailed outcomes use the central case.",
+          "Case range, not a confidence interval. The cases have no assigned probabilities; economic validation remains limited. Arc and detailed outcomes use the central case.",
           "hint",
         ),
       );
@@ -643,7 +643,7 @@ export function simulationView(sim, sensitivity = null, cases = null) {
   s.append(
     el(
       "p",
-      `${sim.period} · ${sim.blockYears}-year blocks · ${PROFILES[sim.profile].name}. ${sim.costMode === "historical" ? (sim.calibrationCase ? "Market months and published annual cost changes stay paired within sampled source years." : "Investment returns and expense-growth deviations use the same historical months.") : "Investment returns vary; expense-growth rates are fixed."}`,
+      `${sim.period} · ${sim.blockYears}-year blocks · ${PROFILES[sim.profile].name}. ${sim.costMode === "historical" ? (sim.calibrationCase ? (sim.economicState ? "Source years jointly carry equity, price and rate innovations; central-state conditioning and persistent expectation draws alter future paths." : "Market months and published annual cost changes stay paired within sampled source years.") : "Investment returns and expense-growth deviations use the same historical months.") : "Investment returns vary; expense-growth rates are fixed."}`,
       "hint",
     ),
   );
@@ -652,7 +652,7 @@ export function simulationView(sim, sensitivity = null, cases = null) {
       "p",
       sim.calibrationCase && sim.costMode !== "fixed"
         ? sim.costModel === "fixed"
-          ? "Validation-selected cost model: 4% tuition and 3% on-campus housing nominal trends, with paired historical annual deviations. Economic cases shift those trends using observed five-year growth variation. CPI applies to other expenses and off-campus/at-home housing. The entered fixed-growth fields are not used in variable-cost mode."
+          ? `Validation-selected cost model: 4% tuition and 3% on-campus housing nominal trends, with paired historical annual deviations.${sim.costCorrectionActive ? " A persistent tuition/housing forecast-error correction, fitted through 2016 and gated on 2024–25, is also applied." : ""} Economic cases shift those trends using observed five-year growth variation. CPI applies to other expenses and off-campus/at-home housing. The entered fixed-growth fields are not used in variable-cost mode.`
           : "Published sector tuition and on-campus room/board are modeled relative to inflation. Other expenses and off-campus/at-home housing use CPI. Joint annual blocks retain observed market/cost associations; the sector cost trend also varies between paths. Grants remain separate."
         : sim.costMode === "fixed"
           ? `Fixed expense growth: tuition ${pct(sim.tuitionTrend)} per year; living costs use the entered fixed rate. Historical investment returns still vary.`
@@ -1215,7 +1215,7 @@ export function calibrationContextView(result) {
       [
         "Case",
         "Stocks",
-        "Treasury proxy",
+        c.economicState ? "Long-run Treasury yield proxy" : "Treasury proxy",
         "Cash",
         "Inflation",
         "Covered bills funded",
@@ -1233,12 +1233,22 @@ export function calibrationContextView(result) {
   wrap.append(
     el(
       "p",
-      `SPF common vintage ${c.macro.commonVintage}: stocks and cash are annual-average return forecasts; the bond input is a Treasury yield used provisionally as a return anchor. Equity expectations are a broad-market proxy. Ten-year anchors are held constant beyond ten years. Forecaster quartiles measure disagreement, not predictive bounds. The cautious stock anchor also uses the lower end of Vanguard’s published equity outlook. Cases have no probability weights.`,
+      `SPF common vintage ${c.macro.commonVintage}: stocks and cash are annual-average return forecasts; ${c.economicState ? "the bond input is a long-run yield level for Treasury repricing, with the ten-year SPF yield used as a provisional five-year level proxy" : "the bond input is a Treasury yield used provisionally as a return anchor"}. Equity expectations are a broad-market proxy. Ten-year anchors are held constant beyond ten years. Forecaster quartiles measure disagreement, not predictive bounds. The cautious stock anchor also uses the lower end of Vanguard’s published equity outlook. Cases have no probability weights.`,
       "hint",
     ),
   );
+  if (c.economicState) wrap.append(economicProcessView(c));
   const comparison = c.validation.comparison;
-  if (comparison) wrap.append(costModelComparisonView(c));
+  if (comparison) {
+    if (c.economicState) {
+      const older = el("details");
+      older.append(
+        el("summary", "Previous cost-model comparison · v0.7.0"),
+        costModelComparisonView(c),
+      );
+      wrap.append(older);
+    } else wrap.append(costModelComparisonView(c));
+  }
   const current = c.validation.results.filter(
     (r) => r.sector === c.sector.replace("out", ""),
   );
@@ -1388,5 +1398,138 @@ export function costModelComparisonView(c) {
     ),
   );
   wrap.append(all);
+  return wrap;
+}
+
+export function economicProcessView(c) {
+  const state = c.economicState,
+    wrap = el("div", "", "cost-model-comparison");
+  wrap.append(el("h3", "Economic process & new validation"));
+  wrap.append(
+    el(
+      "p",
+      `Starting observations ${state.rateDate}: five-year Treasury yield ${pct(state.initial.long)}; three-month bill bank-discount quote ${pct(state.initial.short)}. Treasury total returns now combine coupon accrual and repricing; cash accrues from the bill-price convention and reinvests at simulated rates. The old fixed Treasury total-return anchor is not used.`,
+      "hint",
+    ),
+  );
+  wrap.append(
+    el(
+      "p",
+      "Central-case inflation/rate states weight the source blocks. All cases and students use the same source-year sequence and matched random numbers; their yield and inflation levels can differ. Each path also draws persistent joint expectation deviations from rolling ten-year historical windows. The detailed outcome range includes that assumption uncertainty. These are historical regime variations, not independently calibrated confidence bounds.",
+      "hint",
+    ),
+  );
+  const correction = c.validation.correction;
+  const priceCheck = table(
+    "New 2024–25 price check · one independent target year",
+    ["Cost model", "Normalized interval score", "Checks inside P10–P90"],
+    [
+      [
+        "Without residual correction",
+        correction.baselineScore.toFixed(3),
+        `${Math.round(correction.baselineCoverage * correction.final.length)} / ${correction.final.length}`,
+      ],
+      [
+        "With earlier residual correction",
+        correction.adjustedScore.toFixed(3),
+        `${Math.round(correction.adjustedCoverage * correction.final.length)} / ${correction.final.length}`,
+      ],
+    ],
+  );
+  priceCheck.classList.add("cost-check-summary");
+  wrap.append(priceCheck);
+  wrap.append(
+    el(
+      "p",
+      `Residual adjustment ${correction.active ? "enabled" : "not enabled"} by the frozen score gate (lower scores are better). Fitting targets stop at ${correction.fit.cutoff}; the final price target is 2024–25, absent from the preceding release. Sector/horizon checks share one economic year, so their count is not an independent sample size. Earlier 2020–2023 scores below describe the preceding model.`,
+      "hint",
+    ),
+  );
+  const process = c.validation.processValidation;
+  const processDetails = el("details");
+  processDetails.append(
+    el("summary", "Investment & inflation hindcast · mixed coverage"),
+  );
+  processDetails.append(
+    table(
+      "Investment process hindcast · final targets 2020–2023",
+      [
+        "Horizon",
+        "Outcome",
+        "Origin folds",
+        "Non-overlapping periods",
+        "P10–P90 coverage",
+      ],
+      process.summary
+        .filter(
+          (r) =>
+            r.split === "final" &&
+            ["stocks", "treasury", "cash", "inflation", "portfolio"].includes(
+              r.metric,
+            ),
+        )
+        .map((r) => [
+          `${r.horizon} ${r.horizon === 1 ? "year" : "years"}`,
+          {
+            stocks: "Stocks",
+            treasury: "Repriced Treasury proxy",
+            cash: "Bill accrual proxy",
+            inflation: "Inflation",
+            portfolio: "60/30/10 portfolio",
+          }[r.metric],
+          String(r.folds),
+          String(r.nonoverlapping),
+          r.coverage === null ? "Unavailable" : pct(r.coverage),
+        ]),
+    ),
+  );
+  for (const note of process.limitations)
+    processDetails.append(el("p", note, "hint"));
+  wrap.append(
+    el(
+      "p",
+      "Investment-process coverage is mixed: inflation coverage was 25% at one year and 50% at three/five years in four final target years. These sparse tests do not establish reliable funding probabilities.",
+      "hint",
+    ),
+    processDetails,
+  );
+  const details = el("details");
+  details.append(el("summary", "Process assumptions & cost check details"));
+  details.append(
+    table(
+      "2024–25 residual correction checks · " + c.sector,
+      [
+        "Horizon",
+        "Unadjusted score",
+        "Adjusted score",
+        "Unadjusted covered",
+        "Adjusted covered",
+      ],
+      correction.final
+        .filter((r) => r.series === c.sector)
+        .map((r) => [
+          `${r.horizon} ${r.horizon === 1 ? "year" : "years"}`,
+          r.baseline.intervalScore.toFixed(3),
+          r.adjusted.intervalScore.toFixed(3),
+          r.baseline.coverage ? "Yes" : "No",
+          r.adjusted.coverage ? "Yes" : "No",
+        ]),
+    ),
+  );
+  for (const note of [...state.limitations, ...correction.limits])
+    details.append(el("p", note, "hint"));
+  details.append(
+    el(
+      "p",
+      "Treasury maturity: five years, rolled monthly, semiannual coupon pricing. Rate bounds: 0–25%; annual inflation gross bounds: 0.8–1.3. These are numerical model limits. The fixed reference uses the first shock-free model year for asset rates and the mean earlier cost-error correction; it is a separate illustration. Long-run yield/inflation targets and volatility relationships remain uncertain.",
+      "hint",
+    ),
+  );
+  for (const source of state.sources) {
+    const a = el("a", source.name);
+    a.href = source.url;
+    details.append(a, el("br"));
+  }
+  wrap.append(details);
   return wrap;
 }

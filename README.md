@@ -2,7 +2,7 @@
 
 A static, browser-local college funding planner for GitHub Pages. Enter students one at a time and compare education paths using a shared funding plan for each student.
 
-**Working release v0.7.0 · model college-funding-6.0.0 · schema 5.**
+**Working release v0.8.0 · model college-funding-7.0.0 · schema 5.**
 
 Live application: https://jschell.github.io/education-finance/
 
@@ -23,9 +23,17 @@ There is deliberately **no migration or balance reconciliation** from schemas 1�
 7. For multiple students, select one education scenario per student under Household scenarios & attendance. An optional monthly household savings-deposit limit prorates planned deposits. Economic paths are shared across students; success requires every selected goal to be funded. Money stays earmarked; unallocated shared funds are excluded.
 8. Changes save automatically in this browser. Export a current-format plan backup for portability. Assessment JSON records exact inputs, seed, versions and results. Browser storage does not sync devices.
 
-## Economic cases (default)
+## Economic model fixes (v0.8.0)
 
-The live bundle now uses fixed-institution IPEDS tuition and on-campus housing histories for 2000–2023, separating public in-state and out-of-state prices. Consistent UNITID panels remove changing membership from their growth indices; incomplete and reclassified institutions are excluded and counted. These are equal-school geometric price indices, not national enrollment-weighted averages. User-entered budgets remain the starting values.
+The [fix plan and frozen evaluation protocol](docs/economic-model-fix-plan.md) is implemented. Economic cases now use explicit five-year Treasury repricing and three-month bill discount-price accrual, starting from observed October 2026 yields. The Treasury survey anchor is a future yield level, not a total return. A small fitted state process conditions joint source blocks on inflation and rates. Central-case source choices and random draws are shared across cases/students, with path prefixes independent of plan length. Persistent joint ten-year-window expectation deviations add long-run assumption uncertainty. No new required input or Calculate action is introduced.
+
+A paired cost-error correction, fitted only through 2016, passed its predeclared check on newly obtained 2024–25 published prices. The normalized interval score fell from 0.221 to 0.167; 13/15 series/horizon checks were inside the model P10–P90 range, versus 10/15 before correction. **Those checks share one target-year shock and are not 15 independent validation observations.** The earlier 2020–2023 comparison below is consumed evidence for the preceding model. Reported investment/inflation process hindcasts also have weak coverage in some outcomes; they do not certify family funding probabilities. See [results and limitations](docs/economic-model-results.md).
+
+The live bundle is `calibration-economic.json` (v3), separate from preserved v0.6/v0.7 inputs. Raw FRED tables and the new IPEDS archive/dictionary are pinned. Rebuild with `python3 scripts/prepare_economy.py`, `python3 scripts/prepare_cost_holdout.py`, `node scripts/validate_cost_correction.mjs`, `node scripts/validate_economy.mjs`, then `node scripts/build_economic_release.mjs`. Source refreshes remain deliberate, never browser network lookups. Model-6 schema-5 student funding receives a metadata-only upgrade.
+
+## College-price comparison retained from v0.7.0
+
+The v0.7 price bundle uses fixed-institution IPEDS tuition and on-campus housing histories for 2000–2023, separating public in-state and out-of-state prices. Consistent UNITID panels remove changing membership from their growth indices; incomplete and reclassified institutions are excluded and counted. These are equal-school geometric price indices, not national enrollment-weighted averages. User-entered budgets remain the starting values.
 
 Four cost models were compared under a [predeclared protocol](docs/cost-model-protocol.md): fixed 4%/3% nominal trends with historical deviations, the previous recent-ten-year trend, a damped-five-year trend and a changing-regime model. Targets through 2019 selected the candidate; reserved 2020–2023 targets checked it. **The simple 4% tuition / 3% housing benchmark won**, reducing the mean normalized interval score from about 0.263 to 0.185 and mean median-forecast error from 5.7% to 4.8% on two/five-year reserved tests. Nominal trends remain developer benchmarks tested here, not established economic laws. Candidate parameters were not retuned after final-period evaluation.
 

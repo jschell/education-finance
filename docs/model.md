@@ -2,7 +2,7 @@
 
 Default forward-anchored case methodology is specified in [economic calibration](economic-calibration.md). The historical replay sections below describe the optional legacy method.
 
-Implemented model `college-funding-6.0.0`, saved schema 5, application v0.7.0. Dataset `us-joint-monthly-1978-2024-v1` contains 564 complete monthly observations (January 1978–December 2024), retrieved 2026-11-15. Primary PRNG: `mulberry32-calendar-block-1`. One Calculate action includes the complete assessment. All monetary amounts are nominal USD unless labeled purchasing power.
+Implemented model `college-funding-7.0.0`, saved schema 5, application v0.8.0. Dataset `us-joint-monthly-1978-2024-v1` contains 564 complete monthly observations (January 1978–December 2024), retrieved 2026-11-15. Primary PRNG: `mulberry32-calendar-block-1`. One Calculate action includes the complete assessment. All monetary amounts are nominal USD unless labeled purchasing power.
 
 ## Cash flow and timing
 
@@ -80,7 +80,7 @@ Valid plans persist in IndexedDB with a synchronous localStorage recovery copy c
 
 Example mode snapshots the real workspace, disables real saves/import/delete, and restores the real plan on exit/reload. Example edits remain temporary. A pending unfinished real entry must be completed before switching into example mode.
 
-Schema 5 is deliberately incompatible with schemas 1–4. No migration, conflicting-balance reconciliation, or preservation of old records is performed. The editing tab discards legacy IndexedDB, recovery and draft copies; newer schema-5 copies are retained if stores contain mixed versions. Old backup formats are rejected. Current backups use `education-finance-2`. Recalculated assessment reports identify model 6.0.0.
+Schema 5 is deliberately incompatible with schemas 1–4. No migration, conflicting-balance reconciliation, or preservation of old records is performed. The editing tab discards legacy IndexedDB, recovery and draft copies; newer schema-5 copies are retained if stores contain mixed versions. Old backup formats are rejected. Current backups use `education-finance-2`. Recalculated assessment reports identify model 7.0.0.
 
 ## Student funding versus education scenarios (v0.5.0)
 
@@ -99,3 +99,9 @@ Economic calibration work is specified separately in [the calibration plan](econ
 Schema-5/model-4.0.0 plans retain all student and scenario data through a metadata-only upgrade to model 6.0.0; recalculation uses the newly selected methodology. The economic method is a calculation setting, recorded in assessment exports, not a hidden student funding override.
 
 Model 6.0.0 replaces variable college-cost growth with a validation-selected model over fixed-institution IPEDS price indices. Public out-of-state paths use their own observed fee series. The live selection is nominal 4% tuition / 3% on-campus housing trend plus paired empirical annual deviations; macro-case cost shifts use half the IQR of five-year real-growth windows. This differs from user-selected fixed expense mode, which has no cost shocks. Damped and changing-regime alternatives are implemented and evaluated by the same growth functions but were not selected for live use. Model-5 schema-5 plans receive the same metadata-only upgrade as model-4 plans. See the predeclared protocol and the results report; price coverage is still weak.
+
+## Model 7.0.0 economic process
+
+See the [fix protocol](economic-model-fix-plan.md) and [results](economic-model-results.md). The default economic mode uses five-year Treasury coupon/dirty-price repricing and start-of-month three-month bill accrual, monthly average GS5/TB3MS data, fitted rate/inflation persistence, joint central-state-conditioned block sampling and persistent ten-year-window expectation deviations. Central conditioning is deliberately shared across cases, so case outcomes differ through their economic targets while retaining matched source innovations. The same raw functions evaluate training-only process hindcasts. Numerical rate/inflation bounds, maturity and bill conventions are explicit in the bundle. A gated pre-2017 paired cost-error adjustment is applied per path; its two/five-year residuals extrapolate beyond the evaluated horizons and do not certify long-horizon coverage.
+
+Reference rates are separate fixed-rate illustrations based on the first shock-free economic model year; cost rates include the mean fitted error correction. They are not forecasts of the simulated median. Student-level manual reference rates retain their previous meaning and do not override the stochastic asset process. Model-6 schema-5 records upgrade metadata without changing funds, contributions, grants or school choices.

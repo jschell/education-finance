@@ -1283,3 +1283,12 @@ svg text {
 .cost-model-comparison td:not(:first-child) {
   white-space: nowrap;
 }
+
+.cost-model-comparison .cost-check-summary table {
+  min-width: 0;
+  table-layout: fixed;
+}
+.cost-model-comparison .cost-check-summary th,
+.cost-model-comparison .cost-check-summary caption {
+  white-space: normal;
+}
