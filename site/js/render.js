@@ -1,5 +1,6 @@
-import { PROFILES } from './history-config.js?v=0.2.2';
-import { annualRows,compile,runPath } from './engine.js?v=0.2.2';
+import { gaugeColor,gaugeSegments } from './gauge-colors.js?v=0.2.3';
+import { PROFILES } from './history-config.js?v=0.2.3';
+import { annualRows,compile,runPath } from './engine.js?v=0.2.3';
 export const money=x=>x===null?'—':Number.isFinite(x)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(x):'Not attainable';
 const pct=x=>`${(x*100).toLocaleString('en-US',{maximumFractionDigits:1})}%`;
 export function el(tag,text='',className='') { const node=document.createElement(tag);if(text!==null)node.textContent=text;if(className)node.className=className;return node; }
@@ -80,6 +81,7 @@ export function successGauge(sim) {
   const meets=hasBudget&&p>=sim.threshold;
   const probabilityText=`${(p*100).toLocaleString('en-US',{maximumFractionDigits:2})}%`;
   const card=el('div','','success-gauge '+(!hasBudget?'neutral':meets?'on-course':'below-target'));
+  if(hasBudget)card.style.setProperty('--gauge-color',gaugeColor(p,sim.threshold));
   card.append(el('h3','Likelihood of success'),el('p','College funding · simulated outcomes','gauge-subtitle'));
   const visual=el('div','','gauge-visual');
   const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
@@ -88,9 +90,16 @@ export function successGauge(sim) {
   const arc={d:'M30 184 A150 150 0 0 1 330 184',fill:'none','stroke-width':15,'stroke-linecap':'round',pathLength:100};
   add('path',{...arc,class:'gauge-track'});
   if(hasBudget){
-    if(p>0)add('path',{...arc,class:'gauge-fill','stroke-dasharray':`${p*100} 100`});
+    const point=q=>[180-150*Math.cos(Math.PI*q),184-150*Math.sin(Math.PI*q)];
+    for(const segment of gaugeSegments(sim.threshold)){
+      const a=point(segment.start),b=point(Math.min(segment.end+.001,segment.start<sim.threshold?sim.threshold:1));
+      add('path',{d:`M${a[0]} ${a[1]} A150 150 0 0 1 ${b[0]} ${b[1]}`,fill:'none',stroke:segment.color,'stroke-width':15,'stroke-linecap':'butt',class:'gauge-shade'});
+    }
+    for(const q of [0,1]){const [x,y]=point(q);add('circle',{cx:x,cy:y,r:7.5,fill:gaugeColor(q,sim.threshold),class:'gauge-shade'});}
+
     const angle=Math.PI*(1-p),target=Math.PI*(1-sim.threshold);
     add('line',{x1:180+137*Math.cos(target),y1:184-137*Math.sin(target),x2:180+164*Math.cos(target),y2:184-164*Math.sin(target),class:'gauge-target'});
+    add('circle',{cx:180+150*Math.cos(angle),cy:184-150*Math.sin(angle),r:12,class:'gauge-marker-outline'});
     add('circle',{cx:180+150*Math.cos(angle),cy:184-150*Math.sin(angle),r:9,class:'gauge-marker','stroke-width':5});
   }
   add('text',{x:30,y:214,'text-anchor':'middle'},'0%');add('text',{x:330,y:214,'text-anchor':'middle'},'100%');visual.append(svg);
@@ -98,6 +107,11 @@ export function successGauge(sim) {
   if(hasBudget){visual.setAttribute('role','meter');visual.setAttribute('aria-label','Simulated likelihood of funding every covered college bill');visual.setAttribute('aria-valuemin','0');visual.setAttribute('aria-valuemax','100');visual.setAttribute('aria-valuenow',String(p*100));visual.setAttribute('aria-valuetext',`${probabilityText}; ${meets?'on course':'below'} your ${pct(sim.threshold)} target`);}
   card.append(visual);
   card.append(el('p',hasBudget?`Target ${pct(sim.threshold)} · tick mark on the arc`:'Enter annual costs to assess funding.','gauge-target-note'));
+  if(hasBudget){
+    const legend=el('div','','gauge-color-key');
+    for(const [text,kind] of [['Low','low'],['Approaching target','approaching'],['Target met','met']])legend.append(el('span',text,kind));
+    card.append(legend);
+  }
   card.append(el('p',hasBudget?`Every covered bill paid when due in ${Math.round(p*sim.trials).toLocaleString()} of ${sim.trials.toLocaleString()} simulated paths.`:'The gauge will use the same Calculate action.','hint'));
   return card;
 }

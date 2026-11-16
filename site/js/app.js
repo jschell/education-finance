@@ -1,11 +1,15 @@
-import { MODEL,PRNG,ASSUMPTIONS,clone,id,newPlan,newStudent,defaultScenario,duplicateStudent,validatePlan,exportPlan,parseImport,currentMonth,monthText,month,assumptionKeys } from './domain.js?v=0.2.2';
-import { PROFILES,periodLabel } from './history-config.js?v=0.2.2';
-import { compile,runPath,annualRows } from './engine.js?v=0.2.2';
-import { savePlan,loadPlan,clearPlan,saveRecovery,loadRecovery,markRecoverySaved,clearRecovery } from './storage.js?v=0.2.2';
-import { el,money,table,deterministicView,simulationView,comparisonView,historyContextView,csvText } from './render.js?v=0.2.2';
+import { sessionSeed,updateSessionSeed } from './session-seed.js?v=0.2.3';
+import { MODEL,PRNG,ASSUMPTIONS,clone,id,newPlan,newStudent,defaultScenario,duplicateStudent,validatePlan,exportPlan,parseImport,currentMonth,monthText,month,assumptionKeys } from './domain.js?v=0.2.3';
+import { PROFILES,periodLabel } from './history-config.js?v=0.2.3';
+import { compile,runPath,annualRows } from './engine.js?v=0.2.3';
+import { savePlan,loadPlan,clearPlan,saveRecovery,loadRecovery,markRecoverySaved,clearRecovery } from './storage.js?v=0.2.3';
+import { el,money,table,deterministicView,simulationView,comparisonView,historyContextView,csvText } from './render.js?v=0.2.3';
 const $=s=>document.querySelector(s),form=$('#planner');
 let plan=newPlan(),studentId=plan.students[0].id,scenarioId=plan.students[0].scenarios[0].id;
 let revision=0,dirty=false,worker=null,runId=0,lastResult=null,pendingImport=null,assumptionEdited=false,refreshTimer=null,exampleWorkspace=null,saveQueued=false,saveQueue=Promise.resolve(),saveEpoch=0;
+let currentSeed=sessionSeed();
+$('#seed').value=String(currentSeed);
+$('#seed').addEventListener('input',()=>{const input=$('#seed');if(input.value!==''&&input.checkValidity())currentSeed=updateSessionSeed(input.valueAsNumber);});
 const student=()=>plan.students.find(s=>s.id===studentId),scenario=()=>student().scenarios.find(s=>s.id===scenarioId);
 const message=(text,error=false)=>{ $('#message').textContent=text;$('#message').classList.toggle('error',error); };
 function saveStatus(text,error=false){$('#save-state').textContent=text;$('#save-state').classList.toggle('error',error);}
@@ -186,10 +190,11 @@ function showProjection() {
   calculationStatus('Enter your figures, then Calculate for the full range of outcomes.');
 }
 function settings() {
-  if($('#seed').value==='')$('#seed').value='12345';
+  if($('#seed').value==='')$('#seed').value=String(currentSeed);
   if($('#ceiling').value==='')$('#ceiling').value='10000';
   for(const selector of ['#seed','#ceiling'])if(!$(selector).reportValidity())throw Error('Review simulation settings.');
-  return {seed:$('#seed').valueAsNumber,trials:Number($('#trials').value),threshold:Number($('#threshold').value),ceiling:$('#ceiling').valueAsNumber};
+  currentSeed=updateSessionSeed($('#seed').valueAsNumber);
+  return {seed:currentSeed,trials:Number($('#trials').value),threshold:Number($('#threshold').value),ceiling:$('#ceiling').valueAsNumber};
 }
 function startAssessment(action='single',{committed=false,scroll=true}={}) {
   if(!committed)commit();else clearRefresh();const config=settings();
@@ -198,7 +203,7 @@ function startAssessment(action='single',{committed=false,scroll=true}={}) {
   message('');calculationStatus('Calculating historical outcome ranges…');
   const thisRun=++runId,snapshot=clone(plan);$('#run-status').hidden=false;$('#progress-text').textContent='Loading historical data…';$('#progress').value=0;
   if(scroll)$('#run-status').scrollIntoView({block:'start',behavior:'smooth'});
-  worker=new Worker(new URL('./worker.js?v=0.2.2',import.meta.url),{type:'module'});
+  worker=new Worker(new URL('./worker.js?v=0.2.3',import.meta.url),{type:'module'});
   worker.onmessage=({data})=>{
     if(data.runId!==runId)return;
     if(data.type==='progress'){$('#progress').value=data.done/Math.max(1,data.total);$('#progress-text').textContent=`${data.scenario?data.scenario+' · ':''}${data.stage} · ${Math.round(data.done/Math.max(1,data.total)*100)}%`;}

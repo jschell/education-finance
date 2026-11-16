@@ -22,3 +22,7 @@
 .example-notice{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--pale);border:1px solid var(--line);border-left:4px solid var(--accent);padding:16px 20px;border-radius:8px;margin:0 0 24px}.example-notice p{font-size:.82rem;line-height:1.6;margin:5px 0 0}.example-notice button{flex-shrink:0}@media(max-width:520px){.example-notice{align-items:stretch;flex-direction:column;gap:12px}}
 
 #save-state.error{color:var(--red);font-weight:650}
+
+.gauge-badge{color:var(--ink);border-color:var(--gauge-color)}.gauge-color-key{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 12px;font-size:.68rem;color:var(--muted);margin:10px 0}.gauge-color-key span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:middle}.gauge-color-key .low::before{background:#8c3029}.gauge-color-key .approaching::before{background:#edc84b}.gauge-color-key .met::before{background:#378562}@media print{.gauge-shade{print-color-adjust:exact}}
+
+.gauge-marker-outline{fill:white;stroke:var(--ink);stroke-width:1.5}

@@ -2,7 +2,7 @@
 
 A browser-local college funding planner, entered one student at a time, designed for GitHub Pages.
 
-**Status: working v0.2.2 calculator.** One Calculate action produces historical investment, expense, and funding-gap ranges, a savings target, actual historical-period comparisons, and a fixed-rate reference. Multiple students/scenarios, automatic local saves, and portable backup are implemented. No school-price lookup, tax/aid eligibility calculation, or joint family simulation is included.
+**Status: working v0.2.3 calculator.** One Calculate action produces historical investment, expense, and funding-gap ranges, a savings target, actual historical-period comparisons, and a fixed-rate reference. Multiple students/scenarios, automatic local saves, and portable backup are implemented. No school-price lookup, tax/aid eligibility calculation, or joint family simulation is included.
 
 Live application: https://jschell.github.io/education-finance/
 
@@ -77,3 +77,9 @@ Try an example opens a temporary fictional workspace. Exit example restores the 
 ## Automatic saves and reload recovery (v0.2.2)
 
 Valid real-plan changes—including adding students/scenarios—automatically save. Save now forces an immediate save. A synchronous local recovery copy protects the latest valid plan while the browser database transaction is pending; reload restores the selected student/scenario and retries interrupted saves. Header status reports completion or storage/validation failures. Invalid/incomplete inputs retain the last valid saved plan. Example-mode changes are deliberately temporary and never replace the real plan; exit before entering real students. Changes that existed only in memory in earlier releases cannot be reconstructed after the tab is gone. Exported backups remain portable; browser saves do not sync devices.
+
+## Session samples and gauge colors (v0.2.3)
+
+Each independent tab session starts with a cryptographically generated unsigned 32-bit seed. Reloads and repeated calculations retain it; edit Random seed under Calculation settings to choose another sample. Clearing the field reuses the current session seed. The seed is included in assessment exports, so a report can be reproduced with the same inputs/model/data. Browser-duplicated or restored tabs may retain copied session state. If session storage is blocked, the seed remains stable in the current page but cannot be retained through reload.
+
+The gauge is a full shaded scale: dark red at low likelihood, orange/yellow approaching the selected goal, green when the target is met and darker green above it. A contrasting marker shows the actual result and a tick shows the target. Percentages and Below target / On course labels remain available; no budget remains neutral gray. No extra calculation button is introduced.

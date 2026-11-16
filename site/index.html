@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Plan college costs and savings one student at a time. Compare projections, Monte Carlo funding ranges, and saved scenarios locally.">
 <title>Education Finance · College funding planner</title>
-<link rel="stylesheet" href="./assets/styles.css?v=0.2.2"><script type="module" src="./js/app.js?v=0.2.2"></script>
+<link rel="stylesheet" href="./assets/styles.css?v=0.2.3"><script type="module" src="./js/app.js?v=0.2.3"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to planner</a>
@@ -67,7 +67,7 @@
 </div></details>
 <label class="check"><input data-scenario="stress" type="checkbox"> Additional stress: apply a one-time 25% loss before enrollment.</label>
 </div></details>
-<details class="simulation-settings"><summary>Calculation settings <span class="optional">optional</span></summary><div class="fields"><div class="pair"><label>Trials<select id="trials"><option value="1000">1,000 · preview</option><option value="10000" selected>10,000 · full</option><option value="25000">25,000 · detailed</option></select></label><label>Random seed<input id="seed" type="number" min="0" max="4294967295" value="12345" step="1"></label></div><div class="pair"><label>Desired funding success<select id="threshold"><option value="0.8">80%</option><option value="0.9" selected>90%</option><option value="0.95">95%</option></select></label><label>Monthly contribution ceiling ($)<input id="ceiling" type="number" min="0" max="1000000" value="10000" step="1"></label></div><p class="hint">The contribution solver uses the dates and annual increase in optional contributions, even when the current contribution is zero.</p></div></details>
+<details class="simulation-settings"><summary>Calculation settings <span class="optional">optional</span></summary><div class="fields"><div class="pair"><label>Trials<select id="trials"><option value="1000">1,000 · preview</option><option value="10000" selected>10,000 · full</option><option value="25000">25,000 · detailed</option></select></label><label>Random seed<input id="seed" type="number" min="0" max="4294967295" step="1" aria-describedby="seed-help"></label></div><div class="pair"><label>Desired funding success<select id="threshold"><option value="0.8">80%</option><option value="0.9" selected>90%</option><option value="0.95">95%</option></select></label><label>Monthly contribution ceiling ($)<input id="ceiling" type="number" min="0" max="1000000" value="10000" step="1"></label></div><p id="seed-help" class="hint">A random seed is chosen for each tab session and kept through reloads. Edit it to try another sample; clear it to reuse this session’s seed. Assessment exports record the seed.</p><p class="hint">The contribution solver uses the dates and annual increase in optional contributions, even when the current contribution is zero.</p></div></details>
 </form>
 <aside class="results" aria-label="Assessment results">
 <div id="run-status" hidden><div class="progress-heading"><strong id="progress-text">Running…</strong><button id="cancel" type="button">Cancel</button></div><progress id="progress" max="1" value="0"></progress></div>

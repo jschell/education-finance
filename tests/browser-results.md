@@ -21,3 +21,6 @@ Automated financial checks are separate from browser event/storage/worker checks
 13. Add students and scenarios, change names/costs/balances, then reload without Save now. Confirm count, selection and values persist. Repeat before the simulation completes. The header must report actual save completion, not calculation completion.
 14. Invalid input shows Not saved and retains last valid data. Correct it and confirm autosave recovers. Example edits must never overwrite real saves; reloading from the example restores the real plan.
 15. Exercise a blocked-storage save: display failure or recovery-only status, preserve inputs for export and allow Save now to retry. Clear-local must remove both database and recovery copy after pending writes finish.
+
+16. New independent tab: random seed populated; reload: same seed. Edit to zero, reload, and verify it persists. Recalculate unchanged inputs and verify matching summaries. Clearing the input reuses the current session seed.
+17. Gauge states below, at and above the chosen target: inspect red/orange/yellow shades and green at/above the target, dark marker outline, target tick, accessible meter value, and neutral no-budget state. Verify phone/iPad layouts and keyboard Calculate.

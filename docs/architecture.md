@@ -1,6 +1,6 @@
 # Implemented architecture and data contract
 
-Release: v0.2.2; model `college-funding-2.0.0`; schema 2.
+Release: v0.2.3; model `college-funding-2.0.0`; schema 2.
 
 ## Modules
 
@@ -59,3 +59,9 @@ Try an example validates and snapshots the current in-memory plan, selected stud
 Changes schedule a microtask checkpoint after structural UI updates, avoiding copying the previous student form into a newly added student. Validation is independent of simulation/worker completion. Recovery records use education-finance-recovery-1 with the validated plan, selected IDs and pending flag. On reload, a valid recovery copy takes priority and pending saves are retried; missing/corrupt recovery falls back to the browser database with a visible read error. Invalid IDs fall back to the first valid student/scenario.
 
 Database writes are serialized. An older completion can neither mark a newer recovery record saved nor clear a newer dirty revision. Initial database reads cannot replace edits made since startup. Clear-local waits for prior writes and removes both stores, preventing a queued save from resurrecting deleted data. Page hide, hidden visibility and beforeunload checkpoint pending valid edits; reload safety does not depend on a mobile unload prompt. When recovery storage fails, database saves are still attempted; when database saves fail but the recovery copy succeeded, the header says so and Save now can retry. No cloud requests or new persistence dependency are introduced.
+
+## Calculation-session settings (v0.2.3)
+
+`session-seed.js` generates the initial seed with crypto.getRandomValues, validates stored unsigned integers, and stores the selected seed in sessionStorage under education-finance-session-seed-v1. It is separate from real-plan autosave/recovery, so a new session can produce a new sample without modifying student data. A valid manual edit updates session state immediately, including zero; blank reuses the current value. Restricted session storage falls back to page memory. Reports already include the actual seed; plan backups do not pin it. The PRNG, financial model, data, and calculation/compare controls remain unchanged.
+
+`gauge-colors.js` derives the gauge palette relative to the selected threshold. SVG arc segments shade by angular probability, with a boundary exactly at the target; overlapping segments prevent antialiasing seams. Green is reserved for meeting the goal. The marker and target tick use the same probability coordinates, with a dark marker outline and readable text. No third-party chart dependency is required.
