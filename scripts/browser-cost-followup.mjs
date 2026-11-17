@@ -38,6 +38,10 @@ try {
   await decisions.focus();await page.keyboard.press("Space");
   assert.equal(await page.locator(".decision-scenarios").evaluate(el=>el.open),true);
   assert.ok(await page.getByText("One extra attendance year",{exact:true}).count());
+  const boundary=page.getByText("Decision-boundary historical evidence",{exact:true});
+  await boundary.focus();await page.keyboard.press("Space");
+  assert.equal(await boundary.evaluate(el=>el.parentElement.open),true);
+  assert.ok(await page.getByText("Individual decision-boundary evidence",{exact:true}).count());
   const policies=page.locator(".deposit-policies > summary");
   await policies.focus();await page.keyboard.press("Space");
   assert.equal(await page.locator(".deposit-policies").evaluate(el=>el.open),true);

@@ -18,7 +18,7 @@ test('decision evidence identities reconcile and original evidence remains separ
  for(const [path,expected] of Object.entries(report.sourceHashes))assert.equal(hash(readFileSync(path)),expected,path);
  const individual=read('data/decision-cases/individual.json'),household=read('data/decision-cases/household.json'),selection=read('data/decision-cases/selection.json');
  assert.equal(report.individual.cases,individual.length);assert.equal(report.individual.observed,individual.filter(r=>r.status==='observed').length);
- assert.equal(report.selection.cells,selection.length);assert.ok(individual.every(r=>(r.status==='observed')===(r.actual!==null)));
+ assert.equal(report.selection.schoolIdentities,new Set(individual.map(r=>r.unitid)).size);assert.equal(report.selection.cells,selection.length);assert.ok(individual.every(r=>(r.status==='observed')===(r.actual!==null)));
  assert.ok(household.every(r=>r.bindingMonths>0&&r.peak<=r.cap+1e-7));
  assert.ok(household.filter(r=>r.wait===8).every(r=>r.actual===null&&r.status==='unreached-window'));
  assert.equal(report.trials,512);assert.equal(report.fitTrials,512);

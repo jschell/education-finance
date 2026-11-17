@@ -1826,7 +1826,7 @@ export function decisionScenariosView(report, evidence = null) {
   if(report.missingBudget)wrap.append(el("p","Enter the covered expenses before interpreting funding results. Unentered bills are excluded.","hint"));
   if(evidence){
     const detail=el("details");detail.append(el("summary","Decision-boundary historical evidence"));
-    detail.append(el("p",`${evidence.individual.observed} of ${evidence.individual.cases} registered individual cases have observed outcomes; ${evidence.individual.interior05to95} observed forecasts lie between 5% and 95%. Opening resources were selected at each historical origin before independent scoring. Cases share histories and overlapping origins; these are not independent decades or new calibration guarantees.`,"hint"));
+    detail.append(el("p",`${evidence.individual.observed} of ${evidence.individual.cases} registered individual cases have observed outcomes; ${evidence.individual.interior05to95} observed forecasts lie between 5% and 95%. Opening resources were selected at each historical origin before independent scoring. This extension samples ${evidence.selection.schoolIdentities} school identities. Cases share histories and overlapping origins; these are not independent decades or new calibration guarantees.`,"hint"));
     detail.append(table("Individual decision-boundary evidence",["Wait (years)","Profile","Identity","Observed / registered","Model Brier","Fixed-reference Brier","Zero-growth Brier"],evidence.groups.map(r=>[
       r.wait,r.profile,r.kind,`${r.observed} / ${r.cases}`,...[r.brier,r.fixedReferenceBrier,r.zeroReferenceBrier].map(x=>x===null?"Unavailable":x.toFixed(3))
     ])));
