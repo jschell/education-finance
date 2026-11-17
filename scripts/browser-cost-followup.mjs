@@ -15,6 +15,8 @@ try {
   await page.locator('[data-cost="tuition"]').fill("12000");
   await page.locator('[data-cost="housing"]').fill("13000");
   await page.locator("#example").click();
+  await page.locator(".family-overview > summary").click();
+  await page.locator("#household-limit").fill("500");
   await page.locator("#calculate").click();
   await page.waitForFunction(() => !document.querySelector("#results-content").hidden &&
     document.querySelector("#results-content").textContent.length > 200, null, {timeout:180000});
