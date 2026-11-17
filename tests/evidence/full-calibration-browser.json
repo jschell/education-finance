@@ -1,0 +1,32 @@
+{
+  "url": "http://127.0.0.1:8765/education-finance/",
+  "checks": [
+    {
+      "name": "phone",
+      "width": 390,
+      "height": 844,
+      "client": 390,
+      "scroll": 390
+    },
+    {
+      "name": "ipad",
+      "width": 1024,
+      "height": 768,
+      "client": 1024,
+      "scroll": 1024
+    },
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "client": 1440,
+      "scroll": 1440
+    }
+  ],
+  "keyboardDisclosure": true,
+  "workerAssessment": true,
+  "exampleRestoredFunding": true,
+  "reloadPreservedFunding": true,
+  "browser": "Chromium",
+  "physicalSafariVerified": false
+}

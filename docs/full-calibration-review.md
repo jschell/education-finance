@@ -20,7 +20,11 @@ The suggested model-specific fitting, asymmetric path corrections, nested chrono
 
 The first full evaluation passes 140 tests, reproduces its reports twice byte-for-byte and preserves the prior release's committed validation reports. Candidate-specific residual provenance, asymmetric pairing, elapsed-time curves, nested cutoffs, fixed-mode identity, market-path identity and actual ledger funding effects have regression tests.
 
-Final committed-report integrity, shared household price-curve tests and the publication browser run are recorded in the release status after checks finish. All inputs are synthetic or public pinned data.
+The final implementation passes **143 tests**, including committed-report/source/protocol hashes, invoice-score arithmetic, future-input cutoffs, unchanged-production comparison, honest 2024 missingness, immutable snapshot hashes and common academic prices across different student enrollment years. The full evaluator regenerates twice identically and matches committed evidence. The prior release's reports also rebuild unchanged.
+
+Chromium project-prefix phone 390×844, iPad landscape 1024×768 and desktop 1440×1000 had no page overflow. Keyboard disclosure, production worker, restoration of the synthetic $54,321 workspace balance after example mode, and reload persistence pass. Browser metadata is committed; screenshots are CI artifacts and have not been manually visually reviewed.
+
+v0.10.2 is [deployed](https://github.com/jschell/education-finance/actions/runs/43991080222). Post-deployment checks compare live source/report bytes and exercise the same browser flow on GitHub Pages. See [release status](critique-fix-status.md). All inputs are synthetic or public pinned data.
 
 The core financial model and schema remain unchanged because the gate failed. The optional recalibration capability is shipped inactive, with all results and failures published. This review is by the implementing reviewer; it is not an independent statistical audit.
 

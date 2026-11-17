@@ -43,4 +43,8 @@ The first full evaluation and its publication rebuild each passed 140 tests and 
 
 [Full protocol](full-calibration-protocol.md) · [Results](full-calibration-results.md) · [Fresh review](full-calibration-review.md) · [Prospective record](../data/forecast-snapshots/README.md)
 
-Final report-integrity and common-household-price tests, final browser evidence and deployment are pending on the release branch. The unresolved forecasting evidence remains tracked in issue #2.
+**v0.10.2 is deployed.** [PR #3](https://github.com/jschell/education-finance/pull/3) merged as `8003de5c5ecae7bf6bb547e4473bc8e70615f07d`; [main checks](https://github.com/jschell/education-finance/actions/runs/43991080199) and [Pages deployment](https://github.com/jschell/education-finance/actions/runs/43991080222) succeeded.
+
+The final implementation passes **143 tests**. [Full calibration CI](https://github.com/jschell/education-finance/actions/runs/43990761782) confirms deterministic regeneration and byte equality with committed new evidence, including source/protocol/report hashes and snapshot missingness. [Prior-report/browser CI](https://github.com/jschell/education-finance/actions/runs/43990761707) confirms the older evidence remains unchanged and project-prefix phone/iPad/desktop, keyboard, worker, example-restoration and reload checks pass. The shared-student-price regression passes. Screenshots are retained as CI artifacts and were not manually visually reviewed.
+
+The post-Pages live verification workflow compares deployed page, worker, calibration and both cost reports byte-for-byte and repeats the synthetic browser checks. Physical Safari and future outcome calibration remain unverified. The unresolved forecasting evidence remains tracked in [issue #2](https://github.com/jschell/education-finance/issues/2).

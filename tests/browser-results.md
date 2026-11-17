@@ -73,3 +73,8 @@ Live post-deployment follow-up: v0.10.0 loaded in the existing editable tab. A s
 ## v0.10.1 reconstructed follow-up
 
 GitHub Actions Chromium automation at /education-finance/ completed the production worker assessment with synthetic data. Phone 390×844, iPad landscape 1024×768 and desktop 1440×1000 had equal page client/scroll widths. Keyboard Space opened the new forecast-evidence disclosure. Example mode restored the synthetic $54,321 workspace balance and reload preserved it. There were no page errors or failed application-resource responses. See [committed metadata](evidence/followup-browser.json) and [the evidence run](https://github.com/jschell/education-finance/actions/runs/43974817323). Screenshots are workflow artifacts; they were not visually inspected in this session. Physical iOS Safari remains unverified.
+
+
+## v0.10.2 full calibration publication
+
+[CI run 43990761707](https://github.com/jschell/education-finance/actions/runs/43990761707) passes the project-prefix Chromium worker assessment and keyboard disclosure. Phone 390×844, iPad landscape 1024×768 and desktop 1440×1000 have equal client/scroll widths. Example mode restores the synthetic $54,321 real-workspace balance, which survives reload. There are no page errors or failed application-resource requests. [Metadata](evidence/full-calibration-browser.json) is committed; screenshots are workflow artifacts, not a manual visual review. Physical iOS Safari is unverified.
