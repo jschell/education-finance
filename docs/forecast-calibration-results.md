@@ -68,3 +68,10 @@ Observation fields: `sector`, `academicYear`, `tuitionIndex`, `housingIndex`, `d
 - Funding plans and household choices are synthetic fixed policies, not observed family behavior. Aid, income and contribution decisions remain uncertain in real use.
 - More simulated paths improve numerical precision but cannot add independent economic outcome periods. An unsupported 8/18-year claim cannot be manufactured by multiplying school or plan counts.
 - The new prospective record can accumulate evidence as official comparable outcomes become available. Price-only snapshots do not establish school-specific or household funding-success calibration.
+
+
+## Delivery verification — 2026-11-17
+
+[PR #7](https://github.com/jschell/education-finance/pull/7) merged at `9d978a811cfb78fd11a686f8c8975aeb95425c5f`. [PR CI](https://github.com/jschell/education-finance/actions/runs/44110246405) passed report reproduction, prospective verification and phone/iPad/desktop/keyboard/project-prefix browser checks. [Pages](https://github.com/jschell/education-finance/actions/runs/44111217573) succeeded, then [live verification](https://github.com/jschell/education-finance/actions/runs/44111402600) matched deployed bytes and passed synthetic browser checks. Full local school/funding evidence reproduced byte-for-byte; all foundation/planning/hierarchy outputs also matched. The follow-up diagnostic check brings the local test total to 168 passing tests. Physical iOS Safari remains unverified.
+
+The reproducible [post-results dispersion audit](calibration-dispersion-audit.md) is descriptive and changes no predictions. Its [next-work plan](calibration-next-steps.md) starts source-quality and temporal/persistence diagnosis before another prespecified candidate. Economic calibration remains unresolved; no new cost model is activated by this release.

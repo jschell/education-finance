@@ -4,7 +4,7 @@ A static, browser-local college funding planner. **App v0.14.0 · model college-
 
 [Open the planner](https://jschell.github.io/education-finance/)
 
-**Continuing development in a new session?** Start with [project continuity](docs/continuity.md), [the active work plan](docs/active-work-plan.md) and [decisions](docs/decisions.md). They distinguish the deployed release from unfinished calibration-branch work and include a resume prompt.
+**Continuing development in a new session?** Start with [project continuity](docs/continuity.md), [the active work plan](docs/active-work-plan.md) and [decisions](docs/decisions.md). They distinguish the deployed release from active calibration research and include a resume prompt.
 
 ## Use the planner
 
@@ -18,7 +18,7 @@ A static, browser-local college funding planner. **App v0.14.0 · model college-
 
 School-level origin-only cohorts, withheld-school tests and complete individual/household funding replays now accompany the earlier sector diagnostics. The app distinguishes research qualification, unsupported horizons and production activation. Financial defaults remain unchanged. New prospective snapshots use the same active bundle as the worker; future outcomes require reviewed, source-backed comparable indices.
 
-[Plan and frozen protocol](docs/forecast-calibration-plan.md) · [Results and fresh review](docs/forecast-calibration-results.md)
+[Plan and frozen protocol](docs/forecast-calibration-plan.md) · [Results and fresh review](docs/forecast-calibration-results.md) · [Error-dispersion audit](docs/calibration-dispersion-audit.md) · [Next calibration work](docs/calibration-next-steps.md)
 
 ## Staged overhaul D
 

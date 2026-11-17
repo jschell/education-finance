@@ -36,6 +36,10 @@ jobs:
           git diff --exit-code --stat -- site/data/current-calibration.json data/calibration-cases/
       - name: Verify current prospective record
         run: node scripts/verify-current-snapshot.mjs
+      - name: Reproduce descriptive school-error audit
+        run: |
+          node scripts/audit-calibration-dispersion.mjs
+          git diff --exit-code -- data/calibration-diagnostics/dispersion.json
       - name: Install isolated browser QA
         run: |
           npm install --prefix /tmp/education-finance-qa playwright
