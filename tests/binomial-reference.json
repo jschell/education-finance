@@ -1,0 +1,85 @@
+{
+  "generator": "SciPy stats.binom + optimize.brentq, independent reference",
+  "cases": [
+    {
+      "target": 0.5,
+      "fitTrials": 20000,
+      "verifyTrials": 5000,
+      "criticalPasses": 2559,
+      "populationProbability": 0.5255451207130116,
+      "rank": 10650
+    },
+    {
+      "target": 0.8,
+      "fitTrials": 20000,
+      "verifyTrials": 5000,
+      "criticalPasses": 4047,
+      "populationProbability": 0.8200083915573975,
+      "rank": 16507
+    },
+    {
+      "target": 0.9,
+      "fitTrials": 20000,
+      "verifyTrials": 5000,
+      "criticalPasses": 4535,
+      "populationProbability": 0.9147187669731366,
+      "rank": 18372
+    },
+    {
+      "target": 0.95,
+      "fitTrials": 20000,
+      "verifyTrials": 5000,
+      "criticalPasses": 4776,
+      "populationProbability": 0.9605788867433137,
+      "rank": 19266
+    },
+    {
+      "target": 0.99,
+      "fitTrials": 20000,
+      "verifyTrials": 5000,
+      "criticalPasses": 4962,
+      "populationProbability": 0.994447727259495,
+      "rank": 19910
+    },
+    {
+      "target": 0.5,
+      "fitTrials": 50000,
+      "verifyTrials": 5000,
+      "criticalPasses": 2559,
+      "populationProbability": 0.5255451207130116,
+      "rank": 26497
+    },
+    {
+      "target": 0.8,
+      "fitTrials": 50000,
+      "verifyTrials": 5000,
+      "criticalPasses": 4047,
+      "populationProbability": 0.8200083915573975,
+      "rank": 41169
+    },
+    {
+      "target": 0.9,
+      "fitTrials": 50000,
+      "verifyTrials": 5000,
+      "criticalPasses": 4535,
+      "populationProbability": 0.9147187669731366,
+      "rank": 45859
+    },
+    {
+      "target": 0.95,
+      "fitTrials": 50000,
+      "verifyTrials": 5000,
+      "criticalPasses": 4776,
+      "populationProbability": 0.9605788867433137,
+      "rank": 48115
+    },
+    {
+      "target": 0.99,
+      "fitTrials": 50000,
+      "verifyTrials": 5000,
+      "criticalPasses": 4962,
+      "populationProbability": 0.994447727259495,
+      "rank": 49755
+    }
+  ]
+}

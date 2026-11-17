@@ -1,9 +1,9 @@
-import { samplingRangeText, targetStatus } from "./probability.js?v=0.11.0";
-import { resolveScenario } from "./domain.js?v=0.11.0";
-import { attendanceCalendar } from "./planning.js?v=0.11.0";
-import { gaugeColor } from "./gauge-colors.js?v=0.11.0";
-import { PROFILES } from "./history-config.js?v=0.11.0";
-import { annualRows, compile, runPath } from "./engine.js?v=0.11.0";
+import { samplingRangeText, targetStatus } from "./probability.js?v=0.12.0";
+import { resolveScenario } from "./domain.js?v=0.12.0";
+import { attendanceCalendar } from "./planning.js?v=0.12.0";
+import { gaugeColor } from "./gauge-colors.js?v=0.12.0";
+import { PROFILES } from "./history-config.js?v=0.12.0";
+import { annualRows, compile, runPath } from "./engine.js?v=0.12.0";
 export const money = (x) =>
   x === null
     ? "—"
@@ -669,6 +669,15 @@ export function simulationView(sim, sensitivity = null, cases = null) {
       "hint",
     ),
   );
+  if (sim.affordableBudget) {
+    const b=sim.affordableBudget;
+    s.append(stats([
+      ["Affordable annual budget · adverse path",Number.isFinite(b.scale.p10)?money(Math.floor(b.annual*b.scale.p10)):"No finite bound", "10th percentile capacity"],
+      ["Affordable annual budget · median path",Number.isFinite(b.scale.p50)?money(Math.floor(b.annual*b.scale.p50)):"No finite bound"],
+      ["Affordable annual budget · favorable path",Number.isFinite(b.scale.p90)?money(Math.floor(b.annual*b.scale.p90)):"No finite bound", "90th percentile capacity"],
+    ]));
+    s.append(el("p","Budget screen at current deposits: scales the entered annual categories together, keeps aid, income and dates fixed, and prices each path. Dollars use the entered budget’s baseline date. These are sampled capacity ranges; no target confidence or independent savings confirmation is attached.","hint"));
+  }
   s.append(representativePathsView(sim));
   s.append(distributionView(sim));
   const ranges = el("details");
@@ -996,6 +1005,7 @@ export function representativePathsView(sim) {
         ["Unpaid covered bills", money(path.shortfall)],
         ["Funds remaining", money(path.ending)],
       ]),
+      el("p",path.firstUnpaid?`First unpaid covered bill: ${path.firstUnpaid.date}; ${money(path.firstUnpaid.amount)} unpaid of ${money(path.firstUnpaid.coveredBill)}, after ${money(path.firstUnpaid.paid)} paid from savings. Later deposits do not erase this missed bill.`:"Every covered bill is paid on this path.","hint"),
       table(
         "One path · annual cash flow · nominal dollars",
         [
@@ -1159,6 +1169,16 @@ export function householdView(h) {
         ]),
       ),
     );
+  if(h.proposal){
+    const p=h.proposal;
+    wrap.append(el("h3","Required household deposits"));
+    if(p.base===null)wrap.append(el("p",p.reason,"hint"));
+    else{
+      wrap.append(stats([["Base monthly deposits",money(p.base)],["Peak dated monthly deposits",money(p.peak)],["Within household cap",p.capFeasible?"Yes":"No"]]));
+      wrap.append(table("Proposed base allocation",["Student","Monthly deposit"],p.contributions.map(c=>[c.alias,money(c.monthly)])));
+      wrap.append(el("p",`${p.policy}. ${p.confirmation.meets?"Independent sampling check met the requested target.":"Independent sampling check did not confirm the requested target."} ${p.firstExcess?`First cap conflict: ${p.firstExcess.date}, requiring ${money(p.firstExcess.amount)} against ${money(h.monthlyLimit)} available. This proposal is not household-feasible; edit budgets, dates or funding.`:"The proposed schedule fits the entered cap."} The current funding gauge still uses entered, capped deposits. This proposal does not move money between students or change saved amounts.`,"hint"));
+    }
+  }
   const annual = el("details");
   annual.append(el("summary", "Annual household costs & savings deposits"));
   annual.append(

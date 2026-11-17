@@ -2,8 +2,8 @@ import {
   HISTORY_DEFAULTS,
   HISTORY_PRNG,
   PROFILES,
-} from "./history-config.js?v=0.11.0";
-export const MODEL = "college-funding-10.0.0",
+} from "./history-config.js?v=0.12.0";
+export const MODEL = "college-funding-11.0.0",
   SCHEMA = 5,
   PRNG = HISTORY_PRNG,
   ASSUMPTIONS = "user-defined-1";
@@ -215,6 +215,7 @@ export function validatePlan(plan) {
       "college-funding-7.0.0",
       "college-funding-8.0.0",
       "college-funding-9.0.0",
+      "college-funding-10.0.0",
     ].includes(plan?.modelVersion)
   ) {
     plan = clone(plan);

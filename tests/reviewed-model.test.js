@@ -5,6 +5,7 @@ import { historicalInputs } from "../scripts/validation-inputs.mjs";
 import { fitCostSpread, costSpreadDraw } from "../site/js/cost-uncertainty.js";
 import {
   savingsFitProbability,
+  legacySavingsFitProbability,
   savingsReserve,
   savingsConfirmation,
 } from "../site/js/savings-target.js";
@@ -126,7 +127,7 @@ test("sampling reserve preserves requested target and confirmation requires its 
 test("distribution-free reserve covers fitting and verification error plus worst Wilson distance", () => {
   for (const n of [20000, 50000])
     for (const target of [0.5, 0.8, 0.9, 0.95]) {
-      const fitted = savingsFitProbability(target, n);
+      const fitted = legacySavingsFitProbability(target, n);
       if (fitted === 1) continue;
       const error =
         Math.sqrt(Math.log(80) / (2 * n)) +
@@ -138,7 +139,7 @@ test("distribution-free reserve covers fitting and verification error plus worst
       );
     }
   assert.ok(savingsReserve(50000) < savingsReserve(20000));
-  assert.equal(savingsConfirmation(5000, 5000, 0.99).reserveCapped, true);
+  assert.equal(savingsConfirmation(5000, 5000, 0.99).reserveCapped, false);
 });
 function fixture() {
   const p = newPlan(),

@@ -1,18 +1,20 @@
+import { householdRequirement, householdDepositSchedule } from "./planning-decisions.js?v=0.12.0";
+import { savingsFitProbability, savingsConfirmation, VERIFICATION_TRIALS } from "./savings-target.js?v=0.12.0";
 import {
   compileCalibrated,
   calibrationFactory,
-} from "./calibration.js?v=0.11.0";
-import { clone, validatePlan, resolveScenario } from "./domain.js?v=0.11.0";
-import { compile, runPath } from "./engine.js?v=0.11.0";
+} from "./calibration.js?v=0.12.0";
+import { clone, validatePlan, resolveScenario } from "./domain.js?v=0.12.0";
+import { compile, runPath, requiredContribution } from "./engine.js?v=0.12.0";
 import {
   observations,
   referenceScenario,
   historicalPath,
   blockIndices,
   tuitionLogMean,
-} from "./history.js?v=0.11.0";
-import { quantile } from "./random.js?v=0.11.0";
-import { periodLabel } from "./history-config.js?v=0.11.0";
+} from "./history.js?v=0.12.0";
+import { quantile } from "./random.js?v=0.12.0";
+import { periodLabel } from "./history-config.js?v=0.12.0";
 const range = (values) => {
   values.sort((a, b) => a - b);
   return {
@@ -66,6 +68,7 @@ export function assessHousehold(
         ).c
       : compile(plan, student, referenceScenario(sc, data));
   });
+  const uncapped=compiled.map(c=>({...c,rows:c.rows.map(r=>({...r}))}));
   const contributionSchedule = capHouseholdContributions(
       compiled,
       plan.family.monthlyLimit,
@@ -146,7 +149,45 @@ export function assessHousehold(
         total: trials,
       });
   }
+  let proposal=null;
+  const solve=!calibration||calibration.assumptionCase.id===calibration.bundle.macro.cases[1].id;
+  if(solve && !missingBudgets.length){
+    const fitTrials=Math.min(50000,Math.max(20000,trials*2));
+    const rawFactories=calibration?uncapped.map(c=>calibrationFactory(c,calibration.bundle,settings,calibration.assumptionCase)):null;
+    const make=(j,t,verify=false)=>rawFactories
+      ? (verify?rawFactories[j].verify(t):rawFactories[j].make(t))
+      : historicalPath(uncapped[j],rows,blockIndices(rows,length,uncapped[j].valuationMonth,commonHistory.blockYears,verify?settings.seed^0x51ed270b:settings.seed,t),center);
+    const requirements=[];
+    for(let t=0;t<fitTrials;t++){
+      requirements.push(householdRequirement(uncapped,uncapped.map((c,j)=>{
+        const path=make(j,t);return requiredContribution(path.compiled,i=>path.gross[i]);
+      })));
+      if(t%500===0)progress({stage:"Household · required deposit schedule",done:t,total:fitTrials});
+    }
+    requirements.sort((a,b)=>a-b);
+    const base=Math.ceil(requirements[Math.ceil(savingsFitProbability((settings.threshold??.9),fitTrials)*fitTrials)-1]);
+    if(Number.isFinite(base)){
+      const schedule=householdDepositSchedule(uncapped,base),basis=uncapped.reduce((v,c)=>v+c.monthly,0);
+      const weights=uncapped.map(c=>basis>0?c.monthly/basis:1/uncapped.length);
+      const peak=Math.max(...schedule.map(r=>r.amount));
+      const firstExcess=plan.family.monthlyLimit===null?null:schedule.find(r=>r.amount>plan.family.monthlyLimit+1e-7)||null;
+      let passed=0;
+      // A proposed plan is checked as-is; verification never refits it.
+      for(let t=0;t<VERIFICATION_TRIALS;t++){
+        let success=true;
+        for(let j=0;j<uncapped.length;j++){
+          const path=make(j,t,true);
+          success &&= runPath(path.compiled,i=>path.gross[i],base*weights[j],false).success;
+        }
+        if(success)passed++;
+      }
+      proposal={base,peak,firstExcess,capFeasible:!firstExcess,weights,contributions:weights.map((w,j)=>({alias:selected[j].student.alias,monthly:base*w})),
+        confirmation:savingsConfirmation(passed,VERIFICATION_TRIALS,(settings.threshold??.9),fitTrials),
+        policy:basis>0?"Keep entered base-deposit proportions and dates":"Equal base deposits on entered dates (all entered deposits are zero)"};
+    }else proposal={base:null,capFeasible:false,reason:"The fixed deposit allocation and dates cannot fund every goal on the fitting paths. A zero share stays zero; edit the allocation or dates."};
+  }
   return {
+    proposal,
     trials,
     seed: settings.seed,
     period: calibration
