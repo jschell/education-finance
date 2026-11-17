@@ -9,6 +9,14 @@ Updated **2026-11-17, America/Los_Angeles**. This is a repository-grounded hando
 3. [Active work plan](active-work-plan.md) and [next calibration steps](calibration-next-steps.md).
 4. [Decision record](decisions.md), then the frozen protocol/results for the task being resumed.
 
+## In-progress checkpoint — source quality and school persistence
+
+Branch `calibration-quality-persistence` starts at `ddde81d`; audit plan committed as `5fd5085`, gapped-window/large-change amendment committed as `0514754` before those extra comparisons. Official dictionaries are pinned for all 24 years. The source-quality sensitivity and origin-2010 growth diagnostics are implemented; both dictionary extraction and report generation reproduce identically. [Results and next action](calibration-quality-persistence-results.md).
+
+Source-quality exclusions change evaluated coverage by at most 0.50 percentage point. Gapped growth comparisons remain mostly weak/negative, so cross-school dispersion must not be converted directly into permanent school growth-rate variation. The same-year IC2014 supplemental legend is explicit. No model/default/version changes or new candidate scoring. Fresh `npm run check` passes 176/176 tests and edited documentation links resolve. CI/merge acceptance for this branch remains pending; production state below stays valid.
+
+Next: finish repository/CI checks, merge the diagnostic artifacts and progress notes, then audit large source changes/reversals before specifying a new coherent candidate. Preserve all original comparisons.
+
 ## Current checkpoint
 
 | Item | Verified state |
