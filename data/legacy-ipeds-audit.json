@@ -1,0 +1,289 @@
+{
+  "id": "legacy-ipeds-definition-audit-v1",
+  "asOf": "2026-11-16",
+  "source": "Official NCES archives and dictionaries",
+  "archives": [
+    {
+      "year": 1990,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC90D.zip",
+      "sha256": "b1fb85b1c158b4ebac8bd68dcfb91dcd4a1d65a377b1159c80cf9c4482c4224d",
+      "member": "ic90d.csv"
+    },
+    {
+      "year": 1990,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC90D_Dict.zip",
+      "sha256": "2d2274f0a1a2ec7deedf78101063931933d1817fa23f4b8a82228c5b819f6596",
+      "member": "ic90d.html"
+    },
+    {
+      "year": 1991,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/ic1991_d.zip",
+      "sha256": "c681c29cd4dc429554f1ebfe7e2a5f8e194c7838d8f26d531d9c748629fa751e",
+      "member": "ic1991_d.csv"
+    },
+    {
+      "year": 1991,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/ic1991_d_Dict.zip",
+      "sha256": "615bdd3d75f44ad10c659f540645c773a91fe8173081c0125cba0ca500cd5156",
+      "member": "ic1991_d.html"
+    },
+    {
+      "year": 1992,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC1992_B.zip",
+      "sha256": "3c953158cf0e4253cbb8653e7b634ed990295c70865dba7932c0c600d125c191",
+      "member": "ic1992_b.csv"
+    },
+    {
+      "year": 1992,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC1992_B_Dict.zip",
+      "sha256": "7d3304dcffa8a6d57d1ff4f9c5bb3d0cf9348e3f18065f0a7fc4eccabca5a03e",
+      "member": "ic1992_b.html"
+    },
+    {
+      "year": 1993,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC1993_B.zip",
+      "sha256": "c7aeb4e7357107140964d5e7d767fde23fa3ef63627a32bb9ecb6c25e0bcb843",
+      "member": "ic1993_b.csv"
+    },
+    {
+      "year": 1993,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC1993_B_Dict.zip",
+      "sha256": "5ea5b806e05bd9b5297e8054c8a67b885cf9ac34c88cf506d80c1f90a63d154e",
+      "member": "ic1993_b.html"
+    },
+    {
+      "year": 1994,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC1994_B.zip",
+      "sha256": "fcd912d4b0d40f184e4000db4f064796996d08ac77765d3979e60a77325d1dbf",
+      "member": "ic1994_b.csv"
+    },
+    {
+      "year": 1994,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC1994_B_Dict.zip",
+      "sha256": "f1b8b23e1dd9634514a160fed2110142a437662f21e4639ebb2eeb8d44120ae6",
+      "member": "ic1994_b.html"
+    },
+    {
+      "year": 1995,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/ic9596_B.zip",
+      "sha256": "355cc3b0c9919c7d878143735f5a84cf64530fc1ff8c7b4249a0446ec0298efc",
+      "member": "ic9596_b.csv"
+    },
+    {
+      "year": 1995,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/ic9596_B_Dict.zip",
+      "sha256": "946aba8a2981252ed1f2e21c24696764dd94b084b19fe4ca811e463b3bddf7ef",
+      "member": "ic9596_b.html"
+    },
+    {
+      "year": 1996,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/ic9697_B.zip",
+      "sha256": "68bc0e94aa74dd62792fccc0c72466451176fe7d02e10bd4ee678beeece93497",
+      "member": "ic9697_b.csv"
+    },
+    {
+      "year": 1996,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/ic9697_B_Dict.zip",
+      "sha256": "22895c92d99f40bdde447d2a88ffb3febb73b4a3a70aeda8e27eec794532457f",
+      "member": "ic9697_b.html"
+    },
+    {
+      "year": 1997,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/ic9798_D.zip",
+      "sha256": "46182882faacfebc8e1f3e329cc45e332f3b9544bff93d2cd510539551ad9ef9",
+      "member": "ic9798_d.csv"
+    },
+    {
+      "year": 1997,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/ic9798_D_Dict.zip",
+      "sha256": "32e7a7b5bc376e0577a1b9aae2c87ee33884a14e587feaeede036bb25d707bfb",
+      "member": "ic9798_d.html"
+    },
+    {
+      "year": 1998,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC98_D.zip",
+      "sha256": "2ce535b94e7f575cb690e7fa625f23b1edd8f5ecc169f329e837c3f1467a93bf",
+      "member": "ic98_d.csv"
+    },
+    {
+      "year": 1998,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC98_D_Dict.zip",
+      "sha256": "169337f87834cccf68c79c68de05c0240f3e7f068c051c29ee4a8a192baac332",
+      "member": "ic98_d.html"
+    },
+    {
+      "year": 1999,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IP1999AY.zip",
+      "sha256": "80bd2d58d6fb2345293c3634db493fc03c8d6a80953a0b8afecd4437292f56d1",
+      "member": "ip1999ay.csv"
+    },
+    {
+      "year": 1999,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IP1999AY_Dict.zip",
+      "sha256": "ee576429273a920a817ed77263a502c1122888d2e0604c0e76f0bbacfd0edde0",
+      "member": "ip1999ay.html"
+    }
+  ],
+  "dictionary": {
+    "1990": {
+      "TUITION1": "TUITION1-271-Tuition and fees, full-time undergraduate, in-district Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-district (local resident) Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-2 Table name-IC90D No value labels exist for this variable. Number of records in query: 10287 Min Max Mean Std Dev 0.00 28,000.00 1,606.93 ",
+      "TUITION2": "TUITION2-272-Tuition and fees, full-time undergraduate, in-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-2 Table name-IC90D No value labels exist for this variable. Number of records in query: 10287 Min Max Mean Std Dev 0.00 28,000.00 1,628.64 2,951.68 TUITIO",
+      "TUITION3": "TUITION3-273-Tuition and fees, full-time undergraduate, out-of-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, out-of-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-2 Table name-IC90D No value labels exist for this variable. Number of records in query: 10287 Min Max Mean Std Dev 0.00 28,000.00 1,971.13 3,096.1"
+    },
+    "1991": {
+      "TUITION1": "TUITION1-257-Tuition and fees, full-time undergraduate, in-district Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-district (local resident) Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-ic1991_d No value labels exist for this variable. Number of records in query: 10264 Min Max Mean Std Dev 0.00 28,000",
+      "TUITION2": "TUITION2-258-Tuition and fees, full-time undergraduate, in-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-ic1991_d No value labels exist for this variable. Number of records in query: 10264 Min Max Mean Std Dev 0.00 28,000.00 1,789.73 3,",
+      "TUITION3": "TUITION3-259-Tuition and fees, full-time undergraduate, out-of-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, out-of-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-ic1991_d No value labels exist for this variable. Number of records in query: 10264 Min Max Mean Std Dev 0.00 28,000.00 2,1"
+    },
+    "1992": {
+      "TUITION1": "TUITION1-266-Tuition and fees full-time undergraduate, in-district Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-district (local resident) Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-IC1992_B No value labels exist for this variable. Number of records in query: 10886 Min Max Mean Std Dev 0.00 25,000.",
+      "TUITION2": "TUITION2-267-Tuition and fees full-time undergraduate, in-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-state student Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-IC1992_B No value labels exist for this variable. Number of records in query: 10886 Min Max Mean Std Dev 0.00 25,000.00 1,828.85 3,3",
+      "TUITION3": "TUITION3-268-Tuition and fees full-time undergraduate, out-of-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, out-of-state student Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-IC1992_B No value labels exist for this variable. Number of records in query: 10886 Min Max Mean Std Dev 0.00 25,000.00 2,22"
+    },
+    "1993": {
+      "TUITION1": "TUITION1-272-Tuition and fees full-time undergraduate, in-district Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-district (local resident) Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-IC1993_B No value labels exist for this variable. Number of records in query: 10651 Min Max Mean Std Dev 0.00 25,000.",
+      "TUITION2": "TUITION2-273-Tuition and fees full-time undergraduate, in-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-state student Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-IC1993_B No value labels exist for this variable. Number of records in query: 10651 Min Max Mean Std Dev 0.00 25,000.00 2,052.83 3,5",
+      "TUITION3": "TUITION3-274-Tuition and fees full-time undergraduate, out-of-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, out-of-state student Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-IC1993_B No value labels exist for this variable. Number of records in query: 10651 Min Max Mean Std Dev 0.00 25,000.00 2,48"
+    },
+    "1994": {
+      "TUITION1": "TUITION1-273-Tuition and fees, full-time undergraduate, in-district Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-district (local resident) Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-IC1994_B No value labels exist for this variable. Number of records in query: 10508 Min Max Mean Std Dev 0.00 25,750",
+      "TUITION2": "TUITION2-274-Tuition and fees, full-time undergraduate, in-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-IC1994_B No value labels exist for this variable. Number of records in query: 10508 Min Max Mean Std Dev 0.00 25,750.00 2,232.60 3,",
+      "TUITION3": "TUITION3-275-Tuition and fees, full-time undergraduate, out-of-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, out-of-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC1, IC2, IC-Add Section code-13 Table name-IC1994_B No value labels exist for this variable. Number of records in query: 10508 Min Max Mean Std Dev 0.00 25,750.00 2,6"
+    },
+    "1995": {
+      "TUITION1": "TUITION1-268-Tuition and fees, full-time undergraduate, in-district Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-district (local resident) Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-13 Table name-ic9596_B No value labels exist for this variable. Number of records in query: 10216 Min Max Mean Std Dev 0.00 27,020.00 2,263",
+      "TUITION2": "TUITION2-269-Tuition and fees, full-time undergraduate, in-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-13 Table name-ic9596_B No value labels exist for this variable. Number of records in query: 10216 Min Max Mean Std Dev 0.00 27,020.00 2,296.15 3,986.67 TU",
+      "TUITION3": "TUITION3-270-Tuition and fees, full-time undergraduate, out-of-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, out-of-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-13 Table name-ic9596_B No value labels exist for this variable. Number of records in query: 10216 Min Max Mean Std Dev 0.00 27,020.00 2,795.45 4,2"
+    },
+    "1996": {
+      "TUITION1": "TUITION1-269-Tuition and fees, full-time undergraduate, in-district Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-district (local resident) Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-13 Table name-ic9697_B No value labels exist for this variable. Number of records in query: 10095 Min Max Mean Std Dev 0.00 28,240.00 2,371",
+      "TUITION2": "TUITION2-270-Tuition and fees, full-time undergraduate, in-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-13 Table name-ic9697_B No value labels exist for this variable. Number of records in query: 10095 Min Max Mean Std Dev 0.00 28,240.00 2,406.44 4,194.80 TU",
+      "TUITION3": "TUITION3-271-Tuition and fees, full-time undergraduate, out-of-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, out-of-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-13 Table name-ic9697_B No value labels exist for this variable. Number of records in query: 10095 Min Max Mean Std Dev 0.00 28,240.00 2,933.84 4,4"
+    },
+    "1997": {
+      "TUITION1": "TUITION1-268-Tuition and fees, full-time undergraduate, in-district Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-district (local resident) Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-13 Table name-ic9798_D No value labels exist for this variable. Number of records in query: 9896 Min Max Mean Std Dev 0.00 29,340.00 2,532.",
+      "TUITION2": "TUITION2-269-Tuition and fees, full-time undergraduate, in-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, in-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-13 Table name-ic9798_D No value labels exist for this variable. Number of records in query: 9896 Min Max Mean Std Dev 0.00 29,340.00 2,568.63 4,407.56 TUI",
+      "TUITION3": "TUITION3-270-Tuition and fees, full-time undergraduate, out-of-state Undergraduate tuition and required fees for full-time, full-year students Undergraduate, out-of-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms 1,2,ADD Section code-13 Table name-ic9798_D No value labels exist for this variable. Number of records in query: 9896 Min Max Mean Std Dev 0.00 29,340.00 3,142.28 4,66"
+    },
+    "1998": {
+      "TUITION1": "TUITION1-214-Tuition and fees, full-time undergraduate, in-district students - Undergraduate, in-district (local resident) Undergraduate tuition and required fees for full-time, full-year Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC, IC-Add Section code-13 Table name-IC98_D No value labels exist for this variable. Number of records in query: 9744 Min Max Mean Std Dev 0.00 30,475.00 2,6",
+      "TUITION2": "TUITION2-216-Tuition and fees, full-time undergraduate, in-state Undergraduate tuition and required fees for full-time, full-year students - Undergraduate, in-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC, IC-Add Section code-13 Table name-IC98_D No value labels exist for this variable. Number of records in query: 9744 Min Max Mean Std Dev 0.00 30,475.00 2,738.34 4,647.59 ",
+      "TUITION3": "TUITION3-218-Tuition and fees, full-time undergraduate, out-of-state Undergraduate tuition and required fees for full-time, full-year students - Undergraduate, out-of-State student Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC, IC-Add Section code-13 Table name-IC98_D No value labels exist for this variable. Number of records in query: 9744 Min Max Mean Std Dev 0.00 30,475.00 3,346.88 4"
+    },
+    "1999": {
+      "CHG2AY3": "CHG2AY3-3427-Published in-state tuition and fees 1999-2000 Academic year FT 1st-time 1st-year Deg-seek Tuition: In-state 1999-2000 Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC, IC-Add Section code-16 Table name-IP1999AY No value labels exist for this variable. Number of records in query: 4400 Min Max Mean Std Dev 0.00 31,580.00 5,651.92 5,800.63 XCHG3AY1-Imputation field for CHG3AY1-34",
+      "CHG3AY3": "CHG3AY3-3433-Published out-of-state tuition and fees 1999-2000 Academic year FT 1st-time 1st-year Deg-seek Tuition: out-of-state 1999-2000 Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC, IC-Add Section code-16 Table name-IP1999AY No value labels exist for this variable. Number of records in query: 4400 Min Max Mean Std Dev 0.00 19,988.00 2,165.45 3,388.43 XCHG4AY1-Imputation field for CH",
+      "CHG5AY3": "CHG5AY3-3445-On campus, room and board 1999-2000 Academic year FT 1st-time 1st-year Deg-seek On campus, room and board 1999-2000 Format Data type-N Field width-5 Format-cont Source Variable source-Forms IC, IC-Add Section code-16 Table name-IP1999AY No value labels exist for this variable. Number of records in query: 4400 Min Max Mean Std Dev 0.00 11,200.00 2,009.70 2,532.46 XCHG6AY1-Imputation field for CHG6AY1-3447"
+    }
+  },
+  "counts": [
+    {
+      "year": 1990,
+      "rawInstitutions": 10287,
+      "matchedWithPositiveTuition": 1261
+    },
+    {
+      "year": 1991,
+      "rawInstitutions": 10264,
+      "matchedWithPositiveTuition": 1267
+    },
+    {
+      "year": 1992,
+      "rawInstitutions": 10886,
+      "matchedWithPositiveTuition": 1273
+    },
+    {
+      "year": 1993,
+      "rawInstitutions": 10651,
+      "matchedWithPositiveTuition": 1286
+    },
+    {
+      "year": 1994,
+      "rawInstitutions": 10508,
+      "matchedWithPositiveTuition": 1290
+    },
+    {
+      "year": 1995,
+      "rawInstitutions": 10216,
+      "matchedWithPositiveTuition": 1293
+    },
+    {
+      "year": 1996,
+      "rawInstitutions": 10095,
+      "matchedWithPositiveTuition": 1287
+    },
+    {
+      "year": 1997,
+      "rawInstitutions": 9896,
+      "matchedWithPositiveTuition": 1284
+    },
+    {
+      "year": 1998,
+      "rawInstitutions": 9744,
+      "matchedWithPositiveTuition": 1300
+    },
+    {
+      "year": 1999,
+      "rawInstitutions": 4400,
+      "matchedWithPositiveTuition": 1273
+    }
+  ],
+  "bridgeAudit": [
+    {
+      "year": 1997,
+      "field": "tuition2",
+      "comparison": "IP1999AY retrospective first-time first-year attendance price",
+      "n": 1252,
+      "exactMatches": 730,
+      "p10": 0.9702508960573477,
+      "median": 1.0,
+      "p90": 1.0230576441102757
+    },
+    {
+      "year": 1997,
+      "field": "tuition3",
+      "comparison": "IP1999AY retrospective first-time first-year attendance price",
+      "n": 534,
+      "exactMatches": 312,
+      "p10": 0.944432096021338,
+      "median": 1.0,
+      "p90": 1.0160433849282566
+    },
+    {
+      "year": 1998,
+      "field": "tuition2",
+      "comparison": "IP1999AY retrospective first-time first-year attendance price",
+      "n": 1270,
+      "exactMatches": 756,
+      "p10": 0.9717031500266952,
+      "median": 1.0,
+      "p90": 1.0242424242424242
+    },
+    {
+      "year": 1998,
+      "field": "tuition3",
+      "comparison": "IP1999AY retrospective first-time first-year attendance price",
+      "n": 538,
+      "exactMatches": 308,
+      "p10": 0.9414208558371416,
+      "median": 1.0,
+      "p90": 1.0220435684647302
+    }
+  ],
+  "selectedInstitutions": 1309,
+  "selectedFile": "data/legacy-tuition-panel.csv",
+  "selectedSha256": "1691002b0c488761d25c6d7b873cc48ea5c6342ee05a1ef993aa5862385e8e74",
+  "fieldContract": {
+    "1990-1998": "TUITION2/3: full-time, full-year undergraduate tuition and required fees, in-state/out-of-state. TUITION1 is in-district and is never substituted.",
+    "1999": "IP1999AY CHG2AY3/CHG3AY3: published first-time first-year degree-seeking tuition and fees. IC99_D tuition alone excludes separately reported fees and is not used.",
+    "identity": "Exact UNITID matches to existing joint-complete surviving panels; no fuzzy identity joins or claim of unchanged sector/status.",
+    "flags": "Preserve supplied X flags; earlier absent flags are unavailable, never reported. Positive values may include imputations.",
+    "housing": "Unavailable for this bridge: typical room/board and combined-charge fields cannot be treated as unchanged first-year on-campus attendance budgets. No missing combined amounts are synthesized."
+  },
+  "status": "Research tuition bridge only; definition breakpoint and survivor selection retained. Not active in production or whole-plan calibration.",
+  "limitations": [
+    "1999 changes the student population definition; exact same-year overlap disagreements are reported, not adjusted away.",
+    "Revised archives and future-selected surviving institution IDs do not reconstruct publication vintages.",
+    "No new independent 18-year whole-plan funding outcomes; tuition-only history does not supply comparable housing or joint macro outcomes."
+  ]
+}

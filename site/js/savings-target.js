@@ -1,5 +1,5 @@
-import { targetReserve } from "./binomial-reserve.js?v=0.12.0";
-import { samplingInterval } from "./probability.js?v=0.12.0";
+import { targetReserve } from "./binomial-reserve.js?v=0.13.0";
+import { samplingInterval } from "./probability.js?v=0.13.0";
 export const VERIFICATION_TRIALS = 5000;
 const Z = 1.6448536269514722;
 export function savingsReserve(

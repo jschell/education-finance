@@ -33,3 +33,7 @@ NCES COST1_2024 and its dictionary use the newer /ipeds/complete-data-files/ dow
 ## Broad macro history (v0.9.0)
 
 The already pinned Fama/French monthly factors (1926 onward), BLS general CPI (1913 onward), and FRED GS5/TB3MS source tables support seventy complete September–August macro years, 1954–2023. No new data vendor or reconstructed pre-2000 school charges are introduced. `economy-broad.json` links original raw hashes, keeps the college history separate, and records the disjoint-window/regularization policy. Explicit older-year cost donors are model samples from the existing school-price panel, never represented as measured historical school prices.
+
+## Audited 1990s tuition extension
+
+`legacy-tuition-panel.csv` is selected public US Department of Education NCES IPEDS information retrieved from the official Data Center. `legacy-ipeds-audit.json` pins official archive/dictionary URLs and SHA-256 hashes, field definitions, coverage and known breaks. These US government data are not user/family records. No NCES endorsement is implied. Positive values may be imputed; supplied flags are retained, and absent early flags remain unavailable. Exact UNITID matching does not prove sector/status continuity or eliminate survivorship. The research bridge is inactive in forecasts; older housing and publication vintages remain unavailable. Run `scripts/prepare_legacy_ipeds.py --fetch` to reproduce extraction and its boundary audit.

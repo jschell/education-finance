@@ -1,9 +1,9 @@
-import { samplingRangeText, targetStatus } from "./probability.js?v=0.12.0";
-import { resolveScenario } from "./domain.js?v=0.12.0";
-import { attendanceCalendar } from "./planning.js?v=0.12.0";
-import { gaugeColor } from "./gauge-colors.js?v=0.12.0";
-import { PROFILES } from "./history-config.js?v=0.12.0";
-import { annualRows, compile, runPath } from "./engine.js?v=0.12.0";
+import { samplingRangeText, targetStatus } from "./probability.js?v=0.13.0";
+import { resolveScenario } from "./domain.js?v=0.13.0";
+import { attendanceCalendar } from "./planning.js?v=0.13.0";
+import { gaugeColor } from "./gauge-colors.js?v=0.13.0";
+import { PROFILES } from "./history-config.js?v=0.13.0";
+import { annualRows, compile, runPath } from "./engine.js?v=0.13.0";
 export const money = (x) =>
   x === null
     ? "—"
@@ -14,6 +14,7 @@ export const money = (x) =>
           maximumFractionDigits: 0,
         }).format(x)
       : "Not attainable";
+const depositMoney = x => new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2}).format(x);
 const pct = (x) =>
   `${(x * 100).toLocaleString("en-US", { maximumFractionDigits: 1 })}%`;
 export function el(tag, text = "", className = "") {
@@ -352,7 +353,7 @@ export function familyCalendarView(plan) {
   wrapper.append(
     el(
       "p",
-      "Assumes nine academic months per school year from each student’s enrollment month. Counts show attendance months within each calendar year; peak overlap counts students in the same month. Summer living costs can continue separately. Joint household funding results appear in the assessment when multiple students are present.",
+      "Assumes nine academic months per school year from each student’s enrollment month. Counts show attendance months within each calendar year; peak overlap counts students in the same month. Summer living costs can continue separately. Household funding results appear in the assessment when multiple students or a deposit limit are present.",
       "hint",
     ),
   );
@@ -652,7 +653,7 @@ export function simulationView(sim, sensitivity = null, cases = null) {
       "p",
       sim.calibrationCase && sim.costMode !== "fixed"
         ? sim.costModel === "fixed"
-          ? `Validation-selected cost model: 4% tuition and 3% on-campus housing nominal trends, with paired historical annual deviations.${sim.costCorrectionActive ? (sim.robustHistory ? " An origin-fitted cost-error correction, shrunk by unique target-year count and selected across multiple periods, is also applied." : " A persistent tuition/housing forecast-error correction, fitted through 2016 and gated on 2024–25, is also applied.") : ""} Economic cases shift those trends using observed five-year growth variation. CPI applies to other expenses and off-campus/at-home housing. The entered fixed-growth fields are not used in variable-cost mode.`
+          ? `Current cost baseline: 4% tuition and 3% on-campus housing nominal trends, with paired historical annual deviations.${sim.costCorrectionActive ? (sim.robustHistory ? " An origin-fitted cost-error correction, shrunk by unique target-year count and selected across multiple periods, is also applied." : " A persistent tuition/housing forecast-error correction, fitted through 2016 and gated on 2024–25, is also applied.") : ""} Economic cases shift those trends using observed five-year growth variation. CPI applies to other expenses and off-campus/at-home housing. The entered fixed-growth fields are not used in variable-cost mode.`
           : "Published sector tuition and on-campus room/board are modeled relative to inflation. Other expenses and off-campus/at-home housing use CPI. Joint annual blocks retain observed market/cost associations; the sector cost trend also varies between paths. Grants remain separate."
         : sim.costMode === "fixed"
           ? `Fixed expense growth: tuition ${pct(sim.tuitionTrend)} per year; living costs use the entered fixed rate. Historical investment returns still vary.`
@@ -672,11 +673,16 @@ export function simulationView(sim, sensitivity = null, cases = null) {
   if (sim.affordableBudget) {
     const b=sim.affordableBudget;
     s.append(stats([
-      ["Affordable annual budget · adverse path",Number.isFinite(b.scale.p10)?money(Math.floor(b.annual*b.scale.p10)):"No finite bound", "10th percentile capacity"],
-      ["Affordable annual budget · median path",Number.isFinite(b.scale.p50)?money(Math.floor(b.annual*b.scale.p50)):"No finite bound"],
-      ["Affordable annual budget · favorable path",Number.isFinite(b.scale.p90)?money(Math.floor(b.annual*b.scale.p90)):"No finite bound", "90th percentile capacity"],
+      ["Affordable annual budget · adverse path",Number.isFinite(b.scale.p10)?money(Math.floor(b.annual*b.scale.p10)):"Beyond search range", "10th percentile capacity"],
+      ["Affordable annual budget · median path",Number.isFinite(b.scale.p50)?money(Math.floor(b.annual*b.scale.p50)):"Beyond search range"],
+      ["Affordable annual budget · favorable path",Number.isFinite(b.scale.p90)?money(Math.floor(b.annual*b.scale.p90)):"Beyond search range", "90th percentile capacity"],
     ]));
     s.append(el("p","Budget screen at current deposits: scales the entered annual categories together, keeps aid, income and dates fixed, and prices each path. Dollars use the entered budget’s baseline date. These are sampled capacity ranges; no target confidence or independent savings confirmation is attached.","hint"));
+  }
+  if(sim.stressChecks?.length){
+    const d=el("details");d.append(el("summary","Planning stresses · same sampled paths"));
+    d.append(table("Each alternative changes one assumption",["Case","Covered bills funded","Change from baseline","Median unpaid bills"],[["Current plan",pct(sim.probability),"—",money(sim.gap.p50)],...sim.stressChecks.map(r=>[r.label,pct(r.probability),((r.probability-sim.probability)*100).toFixed(1)+" percentage points",money(r.gap.p50)])]));
+    d.append(el("p","Housing raises the housing/food category by 20%. Grant loss removes remaining general and school grants while retaining income support. The market case applies one 25% loss in the month before entry (at valuation if entry has passed); an already enabled loss is not applied twice. Each uses the same economic paths, deposits and dates. These alternatives have no assigned probabilities and are not combined with the main estimate.","hint"));s.append(d);
   }
   s.append(representativePathsView(sim));
   s.append(distributionView(sim));
@@ -1174,9 +1180,9 @@ export function householdView(h) {
     wrap.append(el("h3","Required household deposits"));
     if(p.base===null)wrap.append(el("p",p.reason,"hint"));
     else{
-      wrap.append(stats([["Base monthly deposits",money(p.base)],["Peak dated monthly deposits",money(p.peak)],["Within household cap",p.capFeasible?"Yes":"No"]]));
-      wrap.append(table("Proposed base allocation",["Student","Monthly deposit"],p.contributions.map(c=>[c.alias,money(c.monthly)])));
-      wrap.append(el("p",`${p.policy}. ${p.confirmation.meets?"Independent sampling check met the requested target.":"Independent sampling check did not confirm the requested target."} ${p.firstExcess?`First cap conflict: ${p.firstExcess.date}, requiring ${money(p.firstExcess.amount)} against ${money(h.monthlyLimit)} available. This proposal is not household-feasible; edit budgets, dates or funding.`:"The proposed schedule fits the entered cap."} The current funding gauge still uses entered, capped deposits. This proposal does not move money between students or change saved amounts.`,"hint"));
+      wrap.append(stats([["Base monthly deposits",depositMoney(p.base)],["Peak dated monthly deposits",depositMoney(p.peak)],["Within household cap",p.capFeasible?"Yes":"No"]]));
+      wrap.append(table("Proposed base allocation",["Student","Monthly deposit"],p.contributions.map(c=>[c.alias,depositMoney(c.monthly)])));
+      wrap.append(el("p",`${p.policy}; each student’s base deposit is rounded up to cents before verification. ${p.confirmation.meets?"Independent sampling check met the requested target.":"Independent sampling check did not confirm the requested target."} ${p.firstExcess?`First cap conflict: ${p.firstExcess.date}, requiring ${depositMoney(p.firstExcess.amount)} against ${depositMoney(h.monthlyLimit)} available. This proposal is not household-feasible; edit budgets, dates or funding.`:"The proposed schedule fits the entered cap."} The current funding gauge still uses entered, capped deposits. This proposal does not move money between students or change saved amounts.`,"hint"));
     }
   }
   const annual = el("details");
@@ -1266,9 +1272,26 @@ export function calibrationContextView(result) {
     ),
   );
   if (c.validation.foundation) wrap.append(el("p",
-    "Current process checks: conditional equity anchors and August-to-August cost timing. Forecast coverage remains unestablished. Historical tables below are archived model-9 evidence; their probabilities do not validate this revised model.", "hint"));
+    "Current process checks cover arithmetic equity anchors under the conditional sampler and August-to-August cost timing. The 4% tuition / 3% on-campus housing nominal baseline is retained; old cost-error corrections are disabled. Forecast coverage remains unestablished. Archived tables describe model 9 and do not validate this revised model.", "hint"));
+  if(c.validation.hierarchy){
+    const r=c.validation.hierarchy,d=el("details");
+    d.append(el("summary","Current cost-model evaluation & school variation"));
+    d.append(el("p",`The coherent school-cost candidate was not promoted. Gate: ${r.gate.status}. Supported horizon checks and missing support are shown separately; the corrected foundation remains active. These are retrospective comparisons, not calibrated probability guarantees.`,"hint"));
+    d.append(table("Corrected foundation vs coherent candidate · lower scores are better",["Model","Wait (years)","Distinct origins","80% cost-band coverage","Interval score"],r.summaries.flatMap(s=>s.byWait.map(w=>[s.model==="production"?"Corrected foundation":"Coherent candidate",w.wait,w.origins,pct(w.covered),w.score.toFixed(3)]))));
+    d.append(table("Eligible-horizon release checks",["Wait (years)","Eligible origins","Result"],r.gate.comparisons.map(w=>[w.wait,w.origins.length,w.status])));
+    d.append(table("School tuition growth · 2013–2023 · surviving joint-complete schools",["Sector","Schools","P10 annual growth","Median","P90"],r.growth.map(g=>[g.sector,g.institutions,pct(g.tuitionCagr.p10),pct(g.tuitionCagr.p50),pct(g.tuitionCagr.p90)])));
+    d.append(el("p",`${r.legacyAudit.selectedInstitutions.toLocaleString()} institution identities were audited in the 1990s tuition bridge. A student-population definition change and missing comparable housing prevent silently extending whole-plan evidence. The bridge is research data and is not used in this forecast. School growth ranges describe observed variation, not predictive quantiles.`,"hint"));
+    wrap.append(d);
+  }
   if (c.validation.funding) wrap.append(wholePlanValidationView(c.validation));
-  if (c.economicState) wrap.append(economicProcessView(c));
+  if (c.economicState) {
+    if(c.validation.foundation){
+      const archived=el("details");
+      archived.append(el("summary","Archived component checks · model 9"));
+      archived.append(el("p","These tables describe the preceding release, including corrections and gates that do not apply to the current foundation. Current equity centering and cost timing differ; old residual corrections are disabled.","hint"));
+      archived.append(economicProcessView(c));wrap.append(archived);
+    }else wrap.append(economicProcessView(c));
+  }
   const comparison = c.validation.comparison;
   if (comparison) {
     if (c.economicState) {
@@ -1569,10 +1592,10 @@ export function economicProcessView(c) {
 export function broadHistoryView(c) {
   const r = c.validation.robustness,
     wrap = el("div", "", "cost-model-comparison");
-  wrap.append(el("h3", "Historical coverage & model selection"));
+  wrap.append(el("h3", "Archived historical coverage & model selection"));
   wrap.append(
     table(
-      "Separate histories · current model",
+      "Separate histories · archived model 9",
       ["Component", "Years", "Use"],
       [
         [
@@ -1596,7 +1619,7 @@ export function broadHistoryView(c) {
   wrap.append(
     el(
       "p",
-      `Default macro policy: ${r.marketPolicy}. Persistence estimates are shrunk toward fixed priors. Cost policy: ${r.costPolicy}. Every historical correction is fitted using error targets through its forecast origin, then shrunk toward zero by the number of unique target years. The former 2014-origin/2016-error look-ahead is removed.`,
+      `At the archived release, the macro policy was ${r.marketPolicy} and cost policy was ${r.costPolicy}. Persistence was regularized and historical corrections were fitted through each origin. Those cost corrections are disabled in the current foundation because the source-year timing changed. These archived scores do not validate the current sampler or correction policy.`,
       "hint",
     ),
   );

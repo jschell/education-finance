@@ -31,3 +31,24 @@ test('household proposals enforce every earmarked requirement and dated step-ups
  b.monthly=0;assert.equal(householdRequirement([a,b],[200,1]),Infinity);
  a.monthly=0;assert.equal(householdRequirement([a,b],[200,300]),600);
 });
+import {stressCompiled}from '../site/js/planning-stress.js';
+test('planning stresses preserve baseline costs and returns while applying exactly the named change',()=>{
+ const c=fixture(),before=JSON.stringify(c),base=runPath(c,()=>1);
+ const noAid=runPath(stressCompiled(c,'aid'),()=>1);
+ assert.equal(noAid.total,base.total);assert.ok(noAid.grants<base.grants);
+ const housing=runPath(stressCompiled(c,'housing'),()=>1);
+ assert.ok(housing.total>base.total);assert.equal(housing.tuitionTotal,base.tuitionTotal);
+ const crash=stressCompiled(c,'market');assert.deepEqual(crash.rows,c.rows);
+ assert.deepEqual(stressCompiled(crash,'market'),crash);assert.equal(JSON.stringify(c),before);
+ const zero=stressCompiled(c,"aid");
+ assert.deepEqual(stressCompiled(zero,'aid').rows,zero.rows);
+});
+import {createHash}from 'node:crypto';
+import {canonical}from '../site/js/calibration.js';
+test('planning stability report retains independent checks and source provenance',()=>{
+ const r=JSON.parse(readFileSync('site/data/planning-validation.json')),{sha256,...body}=r;
+ assert.equal(createHash('sha256').update(canonical(body)).digest('hex'),sha256);
+ assert.equal(r.results.length,12);assert.ok(r.confirmed>=10);
+ assert.ok(r.results.every(x=>x.confirmation.trials===5000&&x.confirmation.lowerBound>=.9===x.confirmation.meets));
+ for(const [p,h]of Object.entries(r.sourceHashes))assert.equal(createHash('sha256').update(readFileSync(p)).digest('hex'),h);
+});

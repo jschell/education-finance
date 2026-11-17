@@ -1,26 +1,27 @@
-import { budgetCapacity } from "./planning-decisions.js?v=0.12.0";
+import { PLANNING_STRESSES, stressCompiled } from "./planning-stress.js?v=0.13.0";
+import { budgetCapacity } from "./planning-decisions.js?v=0.13.0";
 import {
   VERIFICATION_TRIALS,
   savingsFitProbability,
   savingsConfirmation,
-} from "./savings-target.js?v=0.12.0";
-import { allocationAt } from "./planning.js?v=0.12.0";
-import { outcomeDistribution } from "./distribution.js?v=0.12.0";
-import { MODEL, clone, resolveScenario } from "./domain.js?v=0.12.0";
+} from "./savings-target.js?v=0.13.0";
+import { allocationAt } from "./planning.js?v=0.13.0";
+import { outcomeDistribution } from "./distribution.js?v=0.13.0";
+import { MODEL, clone, resolveScenario } from "./domain.js?v=0.13.0";
 import {
   compile,
   runPath,
   repriceRow,
   requiredContribution,
   annualRows,
-} from "./engine.js?v=0.12.0";
-import { random, quantile } from "./random.js?v=0.12.0";
+} from "./engine.js?v=0.13.0";
+import { random, quantile } from "./random.js?v=0.13.0";
 import {
   DATASET_ID,
   HISTORY_PRNG,
   PROFILES,
   periodLabel,
-} from "./history-config.js?v=0.12.0";
+} from "./history-config.js?v=0.13.0";
 const sort = (x) => x.sort((a, b) => a - b);
 const percentiles = (x) => {
   sort(x);
@@ -377,6 +378,14 @@ export function simulateHistorical(
       };
     }
   }
+  const stressChecks = solve ? PLANNING_STRESSES.map(([id,label])=>{
+    let passed=0;const gaps=[];
+    for(let t=0;t<trials;t++){
+      const path=make(t),r=runPath(stressCompiled(path.compiled,id),i=>path.gross[i],c.monthly,false);
+      passed+=Number(r.success);gaps.push(r.shortfall);
+    }
+    return {id,label,probability:passed/trials,gap:percentiles(gaps)};
+  }) : [];
   ranked.sort((a, b) => a.score - b.score || a.trial - b.trial);
   const representativePaths = [
     ["Adverse", 0.1],
@@ -395,6 +404,7 @@ export function simulateHistorical(
     };
   });
   return {
+    stressChecks,
     affordableBudget: solve && c.annualBudget > 0
       ? { annual:c.annualBudget,scale:percentiles(affordable),trials:affordable.length,
           basis:"Entered annual budget, same category proportions and schedules; fixed aid and income; current deposits; screening estimate without independent target verification" }

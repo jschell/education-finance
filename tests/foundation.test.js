@@ -47,3 +47,13 @@ test('old release gate is oracle-infeasible; missing horizons cannot be mistaken
  assert.equal(gate.status,'insufficient-evidence');assert.equal(gate.promoted,false);
  assert.deepEqual(gate.comparisons.filter(r=>r.status==='insufficient-evidence').map(r=>r.wait),[4,8]);
 });
+import {createHash}from 'node:crypto';
+import {canonical}from '../site/js/calibration.js';
+test('current process report links its actual source hashes and moment matrix to the active bundle',()=>{
+ const r=read('site/data/foundation-validation.json'),{sha256,...body}=r;
+ assert.equal(createHash('sha256').update(canonical(body)).digest('hex'),sha256);
+ assert.equal(r.bundleHash,b.sha256);assert.equal(r.moments.length,36);
+ for(const [p,h]of Object.entries(r.sourceHashes))assert.equal(createHash('sha256').update(readFileSync(p)).digest('hex'),h);
+ assert.ok(r.moments.every(m=>m.withinTolerance));
+ assert.equal(r.liveFactoryEquity.paths,20000);assert.equal(r.liveFactoryEquity.passed,true);
+});
