@@ -1,25 +1,26 @@
+import { budgetCapacity } from "./planning-decisions.js?v=0.12.0";
 import {
   VERIFICATION_TRIALS,
   savingsFitProbability,
   savingsConfirmation,
-} from "./savings-target.js?v=0.11.0";
-import { allocationAt } from "./planning.js?v=0.11.0";
-import { outcomeDistribution } from "./distribution.js?v=0.11.0";
-import { MODEL, clone, resolveScenario } from "./domain.js?v=0.11.0";
+} from "./savings-target.js?v=0.12.0";
+import { allocationAt } from "./planning.js?v=0.12.0";
+import { outcomeDistribution } from "./distribution.js?v=0.12.0";
+import { MODEL, clone, resolveScenario } from "./domain.js?v=0.12.0";
 import {
   compile,
   runPath,
   repriceRow,
   requiredContribution,
   annualRows,
-} from "./engine.js?v=0.11.0";
-import { random, quantile } from "./random.js?v=0.11.0";
+} from "./engine.js?v=0.12.0";
+import { random, quantile } from "./random.js?v=0.12.0";
 import {
   DATASET_ID,
   HISTORY_PRNG,
   PROFILES,
   periodLabel,
-} from "./history-config.js?v=0.11.0";
+} from "./history-config.js?v=0.12.0";
 const sort = (x) => x.sort((a, b) => a - b);
 const percentiles = (x) => {
   sort(x);
@@ -267,6 +268,7 @@ export function simulateHistorical(
     throw Error("Invalid assessment settings.");
   const rows = observations(data, c.history.period),
     requirements = [],
+    affordable = [],
     gaps = [],
     realGaps = [],
     costs = [],
@@ -316,6 +318,7 @@ export function simulateHistorical(
     ending.push(r.ending);
     if (r.enrollmentBalance !== null) enrollment.push(r.enrollmentBalance);
     dates.forEach((i, j) => samples[j].push(r.balances[i]));
+    if (solve && t < 512) affordable.push(budgetCapacity(path.compiled,(i)=>path.gross[i]));
     if (solve)
       requirements.push(
         requiredContribution(path.compiled, (i) => path.gross[i]),
@@ -392,6 +395,10 @@ export function simulateHistorical(
     };
   });
   return {
+    affordableBudget: solve && c.annualBudget > 0
+      ? { annual:c.annualBudget,scale:percentiles(affordable),trials:affordable.length,
+          basis:"Entered annual budget, same category proportions and schedules; fixed aid and income; current deposits; screening estimate without independent target verification" }
+      : null,
     representativePaths,
     tuitionBasis: c.history.tuitionBasis,
     tuitionTrend: c.a.tuitionGrowth,

@@ -1,10 +1,10 @@
-import { termOffsets, allocationAt } from "./planning.js?v=0.11.0";
+import { termOffsets, allocationAt } from "./planning.js?v=0.12.0";
 import {
   month,
   monthText,
   categories,
   resolveScenario,
-} from "./domain.js?v=0.11.0";
+} from "./domain.js?v=0.12.0";
 export const portion = (annual, index, count) => {
   const units = Math.round((annual + Number.EPSILON) * 100),
     base = Math.floor(units / count);
@@ -116,6 +116,7 @@ export function compile(plan, student, scenario, mode = "all") {
   }
   return {
     rows,
+    annualBudget: Object.values(scenario.costs).reduce((a,b)=>a+b,0),
     opening: scenario.balance + student.sharedAllocation,
     monthly: scenario.monthly,
     a,
@@ -173,6 +174,7 @@ export function runPath(
     withdrawals = 0,
     tuitionTotal = 0,
     realTotal = 0;
+  let firstUnpaid = null;
   let firstShortfall = null,
     enrollmentBalance = null;
   const ledger = [];
@@ -200,7 +202,10 @@ export function runPath(
     income += r.income;
     deposits += contribution;
     withdrawals += draw;
-    if (unpaid > 1e-7 && !firstShortfall) firstShortfall = r.date;
+    if (unpaid > 1e-7 && !firstShortfall) {
+      firstShortfall = r.date;
+      firstUnpaid = {date:r.date,amount:unpaid,coveredBill:r.need,paid:draw};
+    }
     if (detail) balances.push(balance);
     if (detail === true)
       ledger.push({
@@ -230,6 +235,7 @@ export function runPath(
     ending: balance,
     enrollmentBalance,
     firstShortfall,
+    firstUnpaid,
     ledger,
     balances,
   };

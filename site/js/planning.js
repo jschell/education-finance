@@ -1,4 +1,4 @@
-import { month } from "./domain.js?v=0.11.0";
+import { month } from "./domain.js?v=0.12.0";
 export const termOffsets = (calendar) =>
   calendar === "quarter" ? [0, 3, 6] : [0, 5];
 export function allocationAt(date, allocations) {

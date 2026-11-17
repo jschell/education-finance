@@ -19,6 +19,10 @@ jobs:
           node scripts/build_foundation.mjs
           node scripts/validate-foundation.mjs
           git diff --exit-code -- site/data/calibration-foundation.json site/data/foundation-validation.json
+      - name: Reproduce practical planning evidence
+        run: |
+          node scripts/validate-planning.mjs
+          git diff --exit-code -- site/data/planning-validation.json
       - name: Install isolated browser QA
         run: |
           npm install --prefix /tmp/education-finance-qa playwright

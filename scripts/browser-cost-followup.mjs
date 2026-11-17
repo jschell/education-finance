@@ -3,7 +3,7 @@ import { createRequire } from "node:module";
 import { mkdirSync, writeFileSync } from "node:fs";
 const require = createRequire(process.env.QA_PACKAGE_JSON || "/tmp/education-finance-qa/package.json");
 const { chromium } = require("playwright");
-const browser = await chromium.launch({headless:true});
+const browser = await chromium.launch({headless:true, ...(process.env.QA_BROWSER ? {executablePath:process.env.QA_BROWSER} : {})});
 const context = await browser.newContext();
 const page = await context.newPage(), failures = [];
 page.on("pageerror", (e) => failures.push(e.message));
@@ -15,10 +15,14 @@ try {
   await page.locator('[data-cost="tuition"]').fill("12000");
   await page.locator('[data-cost="housing"]').fill("13000");
   await page.locator("#example").click();
+  await page.locator(".family-overview > summary").click();
+  await page.locator("#household-limit").fill("500");
   await page.locator("#calculate").click();
   await page.waitForFunction(() => !document.querySelector("#results-content").hidden &&
     document.querySelector("#results-content").textContent.length > 200, null, {timeout:180000});
   await page.waitForFunction(() => document.querySelector("#run-status").hidden, null, {timeout:180000});
+  assert.ok(await page.locator("#results-content").getByText("Affordable annual budget · median path",{exact:true}).count());
+  assert.ok(await page.locator("#results-content").getByText("Required household deposits",{exact:true}).count());
   const summary = page.locator("#forecast-evidence > summary");
   await summary.focus(); await page.keyboard.press("Space");
   assert.equal(await page.locator("#forecast-evidence").evaluate((el) => el.open), true);
@@ -38,7 +42,7 @@ try {
   await page.reload();
   await page.waitForFunction(() => document.querySelector('[data-funding="balance"]').value === "54321");
   assert.deepEqual(failures, []);
-  const result = {url, checks, keyboardDisclosure:true, workerAssessment:true,
+  const result = {url, checks, keyboardDisclosure:true, workerAssessment:true, affordableBudget:true, householdProposal:true,
     exampleRestoredFunding:true, reloadPreservedFunding:true, browser:"Chromium",
     physicalSafariVerified:false};
   writeFileSync("tests/evidence/followup/browser.json",JSON.stringify(result,null,2)+"\n");

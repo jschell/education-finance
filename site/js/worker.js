@@ -2,10 +2,10 @@ import {
   assessCalibrated,
   verifyCalibration,
   snapshotHash,
-} from "./calibration.js?v=0.11.0";
-import { assessHousehold } from "./household.js?v=0.11.0";
-import { validatePlan } from "./domain.js?v=0.11.0";
-import { assessHistorical, verifyHistory } from "./history.js?v=0.11.0";
+} from "./calibration.js?v=0.12.0";
+import { assessHousehold } from "./household.js?v=0.12.0";
+import { validatePlan } from "./domain.js?v=0.12.0";
+import { assessHistorical, verifyHistory } from "./history.js?v=0.12.0";
 let dataPromise, calibrationPromise;
 async function calibrationData(history) {
   return (calibrationPromise ??= Promise.all(
@@ -143,7 +143,7 @@ self.onmessage = async ({ data: input }) => {
       if (!scenario) throw Error("Scenario not found.");
       result = assess(plan, st, scenario, dataset, settings, progress);
     }
-    if (plan.students.length > 1) {
+    if (plan.students.length > 1 || plan.family.monthlyLimit !== null) {
       const chosen = st.scenarios.find((s) => s.id === scenarioId);
       let household = assessHousehold(
         plan,
