@@ -71,7 +71,7 @@ test("missing realized CPI is rejected rather than silently using a future or co
     [{year:2011,tuition:10000,housing:9000}],new Map(),2011), /preceding-month CPI/);
 });
 
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { canonical } from "../site/js/calibration.js";
 test("follow-up report hashes, complete bill scores and chronology match committed evidence", () => {
@@ -81,7 +81,7 @@ test("follow-up report hashes, complete bill scores and chronology match committ
   const hash = (s) => createHash("sha256").update(s).digest("hex");
   assert.equal(hash(canonical(body)), sha256);
   assert.equal(hash(read("docs/cost-followup-protocol.md")), report.protocolHash);
-  for (const [p, h] of Object.entries(report.sourceHashes)) assert.equal(hash(read(p)), h);
+  for (const [p, h] of Object.entries(report.sourceHashes)) assert.equal(hash(existsSync("docs/archive/model9-source/"+p) ? readFileSync("docs/archive/model9-source/"+p) : read(p)), h);
   assert.equal(report.cost.folds.length, 90);
   assert.equal(report.funding.cases.length, 1350);
   assert.equal(report.audit.bills, 3240);

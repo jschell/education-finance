@@ -5,7 +5,7 @@ import { chooseNested, promotionGate, residualBundle } from "../scripts/full-cal
 import { newPlan } from "../site/js/domain.js";
 import { compileCalibrated, calibrationFactory } from "../site/js/calibration.js";
 import { runPath } from "../site/js/engine.js";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 function errors(model="fixed",sector="public4") {
   return Array.from({length:8},(_,i)=>({model,sector,horizon:2,origin:2000+i,target:2002+i,
     tuition:i===7?0.5:-0.02*i,housing:i===7?0.3:-0.01*i}));
@@ -104,7 +104,7 @@ test("committed full report verifies inputs, origin cutoffs, proper scores and t
   const hash=(x)=>createHash("sha256").update(x).digest("hex");
   const report=JSON.parse(read("site/data/full-calibration.json")),{sha256,...body}=report;
   assert.equal(hash(canonical(body)),sha256);
-  for(const [path,expected] of Object.entries(report.inputHashes)) assert.equal(hash(read(path)),expected,path);
+  for(const [path,expected] of Object.entries(report.inputHashes)) assert.equal(hash(existsSync("docs/archive/model9-source/"+path) ? readFileSync("docs/archive/model9-source/"+path) : read(path)),expected,path);
   assert.equal(report.inner.length,500);assert.equal(report.outer.length,90);
   assert.equal(report.fundingCases.length,2700);
   assert.ok(report.inner.every((r)=>r.macroLast<r.origin&&r.costLast<=r.origin&&r.target-r.origin===r.horizon));

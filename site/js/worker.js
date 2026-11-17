@@ -2,15 +2,16 @@ import {
   assessCalibrated,
   verifyCalibration,
   snapshotHash,
-} from "./calibration.js?v=0.10.2";
-import { assessHousehold } from "./household.js?v=0.10.2";
-import { validatePlan } from "./domain.js?v=0.10.2";
-import { assessHistorical, verifyHistory } from "./history.js?v=0.10.2";
+} from "./calibration.js?v=0.11.0";
+import { assessHousehold } from "./household.js?v=0.11.0";
+import { validatePlan } from "./domain.js?v=0.11.0";
+import { assessHistorical, verifyHistory } from "./history.js?v=0.11.0";
 let dataPromise, calibrationPromise;
 async function calibrationData(history) {
   return (calibrationPromise ??= Promise.all(
     [
-      "calibration-reviewed.json",
+      "calibration-foundation.json",
+      "foundation-validation.json",
       "calibration-validation.json",
       "cost-model-comparison.json",
       "economy-validation.json",
@@ -27,6 +28,7 @@ async function calibrationData(history) {
   ).then(
     async ([
       bundle,
+      foundation,
       validation,
       comparison,
       processValidation,
@@ -36,6 +38,10 @@ async function calibrationData(history) {
       funding,
     ]) => {
       await verifyCalibration(bundle, history);
+      const {sha256: foundationHash, ...foundationBody} = foundation;
+      if (foundation.bundleHash !== bundle.sha256 ||
+          await snapshotHash(foundationBody) !== foundationHash)
+        throw Error("Foundation validation identity mismatch.");
       if (
         comparison.panelHash !== bundle.panel.hash ||
         comparison.liveModel !== bundle.costModel
@@ -70,6 +76,7 @@ async function calibrationData(history) {
         bundle,
         validation: {
           ...validation,
+          foundation,
           comparison,
           processValidation,
           correction,

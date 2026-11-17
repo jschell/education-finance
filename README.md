@@ -1,6 +1,6 @@
 # Education Finance
 
-A static, browser-local college funding planner. **App v0.10.2 · model college-funding-9.0.0 · schema 5 · MIT license.**
+A static, browser-local college funding planner. **App v0.11.0 · model college-funding-10.0.0 · schema 5 · MIT license.**
 
 [Open the planner](https://jschell.github.io/education-finance/)
 
@@ -12,63 +12,24 @@ A static, browser-local college funding planner. **App v0.10.2 · model college-
 4. Multiple students share economic paths. Household success requires all selected goals to be funded; earmarked money is not automatically transferred between students. A household deposit limit can constrain planned contributions.
 5. Edits save in the current browser. Export a backup for another device; no cloud sync or telemetry exists. Example data does not replace saved plans. Schema-5 plans receive a metadata-only model upgrade. Incompatible schemas 1–4 and old backup formats remain unsupported.
 
-## Current model and evidence
+## Staged overhaul in progress
 
-- Investments, rates and inflation use 70 complete joint years (1954–2023), regularized persistence and seven disjoint decade windows. Five-year Treasury bonds are repriced monthly; cash uses three-month bill discount-price accrual. Forward anchors are documented survey assumptions.
-- College prices use separate fixed-institution IPEDS panels (2000–2023), with in-state/out-of-state and on-campus housing series. Older macro years use inflation-conditioned cost donors. These are indexed published prices, not net family costs or measured pre-2000 school prices.
-- Rolling cost corrections stop at each forecast origin and shrink by unique target-year count. A further uncertainty candidate was evaluated in v0.10: coverage improved but the interval score worsened beyond the declared limit. It was rejected; the v0.9 cost process remains the default.
-- The production path factory and bill ledger now undergo whole-plan historical checks with 0/4/8-year waits, four attendance years, five cost sectors and three funding levels. Results include reliability bands, Brier scores, cost coverage and distinct start-year counts. They expose poor cost-band coverage for longer waits. There are no eligible complete 18-year-wait checks.
-- Monthly contribution estimates include a declared sampling reserve, then a separate 5,000-path check. Confirmation requires its one-sided 95% Wilson lower sampling bound to meet the requested target. This controls simulation noise; it does not establish future economic accuracy.
+The foundation release corrects conditional equity anchor enforcement and September–August market/cost pairing. The active snapshot is `site/data/calibration-foundation.json`; `foundation-validation.json` checks its process contracts. The old selection gate is explicitly oracle-infeasible, with unsupported horizons marked insufficient evidence. No new cost candidate has been promoted. Forecast probability coverage remains unresolved.
 
-The component comparisons and whole-plan checks are retrospective. Overlapping starts, related sectors, selected surviving schools, reconstructed instruments, training-mean historical anchors and long-horizon extrapolation limit their interpretation. **Passing software checks does not establish calibrated future funding probabilities.** Actual-price uncertainty remains an open model issue, with failure results visible in the app.
+[Authorized scope and stages](docs/overhaul-plan.md) · [Current methodology](docs/model.md) · [Prior model and evidence](docs/archive/model9.md)
 
-[Current model](docs/model.md) · [Fix plan](docs/critique-fix-plan.md) · [Completion status](docs/critique-fix-status.md) · [Fresh review](docs/critique-review-v0.10.0.md)
-
-## Completed cost follow-up
-
-v0.10.1 reconstructs the prior session's uncommitted evaluation from a separately frozen protocol. The complete-bill comparison retains the existing financial model: the benchmark score is 0.284 versus 1.042/1.143/1.072 for the three trend alternatives. A 3,240-invoice audit found at most $0.02 per invoice and $0.10 over a complete bill window from cent allocation; realized CPI is rebased to the preceding August.
-
-The denser funding evaluation includes 1,350 synthetic cases across five funding levels and three profiles. Chronological selection uses only completed earlier bill outcomes. Older public aggregate cost tests cover seven overlapping origins and one nonoverlapping complete window: all 14 benchmark bills after an 18-year wait exceed the upper cost band. That aggregate test is distinct from a fixed-school or whole-plan funding test. Forecast coverage remains unresolved; the financial model and schema are unchanged.
-
-[Follow-up protocol](docs/cost-followup-protocol.md) · [Results](docs/cost-followup-results.md) · [Completion review](docs/completion-review.md)
-
-## Full-model calibration in v0.10.2
-
-Each candidate now fits its own earlier production-factory price errors. Separate bias and asymmetric paired residual curves change simulated costs before bills are repriced. A nested chronological policy selects models using only earlier completed bill outcomes.
-
-The recalibrated fixed-trend candidate improves its direct bill score from 0.284 to 0.276 (about 3.1%). The chronological selection policy improves only about 0.15%, below the frozen 5% promotion requirement. The production financial model and existing calibration bundle are retained. The new fitter/path capability is inactive in the shipped bundle.
-
-Common-period source checks, explicit 80–95% funding reliability bins and matched-school 2024 endpoint prices are now published. The 2024 extension is price-only and adds one target-year shock; it is not a new whole-plan outcome or pre-2000 fixed-school history. An immutable synthetic forecast snapshot begins a prospective record without claiming present calibration.
-
-[Full protocol](docs/full-calibration-protocol.md) · [Full results](docs/full-calibration-results.md) · [Fresh review](docs/full-calibration-review.md) · [Prospective record](data/forecast-snapshots/README.md)
+All prior reports remain archived model-9 evidence. Reproduce them at commit `d0d536ca74103ef29853db1db340f47db5e182a9` or run the manual archived evidence workflows. Archived source copies retain their report-input identities; they are not current implementation checks.
 
 ## Develop and reproduce
 
-No framework, installation or build step is required for the static app. Use a local HTTP server rooted at `site/`. Node 24+ runs checks:
+Use Node 24+ and a local HTTP server rooted at `site/`. The app needs no installation or build step.
 
 ```sh
 npm run check
+node scripts/build_foundation.mjs
+node scripts/validate-foundation.mjs
 ```
 
-Rebuild the current release from pinned existing bundles:
+CI reproduces current reports, runs financial tests and checks synthetic browser behavior at the project prefix. Pages deployment has separate live byte/browser verification. Physical iOS Safari persistence testing remains outstanding.
 
-```sh
-node scripts/review-calibration.mjs
-node scripts/build_reviewed_release.mjs
-node scripts/validate-savings-stability.mjs
-node scripts/validate-cost-followup.mjs
-node scripts/validate-full-calibration.mjs
-```
-
-The worker loads `site/data/calibration-reviewed.json` and verifies linked validation hashes. `site/data/critique-validation.json` and `site/data/funding-validation.json` are the v0.10 evaluation reports. Generation is deterministic; validation does not send user plans anywhere.
-
-[Data sources and rights](data/NOTICE.md) · [Deployment](docs/deployment.md) · [Browser checks](tests/browser-results.md) · [Archived v0.9 documentation and older rebuild instructions](docs/archive/v0.9.0-readme.md)
-
-## Repository layout
-
-- `site/`: buildless HTML, CSS, pure finance modules, browser persistence, worker, presentation and pinned data.
-- `scripts/`: offline data preparation and reproducible evaluation.
-- `tests/`: financial behavior, provenance, persistence, versioning and browser evidence.
-- `docs/`: current methodology, plans/results and archived release history.
-
-GitHub Actions checks the repository and deploys `site/` to GitHub Pages. Physical iOS Safari persistence testing remains outstanding; browser recovery and locking have automated tests.
+[Data sources and rights](data/NOTICE.md) · [Deployment](docs/deployment.md) · [Prior browser checks](tests/browser-results.md)

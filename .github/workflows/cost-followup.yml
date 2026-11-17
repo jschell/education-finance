@@ -1,12 +1,6 @@
 name: Cost follow-up evidence
 on:
-  pull_request:
-    paths:
-      - 'scripts/**'
-      - 'tests/**'
-      - 'docs/cost-followup*'
-      - 'site/**'
-      - '.github/workflows/cost-followup.yml'
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -15,6 +9,8 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: d0d536ca74103ef29853db1db340f47db5e182a9
       - uses: actions/setup-node@v6
         with:
           node-version: '24'

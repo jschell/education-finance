@@ -14,3 +14,18 @@ jobs:
         with:
           node-version: '24'
       - run: npm run check
+      - name: Reproduce current foundation evidence
+        run: |
+          node scripts/build_foundation.mjs
+          node scripts/validate-foundation.mjs
+          git diff --exit-code -- site/data/calibration-foundation.json site/data/foundation-validation.json
+      - name: Install isolated browser QA
+        run: |
+          npm install --prefix /tmp/education-finance-qa playwright
+          /tmp/education-finance-qa/node_modules/.bin/playwright install --with-deps chromium
+      - name: Browser checks at project prefix
+        run: |
+          mkdir -p /tmp/education-finance-qa-root
+          ln -s "$GITHUB_WORKSPACE/site" /tmp/education-finance-qa-root/education-finance
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory /tmp/education-finance-qa-root >/tmp/education-finance-http.log 2>&1 &
+          node scripts/browser-cost-followup.mjs

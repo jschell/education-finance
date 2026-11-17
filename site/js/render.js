@@ -1,9 +1,9 @@
-import { samplingRangeText, targetStatus } from "./probability.js?v=0.10.2";
-import { resolveScenario } from "./domain.js?v=0.10.2";
-import { attendanceCalendar } from "./planning.js?v=0.10.2";
-import { gaugeColor } from "./gauge-colors.js?v=0.10.2";
-import { PROFILES } from "./history-config.js?v=0.10.2";
-import { annualRows, compile, runPath } from "./engine.js?v=0.10.2";
+import { samplingRangeText, targetStatus } from "./probability.js?v=0.11.0";
+import { resolveScenario } from "./domain.js?v=0.11.0";
+import { attendanceCalendar } from "./planning.js?v=0.11.0";
+import { gaugeColor } from "./gauge-colors.js?v=0.11.0";
+import { PROFILES } from "./history-config.js?v=0.11.0";
+import { annualRows, compile, runPath } from "./engine.js?v=0.11.0";
 export const money = (x) =>
   x === null
     ? "—"
@@ -1245,6 +1245,8 @@ export function calibrationContextView(result) {
       "hint",
     ),
   );
+  if (c.validation.foundation) wrap.append(el("p",
+    "Current process checks: conditional equity anchors and August-to-August cost timing. Forecast coverage remains unestablished. Historical tables below are archived model-9 evidence; their probabilities do not validate this revised model.", "hint"));
   if (c.validation.funding) wrap.append(wholePlanValidationView(c.validation));
   if (c.economicState) wrap.append(economicProcessView(c));
   const comparison = c.validation.comparison;
@@ -1659,7 +1661,7 @@ function wholePlanValidationView(validation) {
   const f = validation.funding,
     r = validation.critique,
     wrap = el("div");
-  wrap.append(el("h3", "Whole-plan historical checks"));
+  wrap.append(el("h3", "Archived whole-plan historical checks · model 9"));
   wrap.append(
     table(
       "Synthetic plans · production simulation and bill ledger",

@@ -1,0 +1,28 @@
+# Full cost recalibration and nested evaluation protocol
+
+Frozen before new evaluation, 2026-11-16. All previously inspected years remain consumed retrospective evidence; no untouched holdout claim is made. Preserve the existing model unless the release gate below passes. No fitting or tuning to outer evaluation outcomes.
+
+## Candidate models and fitting
+Compare the unchanged production process with four independently recalibrated candidates: fixed, recent10, damped5 and regime. Each candidate removes the benchmark residual correction and additional spread, fits its own raw model forecasts, then fits paired tuition/housing log-price forecast errors at horizons 2/5/10 years. Each inner forecast uses only its earlier origin's macro and prices, never today's survey anchors. Use 128 paths for inner residual fits, 400 paths for outer evaluation; seed 850213.
+
+At an outer origin, only residual endpoints at or before that origin may enter fitting, under the declared retrospective convention that the current academic-year price is known. Each horizon uses at most one paired error per target year/sector. With fewer than three distinct target years use no correction at that knot. Otherwise shrink median bias by n/(n+10); with at least five years add the centered empirical paired error draw scaled by sqrt(n/(n+10)). This retains asymmetric tails rather than symmetric widening. Draw a common target-year rank per path across sectors/horizons to preserve shared errors; this is approximate dependence, not an exchangeability guarantee.
+
+Interpolate cumulative log corrections through year zero and available 2/5/10-year knots. Beyond the last supported knot extrapolate its annual log rate, explicitly unvalidated at long horizons. Apply corrections to simulated tuition and on-campus housing paths before repricing bills, not to displayed bands. The cost curve depends on forecast elapsed time, not student enrollment, so household students share price assumptions. Keep fixed-expense mode unchanged.
+
+## Nested historical evaluation
+Use production compiler, path factory and bill ledger; September origins 2011–2020, waits 0/4/8, four attendance years through 2023, five cost sectors. Fit candidate-specific corrections at each outer origin from the inner forecasts above. Choose a candidate at each outer origin using only earlier outer folds whose final bill year is strictly before that origin, with at least three distinct completed final-bill years; otherwise retain production. Freeze all fitting/shrinkage choices in this protocol: nested candidate selection does not retroactively validate inherited macro policy or source vintage.
+
+Score full bill median error, 80% interval score, coverage, width and below/above misses, equally averaging sectors within origins and origins within waits. Keep distinct origin and nonoverlapping complete-window counts. Do not use synthetic case count for a confidence interval. Include 80–95% reliability bins, Brier and chronological base-rate skill for the selected policy and unchanged production on five funding levels and cash/cautious/balanced profiles.
+
+## Source, period and horizon checks
+Run a common cost-only annual-block model on both fixed-panel and NCES aggregate public-sector histories over the same 2011–2020 origins, waits and four attendance years. Fit each dataset/model separately using its own earlier residuals; score source differences on matched calendar windows. Keep older 18-year-wait public aggregate tests separate.
+
+Extend fixed-membership price-only evaluation through the pinned 2024 matched-school snapshot. Recomputed 2000–2023 training uses the same surviving component membership as the 2024 outcome. The 2024 observation has no pinned academic-year CPI/complete joint macro window: use it only as an endpoint price outcome, never fabricate its deflator or call it a whole-plan 2024 outcome. Retain source hashes, counts, data-definition and survivorship qualifications. No comparable pre-2000 fixed-school series is available in the pinned sources.
+
+## Promotion gate
+Evaluate the chronologically selected policy against unchanged production. Require at least 5% lower equal-wait total-bill interval score; no wait-group score more than 10% worse; closer overall coverage to 80%; and no wait-group worsening of absolute median bias by more than two percentage points. Candidate-specific direct comparisons and matched-source checks are diagnostics, not alternate selection gates. A live candidate must be selected by the same chronological rule from all completed cost folds, not the best outer score selected after inspection. If the gate fails, retain production and publish failure. Passing this gate is comparative evidence, not calibrated probability certification.
+
+## Prospective record and completion
+Commit a synthetic, versioned forecast snapshot with as-of date, code/model/source/protocol hashes, training cutoffs, predictions and unreached target dates. Never overwrite a prior snapshot or call historical revised data a vintage forecast. A command must create explicit future snapshots and reject overwriting. Begin with annual tuition/housing projections at 1/2/5/10/18 years; observations require explicit source-backed updates.
+
+Run meaningful no-future-input, own-model fit, asymmetric/paired curve, elapsed-time/household coherence, ledger effect and report provenance tests. Rebuild reports twice in CI and compare committed output. Run project-prefix and live phone/iPad/keyboard/worker/persistence checks if the UI changes. Update model/import/storage metadata only if production behavior changes. Publish current results and a fresh critique; retain unresolved long-horizon and survey-anchor calibration findings.
