@@ -1,0 +1,12 @@
+import {createHash}from 'node:crypto';
+import {readFileSync,writeFileSync}from 'node:fs';
+import {validateObservation,hash}from './calibration/prospective.mjs';
+const args=process.argv.slice(2),value=name=>{const i=args.indexOf(name);return i<0?null:args[i+1];};
+const input=value('--snapshot'),candidate=value('--observation'),output=value('--output'),asOf=value('--as-of');
+if(!input||!candidate||!output||!asOf)throw Error('Use --snapshot PATH --observation JSON --as-of YYYY-MM-DD --output NEW_RECORD');
+const snapshot=JSON.parse(readFileSync(input)),r=JSON.parse(readFileSync(candidate));
+validateObservation(snapshot,r,asOf);
+if(createHash('sha256').update(readFileSync(r.sourceFile)).digest('hex')!==r.sourceSha256)throw Error('Observed source digest mismatch.');
+const body={snapshotHash:snapshot.sha256,recordedAsOf:asOf,observations:[r]};
+writeFileSync(output,JSON.stringify({...body,sha256:hash(body)})+'\n',{flag:'wx'});
+console.log('Created source-backed observation record. The forecast was not modified.');

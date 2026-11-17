@@ -19,7 +19,7 @@ Checkpoint: 2026-11-16 America/Los_Angeles. See [continuity](continuity.md) for 
 | Household proposals | Fixed base shares, dated step-ups, student ownership, cent rounding and cap-conflict reporting | Proposal does not alter saved funding or optimize transfers; current capped-plan gauge stays distinct |
 | New branch evaluator | Origin-only cohorts; withheld schools excluded from all fitting including residual endpoints; normalize proper score by known origin budget | `forecast-calibration-plan.md` on calibration branch; preserve pre-score amendments and failed comparisons |
 | Candidate qualification | Known-school wait-0 correction research qualification is not automatic activation | Withheld-sector failure, weak longer knots and candidate funding evidence remain separate requirements |
-| Prospective records | Keep original forecasts immutable; outcomes are separate source-backed records; missing baseline/target remains unscored | New branch fixes default generator to active bundle; actual current snapshot/index still needs completion at handoff |
+| Prospective records | Keep original forecasts immutable; outcomes are separate source-backed records; missing baseline/target remains unscored | New branch fixes default generator to active bundle; current snapshot/index completed 2026-11-17; 25 pending targets, zero observed |
 | Calibration language | Numerical checks, comparative scores and synthetic plan counts cannot certify future funding percentages | Report source/horizon support, miss direction and dependence; more paths reduce computation noise only |
 
 ## Prior attempts to preserve

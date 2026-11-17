@@ -1,6 +1,6 @@
 # Active work plan
 
-Checkpoint: 2026-11-16 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D is complete; this plan continues the existing unmerged calibration branch. This documentation task does not itself activate a model, merge that branch or create observations.
+Checkpoint: 2026-11-17 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D is complete; this plan continues the existing unmerged calibration branch. Continuation is authorized to finish verification, merge and deploy the evidence release. Financial defaults remain unchanged and future outcomes are not available.
 
 ## 1. Finish the current evidence release
 
@@ -8,10 +8,10 @@ Work from `forecast-calibration-evidence` after inspecting its latest remote SHA
 
 | Work | Current status | Completion evidence |
 | --- | --- | --- |
-| School and full funding evaluator | Implemented; committed report/cases; fresh 166-test check passes | Rerun evaluator and compare all compact/full case bytes; inspect qualification and missing-support states |
+| School and full funding evaluator | Implemented; full deterministic regeneration in progress; release-artifact regression added | Rerun evaluator and compare all compact/full case bytes; inspect qualification and missing-support states |
 | Prospective tooling | Implemented; source/definition/overwrite checks present | Matching committed-source snapshot regenerates identically; invalid inputs/overwrite rejected |
-| Current-model forecast record | **Missing required artifacts** at reviewed head | New unique snapshot, `data/forecast-snapshots/current-index.json`, `site/data/prospective-validation.json`; verifier succeeds |
-| Browser and CI | Branch has no observed run/PR at handoff | Project-prefix, phone/iPad/desktop/keyboard, disclosures, worker/persistence checks; current reports reproduced in CI |
+| Current-model forecast record | Completed in continuation; source-pinned verifier passes (25 pending, zero observed) | New unique snapshot, `data/forecast-snapshots/current-index.json`, `site/data/prospective-validation.json`; verifier succeeds |
+| Browser and CI | Local browser blocked by environment socket restriction; CI acceptance pending | Project-prefix, phone/iPad/desktop/keyboard, disclosures, worker/persistence checks; current reports reproduced in CI |
 | Release | **Unmerged and undeployed** | Reviewed PR, successful main checks, Pages success and deployed bytes/browser check at exact release SHA |
 | Issue/status refresh | Issue #2 still describes model 9 | Keep unresolved calibration issue open; refresh status with current release/report evidence and limits |
 

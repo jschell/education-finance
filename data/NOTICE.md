@@ -37,3 +37,7 @@ The already pinned Fama/French monthly factors (1926 onward), BLS general CPI (1
 ## Audited 1990s tuition extension
 
 `legacy-tuition-panel.csv` is selected public US Department of Education NCES IPEDS information retrieved from the official Data Center. `legacy-ipeds-audit.json` pins official archive/dictionary URLs and SHA-256 hashes, field definitions, coverage and known breaks. These US government data are not user/family records. No NCES endorsement is implied. Positive values may be imputed; supplied flags are retained, and absent early flags remain unavailable. Exact UNITID matching does not prove sector/status continuity or eliminate survivorship. The research bridge is inactive in forecasts; older housing and publication vintages remain unavailable. Run `scripts/prepare_legacy_ipeds.py --fetch` to reproduce extraction and its boundary audit.
+
+## Current calibration cases
+
+`data/calibration-cases/` contains public NCES institution IDs/prices and synthetic funding policies. It contains no real family plans. Selection reads only pinned raw rows through each origin; future attrition is retained as missing outcomes. Supplied imputation flags remain in source rows and source hashes; positive reported or imputed published charges are not actual family net bills.

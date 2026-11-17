@@ -1,6 +1,6 @@
 # Start here: project continuity
 
-Reviewed **2026-11-16, America/Los_Angeles** (2026-11-17 UTC). This is a repository-grounded handoff, not a claim that every prior conversation was recovered. Update this file at each meaningful checkpoint; a conversation is not the project record.
+Updated **2026-11-17, America/Los_Angeles**. This is a repository-grounded handoff, not a claim that every prior conversation was recovered. Update this file at each meaningful checkpoint; a conversation is not the project record.
 
 ## Read in this order
 
@@ -10,7 +10,17 @@ Reviewed **2026-11-16, America/Los_Angeles** (2026-11-17 UTC). This is a reposit
 4. [Decision record](decisions.md): settled choices and approaches that must not be repeated blindly.
 5. The named protocol/results for the task being resumed. Read historical release reports only when reproducing that release.
 
-## Verified state at review
+## Current checkpoint — calibration release completion
+
+Production remains app 0.13/model12/schema5 at `dec93de55b8f26e53a836eb6f7a893c90fc5d85f`. Its Check, Pages and live verification runs all passed ([44025951423](https://github.com/jschell/education-finance/actions/runs/44025951423), [44025951474](https://github.com/jschell/education-finance/actions/runs/44025951474), [44026032069](https://github.com/jschell/education-finance/actions/runs/44026032069)).
+
+Continuing `forecast-calibration-evidence` from `feea5f7f64eb44fd69332958049945f0fffd3a85`, with main's handoff integrated. The missing current-model forecast/index/pending-status artifacts are now added. `node scripts/verify-current-snapshot.mjs` passes: 25 forecasts, zero observed, 25 pending; source-pinned reproduction and overwrite rejection pass. Source revision remains `feea5f7`; source bytes match that commit. A release integration test now catches missing artifacts during `npm run check`.
+
+Fresh `npm run check` passes **167/167** tests. Foundation, practical-planning and hierarchy reports regenerate byte-for-byte; 12/12 savings verification checks pass. Full current school/funding report reproduction and release checks are in progress. Local Chromium cannot launch because the execution environment denies its singleton socket. Browser acceptance will use the existing GitHub Actions phone/iPad/keyboard/project-prefix workflow; this is a local environment failure, not a browser pass. No candidate has been activated, no outcome fabricated and no claim of calibrated future probabilities made.
+
+Next: inspect full report diffs and final tests, open the release PR, require CI/browser success, merge and verify Pages/live bytes/browser. Update this section with exact release SHA and workflow URLs when observed. See [active plan](active-work-plan.md).
+
+## Previous checkpoint — before continuation
 
 | Item | Observed state |
 | --- | --- |
@@ -42,7 +52,7 @@ Delivered there: origin-selected school cohorts, withheld school identities excl
 
 Committed branch findings (not independently rerun here): 5,400 school-model cases, 18,000 synthetic individual plans, 240 household plans; only 22 sampled known and 20 withheld institution identities. Baseline school cost coverage is roughly 30–45% for nominal 80% bands. The error correction qualifies for known-school wait 0 only (reserved score 0.1553 to 0.1399; coverage 46.3% to 67.8%), fails withheld-school sector protection, and lacks longer supported knots. No candidate is activated. Counts are not independent economic histories.
 
-### Concrete unfinished step
+### Historical blocker at the previous checkpoint (resolved above)
 
 Fresh branch `npm run check` passed **166/166** tests. However, `node scripts/verify-current-snapshot.mjs` **fails** with `ENOENT: data/forecast-snapshots/current-index.json`. The branch also lacks the expected `site/data/prospective-validation.json` and a new current-model snapshot. Passing unit tests therefore does not mean release completion. Its results document describes prospective capability; it must not be read as proof that the current record was committed or deployed.
 
@@ -56,7 +66,7 @@ The session deep review of `d0d536c`/v0.10.2 found the infeasible gate, equity m
 
 ## Resume prompt
 
-> Review @GitHub jschell/education-finance. Read AGENTS.md, docs/continuity.md, docs/active-work-plan.md, docs/decisions.md and docs/model.md first. Fetch current main and forecast-calibration-evidence and inspect new commits/PRs before editing. Continue the existing calibration branch rather than recreating it. At the handoff, v0.13/model12 was deployed and v0.14 evidence work was unmerged; its snapshot verifier failed because current-index.json was missing. Finish the current-model immutable record and verification, reproduce current evidence, complete browser/CI/release checks, and update the repository handoff with exact SHAs, commands, results and remaining limits. Keep production candidate decisions separate from evidence work; never claim future percentages are calibrated from test counts.
+> Review @GitHub jschell/education-finance. Read AGENTS.md, docs/continuity.md, docs/active-work-plan.md, docs/decisions.md and docs/model.md. Fetch current heads/PRs and inspect the latest checkpoint before editing. Continue the existing calibration release rather than recreating it. The missing current-model snapshot artifacts were completed on 2026-11-17; finish any outstanding report/CI/browser/release checks, then work through the documented calibration evidence program. Record exact SHAs and verified outcomes. Keep research qualification separate from production activation and future economic calibration.
 
 ## Checkpoint discipline
 

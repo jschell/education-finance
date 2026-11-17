@@ -1,6 +1,6 @@
 # Education Finance
 
-A static, browser-local college funding planner. **App v0.13.0 · model college-funding-12.0.0 · schema 5 · MIT license.**
+A static, browser-local college funding planner. **App v0.14.0 · model college-funding-12.0.0 · schema 5 · MIT license.**
 
 [Open the planner](https://jschell.github.io/education-finance/)
 
@@ -13,6 +13,12 @@ A static, browser-local college funding planner. **App v0.13.0 · model college-
 3. Calculate produces one assessment: a range across cautious/central/favorable assumptions, simulated outcome bands, an estimated central-case monthly contribution and historical validation. These cases have no probability weights or confidence level. The fixed-rate reference is a separate illustration inside the same assessment. Historical replay remains an optional calculation method.
 4. Multiple students share economic paths. Household success requires all selected goals to be funded; earmarked money is not automatically transferred between students. A household deposit limit can constrain planned contributions.
 5. Edits save in the current browser. Export a backup for another device; no cloud sync or telemetry exists. Example data does not replace saved plans. Schema-5 plans receive a metadata-only model upgrade. Incompatible schemas 1–4 and old backup formats remain unsupported.
+
+## Current-model calibration evidence
+
+School-level origin-only cohorts, withheld-school tests and complete individual/household funding replays now accompany the earlier sector diagnostics. The app distinguishes research qualification, unsupported horizons and production activation. Financial defaults remain unchanged. New prospective snapshots use the same active bundle as the worker; future outcomes require reviewed, source-backed comparable indices.
+
+[Plan and frozen protocol](docs/forecast-calibration-plan.md) · [Results and fresh review](docs/forecast-calibration-results.md)
 
 ## Staged overhaul D
 
@@ -34,6 +40,8 @@ node scripts/build_foundation.mjs
 node scripts/validate-foundation.mjs
 node scripts/validate-planning.mjs
 node scripts/validate-hierarchy.mjs
+node scripts/validate-current-calibration.mjs
+node scripts/verify-current-snapshot.mjs
 ```
 
 CI reproduces current reports, runs financial tests and checks synthetic browser behavior at the project prefix. Pages deployment has separate live byte/browser verification. Physical iOS Safari persistence testing remains outstanding.

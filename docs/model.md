@@ -1,6 +1,6 @@
 # Current model · college-funding-12.0.0
 
-App v0.13.0. Schema 5 and student funding are preserved. The active bundle is `calibration-foundation.json`. [Model 9 methodology](archive/model9.md) and its reports remain historical records.
+App v0.14.0. Schema 5 and student funding are preserved. The active bundle is `calibration-foundation.json`. [Model 9 methodology](archive/model9.md) and its reports remain historical records.
 
 ## Foundation changes
 
@@ -33,3 +33,9 @@ The [frozen candidate protocol](hierarchical-cost-protocol.md) defines real sect
 Official 1990–1999 archives/dictionaries yield 12,814 positive tuition records matched to 1,309 existing joint-complete school identities. `legacy-ipeds-audit.json` retains URLs, raw ZIP hashes, field excerpts, flags, missingness and boundary comparisons. Earlier full-time undergraduate published charges and later first-time first-year attendance prices differ for many same-year records. The tuition bridge is separately identified research data. Comparable housing, historical sector/status continuity and original publication vintages are not manufactured. The bridge does not extend production or whole-plan validation.
 
 Matched-path stress checks now show housing/food +20%, removal of remaining general/school grants, and one 25% portfolio loss before entry. They preserve economic shocks and dates; existing crash stress is not applied twice. Stress alternatives have no assigned probabilities. The model version also records these diagnostic changes; main financial defaults remain the corrected foundation plus the target-specific savings solver.
+
+## Current-model school and funding evidence
+
+[Current protocol](forecast-calibration-plan.md) and [results](forecast-calibration-results.md) add origin-only cohorts from raw selected IPEDS rows, separate known/withheld school histories, earlier-error fitting, per-horizon research qualification and full current-model synthetic funding ledgers. Old reports remain separate. This evaluator reconstructs training panels as of each origin and substitutes training-data return anchors for historical tests; it does not directly establish calibration of the current pinned survivor panel and today's survey assumptions. No financial default changes in app 0.14.
+
+Snapshot generation and the worker share the active bundle filename. New records verify all source bytes against a recorded commit; the old model-9 snapshot stays immutable. Future observations require same-definition source files, hashes, publication dates and explicit manual definition review. Only reached targets with comparable observed baseline and target indices are scored. The prospective record is synthetic sector-price evidence, not funding-success evidence.

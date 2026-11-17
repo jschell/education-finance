@@ -23,7 +23,12 @@ try {
   await page.waitForFunction(() => document.querySelector("#run-status").hidden, null, {timeout:180000});
   assert.ok(await page.locator("#results-content").getByText("Affordable annual budget · median path",{exact:true}).count());
   assert.ok(await page.locator("#results-content").getByText("Required household deposits",{exact:true}).count());
-  const costReview = page.getByText("Current cost-model evaluation & school variation",{exact:true});
+  const calibrationReview=page.locator("#current-calibration-evidence > summary");
+  await calibrationReview.focus();await page.keyboard.press("Space");
+  assert.equal(await page.locator("#current-calibration-evidence").evaluate(el=>el.open),true);
+  assert.ok(await page.getByText("Current-model prospective record",{exact:true}).count());
+  assert.ok(await page.getByText("Individual-school costs · current baseline · all observed starts",{exact:true}).count());
+  const costReview = page.getByText("Earlier sector-index comparison & school variation",{exact:true});
   await costReview.focus();await page.keyboard.press("Space");
   assert.ok(await page.getByText("Coherent candidate",{exact:true}).count());
   const stressReview=page.getByText("Planning stresses · same sampled paths",{exact:true});
@@ -51,7 +56,7 @@ try {
   await page.reload();
   await page.waitForFunction(() => document.querySelector('[data-funding="balance"]').value === "54321");
   assert.deepEqual(failures, []);
-  const result = {url, checks, keyboardDisclosure:true, workerAssessment:true, affordableBudget:true, householdProposal:true, costCandidateEvidence:true, matchedPlanningStresses:true, archivedPolicyLabels:true,
+  const result = {url, checks, keyboardDisclosure:true, workerAssessment:true, affordableBudget:true, householdProposal:true, costCandidateEvidence:true, matchedPlanningStresses:true, archivedPolicyLabels:true, currentSchoolCalibration:true, currentFundingCalibration:true, prospectiveMissingness:true,
     exampleRestoredFunding:true, reloadPreservedFunding:true, browser:"Chromium",
     physicalSafariVerified:false};
   writeFileSync("tests/evidence/followup/browser.json",JSON.stringify(result,null,2)+"\n");
