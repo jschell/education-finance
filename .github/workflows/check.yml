@@ -8,8 +8,11 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
@@ -27,6 +30,12 @@ jobs:
         run: |
           node scripts/validate-hierarchy.mjs
           git diff --exit-code -- site/data/hierarchy-validation.json
+      - name: Reproduce current school and funding calibration
+        run: |
+          node scripts/validate-current-calibration.mjs
+          git diff --exit-code --stat -- site/data/current-calibration.json data/calibration-cases/
+      - name: Verify current prospective record
+        run: node scripts/verify-current-snapshot.mjs
       - name: Install isolated browser QA
         run: |
           npm install --prefix /tmp/education-finance-qa playwright

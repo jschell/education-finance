@@ -1273,9 +1273,10 @@ export function calibrationContextView(result) {
   );
   if (c.validation.foundation) wrap.append(el("p",
     "Current process checks cover arithmetic equity anchors under the conditional sampler and August-to-August cost timing. The 4% tuition / 3% on-campus housing nominal baseline is retained; old cost-error corrections are disabled. Forecast coverage remains unestablished. Archived tables describe model 9 and do not validate this revised model.", "hint"));
+  if(c.validation.currentCalibration) wrap.append(currentCalibrationView(c.validation.currentCalibration,c.validation.prospective));
   if(c.validation.hierarchy){
     const r=c.validation.hierarchy,d=el("details");
-    d.append(el("summary","Current cost-model evaluation & school variation"));
+    d.append(el("summary","Earlier sector-index comparison & school variation"));
     d.append(el("p",`The coherent school-cost candidate was not promoted. Gate: ${r.gate.status}. Supported horizon checks and missing support are shown separately; the corrected foundation remains active. These are retrospective comparisons, not calibrated probability guarantees.`,"hint"));
     d.append(table("Corrected foundation vs coherent candidate · lower scores are better",["Model","Wait (years)","Distinct origins","80% cost-band coverage","Interval score"],r.summaries.flatMap(s=>s.byWait.map(w=>[s.model==="production"?"Corrected foundation":"Coherent candidate",w.wait,w.origins,pct(w.covered),w.score.toFixed(3)]))));
     d.append(table("Eligible-horizon release checks",["Wait (years)","Eligible origins","Result"],r.gate.comparisons.map(w=>[w.wait,w.origins.length,w.status])));
@@ -1762,5 +1763,52 @@ function wholePlanValidationView(validation) {
   for (const note of [...f.limitations, ...r.limitations])
     details.append(el("p", note, "hint"));
   wrap.append(details);
+  return wrap;
+}
+
+
+export function currentCalibrationView(report, prospective) {
+  const wrap = el("details");
+  wrap.id = "current-calibration-evidence";
+  wrap.append(el("summary", "Current-model school and funding calibration"));
+  wrap.append(el("p", "These retrospective tests select established schools using information through each forecast origin. Known-school and withheld-history school tests are separate. Later missing prices stay unavailable. School and synthetic-plan counts share economic years and are not independent outcomes. Historical anchors come from earlier data; these checks do not validate today’s SPF forecasts.", "hint"));
+  const knownIds=new Set(report.cohortAudit.flatMap(r=>r.knownIds));
+  const unknownIds=new Set(report.cohortAudit.flatMap(r=>r.unknownIds));
+  wrap.append(el("p",`${knownIds.size} distinct known-school identities and ${unknownIds.size} withheld identities are sampled across sectors and starts. Repeated school/residency cases do not add independent institutions or economic histories.`,"hint"));
+  const labels = {baseline:"Current baseline",hierarchy:"Coherent hierarchy",residual:"Earlier-error correction"};
+  const kind = k => k === "known" ? "Known school" : "Withheld school history";
+  const number = x => Number.isFinite(x) ? x.toFixed(3) : "Unavailable";
+  const percentage = x => x === null ? "Unavailable" : pct(x);
+  function accessibleTable(caption, headers, rows) {
+    const t = table(caption,headers,rows);
+    t.tabIndex = 0;t.setAttribute("role","region");t.setAttribute("aria-label",caption+". Scroll horizontally for more columns.");
+    return t;
+  }
+  wrap.append(accessibleTable("Individual-school costs · current baseline · all observed starts",
+    ["School history","Wait (years)","Observed cases","Origins","80% band coverage","Median signed bias","Interval score"],
+    report.schoolSummary.filter(r=>r.split==="all"&&r.model==="baseline").map(r=>[kind(r.kind),r.wait,r.observed,r.origins,percentage(r.covered),percentage(r.bias),number(r.score)])));
+  wrap.append(el("p","Coverage measures how often actual four-year bills fell inside the nominal 80% forecast band. Positive bias means overforecasting. Scores use the four-year budget known at the origin as normalizer. Lower scores are better; widening a band can raise the score. Reconstructed source prices are published charges, not measured net family costs.","hint"));
+  const comparison=el("details");comparison.append(el("summary","Reserved-period candidates and horizon support"));
+  comparison.append(accessibleTable("Reserved completed bills · 2020–2023 · school-level targets",
+    ["School history","Wait","Model","Origins","Coverage","Interval score"],
+    report.schoolSummary.filter(r=>r.split==="final").map(r=>[kind(r.kind),r.wait,labels[r.model],r.origins,percentage(r.covered),number(r.score)])));
+  comparison.append(accessibleTable("Research qualification · financial defaults unchanged",["School history","Wait","Candidate","Result","Eligible origins"],report.qualifications.map(r=>[kind(r.kind),r.wait,labels[r.model],r.status,r.origins])));
+  comparison.append(el("p","Each candidate was specified before this run. The correction uses only endpoint errors available through each origin. Extrapolation beyond supported correction horizons cannot qualify. These economic years appeared in earlier studies; the comparison is retrospective. A passing cost comparison alone would not activate a model or validate its funding probabilities.","hint"));
+  wrap.append(comparison);
+  wrap.append(accessibleTable("Current-model individual funding · synthetic dated ledgers",
+    ["School history","Wait","Portfolio","Observed plans","Origins","Brier score","Earlier-outcome reference"],
+    report.individualSummary.map(r=>[kind(r.kind),r.wait,r.profile,r.observed,r.origins,number(r.brier),number(r.baseBrier)])));
+  const reliability=el("details");reliability.append(el("summary","Funding reliability near 80–100% predictions"));
+  reliability.append(accessibleTable("Related synthetic plans · sparse bins remain explicit",["School history","Wait","Portfolio","Predicted band","Cases","Origins","Mean predicted","Observed funded","Support"],report.individualSummary.flatMap(r=>r.reliability.filter(b=>b.low>=.8).map(b=>[kind(r.kind),r.wait,r.profile,pct(b.low)+"–"+pct(b.high),b.cases,b.origins,percentage(b.predicted),percentage(b.observed),b.status]))));
+  wrap.append(reliability);
+  wrap.append(accessibleTable("Two-student households · all selected bills must be paid",
+    ["Wait before first entry","Deposit cap","Observed plans","Origins","Joint Brier score","Unavailable plans"],
+    report.householdSummary.map(r=>[r.wait,r.capped?"0.75% of combined annual budgets":"No cap",r.observed,r.origins,number(r.brier),r.unavailable])));
+  wrap.append(el("p","Households include same-school and different-school pairs, with second entry two years later. The cap is applied before both forecasts and observed ledger replays. Money stays earmarked. Aid, income, gifts, deposits and family choices are fixed synthetic assumptions. Brier scores measure probability error; the earlier-outcome reference uses only completed prior outcomes. These tests do not establish calibrated real-family probabilities.","hint"));
+  if(prospective){
+    wrap.append(el("h3","Current-model prospective record"));
+    wrap.append(el("p",`${prospective.observed} of ${prospective.forecasts} synthetic sector-price targets have comparable observed outcomes; ${prospective.pending} remain unscored. Missing and unreached outcomes never count as successes. This price record does not validate household funding probabilities.`,"hint"));
+  }
+  wrap.append(el("p","Three distinct start years are only a minimum support screen. Overlapping windows, shared shocks, six sampled schools per sector/history type, on-campus eligibility and revised publication vintages limit the evidence. No candidate was activated by this reporting release.","hint"));
   return wrap;
 }

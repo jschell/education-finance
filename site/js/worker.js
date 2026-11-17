@@ -1,3 +1,4 @@
+import { ACTIVE_CALIBRATION_FILE } from "./release.js?v=0.14.0";
 import {
   assessCalibrated,
   verifyCalibration,
@@ -10,7 +11,9 @@ let dataPromise, calibrationPromise;
 async function calibrationData(history) {
   return (calibrationPromise ??= Promise.all(
     [
-      "calibration-foundation.json",
+      ACTIVE_CALIBRATION_FILE,
+      "current-calibration.json",
+      "prospective-validation.json",
       "foundation-validation.json",
       "hierarchy-validation.json",
       "calibration-validation.json",
@@ -29,6 +32,8 @@ async function calibrationData(history) {
   ).then(
     async ([
       bundle,
+      currentCalibration,
+      prospective,
       foundation,
       hierarchy,
       validation,
@@ -40,6 +45,11 @@ async function calibrationData(history) {
       funding,
     ]) => {
       await verifyCalibration(bundle, history);
+      for(const report of [currentCalibration,prospective]){
+        const {sha256,...body}=report;
+        if(report.bundleHash!==bundle.sha256 || await snapshotHash(body)!==sha256)
+          throw Error("Current calibration evidence identity mismatch.");
+      }
       const {sha256: foundationHash, ...foundationBody} = foundation;
       if (foundation.bundleHash !== bundle.sha256 ||
           await snapshotHash(foundationBody) !== foundationHash)
@@ -81,6 +91,8 @@ async function calibrationData(history) {
         bundle,
         validation: {
           ...validation,
+          currentCalibration,
+          prospective,
           foundation,
           hierarchy,
           comparison,
