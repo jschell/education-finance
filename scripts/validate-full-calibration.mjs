@@ -8,8 +8,33 @@ import { curveFactors } from "../site/js/cost-recalibration.js";
 import { quantile } from "../site/js/random.js";
 import { CANDIDATES, residualBundle, chooseNested, promotionGate, rawSequences,
   priceResiduals, costOnlyBills, reliabilityNearTargets } from "./full-calibration-helpers.mjs";
-import { FACTORS, actualBillRows, parseCpi, scoreBills, summarizeCost,
+import { FACTORS, actualBillRows, parseCpi, scoreBills as baseScoreBills, summarizeCost as baseSummarizeCost,
   fundingSummary } from "./cost-followup-helpers.mjs";
+
+const scoreBills = (values,actual) => {
+  const r=baseScoreBills(values,actual);
+  return {...r,width:(r.p90-r.p10)/actual};
+};
+const summarizeCost = (rows,model) => {
+  const r=baseSummarizeCost(rows,model);
+  r.byWait=r.byWait.map((w)=> {
+    const subset=rows.filter((r)=>r.wait===w.wait);
+    const origins=[...new Set(subset.map((r)=>r.origin))];
+    const width=origins.reduce((s,origin)=> {
+      const group=subset.filter((r)=>r.origin===origin);
+      return s+group.reduce((a,x)=>a+x.models[model].width,0)/group.length;
+    },0)/origins.length;
+    return {...w,width};
+  });
+  return {...r,width:r.byWait.reduce((a,x)=>a+x.width,0)/r.byWait.length};
+};
+function nonoverlappingWindows(rows) {
+  const unique=[...new Map(rows.map((r)=>[r.origin,r])).values()].sort((a,b)=>a.origin-b.origin);
+  const out=[];
+  for(const r of unique) if(!out.length||r.origin>out.at(-1)[1]) out.push([r.origin,r.lastBillYear]);
+  return out;
+}
+
 const read = (p) => JSON.parse(readFileSync(p,"utf8"));
 const hash = (x) => createHash("sha256").update(x).digest("hex");
 const base = read("site/data/calibration-reviewed.json"), panel = read("site/data/ipeds-panel.json");
@@ -196,7 +221,9 @@ const report={id:"full-calibration-v1",asOf:"2026-11-16",trials,innerTrials,seed
   sourceComparison:{rows:sourceComparison,summaries:["fixed","aggregate"].flatMap((dataset)=>
     CANDIDATES.map((model)=>({dataset,...summarizeCost(sourceComparison.filter((r)=>r.dataset===dataset),model)})))},
   longHorizon:{rows:longHorizon,summaries:CANDIDATES.map((m)=>summarizeCost(longHorizon,m)),
-    distinctOrigins:new Set(longHorizon.map((r)=>r.origin)).size,nonoverlappingCompleteWindows:1},
+    distinctOrigins:new Set(longHorizon.map((r)=>r.origin)).size,
+    nonoverlappingCompleteWindows:nonoverlappingWindows(longHorizon).length,
+    nonoverlappingWindows:nonoverlappingWindows(longHorizon)},
   extension:{endpointRows:extensionRows,summaries:CANDIDATES.map((m)=>summarizeCost(extensionRows,m)),
     independentNewTargetYears:1},
   limitations:["All inspected periods are consumed retrospective evidence; this is not prospective calibration.",
@@ -208,8 +235,8 @@ const report={id:"full-calibration-v1",asOf:"2026-11-16",trials,innerTrials,seed
 report.sha256=hash(canonical(report));
 writeFileSync("site/data/full-calibration.json",JSON.stringify(report)+"\n");
 writeFileSync("data/comparable-prices-through-2024.json",JSON.stringify(extension)+"\n");
-const table=(rows)=>"| Model | Bill score | Coverage | Bias |\n| --- | ---: | ---: | ---: |\n"+
-  rows.map((r)=>`| ${r.model} | ${r.score.toFixed(3)} | ${(100*r.covered).toFixed(1)}% | ${(100*r.bias).toFixed(1)}% |`).join("\n");
+const table=(rows)=>"| Model | Bill score | Coverage | Bias | Relative width |\n| --- | ---: | ---: | ---: | ---: |\n"+
+  rows.map((r)=>`| ${r.model} | ${r.score.toFixed(3)} | ${(100*r.covered).toFixed(1)}% | ${(100*r.bias).toFixed(1)}% | ${(100*r.width).toFixed(1)}% |`).join("\n");
 const md=`# Full calibration results
 
 Protocol frozen before scoring. All years below were already inspected; results are retrospective. Report hash: \`${report.sha256}\`.
@@ -246,7 +273,7 @@ The same cost-only annual-block algorithm is fitted separately to fixed-panel an
 
 ${["fixed","aggregate"].map((dataset)=>"### "+dataset+"\n\n"+table(report.sourceComparison.summaries.filter((r)=>r.dataset===dataset))).join("\n\n")}
 
-This common cost-only process uses historical training inflation, not the joint production state process. Differences from production-ledger scores can reflect macro anchoring as well as source composition. Neither source is relabeled as the other.
+This common cost-only process uses historical training inflation, not the joint production state process. Differences from production-ledger scores can reflect macro anchoring as well as source composition. Neither source is relabeled as the other. In the ancillary source, long-horizon and 2024 tables, the row named production is an uncorrected fixed-nominal cost-only reference, not the complete joint production model.
 
 ## Older aggregate newborn-horizon costs
 

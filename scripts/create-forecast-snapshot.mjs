@@ -7,7 +7,7 @@ import { planFor } from "./full-calibration-inputs.mjs";
 const args = process.argv.slice(2);
 const value = (name) => { const at=args.indexOf(name); return at<0?null:args[at+1]; };
 const asOf=value("--as-of"), output=value("--output"), bundlePath=value("--bundle")||"site/data/calibration-reviewed.json";
-if(!/^\d{4}-\d{2}-\d{2}$/.test(asOf||"") || !output || !Number.isFinite(Date.parse(asOf)))
+if(!/^\d{4}-\d{2}-\d{2}$/.test(asOf||"") || !output || (!Number.isFinite(Date.parse(asOf)) || new Date(asOf).toISOString().slice(0,10)!==asOf))
   throw Error("Use --as-of YYYY-MM-DD --output NEW_FILE.json [--bundle PATH]");
 const b=JSON.parse(readFileSync(bundlePath,"utf8")),sha=(x)=>createHash("sha256").update(x).digest("hex");
 const forecasts=[];
@@ -28,7 +28,7 @@ for(const horizon of [1,2,5,10,18]) {
     outcome:null,status:"Future synthetic normalized-budget cost forecast; not an observed-school prediction"});
 }
 const sourcePaths=readdirSync("site/js").filter((p)=>p.endsWith(".js")).sort().map((p)=>"site/js/"+p);
-const body={id:"prospective-synthetic-cost-"+asOf,asOf,modelVersion:MODEL,bundleId:b.id,bundleHash:b.sha256,
+const body={sourceCommit:process.env.GITHUB_SHA||null,id:"prospective-synthetic-cost-"+asOf,asOf,modelVersion:MODEL,bundleId:b.id,bundleHash:b.sha256,
   trainingCostLast:Math.max(...Object.values(b.prices).map((p)=>p.at(-1).year)),
   trainingMacroLast:b.economy.macroYears.at(-1).year,seed:850213,trials:1000,
   syntheticBudget:{tuition:10000,housing:10000,currency:"USD",baselineMonth:asOf.slice(0,7)},

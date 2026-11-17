@@ -1,4 +1,4 @@
-import { samplingInterval } from "./probability.js?v=0.10.0";
+import { samplingInterval } from "./probability.js?v=0.10.2";
 export const VERIFICATION_TRIALS = 5000;
 const Z = 1.6448536269514722;
 export function savingsReserve(

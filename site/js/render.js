@@ -1,9 +1,9 @@
-import { samplingRangeText, targetStatus } from "./probability.js?v=0.10.0";
-import { resolveScenario } from "./domain.js?v=0.10.0";
-import { attendanceCalendar } from "./planning.js?v=0.10.0";
-import { gaugeColor } from "./gauge-colors.js?v=0.10.0";
-import { PROFILES } from "./history-config.js?v=0.10.0";
-import { annualRows, compile, runPath } from "./engine.js?v=0.10.0";
+import { samplingRangeText, targetStatus } from "./probability.js?v=0.10.2";
+import { resolveScenario } from "./domain.js?v=0.10.2";
+import { attendanceCalendar } from "./planning.js?v=0.10.2";
+import { gaugeColor } from "./gauge-colors.js?v=0.10.2";
+import { PROFILES } from "./history-config.js?v=0.10.2";
+import { annualRows, compile, runPath } from "./engine.js?v=0.10.2";
 export const money = (x) =>
   x === null
     ? "—"

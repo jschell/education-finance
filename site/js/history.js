@@ -2,24 +2,24 @@ import {
   VERIFICATION_TRIALS,
   savingsFitProbability,
   savingsConfirmation,
-} from "./savings-target.js?v=0.10.0";
-import { allocationAt } from "./planning.js?v=0.10.0";
-import { outcomeDistribution } from "./distribution.js?v=0.10.0";
-import { MODEL, clone, resolveScenario } from "./domain.js?v=0.10.0";
+} from "./savings-target.js?v=0.10.2";
+import { allocationAt } from "./planning.js?v=0.10.2";
+import { outcomeDistribution } from "./distribution.js?v=0.10.2";
+import { MODEL, clone, resolveScenario } from "./domain.js?v=0.10.2";
 import {
   compile,
   runPath,
   repriceRow,
   requiredContribution,
   annualRows,
-} from "./engine.js?v=0.10.0";
-import { random, quantile } from "./random.js?v=0.10.0";
+} from "./engine.js?v=0.10.2";
+import { random, quantile } from "./random.js?v=0.10.2";
 import {
   DATASET_ID,
   HISTORY_PRNG,
   PROFILES,
   periodLabel,
-} from "./history-config.js?v=0.10.0";
+} from "./history-config.js?v=0.10.2";
 const sort = (x) => x.sort((a, b) => a - b);
 const percentiles = (x) => {
   sort(x);
