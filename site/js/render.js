@@ -1,9 +1,9 @@
-import { samplingRangeText, targetStatus } from "./probability.js?v=0.12.0";
-import { resolveScenario } from "./domain.js?v=0.12.0";
-import { attendanceCalendar } from "./planning.js?v=0.12.0";
-import { gaugeColor } from "./gauge-colors.js?v=0.12.0";
-import { PROFILES } from "./history-config.js?v=0.12.0";
-import { annualRows, compile, runPath } from "./engine.js?v=0.12.0";
+import { samplingRangeText, targetStatus } from "./probability.js?v=0.13.0";
+import { resolveScenario } from "./domain.js?v=0.13.0";
+import { attendanceCalendar } from "./planning.js?v=0.13.0";
+import { gaugeColor } from "./gauge-colors.js?v=0.13.0";
+import { PROFILES } from "./history-config.js?v=0.13.0";
+import { annualRows, compile, runPath } from "./engine.js?v=0.13.0";
 export const money = (x) =>
   x === null
     ? "—"
@@ -14,6 +14,7 @@ export const money = (x) =>
           maximumFractionDigits: 0,
         }).format(x)
       : "Not attainable";
+const depositMoney = x => new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2}).format(x);
 const pct = (x) =>
   `${(x * 100).toLocaleString("en-US", { maximumFractionDigits: 1 })}%`;
 export function el(tag, text = "", className = "") {
@@ -672,11 +673,16 @@ export function simulationView(sim, sensitivity = null, cases = null) {
   if (sim.affordableBudget) {
     const b=sim.affordableBudget;
     s.append(stats([
-      ["Affordable annual budget · adverse path",Number.isFinite(b.scale.p10)?money(Math.floor(b.annual*b.scale.p10)):"No finite bound", "10th percentile capacity"],
-      ["Affordable annual budget · median path",Number.isFinite(b.scale.p50)?money(Math.floor(b.annual*b.scale.p50)):"No finite bound"],
-      ["Affordable annual budget · favorable path",Number.isFinite(b.scale.p90)?money(Math.floor(b.annual*b.scale.p90)):"No finite bound", "90th percentile capacity"],
+      ["Affordable annual budget · adverse path",Number.isFinite(b.scale.p10)?money(Math.floor(b.annual*b.scale.p10)):"Beyond search range", "10th percentile capacity"],
+      ["Affordable annual budget · median path",Number.isFinite(b.scale.p50)?money(Math.floor(b.annual*b.scale.p50)):"Beyond search range"],
+      ["Affordable annual budget · favorable path",Number.isFinite(b.scale.p90)?money(Math.floor(b.annual*b.scale.p90)):"Beyond search range", "90th percentile capacity"],
     ]));
     s.append(el("p","Budget screen at current deposits: scales the entered annual categories together, keeps aid, income and dates fixed, and prices each path. Dollars use the entered budget’s baseline date. These are sampled capacity ranges; no target confidence or independent savings confirmation is attached.","hint"));
+  }
+  if(sim.stressChecks?.length){
+    const d=el("details");d.append(el("summary","Planning stresses · same sampled paths"));
+    d.append(table("Each alternative changes one assumption",["Case","Covered bills funded","Change from baseline","Median unpaid bills"],[["Current plan",pct(sim.probability),"—",money(sim.gap.p50)],...sim.stressChecks.map(r=>[r.label,pct(r.probability),((r.probability-sim.probability)*100).toFixed(1)+" percentage points",money(r.gap.p50)])]));
+    d.append(el("p","Housing raises the housing/food category by 20%. Grant loss removes remaining general and school grants while retaining income support. The market case applies one 25% loss in the month before entry (at valuation if entry has passed); an already enabled loss is not applied twice. Each uses the same economic paths, deposits and dates. These alternatives have no assigned probabilities and are not combined with the main estimate.","hint"));s.append(d);
   }
   s.append(representativePathsView(sim));
   s.append(distributionView(sim));
@@ -1174,9 +1180,9 @@ export function householdView(h) {
     wrap.append(el("h3","Required household deposits"));
     if(p.base===null)wrap.append(el("p",p.reason,"hint"));
     else{
-      wrap.append(stats([["Base monthly deposits",money(p.base)],["Peak dated monthly deposits",money(p.peak)],["Within household cap",p.capFeasible?"Yes":"No"]]));
-      wrap.append(table("Proposed base allocation",["Student","Monthly deposit"],p.contributions.map(c=>[c.alias,money(c.monthly)])));
-      wrap.append(el("p",`${p.policy}. ${p.confirmation.meets?"Independent sampling check met the requested target.":"Independent sampling check did not confirm the requested target."} ${p.firstExcess?`First cap conflict: ${p.firstExcess.date}, requiring ${money(p.firstExcess.amount)} against ${money(h.monthlyLimit)} available. This proposal is not household-feasible; edit budgets, dates or funding.`:"The proposed schedule fits the entered cap."} The current funding gauge still uses entered, capped deposits. This proposal does not move money between students or change saved amounts.`,"hint"));
+      wrap.append(stats([["Base monthly deposits",depositMoney(p.base)],["Peak dated monthly deposits",depositMoney(p.peak)],["Within household cap",p.capFeasible?"Yes":"No"]]));
+      wrap.append(table("Proposed base allocation",["Student","Monthly deposit"],p.contributions.map(c=>[c.alias,depositMoney(c.monthly)])));
+      wrap.append(el("p",`${p.policy}; each student’s base deposit is rounded up to cents before verification. ${p.confirmation.meets?"Independent sampling check met the requested target.":"Independent sampling check did not confirm the requested target."} ${p.firstExcess?`First cap conflict: ${p.firstExcess.date}, requiring ${depositMoney(p.firstExcess.amount)} against ${depositMoney(h.monthlyLimit)} available. This proposal is not household-feasible; edit budgets, dates or funding.`:"The proposed schedule fits the entered cap."} The current funding gauge still uses entered, capped deposits. This proposal does not move money between students or change saved amounts.`,"hint"));
     }
   }
   const annual = el("details");
@@ -1267,6 +1273,16 @@ export function calibrationContextView(result) {
   );
   if (c.validation.foundation) wrap.append(el("p",
     "Current process checks: conditional equity anchors and August-to-August cost timing. Forecast coverage remains unestablished. Historical tables below are archived model-9 evidence; their probabilities do not validate this revised model.", "hint"));
+  if(c.validation.hierarchy){
+    const r=c.validation.hierarchy,d=el("details");
+    d.append(el("summary","Current cost-model evaluation & school variation"));
+    d.append(el("p",`The coherent school-cost candidate was not promoted. Gate: ${r.gate.status}. Supported horizon checks and missing support are shown separately; the corrected foundation remains active. These are retrospective comparisons, not calibrated probability guarantees.`,"hint"));
+    d.append(table("Corrected foundation vs coherent candidate · lower scores are better",["Model","Wait (years)","Distinct origins","80% cost-band coverage","Interval score"],r.summaries.flatMap(s=>s.byWait.map(w=>[s.model==="production"?"Corrected foundation":"Coherent candidate",w.wait,w.origins,pct(w.covered),w.score.toFixed(3)]))));
+    d.append(table("Eligible-horizon release checks",["Wait (years)","Eligible origins","Result"],r.gate.comparisons.map(w=>[w.wait,w.origins.length,w.status])));
+    d.append(table("School tuition growth · 2013–2023 · surviving joint-complete schools",["Sector","Schools","P10 annual growth","Median","P90"],r.growth.map(g=>[g.sector,g.institutions,pct(g.tuitionCagr.p10),pct(g.tuitionCagr.p50),pct(g.tuitionCagr.p90)])));
+    d.append(el("p",`${r.legacyAudit.selectedInstitutions.toLocaleString()} institution identities were audited in the 1990s tuition bridge. A student-population definition change and missing comparable housing prevent silently extending whole-plan evidence. The bridge is research data and is not used in this forecast. School growth ranges describe observed variation, not predictive quantiles.`,"hint"));
+    wrap.append(d);
+  }
   if (c.validation.funding) wrap.append(wholePlanValidationView(c.validation));
   if (c.economicState) wrap.append(economicProcessView(c));
   const comparison = c.validation.comparison;

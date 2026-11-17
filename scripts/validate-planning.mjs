@@ -16,7 +16,7 @@ for(const wait of [1,8,16])for(const seed of [1,2,3,4]){
  console.log(JSON.stringify({wait,seed,contribution:r.contribution,confirmed:r.confirmation?.meets}));
 }
 const report={id:'planning-consistency-v1',bundleHash:b.sha256,reserve:[.8,.9,.95,.99].map(target=>({target,...targetReserve(target)})),results,confirmed:results.filter(r=>r.confirmation?.meets).length,
- sourceHashes:Object.fromEntries(['site/js/engine.js','site/js/history.js','site/js/household.js','site/js/planning-decisions.js','site/js/binomial-reserve.js','site/js/savings-target.js','scripts/validate-planning.mjs'].map(p=>[p,createHash('sha256').update(readFileSync(p)).digest('hex')])),
+ sourceHashes:Object.fromEntries(['site/js/engine.js','site/js/history.js','site/js/household.js','site/js/planning-decisions.js','site/js/binomial-reserve.js','site/js/savings-target.js','site/js/planning-stress.js','scripts/validate-planning.mjs'].map(p=>[p,createHash('sha256').update(readFileSync(p)).digest('hex')])),
  limitations:'Twelve seeds across three synthetic horizons check numerical consistency, not future economic accuracy. Budget capacity is a screen, not an independently verified target. Household policy keeps base allocation proportions; it is not an optimal reallocation solver.'};
 report.sha256=createHash('sha256').update(canonical(report)).digest('hex');writeFileSync('site/data/planning-validation.json',JSON.stringify(report)+'\n');
 if(report.confirmed<10)throw Error('Fewer than 10/12 independent checks confirmed; investigate before release.');

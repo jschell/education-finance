@@ -23,6 +23,10 @@ jobs:
         run: |
           node scripts/validate-planning.mjs
           git diff --exit-code -- site/data/planning-validation.json
+      - name: Reproduce coherent cost evaluation
+        run: |
+          node scripts/validate-hierarchy.mjs
+          git diff --exit-code -- site/data/hierarchy-validation.json
       - name: Install isolated browser QA
         run: |
           npm install --prefix /tmp/education-finance-qa playwright
@@ -33,3 +37,8 @@ jobs:
           ln -s "$GITHUB_WORKSPACE/site" /tmp/education-finance-qa-root/education-finance
           python3 -m http.server 8765 --bind 127.0.0.1 --directory /tmp/education-finance-qa-root >/tmp/education-finance-http.log 2>&1 &
           node scripts/browser-cost-followup.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: overhaul-browser-evidence
+          path: tests/evidence/followup/

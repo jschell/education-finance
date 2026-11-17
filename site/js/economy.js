@@ -1,5 +1,5 @@
 // Joint state-conditioned source blocks, explicit Treasury/bill instruments.
-import { random } from "./random.js?v=0.12.0";
+import { random } from "./random.js?v=0.13.0";
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const variance = (xs) => mean(xs.map((x) => (x - mean(xs)) ** 2));

@@ -2,16 +2,17 @@ import {
   assessCalibrated,
   verifyCalibration,
   snapshotHash,
-} from "./calibration.js?v=0.12.0";
-import { assessHousehold } from "./household.js?v=0.12.0";
-import { validatePlan } from "./domain.js?v=0.12.0";
-import { assessHistorical, verifyHistory } from "./history.js?v=0.12.0";
+} from "./calibration.js?v=0.13.0";
+import { assessHousehold } from "./household.js?v=0.13.0";
+import { validatePlan } from "./domain.js?v=0.13.0";
+import { assessHistorical, verifyHistory } from "./history.js?v=0.13.0";
 let dataPromise, calibrationPromise;
 async function calibrationData(history) {
   return (calibrationPromise ??= Promise.all(
     [
       "calibration-foundation.json",
       "foundation-validation.json",
+      "hierarchy-validation.json",
       "calibration-validation.json",
       "cost-model-comparison.json",
       "economy-validation.json",
@@ -29,6 +30,7 @@ async function calibrationData(history) {
     async ([
       bundle,
       foundation,
+      hierarchy,
       validation,
       comparison,
       processValidation,
@@ -42,6 +44,9 @@ async function calibrationData(history) {
       if (foundation.bundleHash !== bundle.sha256 ||
           await snapshotHash(foundationBody) !== foundationHash)
         throw Error("Foundation validation identity mismatch.");
+      const {sha256: hierarchyHash,...hierarchyBody}=hierarchy;
+      if(hierarchy.bundleHash !== bundle.sha256 || await snapshotHash(hierarchyBody)!==hierarchyHash)
+        throw Error("Cost candidate evaluation identity mismatch.");
       if (
         comparison.panelHash !== bundle.panel.hash ||
         comparison.liveModel !== bundle.costModel
@@ -77,6 +82,7 @@ async function calibrationData(history) {
         validation: {
           ...validation,
           foundation,
+          hierarchy,
           comparison,
           processValidation,
           correction,

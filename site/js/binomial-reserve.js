@@ -1,5 +1,5 @@
 // Target-specific one-sided tolerance rank. Offline reference: scipy.stats.binom.
-import { samplingInterval } from './probability.js?v=0.12.0';
+import { samplingInterval } from './probability.js?v=0.13.0';
 const Z=1.6448536269514722;
 const cache=new Map();
 // Mode-centered recurrence avoids underflow at n=50,000 and extreme targets.

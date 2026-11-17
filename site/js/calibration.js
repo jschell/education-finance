@@ -1,18 +1,19 @@
-import { curveFactors } from "./cost-recalibration.js?v=0.12.0";
-import { costSpreadDraw } from "./cost-uncertainty.js?v=0.12.0";
-import { costDonorIndices } from "./robust-history.js?v=0.12.0";
-import { fitEconomy, economyPath } from "./economy.js?v=0.12.0";
+import { hierarchicalPath } from "./cost-hierarchy.js?v=0.13.0";
+import { curveFactors } from "./cost-recalibration.js?v=0.13.0";
+import { costSpreadDraw } from "./cost-uncertainty.js?v=0.13.0";
+import { costDonorIndices } from "./robust-history.js?v=0.13.0";
+import { fitEconomy, economyPath } from "./economy.js?v=0.13.0";
 import {
   fitCostTrends,
   costGrowth,
   realTrend,
-} from "./cost-trends.js?v=0.12.0";
-import { clone, resolveScenario } from "./domain.js?v=0.12.0";
-import { compile, runPath, repriceRow } from "./engine.js?v=0.12.0";
-import { simulateHistorical } from "./history.js?v=0.12.0";
-import { PROFILES } from "./history-config.js?v=0.12.0";
-import { allocationAt } from "./planning.js?v=0.12.0";
-import { random, quantile } from "./random.js?v=0.12.0";
+} from "./cost-trends.js?v=0.13.0";
+import { clone, resolveScenario } from "./domain.js?v=0.13.0";
+import { compile, runPath, repriceRow } from "./engine.js?v=0.13.0";
+import { simulateHistorical } from "./history.js?v=0.13.0";
+import { PROFILES } from "./history-config.js?v=0.13.0";
+import { allocationAt } from "./planning.js?v=0.13.0";
+import { random, quantile } from "./random.js?v=0.13.0";
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const q = (xs, p) =>
   quantile(
@@ -342,6 +343,8 @@ export function calibrationFactory(
         bundle.economy.fitting,
       )
     : null;
+  if (bundle.costHierarchy && (bundle.costCorrection || bundle.costUncertainty || bundle.costRecalibration))
+    throw Error("Coherent hierarchy cannot stack legacy cost uncertainty layers.");
   const make = (trial, seed = settings.seed) => {
     const indices = annualIndices(
       bundle.annual.length,
@@ -353,6 +356,7 @@ export function calibrationFactory(
     const u = random(
       (seed ^ Math.imul(trial + 1, 0x85ebca6b) ^ 0xc2b2ae35) >>> 0,
     )();
+    let sourceYears=indices.map(i=>bundle.annual[i].year);
     let years = indices.map((i, year) => e.transform(i, u, true, year));
     if (bundle.economy) {
       const macro = economyPath(
@@ -375,6 +379,7 @@ export function calibrationFactory(
             : true,
         },
       );
+      sourceYears=macro.map(y=>y.sourceYear);
       const donors = bundle.robustness
         ? costDonorIndices(
             macro,
@@ -397,6 +402,14 @@ export function calibrationFactory(
         );
         return { ...y, ...costs };
       });
+    }
+    if (bundle.costHierarchy) {
+      const fit=bundle.costHierarchy.sectors[c.calibrationSector];
+      if(!fit)throw Error("Missing sector hierarchy.");
+      const costs=hierarchicalPath(fit,years.map(y=>y.inflation),{
+        seed,trial,schoolKey:c.costSchoolKey,unitid:c.costUnitid,sourceYears,
+      });
+      years=years.map((y,i)=>({...y,tuition:costs[i].tuition,housing:costs[i].housing}));
     }
     if (bundle.costCorrection) {
       const draw = random(
@@ -487,6 +500,7 @@ export function calibrationFactory(
       calibrationHash: bundle.sha256,
       costModel: bundle.costModel || "recent10",
       costRecalibration: bundle.costRecalibration || null,
+      costHierarchy: bundle.costHierarchy?.id || null,
       robustHistory: bundle.robustness || null,
       costUncertainty: bundle.costUncertainty || null,
       economicState: bundle.economy
@@ -518,6 +532,8 @@ export function compileCalibrated(
   const c = compile(plan, student, reference);
   c.calibrationSector = sectorFor(reference);
   c.calibrationLiving = reference.living;
+  c.costSchoolKey = `unknown:${student.id}:${scenario.id}`;
+  c.costUnitid = null;
   return { c, reference };
 }
 export function assessCalibrated(

@@ -27,10 +27,10 @@ export function householdRequirement(compiled,requirements) {
  const weights=compiled.map(c=>total>0?c.monthly/total:1/compiled.length);
  return Math.max(0,...requirements.map((r,j)=>weights[j]>0?r/weights[j]:r===0?0:Infinity));
 }
-export function householdDepositSchedule(compiled,totalMonthly) {
+export function householdDepositSchedule(compiled,totalMonthly,amounts=null) {
  const basis=compiled.reduce((v,c)=>v+c.monthly,0);
  const weights=compiled.map(c=>basis>0?c.monthly/basis:1/compiled.length);
  const length=Math.max(...compiled.map(c=>c.rows.length));
  return Array.from({length},(_,i)=>({date:compiled.find(c=>c.rows[i]).rows[i].date,
-  amount:compiled.reduce((v,c,j)=>v+(c.rows[i]?.factor||0)*weights[j]*totalMonthly,0)}));
+  amount:compiled.reduce((v,c,j)=>v+(c.rows[i]?.factor||0)*(amounts?amounts[j]:weights[j]*totalMonthly),0)}));
 }

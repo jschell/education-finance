@@ -1,20 +1,20 @@
-import { householdRequirement, householdDepositSchedule } from "./planning-decisions.js?v=0.12.0";
-import { savingsFitProbability, savingsConfirmation, VERIFICATION_TRIALS } from "./savings-target.js?v=0.12.0";
+import { householdRequirement, householdDepositSchedule } from "./planning-decisions.js?v=0.13.0";
+import { savingsFitProbability, savingsConfirmation, VERIFICATION_TRIALS } from "./savings-target.js?v=0.13.0";
 import {
   compileCalibrated,
   calibrationFactory,
-} from "./calibration.js?v=0.12.0";
-import { clone, validatePlan, resolveScenario } from "./domain.js?v=0.12.0";
-import { compile, runPath, requiredContribution } from "./engine.js?v=0.12.0";
+} from "./calibration.js?v=0.13.0";
+import { clone, validatePlan, resolveScenario } from "./domain.js?v=0.13.0";
+import { compile, runPath, requiredContribution } from "./engine.js?v=0.13.0";
 import {
   observations,
   referenceScenario,
   historicalPath,
   blockIndices,
   tuitionLogMean,
-} from "./history.js?v=0.12.0";
-import { quantile } from "./random.js?v=0.12.0";
-import { periodLabel } from "./history-config.js?v=0.12.0";
+} from "./history.js?v=0.13.0";
+import { quantile } from "./random.js?v=0.13.0";
+import { periodLabel } from "./history-config.js?v=0.13.0";
 const range = (values) => {
   values.sort((a, b) => a - b);
   return {
@@ -167,8 +167,11 @@ export function assessHousehold(
     requirements.sort((a,b)=>a-b);
     const base=Math.ceil(requirements[Math.ceil(savingsFitProbability((settings.threshold??.9),fitTrials)*fitTrials)-1]);
     if(Number.isFinite(base)){
-      const schedule=householdDepositSchedule(uncapped,base),basis=uncapped.reduce((v,c)=>v+c.monthly,0);
+      const basis=uncapped.reduce((v,c)=>v+c.monthly,0);
       const weights=uncapped.map(c=>basis>0?c.monthly/basis:1/uncapped.length);
+      const amounts=weights.map(w=>Math.ceil(base*w*100)/100);
+      const roundedBase=amounts.reduce((a,b)=>a+b,0);
+      const schedule=householdDepositSchedule(uncapped,roundedBase,amounts);
       const peak=Math.max(...schedule.map(r=>r.amount));
       const firstExcess=plan.family.monthlyLimit===null?null:schedule.find(r=>r.amount>plan.family.monthlyLimit+1e-7)||null;
       let passed=0;
@@ -177,11 +180,11 @@ export function assessHousehold(
         let success=true;
         for(let j=0;j<uncapped.length;j++){
           const path=make(j,t,true);
-          success &&= runPath(path.compiled,i=>path.gross[i],base*weights[j],false).success;
+          success &&= runPath(path.compiled,i=>path.gross[i],amounts[j],false).success;
         }
         if(success)passed++;
       }
-      proposal={base,peak,firstExcess,capFeasible:!firstExcess,weights,contributions:weights.map((w,j)=>({alias:selected[j].student.alias,monthly:base*w})),
+      proposal={base:roundedBase,peak,firstExcess,capFeasible:!firstExcess,weights,contributions:amounts.map((monthly,j)=>({alias:selected[j].student.alias,monthly})),
         confirmation:savingsConfirmation(passed,VERIFICATION_TRIALS,(settings.threshold??.9),fitTrials),
         policy:basis>0?"Keep entered base-deposit proportions and dates":"Equal base deposits on entered dates (all entered deposits are zero)"};
     }else proposal={base:null,capFeasible:false,reason:"The fixed deposit allocation and dates cannot fund every goal on the fitting paths. A zero share stays zero; edit the allocation or dates."};
