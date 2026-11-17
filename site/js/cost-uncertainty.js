@@ -1,4 +1,4 @@
-import { random } from "./random.js?v=0.10.2";
+import { random } from "./random.js?v=0.11.0";
 
 // Count each economic target year once, rather than treating sectors as independent.
 export function fitCostSpread(residualFit, cutoff) {

@@ -1,5 +1,5 @@
 // Macro history and college-cost history have deliberately different coverage.
-import { random } from "./random.js?v=0.10.2";
+import { random } from "./random.js?v=0.11.0";
 export function costDonorIndices(macro, costYears, seed, trial, blockYears) {
   const rand = random(
     (seed ^ Math.imul(trial + 1, 0x7feb352d) ^ 0x846ca68b) >>> 0,

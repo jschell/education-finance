@@ -1,5 +1,5 @@
 // Joint state-conditioned source blocks, explicit Treasury/bill instruments.
-import { random } from "./random.js?v=0.10.2";
+import { random } from "./random.js?v=0.11.0";
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const variance = (xs) => mean(xs.map((x) => (x - mean(xs)) ** 2));
@@ -110,6 +110,14 @@ const weightedIndex = (weights, u) => {
   }
   return weights.length - 1;
 };
+// Expected annual gross at each offset under the ACTUAL eligible block weights.
+export function blockEquityMeans(years, weights, blockYears) {
+  const total = weights.reduce((a,b) => a+b,0);
+  if (!(total > 0) || weights.length !== years.length-blockYears+1)
+    throw Error("Invalid equity block support.");
+  return Array.from({length:blockYears},(_,k) =>
+    weights.reduce((v,w,j) => v+w*Math.exp(years[j+k].stockLog),0)/total);
+}
 export function economyPath(
   years,
   fit,
@@ -124,8 +132,13 @@ export function economyPath(
     conditioned = true,
     innovations = true,
     selectionAnchors = anchors,
+    equityCentering = "legacy",
   },
 ) {
+  if (![1,3,5].includes(blockYears) || years.length < blockYears)
+    throw Error("Unsupported economic block length.");
+  if (!["legacy","conditional-block-v1"].includes(equityCentering))
+    throw Error("Unsupported equity centering.");
   const rand = random((seed ^ Math.imul(trial + 1, 0x9e3779b9)) >>> 0);
   const u = random(
     (seed ^ Math.imul(trial + 1, 0x85ebca6b) ^ 0xc2b2ae35) >>> 0,
@@ -162,19 +175,26 @@ export function economyPath(
     stockScale =
       ((1 + anchors.stocks) / grossMean) ** (1 / 12) *
       Math.exp((draw[0] + draw[1]) / 12);
+  const regimeMean = uncertainty
+    ? mean(fit.deviations.map((d) => Math.exp(d[0]+d[1]))) : 1;
+  const regime = Math.exp(draw[0]+draw[1])/regimeMean;
+  let equityMeans;
   const result = [];
   let source = 0,
     within = blockYears;
   while (result.length < length) {
     if (within === blockYears) {
-      source = weightedIndex(
-        conditioned
-          ? blockWeights(years, selectionState, fit.scales, blockYears)
-          : Array(years.length - blockYears + 1).fill(1),
-        rand(),
-      );
+      const weights = conditioned
+        ? blockWeights(years, selectionState, fit.scales, blockYears)
+        : Array(years.length - blockYears + 1).fill(1);
+      source = weightedIndex(weights, rand());
+      if (equityCentering === "conditional-block-v1")
+        equityMeans = blockEquityMeans(years, weights, blockYears);
       within = 0;
     }
+    const scale = equityCentering === "conditional-block-v1"
+      ? ((1+anchors.stocks)*regime/equityMeans[within]) ** (1/12)
+      : stockScale;
     const index = source + within++,
       row = years[index];
     const piInnovation = innovations
@@ -235,7 +255,7 @@ export function economyPath(
       );
       months.push([
         innovations
-          ? (1 + row.months[m][0]) * stockScale - 1
+          ? (1 + row.months[m][0]) * scale - 1
           : (1 + anchors.stocks) ** (1 / 12) - 1,
         treasuryGross(previousLong, state[1]) - 1,
         billGross(previousShort) - 1,

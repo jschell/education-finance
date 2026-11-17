@@ -1,18 +1,18 @@
 import {
   compileCalibrated,
   calibrationFactory,
-} from "./calibration.js?v=0.10.2";
-import { clone, validatePlan, resolveScenario } from "./domain.js?v=0.10.2";
-import { compile, runPath } from "./engine.js?v=0.10.2";
+} from "./calibration.js?v=0.11.0";
+import { clone, validatePlan, resolveScenario } from "./domain.js?v=0.11.0";
+import { compile, runPath } from "./engine.js?v=0.11.0";
 import {
   observations,
   referenceScenario,
   historicalPath,
   blockIndices,
   tuitionLogMean,
-} from "./history.js?v=0.10.2";
-import { quantile } from "./random.js?v=0.10.2";
-import { periodLabel } from "./history-config.js?v=0.10.2";
+} from "./history.js?v=0.11.0";
+import { quantile } from "./random.js?v=0.11.0";
+import { periodLabel } from "./history-config.js?v=0.11.0";
 const range = (values) => {
   values.sort((a, b) => a - b);
   return {

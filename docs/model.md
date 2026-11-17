@@ -1,65 +1,19 @@
-# Current model · college-funding-9.0.0
+# Current model · college-funding-10.0.0
 
-App v0.10.2. Schema 5 and backup format `education-finance-2` remain unchanged. The worker uses `calibration-reviewed.json`; older datasets and protocols are retained for reproduction. [Previous methodology](archive/model-through-v0.9.0.md).
+App v0.11.0. Schema 5 and student funding are preserved. The active bundle is `calibration-foundation.json`. [Model 9 methodology](archive/model9.md) and its reports remain historical records.
 
-## Ownership and cash flows
+## Foundation changes
 
-Each student owns one funding record: opening savings, monthly contribution dates and annual step-up, gifts, general aid, income support, coverage goal, asset allocation, fees and investment reference assumptions. Each education scenario owns school costs, school-specific aid, attendance length, living/billing schedules and source information. Resolving a scenario creates an in-memory copy; it never changes saved funding. Shared-pool allocations cannot exceed available shared money. Duplicating a student resets money and awards; copying a school path does not copy funding.
+Equity anchors now mean arithmetic annual gross expectations under the actual conditioned contiguous-block sampler. At each block start, each within-block offset is normalized by its weighted source-year gross mean. A persistent regime multiplier is normalized by its discrete expectation. This preserves source choices, monthly shocks, positive gross returns, shared case/student indices and horizon-stable prefixes. It changes realized equity distributions; it is not a new equity forecast.
 
-The monthly ledger applies dated deposits and gifts, portfolio growth and bills. Tuition is billed by the selected academic calendar and repriced once per attendance year. Living expenses follow the selected attendance months. General and school aid expire independently, combine once and are capped by bills. Income support pays covered bills without depositing unused income. Coverage can mean tuition, full costs or a chosen share. Balances cannot go negative: an unpaid bill is a shortfall even if a later gift leaves money at the end. All covered bills must be paid for a path to succeed.
+Market source year y runs September y through August y+1. Its paired college transition is T(y+1)/T(y), with August CPI endpoints for real prices. Cost donors therefore cover 2000–2022, while macro history remains 1954–2023. Historical data are revised and selected with full-window panel membership; no publication-vintage claim is made. Legacy residual corrections fitted under the former timing are disabled pending comparable refitting. Fixed nominal 4% tuition / 3% housing trends remain provisional baseline assumptions.
 
-The deterministic reference compounds savings and expense categories separately. Variable costs and returns belong to the simulation. Real-dollar results use its simulated deflator exactly once. Manual reference rates do not override the stochastic asset model.
+The old 5% promotion interpretation was infeasible: even zero eligible-case error could improve the all-case score by only 3.31%. Current gates compare matched eligible cases, require three distinct eligible origins at each 0/4/8-year wait and distinguish missing support from failure. Three completed earlier target years are required for nested selection. No threshold is changed after corrected scoring. No cost candidate is promoted on this repair.
 
-## Economic paths
+`foundation-validation.json` reports analytic contracts and a 36-cell actual-sampler moment matrix (case, block size, conditioning, parameter uncertainty). Its tolerance is five path-cluster standard errors plus 0.1 percentage point. This checks implementation, not economic coverage. UI historical tables explicitly describe archived model-9 outcomes. Corrected-model whole-plan coverage remains unestablished.
 
-The default samples joint investment/rate/inflation blocks from 70 complete September–August source years, 1954–2023. Asset profiles shift toward conservative allocations near enrollment; explicit dated allocations override those profiles. Monthly fees compound on the portfolio. Three-year blocks are the default; one/five-year settings are supported. Shared seeds and horizon-stable prefixes keep economic shocks common across cases and students.
+## Unchanged contracts
 
-Inflation and yields use regularized persistence. Annual inflation shrinks toward phi 0.5 with ten prior observations; monthly yields toward phi 0.95 with 120 prior observations. Persistent expectation deviations come from seven disjoint ten-year windows, which are not seven guaranteed independent economies. Five-year Treasuries use coupon/dirty-price repricing with semiannual coupons and a monthly roll. Three-month bills use discount-price conversion. Numerical yield and inflation bounds remain explicit in the economic bundle.
+Ownership, grants, income, monthly bill order, fixed reference, scenario sharing and browser-local persistence follow the [model-9 contracts](archive/model9.md). The savings solver still uses the existing conservative numerical reserve until its separate stage is validated. Students retain their funds; a household cap constrains entered deposits without transferring earmarked savings.
 
-Forward cautious/central/favorable assumptions use pinned SPF anchors and the published equity cross-check. Ten-year anchors are held constant beyond ten years. The ten-year survey yield remains a proxy for the five-year long-run yield. Cases are conditional alternatives with no probability weights. Their funding-frequency envelope has no confidence level and is not a complete uncertainty distribution. Wilson intervals around simulated frequencies measure sampling noise only. The gauge arc shows the central case; the headline spans named cases. A missing budget shows no percentage.
-
-## College costs and uncertainty
-
-Fixed-institution IPEDS panels cover 2000–2023. Separate public residency series and private nonprofit tuition are available; housing is on-campus room/board, not local rent. Panels are equal-school geometric indices with full-window membership, imputation and survivorship limitations. Starting budgets come from user inputs. Variable costs use the previously selected 4% tuition / 3% on-campus housing nominal trends plus paired historical deviations; other expenses and off-campus housing use CPI. Fixed expense mode keeps entered growth assumptions.
-
-Within overlapping years, costs retain observed macro-year matching. Older macro years borrow inflation-conditioned contiguous cost blocks from the shorter panel. This is an approximation, not observed old joint cost/market history. Common donors preserve paired tuition/housing and household shocks.
-
-Persistent paired cost-error corrections fit only on rolling forecast errors through each origin. With at least three distinct error-target years, corrections shrink toward zero by n/(n+10). The current correction and conditioned sampling passed the v0.9 multi-period score rules. No later errors may enter earlier-origin fits.
-
-The v0.10 uncertainty candidate pools maximum absolute annualized forecast errors by target year. With five earlier target years it uses the finite-sample 80% rank and a symmetric persistent uniform drift. It improved aggregate cost coverage but worsened interval score beyond the frozen 10% tolerance, so it is **disabled**. Its implementation and comparison remain reproducible. There is no claim that cost undercoverage is fixed.
-
-## Estimated savings contribution
-
-The path-specific solver finds a base monthly contribution that pays every covered bill while respecting entered contribution dates and annual step-ups. Infeasible dates yield infinity. Student estimates do not incorporate a household deposit cap; the household assessment applies that cap separately.
-
-Fit at least 20,000 paths (twice primary trials, capped at 50,000). The [reserve rule](savings-reserve-rule.md) adds joint 95% DKW bounds for fitting/verification CDFs plus a worst-case Wilson lower-bound distance to the requested probability. Round the resulting order statistic up to whole dollars and enforce the entered ceiling. This conservative reserve retains the user's requested target. At the maximum sampled quantile, the full reserve may be unavailable; report the cap explicitly.
-
-Verify the candidate without refitting on 5,000 independently seeded ledger paths. Confirmation requires its one-sided 95% Wilson lower sampling bound (z = 1.6448536269514722) to meet the requested target. Failed confirmation remains visible. A missing estimate means the entered dates/ceiling cannot satisfy the fitting rule including its reserve; it does not prove the original requested probability is unattainable. This is an internal numerical consistency check, not external economic calibration. The initial three-standard-error rule confirmed only 9/12 production-model seeds and was replaced before the final seed rerun; its results remain archived.
-
-## Validation and limits
-
-[Fix protocol](critique-fix-plan.md) freezes v0.10 candidate selection and diagnostics before scoring. [Current status](critique-fix-status.md) and [fresh review](critique-review-v0.10.0.md) record outcomes.
-
-Whole-plan tests use production compile, simulation path factory and ledger functions. Synthetic plans start each September in 2011–2020 where complete outcomes exist, with 0/4/8-year waits followed by four attendance years. Five sectors and three funding levels are tested. Macro sources and annual joint observations end before the origin; known cost levels and error targets stop at the origin. Historical return/inflation anchors come from training data; current survey forecasts never enter past tests. Actual ledger paths replay reconstructed asset instruments and published cost levels on the same bill schedule. Outputs include Brier score against a 50% guess, reliability bins, total-cost coverage, source cutoffs and the number of distinct start years.
-
-Policy choices inherited from earlier full-period comparisons are fixed, so this is not a nested policy-selection backtest. Panels use revised data and future-selected membership. Origins overlap; sectors and funding levels share shocks, so case counts do not multiply independent evidence. Simple training anchors do not validate today's forward survey assumptions. There is no complete 18-year-wait test. Multi-student future probability calibration remains unestablished. Neither current component scores nor whole-plan diagnostics certify that a reported future funding frequency is calibrated.
-
-## Follow-up evidence in v0.10.1
-
-[The frozen follow-up](cost-followup-protocol.md) and [results](cost-followup-results.md) add an independent invoice audit, preceding-month CPI rebasing for realized ledger diagnostics, complete-bill trend comparisons, strictly chronological selection, denser funding levels/profiles, and separate aggregate 18-year-wait cost tests. The benchmark wins the predeclared fixed-panel bill comparison. No production model, return assumption, trend, calibration bundle, savings reserve or storage contract changes in this release.
-
-Newborn-horizon aggregate costs use a shifted synthetic calendar, contain no investment forecast, and have seven overlapping origin years with one nonoverlapping complete outcome window. They underforecast all 14 benchmark bills, whereas recent fixed-panel longer-wait tests overforecast. Different source definitions and regimes prevent a blanket correction. Passing software checks does not resolve these forecast-coverage findings.
-
-## Independently recalibrated models in v0.10.2
-
-[The full protocol](full-calibration-protocol.md) evaluates four complete candidate cost models, each fitted to its own earlier raw production-factory endpoint errors. For 2/5/10-year horizons, paired tuition/housing errors are clustered once per target year. Three years permit median-bias shrinkage n/(n+10); five permit a centered empirical paired draw scaled by sqrt(n/(n+10)). Asymmetric errors are retained. Cumulative log corrections interpolate through zero and available horizons, extrapolating the final annual rate beyond support. These are model assumptions, not coverage guarantees.
-
-The optional path hook applies these cumulative factors to academic-year tuition and on-campus housing before production bills are repriced. It uses common elapsed-time price curves and shared draws across students. Fixed expense mode, market paths and other CPI costs are unchanged. The shipped bundle has no costRecalibration field, so the capability is inactive and financial model 9 remains the production model.
-
-The nested policy fails the predeclared promotion gate (about 0.15% score improvement versus the required 5%). A directly evaluated recalibrated fixed-trend model improves about 3.1%, but it was not selected at every earlier origin using then-completed outcomes. No candidate is promoted. The evaluator retains per-fold widths, bias, miss direction, funding reliability, matching-source diagnostics and the failed gate.
-
-Matched-school 2024 prices extend endpoint tests only; missing academic CPI and a complete joint outcome window are not fabricated. Synthetic prospective snapshots are immutable records of assumptions/code/source hashes and future targets, not immediate validation. [Results](full-calibration-results.md) and [review](full-calibration-review.md) describe the evidence and limitations.
-
-## Persistence and compatibility
-
-Browser recovery, IndexedDB autosave and editor locking preserve valid pending changes. Temporary example workspaces restore the real plan on exit. Model-4 through model-8 schema-5 records receive a metadata-only upgrade to model 9; student funding is preserved. Incompatible schemas 1–4 and old backup formats remain intentionally rejected. Exported assessment metadata records seed, model, dataset hashes and inputs for reproducibility. The app is static and browser-local with no telemetry or cloud storage.
+Schema-5 models 4–9 receive a metadata-only upgrade. Financial estimates change with the new model; saved amounts and schedules do not.
