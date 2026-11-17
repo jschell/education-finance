@@ -1,6 +1,6 @@
 # Education Finance
 
-A static, browser-local college funding planner. **App v0.10.1 · model college-funding-9.0.0 · schema 5 · MIT license.**
+A static, browser-local college funding planner. **App v0.10.2 · model college-funding-9.0.0 · schema 5 · MIT license.**
 
 [Open the planner](https://jschell.github.io/education-finance/)
 
@@ -32,6 +32,16 @@ The denser funding evaluation includes 1,350 synthetic cases across five funding
 
 [Follow-up protocol](docs/cost-followup-protocol.md) · [Results](docs/cost-followup-results.md) · [Completion review](docs/completion-review.md)
 
+## Full-model calibration in v0.10.2
+
+Each candidate now fits its own earlier production-factory price errors. Separate bias and asymmetric paired residual curves change simulated costs before bills are repriced. A nested chronological policy selects models using only earlier completed bill outcomes.
+
+The recalibrated fixed-trend candidate improves its direct bill score from 0.284 to 0.276 (about 3.1%). The chronological selection policy improves only about 0.15%, below the frozen 5% promotion requirement. The production financial model and existing calibration bundle are retained. The new fitter/path capability is inactive in the shipped bundle.
+
+Common-period source checks, explicit 80–95% funding reliability bins and matched-school 2024 endpoint prices are now published. The 2024 extension is price-only and adds one target-year shock; it is not a new whole-plan outcome or pre-2000 fixed-school history. An immutable synthetic forecast snapshot begins a prospective record without claiming present calibration.
+
+[Full protocol](docs/full-calibration-protocol.md) · [Full results](docs/full-calibration-results.md) · [Fresh review](docs/full-calibration-review.md) · [Prospective record](data/forecast-snapshots/README.md)
+
 ## Develop and reproduce
 
 No framework, installation or build step is required for the static app. Use a local HTTP server rooted at `site/`. Node 24+ runs checks:
@@ -47,6 +57,7 @@ node scripts/review-calibration.mjs
 node scripts/build_reviewed_release.mjs
 node scripts/validate-savings-stability.mjs
 node scripts/validate-cost-followup.mjs
+node scripts/validate-full-calibration.mjs
 ```
 
 The worker loads `site/data/calibration-reviewed.json` and verifies linked validation hashes. `site/data/critique-validation.json` and `site/data/funding-validation.json` are the v0.10 evaluation reports. Generation is deterministic; validation does not send user plans anywhere.

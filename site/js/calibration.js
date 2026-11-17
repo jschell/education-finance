@@ -1,17 +1,18 @@
-import { costSpreadDraw } from "./cost-uncertainty.js?v=0.10.0";
-import { costDonorIndices } from "./robust-history.js?v=0.10.0";
-import { fitEconomy, economyPath } from "./economy.js?v=0.10.0";
+import { curveFactors } from "./cost-recalibration.js?v=0.10.2";
+import { costSpreadDraw } from "./cost-uncertainty.js?v=0.10.2";
+import { costDonorIndices } from "./robust-history.js?v=0.10.2";
+import { fitEconomy, economyPath } from "./economy.js?v=0.10.2";
 import {
   fitCostTrends,
   costGrowth,
   realTrend,
-} from "./cost-trends.js?v=0.10.0";
-import { clone, resolveScenario } from "./domain.js?v=0.10.0";
-import { compile, runPath, repriceRow } from "./engine.js?v=0.10.0";
-import { simulateHistorical } from "./history.js?v=0.10.0";
-import { PROFILES } from "./history-config.js?v=0.10.0";
-import { allocationAt } from "./planning.js?v=0.10.0";
-import { random, quantile } from "./random.js?v=0.10.0";
+} from "./cost-trends.js?v=0.10.2";
+import { clone, resolveScenario } from "./domain.js?v=0.10.2";
+import { compile, runPath, repriceRow } from "./engine.js?v=0.10.2";
+import { simulateHistorical } from "./history.js?v=0.10.2";
+import { PROFILES } from "./history-config.js?v=0.10.2";
+import { allocationAt } from "./planning.js?v=0.10.2";
+import { random, quantile } from "./random.js?v=0.10.2";
 const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
 const q = (xs, p) =>
   quantile(
@@ -332,6 +333,8 @@ export function calibrationFactory(
     c.calibrationSector || sectorFor(c),
     assumptionCase,
   );
+  const curve = bundle.costRecalibration?.sectors[c.calibrationSector];
+  if (curve && curve.model !== bundle.costModel) throw Error("Cost recalibration model mismatch");
   const stateFit = bundle.economy
     ? fitEconomy(
         bundle.economy.macroYears || bundle.economy.productionYears,
@@ -447,8 +450,9 @@ export function calibrationFactory(
         i === 0 ||
         (i >= c.enrollmentIndex && (i - c.enrollmentIndex) % 12 === 0)
       ) {
-        academicTuition = tuition;
-        academicHousing = housing;
+        const correction = curveFactors(curve, i / 12, seed, trial);
+        academicTuition = tuition * correction.tuition;
+        academicHousing = housing * correction.housing;
       }
       const row =
         c.history.costMode === "fixed"
@@ -480,6 +484,7 @@ export function calibrationFactory(
       calibrationCase: assumptionCase.id,
       calibrationHash: bundle.sha256,
       costModel: bundle.costModel || "recent10",
+      costRecalibration: bundle.costRecalibration || null,
       robustHistory: bundle.robustness || null,
       costUncertainty: bundle.costUncertainty || null,
       economicState: bundle.economy

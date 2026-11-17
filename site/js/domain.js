@@ -2,7 +2,7 @@ import {
   HISTORY_DEFAULTS,
   HISTORY_PRNG,
   PROFILES,
-} from "./history-config.js?v=0.10.0";
+} from "./history-config.js?v=0.10.2";
 export const MODEL = "college-funding-9.0.0",
   SCHEMA = 5,
   PRNG = HISTORY_PRNG,

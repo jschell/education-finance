@@ -33,3 +33,14 @@ Cost coverage and independent evidence remain unresolved: fixed-panel longer-wai
 **v0.10.1 is deployed.** [PR #1](https://github.com/jschell/education-finance/pull/1) merged as `a1846b6a5df546a0d06c447a159597087023f6c9`; [main checks](https://github.com/jschell/education-finance/actions/runs/43975728871) and [Pages deployment](https://github.com/jschell/education-finance/actions/runs/43975728963) succeeded. [The live verification run](https://github.com/jschell/education-finance/actions/runs/43975844011) compares deployed page/worker/report bytes and repeats the synthetic browser checks against the public URL.
 
 The unresolved statistical finding is tracked in [issue #2](https://github.com/jschell/education-finance/issues/2). Completing this release does not close that finding.
+
+
+## v0.10.2 full-model calibration
+
+Implemented each cost model's own earlier residual fitting, asymmetric paired cost-path curves, nested chronological selection, matched source/period checks, 2024 matched-school endpoint data, near-target funding reliability and an immutable synthetic prospective snapshot.
+
+The first full evaluation and its publication rebuild each passed 140 tests and regenerated reports twice identically. Direct recalibrated fixed-trend score improved about 3.1%, but the nested selected policy improved only about 0.15%, failing the frozen 5% promotion rule. Existing financial model 9, calibration bundle, savings reserve and schema 5 are retained; the new path hook is inactive in the shipped bundle.
+
+[Full protocol](full-calibration-protocol.md) · [Results](full-calibration-results.md) · [Fresh review](full-calibration-review.md) · [Prospective record](../data/forecast-snapshots/README.md)
+
+Final report-integrity and common-household-price tests, final browser evidence and deployment are pending on the release branch. The unresolved forecasting evidence remains tracked in issue #2.

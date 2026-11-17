@@ -2,10 +2,10 @@ import {
   assessCalibrated,
   verifyCalibration,
   snapshotHash,
-} from "./calibration.js?v=0.10.0";
-import { assessHousehold } from "./household.js?v=0.10.0";
-import { validatePlan } from "./domain.js?v=0.10.0";
-import { assessHistorical, verifyHistory } from "./history.js?v=0.10.0";
+} from "./calibration.js?v=0.10.2";
+import { assessHousehold } from "./household.js?v=0.10.2";
+import { validatePlan } from "./domain.js?v=0.10.2";
+import { assessHistorical, verifyHistory } from "./history.js?v=0.10.2";
 let dataPromise, calibrationPromise;
 async function calibrationData(history) {
   return (calibrationPromise ??= Promise.all(

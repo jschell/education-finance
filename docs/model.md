@@ -1,6 +1,6 @@
 # Current model · college-funding-9.0.0
 
-App v0.10.1. Schema 5 and backup format `education-finance-2` remain unchanged. The worker uses `calibration-reviewed.json`; older datasets and protocols are retained for reproduction. [Previous methodology](archive/model-through-v0.9.0.md).
+App v0.10.2. Schema 5 and backup format `education-finance-2` remain unchanged. The worker uses `calibration-reviewed.json`; older datasets and protocols are retained for reproduction. [Previous methodology](archive/model-through-v0.9.0.md).
 
 ## Ownership and cash flows
 
@@ -49,6 +49,16 @@ Policy choices inherited from earlier full-period comparisons are fixed, so this
 [The frozen follow-up](cost-followup-protocol.md) and [results](cost-followup-results.md) add an independent invoice audit, preceding-month CPI rebasing for realized ledger diagnostics, complete-bill trend comparisons, strictly chronological selection, denser funding levels/profiles, and separate aggregate 18-year-wait cost tests. The benchmark wins the predeclared fixed-panel bill comparison. No production model, return assumption, trend, calibration bundle, savings reserve or storage contract changes in this release.
 
 Newborn-horizon aggregate costs use a shifted synthetic calendar, contain no investment forecast, and have seven overlapping origin years with one nonoverlapping complete outcome window. They underforecast all 14 benchmark bills, whereas recent fixed-panel longer-wait tests overforecast. Different source definitions and regimes prevent a blanket correction. Passing software checks does not resolve these forecast-coverage findings.
+
+## Independently recalibrated models in v0.10.2
+
+[The full protocol](full-calibration-protocol.md) evaluates four complete candidate cost models, each fitted to its own earlier raw production-factory endpoint errors. For 2/5/10-year horizons, paired tuition/housing errors are clustered once per target year. Three years permit median-bias shrinkage n/(n+10); five permit a centered empirical paired draw scaled by sqrt(n/(n+10)). Asymmetric errors are retained. Cumulative log corrections interpolate through zero and available horizons, extrapolating the final annual rate beyond support. These are model assumptions, not coverage guarantees.
+
+The optional path hook applies these cumulative factors to academic-year tuition and on-campus housing before production bills are repriced. It uses common elapsed-time price curves and shared draws across students. Fixed expense mode, market paths and other CPI costs are unchanged. The shipped bundle has no costRecalibration field, so the capability is inactive and financial model 9 remains the production model.
+
+The nested policy fails the predeclared promotion gate (about 0.15% score improvement versus the required 5%). A directly evaluated recalibrated fixed-trend model improves about 3.1%, but it was not selected at every earlier origin using then-completed outcomes. No candidate is promoted. The evaluator retains per-fold widths, bias, miss direction, funding reliability, matching-source diagnostics and the failed gate.
+
+Matched-school 2024 prices extend endpoint tests only; missing academic CPI and a complete joint outcome window are not fabricated. Synthetic prospective snapshots are immutable records of assumptions/code/source hashes and future targets, not immediate validation. [Results](full-calibration-results.md) and [review](full-calibration-review.md) describe the evidence and limitations.
 
 ## Persistence and compatibility
 
