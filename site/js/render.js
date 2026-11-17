@@ -1233,6 +1233,7 @@ export function householdView(h) {
         "hint",
       ),
     );
+  if (h.decisionPolicies) wrap.append(depositPoliciesView(h.decisionPolicies));
   return wrap;
 }
 
@@ -1810,5 +1811,40 @@ export function currentCalibrationView(report, prospective) {
     wrap.append(el("p",`${prospective.observed} of ${prospective.forecasts} synthetic sector-price targets have comparable observed outcomes; ${prospective.pending} remain unscored. Missing and unreached outcomes never count as successes. This price record does not validate household funding probabilities.`,"hint"));
   }
   wrap.append(el("p","Three distinct start years are only a minimum support screen. Overlapping windows, shared shocks, six sampled schools per sector/history type, on-campus eligibility and revised publication vintages limit the evidence. No candidate was activated by this reporting release.","hint"));
+  return wrap;
+}
+
+export function decisionScenariosView(report, evidence = null) {
+  const wrap=el("details","","result-section decision-scenarios");
+  wrap.append(el("summary","Attendance & support alternatives · matched paths"));
+  wrap.append(el("p",`${report.scope}. ${report.trials} paired draws; alternatives have no assigned event probabilities. These descriptive frequencies do not change the main forecast or saved inputs. One extra year extends bills; it does not extend deposits or expiring grants.`,"hint"));
+  wrap.append(table("Decision alternatives",["Alternative","Funded paths","Median unpaid","P90 unpaid","Example first unpaid bill"],report.cases.map(r=>[
+    r.label,report.missingBudget?"Add a budget":r.applicable?pct(r.probability):"Not applicable",r.applicable?money(r.gap.p50):"—",r.applicable?money(r.gap.p90):"—",
+    !r.applicable?r.reason:r.exampleFirstUnpaid?`${r.exampleFirstUnpaid.date}: ${money(r.exampleFirstUnpaid.amount)}`:"None in this sample"
+  ])));
+  for(const r of report.cases)if(r.applicable&&r.deferredGifts>0)wrap.append(el("p",`${r.label}: ${money(r.deferredGifts)} arrives after the modeled goal and cannot pay these bills.`,"hint"));
+  if(report.missingBudget)wrap.append(el("p","Enter the covered expenses before interpreting funding results. Unentered bills are excluded.","hint"));
+  if(evidence){
+    const detail=el("details");detail.append(el("summary","Decision-boundary historical evidence"));
+    detail.append(el("p",`${evidence.individual.observed} of ${evidence.individual.cases} registered individual cases have observed outcomes; ${evidence.individual.interior05to95} observed forecasts lie between 5% and 95%. Opening resources were selected at each historical origin before independent scoring. This extension samples ${evidence.selection.schoolIdentities} school identities. Cases share histories and overlapping origins; these are not independent decades or new calibration guarantees.`,"hint"));
+    detail.append(table("Individual decision-boundary evidence",["Wait (years)","Profile","Identity","Observed / registered","Model Brier","Fixed-reference Brier","Zero-growth Brier"],evidence.groups.map(r=>[
+      r.wait,r.profile,r.kind,`${r.observed} / ${r.cases}`,...[r.brier,r.fixedReferenceBrier,r.zeroReferenceBrier].map(x=>x===null?"Unavailable":x.toFixed(3))
+    ])));
+    detail.append(table("Capped sibling policy evidence",["Wait (years)","Policy","Observed / registered","Model Brier"],evidence.policies.map(r=>[r.wait,r.policy,`${r.observed} / ${r.cases}`,r.brier===null?"Unavailable":r.brier.toFixed(3)])));
+    detail.append(el("p",`Lower Brier is better on these cases. The named ledger baselines make hard yes/no predictions; comparing their scores does not establish calibrated percentages. Priority improves ${evidence.householdPolicyPairs.priorityImproves} and worsens ${evidence.householdPolicyPairs.priorityWorsens} of ${evidence.householdPolicyPairs.observed} observed household pairs in this small extension. All registered household caps bind; wait-8 household outcomes are unavailable. The original broad-grid evidence remains separate.`,"hint"));
+    wrap.append(detail);
+  }
+  wrap.append(el("p",`Example first unpaid bill comes from the largest sampled shortfall path for each alternative, not a date forecast. Diagnostic method: ${report.version}.`,"hint"));
+  return wrap;
+}
+export function depositPoliciesView(report) {
+  const wrap=el("details","","deposit-policies");
+  wrap.append(el("summary","Compare household deposit policies · same monthly budget"));
+  wrap.append(el("p",`${report.scope}; ${report.trials} paired draws. Both policies use identical monthly deposits and the same cap. Dated-bill priority directs new deposits to the next expected unfunded bill, using reference future bills and current realized balances. Future simulated returns, prices and gifts are unavailable to the policy. Eligible deposit dates and student-owned savings stay in place. This is a comparison, not an optimal allocation or a verified probability target.`,"hint"));
+  if(report.missingBudgets.length)wrap.append(el("p",`Missing budgets: ${report.missingBudgets.join(", ")}. Dollar gaps include only entered bills; no complete-household funding percentage is shown.`,"hint"));
+  wrap.append(table("Household policy outcomes",["Policy","All goals funded","Median unpaid","P90 unpaid","Peak monthly deposits","Cap binds (months)"],report.policies.map(r=>[
+    r.label,report.missingBudgets.length?"—":pct(r.probability),money(r.gap.p50),money(r.gap.p90),depositMoney(r.peak),r.bindingMonths
+  ])));
+  wrap.append(el("p","Cent-rounded monthly budgets are conserved. A policy can improve or worsen outcomes; no balances are transferred. The existing required-deposit proposal uses its original fixed shares. JSON export includes the reference-world dated allocations; actual priority allocations adapt to each path.","hint"));
   return wrap;
 }

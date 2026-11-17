@@ -1,4 +1,6 @@
-import { ACTIVE_CALIBRATION_FILE } from "./release.js?v=0.14.0";
+import { DECISION_VERSION, assessDecisionScenarios } from './decision-scenarios.js?v=0.15.0';
+import { assessDepositPolicies } from './deposit-policy.js?v=0.15.0';
+import { ACTIVE_CALIBRATION_FILE } from "./release.js?v=0.15.0";
 import {
   assessCalibrated,
   verifyCalibration,
@@ -13,6 +15,7 @@ async function calibrationData(history) {
     [
       ACTIVE_CALIBRATION_FILE,
       "current-calibration.json",
+      "decision-validation.json",
       "prospective-validation.json",
       "foundation-validation.json",
       "hierarchy-validation.json",
@@ -33,6 +36,7 @@ async function calibrationData(history) {
     async ([
       bundle,
       currentCalibration,
+      decisionEvidence,
       prospective,
       foundation,
       hierarchy,
@@ -45,11 +49,12 @@ async function calibrationData(history) {
       funding,
     ]) => {
       await verifyCalibration(bundle, history);
-      for(const report of [currentCalibration,prospective]){
+      for(const report of [currentCalibration,prospective,decisionEvidence]){
         const {sha256,...body}=report;
         if(report.bundleHash!==bundle.sha256 || await snapshotHash(body)!==sha256)
           throw Error("Current calibration evidence identity mismatch.");
       }
+      if (decisionEvidence.method !== DECISION_VERSION) throw Error("Decision evidence methodology mismatch.");
       const {sha256: foundationHash, ...foundationBody} = foundation;
       if (foundation.bundleHash !== bundle.sha256 ||
           await snapshotHash(foundationBody) !== foundationHash)
@@ -92,6 +97,7 @@ async function calibrationData(history) {
         validation: {
           ...validation,
           currentCalibration,
+          decisionEvidence,
           prospective,
           foundation,
           hierarchy,
@@ -161,6 +167,15 @@ self.onmessage = async ({ data: input }) => {
       if (!scenario) throw Error("Scenario not found.");
       result = assess(plan, st, scenario, dataset, settings, progress);
     }
+    progress({stage: "Attendance, support and deposit decisions", done: 0, total: 1});
+    if (Array.isArray(result)) result.forEach((r) => {
+      r.decisions = assessDecisionScenarios(plan, st, st.scenarios.find(s => s.id === r.id), dataset, settings, calibration?.bundle);
+    });
+    else result.decisions = assessDecisionScenarios(plan, st, st.scenarios.find(s => s.id === scenarioId), dataset, settings, calibration?.bundle);
+    if (calibrated) {
+      if (Array.isArray(result)) result.forEach(r => r.decisionEvidence = calibration.validation.decisionEvidence);
+      else result.decisionEvidence = calibration.validation.decisionEvidence;
+    }
     if (plan.students.length > 1 || plan.family.monthlyLimit !== null) {
       const chosen = st.scenarios.find((s) => s.id === scenarioId);
       let household = assessHousehold(
@@ -194,6 +209,7 @@ self.onmessage = async ({ data: input }) => {
           }),
         );
       }
+      household.decisionPolicies = assessDepositPolicies(plan, dataset, settings, chosen.history, calibration?.bundle);
       if (Array.isArray(result))
         result.forEach((r) => (r.household = household));
       else result.household = household;

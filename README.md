@@ -1,12 +1,12 @@
 # Education Finance
 
-A static, browser-local college funding planner. **App v0.14.0 · model college-funding-12.0.0 · schema 5 · MIT license.**
+A static, browser-local college funding planner. **App v0.15.0 · model college-funding-12.0.0 · schema 5 · MIT license.**
 
 [Open the planner](https://jschell.github.io/education-finance/)
 
 **Continuing development in a new session?** Start with [project continuity](docs/continuity.md), [the active work plan](docs/active-work-plan.md) and [decisions](docs/decisions.md). They distinguish the deployed release from active calibration research and include a resume prompt.
 
-[Deep model/scenario review](docs/model-and-scenario-review.md) · [Reusable research/models](docs/model-research-sources.md) · [Proposed scenario design](docs/scenario-design-plan.md)
+[Deep model/scenario review](docs/model-and-scenario-review.md) · [Reusable research/models](docs/model-research-sources.md) · [Scenario design](docs/scenario-design-plan.md)
 
 ## Use the planner
 
@@ -15,6 +15,12 @@ A static, browser-local college funding planner. **App v0.14.0 · model college-
 3. Calculate produces one assessment: a range across cautious/central/favorable assumptions, simulated outcome bands, an estimated central-case monthly contribution and historical validation. These cases have no probability weights or confidence level. The fixed-rate reference is a separate illustration inside the same assessment. Historical replay remains an optional calculation method.
 4. Multiple students share economic paths. Household success requires all selected goals to be funded; earmarked money is not automatically transferred between students. A household deposit limit can constrain planned contributions.
 5. Edits save in the current browser. Export a backup for another device; no cloud sync or telemetry exists. Example data does not replace saved plans. Schema-5 plans receive a metadata-only model upgrade. Incompatible schemas 1–4 and old backup formats remain unsupported.
+
+## Decision scenarios and deposit policies
+
+Calculate also includes collapsed attendance/support alternatives and a household comparison of proportional deposits with dated-bill priority. They use up to 256 matched paths and leave saved funding and the main forecast unchanged. Priority only reallocates new deposits within eligible dates and the same monthly budget; it can help or hurt and is not an optimizer. JSON assessment export includes diagnostic method/version and reference-world dated allocations.
+
+[Release plan](docs/decision-release-plan.md) · [Method and results](docs/decision-release-results.md). The separate origin-only boundary study selects resources around fitted 80/90/95% thresholds, compares stronger simple ledger baselines and tests genuinely binding sibling caps. It supplements the original broad grid; no economic candidate or probability calibration is activated.
 
 ## Current-model calibration evidence
 
@@ -44,6 +50,7 @@ node scripts/validate-planning.mjs
 node scripts/validate-hierarchy.mjs
 node scripts/validate-current-calibration.mjs
 node scripts/verify-current-snapshot.mjs
+node scripts/validate-decision-boundaries.mjs
 ```
 
 CI reproduces current reports, runs financial tests and checks synthetic browser behavior at the project prefix. Pages deployment has separate live byte/browser verification. Physical iOS Safari persistence testing remains outstanding.

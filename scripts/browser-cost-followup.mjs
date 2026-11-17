@@ -34,6 +34,29 @@ try {
   const stressReview=page.getByText("Planning stresses · same sampled paths",{exact:true});
   await stressReview.focus();await page.keyboard.press("Space");
   assert.ok(await page.getByText("Remaining grants removed",{exact:true}).count());
+  const decisions=page.locator(".decision-scenarios > summary");
+  await decisions.focus();await page.keyboard.press("Space");
+  assert.equal(await page.locator(".decision-scenarios").evaluate(el=>el.open),true);
+  assert.ok(await page.getByText("One extra attendance year",{exact:true}).count());
+  const boundary=page.getByText("Decision-boundary historical evidence",{exact:true});
+  await boundary.focus();await page.keyboard.press("Space");
+  assert.equal(await boundary.evaluate(el=>el.parentElement.open),true);
+  assert.ok(await page.getByText("Individual decision-boundary evidence",{exact:true}).count());
+  const policies=page.locator(".deposit-policies > summary");
+  await policies.focus();await page.keyboard.press("Space");
+  assert.equal(await page.locator(".deposit-policies").evaluate(el=>el.open),true);
+  assert.ok(await page.getByText("Dated-bill priority",{exact:true}).count());
+  const exported=page.waitForEvent("download");
+  await page.getByRole("button",{name:"Export assessment JSON",exact:true}).click();
+  const download=await exported,stream=await download.createReadStream(),chunks=[];
+  for await (const chunk of stream)chunks.push(chunk);
+  const assessment=JSON.parse(Buffer.concat(chunks).toString());
+  assert.equal(assessment.decisions.version,"funding-decisions-1.0.0");
+  assert.equal(assessment.household.decisionPolicies.policies.length,2);
+  const [fixed,priority]=assessment.household.decisionPolicies.policies;
+  assert.equal(fixed.deposits,priority.deposits);
+  assert.ok(fixed.peak<=500 && priority.peak<=500);
+  assert.deepEqual(fixed.referenceSchedule.map(r=>r.amount),priority.referenceSchedule.map(r=>r.amount));
   const archived=page.getByText("Archived component checks · model 9",{exact:true});
   assert.equal(await archived.evaluate(el=>el.parentElement.open),false);
   assert.equal(await page.getByText("Separate histories · current model",{exact:true}).count(),0);
@@ -56,7 +79,7 @@ try {
   await page.reload();
   await page.waitForFunction(() => document.querySelector('[data-funding="balance"]').value === "54321");
   assert.deepEqual(failures, []);
-  const result = {url, checks, keyboardDisclosure:true, workerAssessment:true, affordableBudget:true, householdProposal:true, costCandidateEvidence:true, matchedPlanningStresses:true, archivedPolicyLabels:true, currentSchoolCalibration:true, currentFundingCalibration:true, prospectiveMissingness:true,
+  const result = {url, checks, keyboardDisclosure:true, workerAssessment:true, decisionAlternatives:true, depositPolicyComparison:true, decisionExport:true, affordableBudget:true, householdProposal:true, costCandidateEvidence:true, matchedPlanningStresses:true, archivedPolicyLabels:true, currentSchoolCalibration:true, currentFundingCalibration:true, prospectiveMissingness:true,
     exampleRestoredFunding:true, reloadPreservedFunding:true, browser:"Chromium",
     physicalSafariVerified:false};
   writeFileSync("tests/evidence/followup/browser.json",JSON.stringify(result,null,2)+"\n");

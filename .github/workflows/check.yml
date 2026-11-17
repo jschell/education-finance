@@ -47,6 +47,10 @@ jobs:
           /tmp/education-finance-dictionary-qa/bin/python scripts/prepare_ipeds_dictionaries.py
           node scripts/audit-calibration-quality-persistence.mjs
           git diff --exit-code -- data/ipeds-price-dictionaries.json data/calibration-diagnostics/quality-persistence.json
+      - name: Reproduce decision-boundary evidence
+        run: |
+          node scripts/validate-decision-boundaries.mjs
+          git diff --exit-code --stat -- site/data/decision-validation.json data/decision-cases/
       - name: Install isolated browser QA
         run: |
           npm install --prefix /tmp/education-finance-qa playwright

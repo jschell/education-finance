@@ -100,3 +100,7 @@ The existing 5%/sector/horizon research gates remain unchanged. Before any new p
 6. Update the UI's interpretation and unsupported-case messages only when corresponding calculations exist; retain one Calculate action and the requested gauge behavior.
 
 Completion of scenario representation, economic calibration and a useful family decision are separate milestones. Record each separately in continuity notes; do not collapse them into a generic “calibration complete” status.
+
+## Implementation checkpoint — app 0.15
+
+The first bounded release is implemented under the [committed release protocol](decision-release-plan.md): extra attendance/support alternatives, cent-conserving policy comparisons and an origin-only near-threshold evaluation alongside the broad grid. See [actual results and remaining work](decision-release-results.md). The broader registry/schema designs above remain proposals where not explicitly delivered; no transfer schedule, account eligibility system, event probabilities or globally optimal allocation was added. Core model12 remains active with provisional trends.
