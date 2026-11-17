@@ -26,7 +26,7 @@ For each horizon, group paired log actual/median errors by target year. Three ta
 
 ## Scoring and dependence
 
-Outer forecasts use 400 paths, seed 850213. Retain all sampled cases; unobserved outcome components or changed raw sector make a complete-bill outcome unavailable with a reason. Evaluate bill totals and tuition/housing separately, normalized 80% interval score, width, median signed/absolute bias, lower/upper misses and PIT rank. Real-dollar comparisons use preceding-month observed CPI and each forecast path's own deflator once.
+Outer forecasts use 400 paths, seed 850213. Retain all sampled cases; unobserved outcome components or changed raw sector make a complete-bill outcome unavailable with a reason. Evaluate bill totals and tuition/housing separately, 80% interval score and width normalized by the four-year budget known at the origin (never the realized outcome), median signed/absolute bias, lower/upper misses and PIT rank. Real-dollar comparisons use preceding-month observed CPI and each forecast path's own deflator once.
 
 Report all origins descriptively. Development outcomes end by 2016; 2017–2019 completed bills are transitional diagnostics; final outcomes end 2020–2023. These reserved outcomes were previously examined in other studies: this is a newly frozen comparison, not an untouched economic experiment. Any candidate parameters for an outer origin use only then-completed endpoint records, not later final results.
 
@@ -51,3 +51,5 @@ The worker and snapshot generator share the active bundle filename. Default snap
 Pre-score arithmetic amendment: the initially proposed 1.5% combined-budget cap would not bind the specified 1% deposits over these waits. Before any financial scores, replace it with 0.75% so the capped cases actually exercise the constraint.
 
 Implementation-review amendment, before interpreting any scores: error curves must never learn from withheld-school identities, including their older endpoint errors. The baseline does not use individual school history, so its training-school residual curve transfers to the withheld population; transfer performance is evaluated separately. Unreviewed implementation passes are not release evidence. No score-based parameter tuning is permitted.
+
+Scoring implementation clarification before inspecting results: normalize interval scores by the known four-year origin budget, not by realized actual costs. Outcome-dependent weights would compromise the proper-score comparison. Signed relative bias remains a separate descriptive diagnostic.
