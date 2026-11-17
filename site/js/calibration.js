@@ -1,3 +1,4 @@
+import { curveFactors } from "./cost-recalibration.js?v=0.10.2";
 import { costSpreadDraw } from "./cost-uncertainty.js?v=0.10.0";
 import { costDonorIndices } from "./robust-history.js?v=0.10.0";
 import { fitEconomy, economyPath } from "./economy.js?v=0.10.0";
@@ -332,6 +333,8 @@ export function calibrationFactory(
     c.calibrationSector || sectorFor(c),
     assumptionCase,
   );
+  const curve = bundle.costRecalibration?.sectors[c.calibrationSector];
+  if (curve && curve.model !== bundle.costModel) throw Error("Cost recalibration model mismatch");
   const stateFit = bundle.economy
     ? fitEconomy(
         bundle.economy.macroYears || bundle.economy.productionYears,
@@ -447,8 +450,9 @@ export function calibrationFactory(
         i === 0 ||
         (i >= c.enrollmentIndex && (i - c.enrollmentIndex) % 12 === 0)
       ) {
-        academicTuition = tuition;
-        academicHousing = housing;
+        const correction = curveFactors(curve, i / 12, seed, trial);
+        academicTuition = tuition * correction.tuition;
+        academicHousing = housing * correction.housing;
       }
       const row =
         c.history.costMode === "fixed"
@@ -480,6 +484,7 @@ export function calibrationFactory(
       calibrationCase: assumptionCase.id,
       calibrationHash: bundle.sha256,
       costModel: bundle.costModel || "recent10",
+      costRecalibration: bundle.costRecalibration || null,
       robustHistory: bundle.robustness || null,
       costUncertainty: bundle.costUncertainty || null,
       economicState: bundle.economy
