@@ -1,5 +1,15 @@
 # Prospective synthetic cost record
 
+## Current-model record
+
+[2026-11-17-model12.json](2026-11-17-model12.json) freezes 25 synthetic sector-price forecasts (five sectors, 1/2/5/10/18 years), using the active foundation bundle and source commit `feea5f7f64eb44fd69332958049945f0fffd3a85`. [current-index.json](current-index.json) identifies its exact canonical hash. All outcomes are null; the initial published status has zero observed and 25 unreached targets. The first target month is November 2027, with comparable published baseline and target levels both required before scoring.
+
+Run `node scripts/verify-current-snapshot.mjs` to reproduce the record from its committed source in an isolated worktree, reject an overwrite attempt, and reproduce the pending status. A release integration test also requires the current record/index/report, so the missing-artifact blocker cannot hide behind a passing ordinary test run.
+
+Definitions, sources and future ingestion commands are in [the current results](../../docs/forecast-calibration-results.md) and [outcome records](../forecast-outcomes/README.md). Do not splice the legacy tuition bridge or substitute different school membership to manufacture an outcome. Later forecasts use unique files; keep both this record and the original below unchanged.
+
+## Original model-9 record
+
 The first snapshot, [2026-11-16-model9.json](2026-11-16-model9.json), was created before future outcomes in [CI run 43989512630](https://github.com/jschell/education-finance/actions/runs/43989512630), from source commit `9424995d4683b863e0a80fe461cd32b5b86be159`. It is preserved byte-for-byte, with its original canonical SHA-256, source hashes, model/bundle identities, training cutoffs and null future outcomes. The source revision is available in GitHub for reproduction.
 
 Budgets are fictional: $10,000 tuition plus $10,000 housing at the stated baseline month. The snapshot records annual tuition/housing cost forecasts 1/2/5/10/18 years ahead using the production path factory. It is not a forecast for a particular school or family, and it does not establish calibrated coverage.

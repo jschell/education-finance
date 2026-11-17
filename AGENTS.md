@@ -1,5 +1,7 @@
 # Repository working instructions
 
+- At session start, read docs/continuity.md, docs/active-work-plan.md and docs/decisions.md. Inspect current remote heads/PRs before assuming the handoff is still current. Before ending substantive work, update the handoff with exact branch/SHA, verified results, unfinished steps and the next action; commit plans before extended implementation. Do not infer deployment or calibration from conversation claims.
+
 - Read README.md and docs/model.md before changing financial behavior.
 - Keep the application static and buildless: semantic HTML, CSS, vanilla JavaScript modules. Use relative asset URLs compatible with /education-finance/.
 - Preserve one-student-at-a-time entry. Shared funds must never be counted twice.

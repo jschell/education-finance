@@ -84,6 +84,19 @@ test('proper interval comparisons normalize by a known budget rather than realiz
 });
 import {createHash}from 'node:crypto';
 import {MODEL}from '../site/js/domain.js';
+import {ACTIVE_CALIBRATION_FILE}from '../site/js/release.js';
+test('release includes the active-model immutable forecast and honest pending outcome report',()=>{
+ const index=read('data/forecast-snapshots/current-index.json'),snapshot=read(index.path);
+ const report=read('site/data/prospective-validation.json'),bundle=read('site/data/'+ACTIVE_CALIBRATION_FILE);
+ const {sha256,...body}=snapshot;
+ assert.equal(hash(body),sha256);assert.equal(index.snapshotHash,sha256);
+ assert.equal(snapshot.modelVersion,MODEL);assert.equal(snapshot.bundleHash,bundle.sha256);assert.equal(snapshot.production,true);
+ assert.equal(snapshot.forecasts.length,25);assert.ok(snapshot.forecasts.every(f=>f.outcome===null));
+ const {sha256:reportHash,id,...status}=report;
+ assert.equal(id,'prospective-outcome-status-v1');assert.equal(hash({id,...status}),reportHash);
+ assert.deepEqual(status,scoreSnapshot(snapshot,[],report.asOf));
+ assert.equal(report.observed,0);assert.equal(report.pending,25);assert.equal(report.coverage,null);
+});
 test('current report and case files verify sources, school isolation and exact score accounting',()=>{
  const r=read('site/data/current-calibration.json'),{sha256,...body}=r;
  assert.equal(hash(body),sha256);assert.equal(r.modelVersion,MODEL);

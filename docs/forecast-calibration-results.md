@@ -39,6 +39,8 @@ Current-model funding Brier scores beat the 0.25 coin-flip reference in these sy
 
 ## Prospective infrastructure
 
+The current record is now committed as `data/forecast-snapshots/2026-11-17-model12.json`, generated as of 2026-11-17 from source `feea5f7f64eb44fd69332958049945f0fffd3a85`. Its canonical SHA-256 is `440dc5171a09f3b744b74c1d6dacf5ac9d511b9f13f2b15e08da6eab7cd9215e`. The index and published status identify 25 forecasts, **zero observed outcomes and 25 pending targets**. The verifier reproduces the source-pinned bytes and pending score and confirms overwrite rejection. This completes the artifact gap identified by the continuity review; it does not provide new economic outcomes.
+
 The worker and generator share `ACTIVE_CALIBRATION_FILE` in `site/js/release.js`. The default snapshot uses the active foundation bundle, verifies its checksum, records model/bundle identities and requires every source file to match the claimed Git commit. Nonproduction bundles require an explicit flag and label. Exclusive creation prevents overwrite. The model-9 snapshot remains unchanged.
 
 The current-model synthetic record covers five cost sectors at 1/2/5/10/18-year horizons. Definitions identify fixed school/component membership, residency and first-year on-campus prices. Future scoring requires comparable positive baseline AND target price indices, source bytes/digest/URL, publication date and explicit definition review. Missing or unreached observations remain unscored. Source checks prove file identity and metadata consistency; a human still reviews whether extracted values and population definitions faithfully match the official source. No future outcome is fabricated.

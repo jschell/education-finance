@@ -1,4 +1,4 @@
-> Historical requirements/planning record. For current shipped behavior, see [the current model](model.md) and [release status](critique-fix-status.md).
+> Historical requirements/planning record. For current work, start with [continuity](continuity.md) and [the active work plan](active-work-plan.md). For shipped behavior, see [the current model](model.md) and [overhaul delivery](overhaul-status.md).
 
 # Roadmap and acceptance criteria
 
