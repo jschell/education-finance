@@ -2,9 +2,9 @@
 
 Checkpoint: 2026-11-17 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
-## Decision release — implemented, acceptance in progress
+## Decision release — merged in PR #9
 
-[Committed protocol](decision-release-plan.md) and [results](decision-release-results.md) now implement the small attendance/support registry, same-budget household policy comparison and origin-selected threshold study with fixed-reference/zero-growth baselines. Local checks pass 187/187. The historical extension is retained alongside the broad grid; it is not a new cost candidate or calibrated probability mapping. Complete branch CI, project-prefix/browser acceptance, merge and deployed byte/browser checks; then update continuity with exact SHAs/results. Next research action is the separately committed bounded source-price trace, followed by one newly frozen candidate if its hypothesis is supported.
+[Committed protocol](decision-release-plan.md) and [results](decision-release-results.md) now implement the small attendance/support registry, same-budget household policy comparison and origin-selected threshold study with fixed-reference/zero-growth baselines. Local checks pass 187/187. The historical extension is retained alongside the broad grid; it is not a new cost candidate or calibrated probability mapping. Final PR CI 44186800165 passed all evidence and browser checks; merge SHA is 405443a29990e45d97a45b1af41d3b8690c3de3b. Pages 44188097228 and live byte/browser acceptance 44188238543 passed at that release SHA; see continuity. Next research action is the separately committed bounded source-price trace, followed by one newly frozen candidate if its hypothesis is supported.
 
 ## 1. Evidence release — completed
 

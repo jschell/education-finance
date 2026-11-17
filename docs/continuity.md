@@ -9,13 +9,27 @@ Updated **2026-11-17, America/Los_Angeles**. This is a repository-grounded hando
 3. [Active work plan](active-work-plan.md) and [next calibration steps](calibration-next-steps.md).
 4. [Decision record](decisions.md), then the frozen protocol/results for the task being resumed.
 
-## Active checkpoint — decision release implementation
+## Completed checkpoint — app 0.15 decision release
 
-Branch `decision-scenarios`, based on main `61adc1dedd7271db3cc230e0b44b4a845c970534`. Plans committed before implementation at `8e900f074347a9e7852642c7dc0d22d7b5d3a997` and before historical boundary scoring at `e310aa258a949bcddb69f6ed13e8a5a5dddc952f`. [Release protocol](decision-release-plan.md), [implementation/results](decision-release-results.md).
+[PR #9](https://github.com/jschell/education-finance/pull/9) merged at **`405443a29990e45d97a45b1af41d3b8690c3de3b`**, from implementation head `78615e2becebda3877f4d5685fb08c40205e4203`. Plans preceded implementation (`8e900f0`) and historical scoring (`e310aa2`). Read the [frozen protocol](decision-release-plan.md) and [results/failure modes](decision-release-results.md). The implementation is merged; do not recreate it from the earlier review proposal.
 
-App 0.15 implementation adds additive method `funding-decisions-1.0.0`: attendance/support alternatives, same-budget dated-priority versus proportional household deposits, and a separate origin-only threshold study with stronger ledger baselines. Saved funding/schema5, core model12, main gauges, active foundation, original reports and pending prospective forecasts stay in place. `npm run check` passes **187/187**. New source-identified evidence registers 2,160 individual cases (1,296 observed, 864 unreached) and 90 capped household cases assessed under both policies; all registered caps bind. Boundary selection substantially increases interior probabilities; it does not solve economic calibration. Policy failure with a future earmarked gift is explicitly tested and retained.
+| Item | Verified state |
+| --- | --- |
+| Release | App **0.15.0**, additive diagnostic method **funding-decisions-1.0.0**, core **college-funding-12.0.0**, schema5 |
+| Financial inputs | Same active foundation and provisional 4%/3% nominal trends; saved student funding, main gauges, independently checked required-deposit solver and original reports preserved |
+| Local validation | **187/187 tests**; decision cases/report reproduce byte-for-byte; integrated synthetic two-student worker succeeds, preserves inputs and conserves both policies' monthly budgets |
+| Final PR acceptance | [44186800165](https://github.com/jschell/education-finance/actions/runs/44186800165) **passed**: all prior and new report reproductions, prospective integrity, phone/iPad/desktop/project-prefix, keyboard, expanded historical table and JSON export |
+| Pages | [44188097228](https://github.com/jschell/education-finance/actions/runs/44188097228) **passed** at merge SHA |
+| Live acceptance | [44188238543](https://github.com/jschell/education-finance/actions/runs/44188238543) **passed**: live source/report bytes and synthetic phone/iPad/desktop/keyboard/export checks at merge SHA |
+| Main full checks | [44188097500](https://github.com/jschell/education-finance/actions/runs/44188097500): in progress when this handoff was recorded; the identical final PR tree already passed all checks |
 
-Current implementation is under local/CI acceptance; do not infer main deployment from these code/results notes. Record PR/head and workflow results below when available. Source-price trace and a new candidate remain unfinished. Resume from this branch rather than recreating the prior review. Historical checkpoint tables below describe the prior deployed release until acceptance completes.
+This documentation-only handoff follows the verified release SHA; it changes no code or generated evidence. Remote `main` contains the merged release. Local checkout branch names are not deployment evidence.
+
+Shipped: seven matched attendance/support alternatives including baseline; same-budget proportional/dated-priority deposit comparison with cent-conserving caps; no balance transfers or input mutation; source-identified historical boundary evidence with stronger ledger baselines and genuinely binding sibling caps. Every alternative remains a diagnostic, not an applied saved policy or calibrated event probability.
+
+Evidence support: 2,160 individual cases, 1,296 observed and 864 unreached, using only **four school identities** across ten overlapping origins. There are 90 capped households, assessed under both policies; 36 observed pairs. Priority improves two pairs and ties 34 in this small extension, but a synthetic future-gift counterexample demonstrates that it can be worse. Retain that failure case and the original broad-grid evidence. Numerical tests and better Brier scores do not resolve economic calibration.
+
+**Next action:** execute the already committed [30-event source-price trace](calibration-price-trace-plan.md), preserving revisions and unresolved causes. Use its findings before freezing one coherent cost candidate/protocol; do not add a new correction merely to fit these observed scores. Prospective outcomes remain pending; wait-8 household and wait-18 complete-bill support are unavailable. Physical iOS Safari persistence and richer account/attendance schedules remain separate work.
 
 ## Completed checkpoint — deep model/scenario review
 
@@ -33,7 +47,7 @@ The review recommends retaining the monthly ledger while distinguishing goal, ed
 
 **Source-investigation next action:** follow the committed [large-price-change trace plan](calibration-price-trace-plan.md), alongside the scenario-design recommendations above. Select the fixed known-school review set, compare official source snapshots with their pinned hashes and year-specific field definitions, and distinguish revisions, plausible policy changes and unresolved causes before specifying a new coherent candidate. No trace results have been computed yet.
 
-## Current checkpoint
+## Prior evidence release checkpoint — app 0.14
 
 | Item | Verified state |
 | --- | --- |
@@ -48,7 +62,7 @@ The review recommends retaining the monthly ledger while distinguishing goal, ed
 | Prospective record | `data/forecast-snapshots/2026-11-17-model12.json`, source `feea5f7f64eb44fd69332958049945f0fffd3a85`; 25 forecasts, **zero observed, 25 pending** |
 | Open finding | [Issue #2](https://github.com/jschell/education-finance/issues/2): future forecast calibration remains unresolved |
 
-The current documentation/diagnostic follow-up adds reproducible analysis and verification, with no production model change. Fetch current main/branches/PRs before editing; these SHAs are checkpoints, not permission to overwrite newer work. `forecast-calibration-evidence` is now merged, not unfinished work to recreate.
+At the earlier review checkpoint, the documentation/diagnostic follow-up added analysis without a production change. The subsequent app 0.15 decision extension is recorded above. Fetch current main/branches/PRs before editing; these SHAs are checkpoints, not permission to overwrite newer work. `forecast-calibration-evidence` is now merged, not unfinished work to recreate.
 
 ## What is shipped
 
@@ -74,9 +88,9 @@ Funding reliability must remain profile-specific. Example: known-school wait-4 c
 
 ## Next concrete work
 
-Read the [deep review's revised execution order](model-and-scenario-review.md#9-revised-execution-order) and [proposed scenario design](scenario-design-plan.md). Define the goal/path/world/event/policy contract and strong simple baselines; extend supported accounting/decision cases before claiming broader calibration. Run the bounded [price-trace investigation](calibration-price-trace-plan.md) in parallel and retain unresolved causes. A revised cost candidate still needs a separately committed protocol, known-process checks and matched cost/funding evidence; original gates and reports remain unchanged.
+The bounded decision registry, policy comparison and origin-selected threshold study are now delivered. Continue the [source-price trace](calibration-price-trace-plan.md); then specify one coherent cost hypothesis and freeze its protocol before new scoring. Require known-process behavior and matched cost/funding evidence, preserve failed comparisons and unsupported horizons, and keep production activation separate.
 
-Physical iOS Safari testing, optimal household allocation and richer education/account schedules are separate product work. Current household proposals use fixed shares; affordable-budget screens are not independently verified probability targets.
+The existing household required-deposit proposal still uses fixed shares; the added priority diagnostic is not an optimizer or an applied deposit schedule. The future-gift failure illustrates why broader optimization/account work must remain explicit. Physical iOS Safari testing, richer education/account schedules and stronger long-horizon evidence are unfinished.
 
 ## Evidence hierarchy and history
 
@@ -86,7 +100,7 @@ The deep review of v0.10.2 (`d0d536c`) motivated overhaul D. Its gate/anchor/tim
 
 ## Resume prompt
 
-> Review @GitHub jschell/education-finance. Read AGENTS.md, docs/continuity.md, docs/active-work-plan.md, docs/decisions.md, docs/calibration-next-steps.md and docs/model.md. Inspect current remote heads/PRs and the latest checkpoint before editing. App 0.14/model12 evidence work and its current-model snapshot were completed; do not recreate the merged branch or repeat its failed candidates. Source-quality/persistence diagnosis is complete in PR #8. Read the subsequent deep model/scenario review and proposed scenario design; define the decision contract and stronger baselines in parallel with the bounded source trace, then freeze a single revised candidate/protocol before new scoring. Require cost and funding evidence, preserve unsupported horizons and keep production activation separate. Document exact SHAs, checks, findings and the next action as work proceeds.
+> Review @GitHub jschell/education-finance. Read AGENTS.md, docs/continuity.md, docs/active-work-plan.md, docs/decisions.md, docs/decision-release-results.md and docs/model.md. Fetch current remote heads/PRs before editing. App 0.15 decision release is merged in PR #9 at 405443a29990e45d97a45b1af41d3b8690c3de3b; do not recreate its scenarios, threshold study or merged prior calibration work. Core model12, schema5, the active foundation and original reports remain unchanged. Four-school boundary evidence and a retained priority-policy failure are diagnostics, not economic calibration. Execute the frozen bounded source-price trace next; use its findings and the prior quality/persistence audit before freezing one coherent candidate/protocol. Require matched cost/funding checks and retain unsupported horizons and failures. Document exact SHAs, checks, deployment facts and next actions as work proceeds.
 
 ## Checkpoint discipline
 
