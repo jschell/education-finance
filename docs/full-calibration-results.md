@@ -1,25 +1,25 @@
 # Full calibration results
 
-Protocol frozen before scoring. All years below were already inspected; results are retrospective. Report hash: `b635bd0041795d3786a600ccdf48ce497c2240f11a734dc7b3e2e994ee37116d`.
+Protocol frozen before scoring. All years below were already inspected; results are retrospective. Report hash: `a3b9627539a49377a790449f222046a5d8ca375a552849ab3fd1d988ba85526d`.
 
 ## Independently recalibrated production-ledger models
 
 Each model fits its own earlier price errors. Corrections are paired asymmetric cumulative log-price curves, applied before bills are repriced. Bias and spread use the frozen shrinkage rule.
 
-| Model | Bill score | Coverage | Bias |
-| --- | ---: | ---: | ---: |
-| production | 0.284 | 35.3% | 5.5% |
-| fixed | 0.276 | 38.2% | 5.3% |
-| recent10 | 0.945 | 16.9% | 20.4% |
-| damped5 | 1.061 | 25.3% | 20.7% |
-| regime | 0.982 | 24.2% | 20.1% |
+| Model | Bill score | Coverage | Bias | Relative width |
+| --- | ---: | ---: | ---: | ---: |
+| production | 0.284 | 35.3% | 5.5% | 8.0% |
+| fixed | 0.276 | 38.2% | 5.3% | 8.0% |
+| recent10 | 0.945 | 16.9% | 20.4% | 41.1% |
+| damped5 | 1.061 | 25.3% | 20.7% | 38.4% |
+| regime | 0.982 | 24.2% | 20.1% | 39.1% |
 
 ## Nested selected policy
 
-| Model | Bill score | Coverage | Bias |
-| --- | ---: | ---: | ---: |
-| production | 0.284 | 35.3% | 5.5% |
-| selected | 0.284 | 36.0% | 5.4% |
+| Model | Bill score | Coverage | Bias | Relative width |
+| --- | ---: | ---: | ---: | ---: |
+| production | 0.284 | 35.3% | 5.5% | 8.0% |
+| selected | 0.284 | 36.0% | 5.4% | 8.0% |
 
 Promotion gate: **failed**. Checks: `{"score":false,"waitScores":true,"coverage":true,"bias":true}`.
 Live rule chooses **fixed** from completed earlier bills; retained production decision: **production**. These are comparative gates, not a certification of 80% coverage or 90% funding probability.
@@ -50,35 +50,35 @@ The same cost-only annual-block algorithm is fitted separately to fixed-panel an
 
 ### fixed
 
-| Model | Bill score | Coverage | Bias |
-| --- | ---: | ---: | ---: |
-| production | 0.118 | 83.3% | 3.6% |
-| fixed | 0.120 | 83.3% | 3.7% |
-| recent10 | 1.121 | 28.9% | 15.2% |
-| damped5 | 1.098 | 31.7% | 15.5% |
-| regime | 1.096 | 27.2% | 14.8% |
+| Model | Bill score | Coverage | Bias | Relative width |
+| --- | ---: | ---: | ---: | ---: |
+| production | 0.118 | 83.3% | 3.6% | 9.4% |
+| fixed | 0.120 | 83.3% | 3.7% | 9.6% |
+| recent10 | 1.121 | 28.9% | 15.2% | 11.6% |
+| damped5 | 1.098 | 31.7% | 15.5% | 14.5% |
+| regime | 1.096 | 27.2% | 14.8% | 11.9% |
 
 ### aggregate
 
-| Model | Bill score | Coverage | Bias |
-| --- | ---: | ---: | ---: |
-| production | 0.152 | 72.2% | 3.3% |
-| fixed | 0.438 | 40.6% | 8.7% |
-| recent10 | 1.017 | 27.8% | 17.2% |
-| damped5 | 0.789 | 35.0% | 15.1% |
-| regime | 0.859 | 22.8% | 14.6% |
+| Model | Bill score | Coverage | Bias | Relative width |
+| --- | ---: | ---: | ---: | ---: |
+| production | 0.152 | 72.2% | 3.3% | 11.0% |
+| fixed | 0.438 | 40.6% | 8.7% | 13.2% |
+| recent10 | 1.017 | 27.8% | 17.2% | 19.3% |
+| damped5 | 0.789 | 35.0% | 15.1% | 22.5% |
+| regime | 0.859 | 22.8% | 14.6% | 18.3% |
 
-This common cost-only process uses historical training inflation, not the joint production state process. Differences from production-ledger scores can reflect macro anchoring as well as source composition. Neither source is relabeled as the other.
+This common cost-only process uses historical training inflation, not the joint production state process. Differences from production-ledger scores can reflect macro anchoring as well as source composition. Neither source is relabeled as the other. In the ancillary source, long-horizon and 2024 tables, the row named production is an uncorrected fixed-nominal cost-only reference, not the complete joint production model.
 
 ## Older aggregate newborn-horizon costs
 
-| Model | Bill score | Coverage | Bias |
-| --- | ---: | ---: | ---: |
-| production | 1.091 | 0.0% | -17.7% |
-| fixed | 1.074 | 14.3% | -17.2% |
-| recent10 | 0.677 | 57.1% | 4.7% |
-| damped5 | 0.737 | 64.3% | 1.8% |
-| regime | 0.793 | 50.0% | 5.5% |
+| Model | Bill score | Coverage | Bias | Relative width |
+| --- | ---: | ---: | ---: | ---: |
+| production | 1.091 | 0.0% | -17.7% | 15.5% |
+| fixed | 1.074 | 14.3% | -17.2% | 19.7% |
+| recent10 | 0.677 | 57.1% | 4.7% | 27.9% |
+| damped5 | 0.737 | 64.3% | 1.8% | 39.3% |
+| regime | 0.793 | 50.0% | 5.5% | 37.1% |
 
 7 overlapping origins, two related public sectors and one nonoverlapping 22-year complete window. This is cost-only evidence, not whole-plan newborn funding calibration.
 
@@ -86,13 +86,13 @@ This common cost-only process uses historical training inflation, not the joint 
 
 Pinned matched-school prices extend the endpoint checks by one target year. Training is recomputed on the same surviving component membership. The 2024 endpoint has no invented CPI deflator and never enters a fabricated full joint outcome.
 
-| Model | Bill score | Coverage | Bias |
-| --- | ---: | ---: | ---: |
-| production | 0.186 | 80.0% | 3.3% |
-| fixed | 0.175 | 85.0% | 2.7% |
-| recent10 | 0.275 | 70.0% | 2.3% |
-| damped5 | 0.371 | 30.0% | 2.0% |
-| regime | 0.409 | 25.0% | 1.9% |
+| Model | Bill score | Coverage | Bias | Relative width |
+| --- | ---: | ---: | ---: | ---: |
+| production | 0.186 | 80.0% | 3.3% | 10.5% |
+| fixed | 0.175 | 85.0% | 2.7% | 10.6% |
+| recent10 | 0.275 | 70.0% | 2.3% | 11.6% |
+| damped5 | 0.371 | 30.0% | 2.0% | 13.3% |
+| regime | 0.409 | 25.0% | 1.9% | 10.9% |
 
 Only one new target-year shock is added, and it was already inspected in earlier work. Source hashes, component membership counts and all 1/2/5/10-year endpoint forecasts are retained in the JSON and `data/comparable-prices-through-2024.json`.
 

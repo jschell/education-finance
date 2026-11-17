@@ -18,6 +18,11 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
+      - name: Preserve committed evidence
+        run: |
+          cp site/data/full-calibration.json /tmp/full-calibration-committed.json
+          cp data/comparable-prices-through-2024.json /tmp/comparable-committed.json
+          cp docs/full-calibration-results.md /tmp/full-calibration-committed.md
       - name: Evaluate frozen full-calibration protocol
         env:
           EMIT_RECOVERY_FILES: '1'
@@ -31,6 +36,11 @@ jobs:
           cmp site/data/full-calibration.json /tmp/full-calibration-first.json
           cmp data/comparable-prices-through-2024.json /tmp/comparable-first.json
           cmp docs/full-calibration-results.md /tmp/full-calibration-first.md
+      - name: Verify committed evidence
+        run: |
+          cmp site/data/full-calibration.json /tmp/full-calibration-committed.json
+          cmp data/comparable-prices-through-2024.json /tmp/comparable-committed.json
+          cmp docs/full-calibration-results.md /tmp/full-calibration-committed.md
       - name: Repository checks
         run: npm run check
       - name: Begin immutable synthetic prospective record

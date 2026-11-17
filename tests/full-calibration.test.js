@@ -80,3 +80,59 @@ test("path corrections change paid bills and success, preserve fixed mode and le
   assert.deepEqual(calibrationFactory(fixed,base,{seed:1}).make(0).compiled.rows,
     calibrationFactory(fixed,modified,{seed:1}).make(0).compiled.rows);
 });
+
+test("students with different enrollment years share the same corrected academic prices on common dates",()=>{
+  const base=JSON.parse(readFileSync(new URL("../site/data/calibration-reviewed.json",import.meta.url)));
+  const bundle={...base,costRecalibration:residualBundle(errors(),2023,base.costModel,["public4"])};
+  const p=newPlan(),a=p.students[0];p.valuation="2026-09";
+  a.enrollment="2028-09";
+  Object.assign(a.funding,{contributionStart:p.valuation,contributionEnd:"2028-08"});
+  Object.assign(a.scenarios[0],{baseline:p.valuation,path:"Public in-state",years:3,
+    costs:{tuition:10000,housing:9000,books:0,transport:0,other:0}});
+  const b=structuredClone(a);b.id="synthetic-second";b.enrollment="2029-09";b.scenarios[0].years=2;
+  const ca=compileCalibrated(p,a,a.scenarios[0],bundle).c;
+  const cb=compileCalibrated(p,b,b.scenarios[0],bundle).c;
+  const ra=calibrationFactory(ca,bundle,{seed:17}).make(4).compiled.rows.find((r)=>r.date==="2029-09");
+  const rb=calibrationFactory(cb,bundle,{seed:17}).make(4).compiled.rows.find((r)=>r.date==="2029-09");
+  assert.deepEqual(ra.costs,rb.costs);
+});
+
+import { createHash } from "node:crypto";
+import { canonical } from "../site/js/calibration.js";
+test("committed full report verifies inputs, origin cutoffs, proper scores and the unchanged-production baseline",()=>{
+  const read=(p)=>readFileSync(new URL("../"+p,import.meta.url));
+  const hash=(x)=>createHash("sha256").update(x).digest("hex");
+  const report=JSON.parse(read("site/data/full-calibration.json")),{sha256,...body}=report;
+  assert.equal(hash(canonical(body)),sha256);
+  for(const [path,expected] of Object.entries(report.inputHashes)) assert.equal(hash(read(path)),expected,path);
+  assert.equal(report.inner.length,500);assert.equal(report.outer.length,90);
+  assert.equal(report.fundingCases.length,2700);
+  assert.ok(report.inner.every((r)=>r.macroLast<r.origin&&r.costLast<=r.origin&&r.target-r.origin===r.horizon));
+  for(const r of report.outer) for(const s of Object.values(r.models)) {
+    assert.equal(s.covered+s.below+s.above,1);
+    assert.ok(Math.abs(s.width-(s.p90-s.p10)/s.actual)<1e-12);
+    const proper=(s.p90-s.p10+10*Math.max(0,s.p10-s.actual)+10*Math.max(0,s.actual-s.p90))/s.actual;
+    assert.ok(Math.abs(s.score-proper)<1e-12);
+  }
+  assert.ok(report.selection.every((r)=>r.targetYears.every((y)=>y<r.origin)));
+  const prior=JSON.parse(read("site/data/cost-followup.json")).cost.summaries.find((r)=>r.model==="fixed");
+  assert.equal(report.summaries[0].score,prior.score);
+  assert.equal(report.summaries[0].covered,prior.covered);
+  assert.equal(report.gate.passed,false);
+  assert.equal(report.liveModel,"production");
+});
+test("2024 endpoint data and the first prospective record retain honest missingness and immutable provenance",()=>{
+  const read=(p)=>readFileSync(new URL("../"+p,import.meta.url));
+  const snapshot=JSON.parse(read("data/forecast-snapshots/2026-11-16-model9.json"));
+  const {sha256,...body}=snapshot;
+  assert.equal(createHash("sha256").update(canonical(body)).digest("hex"),sha256);
+  assert.ok(snapshot.forecasts.every((r)=>r.outcome===null&&r.targetMonth>snapshot.asOf.slice(0,7)));
+  assert.equal(snapshot.forecasts.length,5);
+  assert.equal(snapshot.syntheticBudget.tuition,10000);
+  const prices=JSON.parse(read("data/comparable-prices-through-2024.json"));
+  for(const r of Object.values(prices.series)) {
+    assert.equal(r.actual.year,2024);assert.equal(r.actual.deflator,null);
+    assert.equal(r.training.length,24);
+    assert.ok(r.training.every((p)=>p.year<2024&&p.deflator>0));
+  }
+});
