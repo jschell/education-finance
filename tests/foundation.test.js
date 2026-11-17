@@ -55,4 +55,5 @@ test('current process report links its actual source hashes and moment matrix to
  assert.equal(r.bundleHash,b.sha256);assert.equal(r.moments.length,36);
  for(const [p,h]of Object.entries(r.sourceHashes))assert.equal(createHash('sha256').update(readFileSync(p)).digest('hex'),h);
  assert.ok(r.moments.every(m=>m.withinTolerance));
+ assert.equal(r.liveFactoryEquity.paths,20000);assert.equal(r.liveFactoryEquity.passed,true);
 });
