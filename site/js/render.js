@@ -353,7 +353,7 @@ export function familyCalendarView(plan) {
   wrapper.append(
     el(
       "p",
-      "Assumes nine academic months per school year from each student’s enrollment month. Counts show attendance months within each calendar year; peak overlap counts students in the same month. Summer living costs can continue separately. Joint household funding results appear in the assessment when multiple students are present.",
+      "Assumes nine academic months per school year from each student’s enrollment month. Counts show attendance months within each calendar year; peak overlap counts students in the same month. Summer living costs can continue separately. Household funding results appear in the assessment when multiple students or a deposit limit are present.",
       "hint",
     ),
   );
@@ -653,7 +653,7 @@ export function simulationView(sim, sensitivity = null, cases = null) {
       "p",
       sim.calibrationCase && sim.costMode !== "fixed"
         ? sim.costModel === "fixed"
-          ? `Validation-selected cost model: 4% tuition and 3% on-campus housing nominal trends, with paired historical annual deviations.${sim.costCorrectionActive ? (sim.robustHistory ? " An origin-fitted cost-error correction, shrunk by unique target-year count and selected across multiple periods, is also applied." : " A persistent tuition/housing forecast-error correction, fitted through 2016 and gated on 2024–25, is also applied.") : ""} Economic cases shift those trends using observed five-year growth variation. CPI applies to other expenses and off-campus/at-home housing. The entered fixed-growth fields are not used in variable-cost mode.`
+          ? `Current cost baseline: 4% tuition and 3% on-campus housing nominal trends, with paired historical annual deviations.${sim.costCorrectionActive ? (sim.robustHistory ? " An origin-fitted cost-error correction, shrunk by unique target-year count and selected across multiple periods, is also applied." : " A persistent tuition/housing forecast-error correction, fitted through 2016 and gated on 2024–25, is also applied.") : ""} Economic cases shift those trends using observed five-year growth variation. CPI applies to other expenses and off-campus/at-home housing. The entered fixed-growth fields are not used in variable-cost mode.`
           : "Published sector tuition and on-campus room/board are modeled relative to inflation. Other expenses and off-campus/at-home housing use CPI. Joint annual blocks retain observed market/cost associations; the sector cost trend also varies between paths. Grants remain separate."
         : sim.costMode === "fixed"
           ? `Fixed expense growth: tuition ${pct(sim.tuitionTrend)} per year; living costs use the entered fixed rate. Historical investment returns still vary.`
@@ -1272,7 +1272,7 @@ export function calibrationContextView(result) {
     ),
   );
   if (c.validation.foundation) wrap.append(el("p",
-    "Current process checks: conditional equity anchors and August-to-August cost timing. Forecast coverage remains unestablished. Historical tables below are archived model-9 evidence; their probabilities do not validate this revised model.", "hint"));
+    "Current process checks cover arithmetic equity anchors under the conditional sampler and August-to-August cost timing. The 4% tuition / 3% on-campus housing nominal baseline is retained; old cost-error corrections are disabled. Forecast coverage remains unestablished. Archived tables describe model 9 and do not validate this revised model.", "hint"));
   if(c.validation.hierarchy){
     const r=c.validation.hierarchy,d=el("details");
     d.append(el("summary","Current cost-model evaluation & school variation"));
@@ -1284,7 +1284,14 @@ export function calibrationContextView(result) {
     wrap.append(d);
   }
   if (c.validation.funding) wrap.append(wholePlanValidationView(c.validation));
-  if (c.economicState) wrap.append(economicProcessView(c));
+  if (c.economicState) {
+    if(c.validation.foundation){
+      const archived=el("details");
+      archived.append(el("summary","Archived component checks · model 9"));
+      archived.append(el("p","These tables describe the preceding release, including corrections and gates that do not apply to the current foundation. Current equity centering and cost timing differ; old residual corrections are disabled.","hint"));
+      archived.append(economicProcessView(c));wrap.append(archived);
+    }else wrap.append(economicProcessView(c));
+  }
   const comparison = c.validation.comparison;
   if (comparison) {
     if (c.economicState) {
@@ -1585,10 +1592,10 @@ export function economicProcessView(c) {
 export function broadHistoryView(c) {
   const r = c.validation.robustness,
     wrap = el("div", "", "cost-model-comparison");
-  wrap.append(el("h3", "Historical coverage & model selection"));
+  wrap.append(el("h3", "Archived historical coverage & model selection"));
   wrap.append(
     table(
-      "Separate histories · current model",
+      "Separate histories · archived model 9",
       ["Component", "Years", "Use"],
       [
         [
@@ -1612,7 +1619,7 @@ export function broadHistoryView(c) {
   wrap.append(
     el(
       "p",
-      `Default macro policy: ${r.marketPolicy}. Persistence estimates are shrunk toward fixed priors. Cost policy: ${r.costPolicy}. Every historical correction is fitted using error targets through its forecast origin, then shrunk toward zero by the number of unique target years. The former 2014-origin/2016-error look-ahead is removed.`,
+      `At the archived release, the macro policy was ${r.marketPolicy} and cost policy was ${r.costPolicy}. Persistence was regularized and historical corrections were fitted through each origin. Those cost corrections are disabled in the current foundation because the source-year timing changed. These archived scores do not validate the current sampler or correction policy.`,
       "hint",
     ),
   );

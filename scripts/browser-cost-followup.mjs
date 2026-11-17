@@ -29,6 +29,9 @@ try {
   const stressReview=page.getByText("Planning stresses · same sampled paths",{exact:true});
   await stressReview.focus();await page.keyboard.press("Space");
   assert.ok(await page.getByText("Remaining grants removed",{exact:true}).count());
+  const archived=page.getByText("Archived component checks · model 9",{exact:true});
+  assert.equal(await archived.evaluate(el=>el.parentElement.open),false);
+  assert.equal(await page.getByText("Separate histories · current model",{exact:true}).count(),0);
   const summary = page.locator("#forecast-evidence > summary");
   await summary.focus(); await page.keyboard.press("Space");
   assert.equal(await page.locator("#forecast-evidence").evaluate((el) => el.open), true);
@@ -48,7 +51,7 @@ try {
   await page.reload();
   await page.waitForFunction(() => document.querySelector('[data-funding="balance"]').value === "54321");
   assert.deepEqual(failures, []);
-  const result = {url, checks, keyboardDisclosure:true, workerAssessment:true, affordableBudget:true, householdProposal:true, costCandidateEvidence:true, matchedPlanningStresses:true,
+  const result = {url, checks, keyboardDisclosure:true, workerAssessment:true, affordableBudget:true, householdProposal:true, costCandidateEvidence:true, matchedPlanningStresses:true, archivedPolicyLabels:true,
     exampleRestoredFunding:true, reloadPreservedFunding:true, browser:"Chromium",
     physicalSafariVerified:false};
   writeFileSync("tests/evidence/followup/browser.json",JSON.stringify(result,null,2)+"\n");
