@@ -43,6 +43,7 @@ import {
   table,
   deterministicView,
   simulationView,
+  decisionScenariosView,
   comparisonView,
   historyContextView,
   calibrationContextView,
@@ -50,7 +51,7 @@ import {
   familyCalendarView,
   householdView,
   csvText,
-} from "./render.js?v=0.14.0";
+} from "./render.js?v=0.15.0";
 const $ = (s) => document.querySelector(s),
   form = $("#planner");
 const editing = await acquireEditor().catch((error) => ({
@@ -845,6 +846,7 @@ function assessmentContents(result) {
       result.sensitivity,
       result.calibration?.cases,
     ),
+    ...(result.decisions ? [decisionScenariosView(result.decisions, result.decisionEvidence)] : []),
     ...(result.household ? [householdView(result.household)] : []),
     result.calibration
       ? calibrationContextView(result)
@@ -913,7 +915,7 @@ function startAssessment(
   $("#progress").value = 0;
   if (scroll)
     $("#run-status").scrollIntoView({ block: "start", behavior: "smooth" });
-  worker = new Worker(new URL("./worker.js?v=0.14.0", import.meta.url), {
+  worker = new Worker(new URL("./worker.js?v=0.15.0", import.meta.url), {
     type: "module",
   });
   worker.onmessage = ({ data }) => {

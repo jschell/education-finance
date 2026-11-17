@@ -31,3 +31,7 @@ Historical data expansion and source refresh can proceed alongside diagnosis onc
 ## Completion criteria
 
 The next iteration should deliver a source-quality/error decomposition, a newly committed candidate protocol, meaningful known-process checks and a reproducible matched cost/funding comparison. It may finish with non-promotion. Stronger long-horizon calibration requires actual additional comparable outcomes; that evidence cannot be created by software tests.
+
+## Decision-boundary extension checkpoint
+
+App 0.15 implements the [decision release](decision-release-results.md). It repairs weak decision-test support with origin-selected resources and genuinely binding household caps; it does not repair cost-model calibration. Compare the separate boundary evidence with the preserved broad-grid evidence rather than substituting its score. The priority rule helps some observed households but has a retained synthetic failure mode, so it remains an alternative. Continue the bounded source-price trace before freezing one coherent revised cost model; prospective outcomes and long-horizon support remain unavailable.

@@ -31,3 +31,7 @@ PR #8 completed the year-specific dictionary audit and fixed-forecast sensitivit
 The v0.10.1 trend substitutions reused the old benchmark residual correction and scored worse; they were not independent refitted full models. v0.10.2 added own-model asymmetric corrections and nested chronological selection, but its original promotion interpretation was later invalidated by the oracle bound. Keep both historical results and that correction to their interpretation.
 
 The newer hierarchy also lost under the corrected foundation. The subsequent branch's school-level residual candidate shows partial known-school improvement but poor overall nominal coverage and transfer limits. Do not cycle back through the same approaches merely because a fresh conversation lacks context. Start from their protocols, source revision and actual failures; freeze a changed hypothesis before a new evaluation.
+
+## Decision release checkpoint
+
+The frozen [decision release protocol](decision-release-plan.md) adds method `funding-decisions-1.0.0` alongside core model12. Keep diagnostic alternatives, main-gauge results, original historical evidence and boundary-selected evidence separate. Dated-bill priority reallocates only new deposits and can be worse when future earmarked support is ignored; retain that failure case. Events have no probability weights. Boundary resources are selected before independent scoring/outcome lookup; no target tuning, failed-comparison deletion or candidate activation follows from this release.

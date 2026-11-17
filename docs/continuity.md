@@ -9,6 +9,14 @@ Updated **2026-11-17, America/Los_Angeles**. This is a repository-grounded hando
 3. [Active work plan](active-work-plan.md) and [next calibration steps](calibration-next-steps.md).
 4. [Decision record](decisions.md), then the frozen protocol/results for the task being resumed.
 
+## Active checkpoint — decision release implementation
+
+Branch `decision-scenarios`, based on main `61adc1dedd7271db3cc230e0b44b4a845c970534`. Plans committed before implementation at `8e900f074347a9e7852642c7dc0d22d7b5d3a997` and before historical boundary scoring at `e310aa258a949bcddb69f6ed13e8a5a5dddc952f`. [Release protocol](decision-release-plan.md), [implementation/results](decision-release-results.md).
+
+App 0.15 implementation adds additive method `funding-decisions-1.0.0`: attendance/support alternatives, same-budget dated-priority versus proportional household deposits, and a separate origin-only threshold study with stronger ledger baselines. Saved funding/schema5, core model12, main gauges, active foundation, original reports and pending prospective forecasts stay in place. `npm run check` passes **187/187**. New source-identified evidence registers 2,160 individual cases (1,296 observed, 864 unreached) and 90 capped household cases assessed under both policies; all registered caps bind. Boundary selection substantially increases interior probabilities; it does not solve economic calibration. Policy failure with a future earmarked gift is explicitly tested and retained.
+
+Current implementation is under local/CI acceptance; do not infer main deployment from these code/results notes. Record PR/head and workflow results below when available. Source-price trace and a new candidate remain unfinished. Resume from this branch rather than recreating the prior review. Historical checkpoint tables below describe the prior deployed release until acceptance completes.
+
 ## Completed checkpoint — deep model/scenario review
 
 A research and implementation review of `1b79753ebcd335e339a89c14ae9631114d1f01bd` is now written: [deep findings](model-and-scenario-review.md), [primary research/reuse catalog](model-research-sources.md), and [proposed decision scenarios](scenario-design-plan.md). This is research/proposed priority, not an implemented new model or a change to frozen gates.

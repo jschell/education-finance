@@ -2,6 +2,10 @@
 
 Checkpoint: 2026-11-17 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
+## Decision release — implemented, acceptance in progress
+
+[Committed protocol](decision-release-plan.md) and [results](decision-release-results.md) now implement the small attendance/support registry, same-budget household policy comparison and origin-selected threshold study with fixed-reference/zero-growth baselines. Local checks pass 187/187. The historical extension is retained alongside the broad grid; it is not a new cost candidate or calibrated probability mapping. Complete branch CI, project-prefix/browser acceptance, merge and deployed byte/browser checks; then update continuity with exact SHAs/results. Next research action is the separately committed bounded source-price trace, followed by one newly frozen candidate if its hypothesis is supported.
+
 ## 1. Evidence release — completed
 
 [PR #7](https://github.com/jschell/education-finance/pull/7) merged app 0.14/model12 at `9d978a811cfb78fd11a686f8c8975aeb95425c5f`. Financial defaults remain the corrected foundation; no candidate is active. See [continuity](continuity.md) for exact CI/Pages/live acceptance links.
@@ -27,9 +31,9 @@ git diff --exit-code -- site/data/calibration-foundation.json site/data/foundati
 
 Use a clean checkout and retain every exit status. Full school/funding regeneration is a release check, not necessary for every prose edit. New forecasts use unique files and explicit as-of dates; never overwrite an existing record. Future source-backed outcomes remain unavailable until actually published.
 
-## Research priority update — proposed, not implemented
+## Research priority update — decision extension implemented
 
-The [deep model/scenario review](model-and-scenario-review.md) finds the current controlled laboratory too narrow for broad household-resilience claims. The [scenario-design proposal](scenario-design-plan.md) adds goal/path/world/event/policy contracts, attendance/support alternatives, actually binding cap cases and origin-selected decision-boundary plans. Define this small registry and stronger price/funding baselines in parallel with the bounded source trace. Existing promotion thresholds and archived evaluation protocols do not change. No new scenario controls or model features are implemented by the review.
+The [deep model/scenario review](model-and-scenario-review.md) finds the current controlled laboratory too narrow for broad household-resilience claims. The [scenario-design proposal](scenario-design-plan.md) adds goal/path/world/event/policy contracts, attendance/support alternatives, actually binding cap cases and origin-selected decision-boundary plans. Define this small registry and stronger price/funding baselines in parallel with the bounded source trace. Existing promotion thresholds and archived evaluation protocols do not change. The review itself changed no behavior; the subsequent decision release implements the bounded diagnostics and historical extension linked above. Richer persistent path/account controls remain separate work.
 
 ## 2. Obtain evidence that can change calibration conclusions
 
