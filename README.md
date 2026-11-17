@@ -6,6 +6,8 @@ A static, browser-local college funding planner. **App v0.14.0 · model college-
 
 **Continuing development in a new session?** Start with [project continuity](docs/continuity.md), [the active work plan](docs/active-work-plan.md) and [decisions](docs/decisions.md). They distinguish the deployed release from active calibration research and include a resume prompt.
 
+[Deep model/scenario review](docs/model-and-scenario-review.md) · [Reusable research/models](docs/model-research-sources.md) · [Proposed scenario design](docs/scenario-design-plan.md)
+
 ## Use the planner
 
 1. Enter a student's current savings, enrollment month and annual tuition/housing budget. Other inputs are optional. Try an example opens temporary fictional data; Exit example restores your workspace.

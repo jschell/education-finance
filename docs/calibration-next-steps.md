@@ -2,6 +2,8 @@
 
 Written 2026-11-17. This is a post-results follow-up plan, not a retroactively frozen protocol. It uses the source-identified `current-calibration.json` findings to choose the next work. Production remains the corrected foundation; no result here authorizes automatic candidate activation.
 
+Subsequent [deep review](model-and-scenario-review.md) recommends updating the execution order: clarify the funding decision and scenario suite, add stronger baselines, and run the bounded source trace in parallel. The original cost-model research program below remains relevant, but should not block useful scenario/decision work or imply that another residual correction is the only next step. See [the scenario proposal](scenario-design-plan.md). No frozen gate changes.
+
 ## Gaps that still matter
 
 | Gap | Current evidence | Next concrete work |

@@ -9,13 +9,21 @@ Updated **2026-11-17, America/Los_Angeles**. This is a repository-grounded hando
 3. [Active work plan](active-work-plan.md) and [next calibration steps](calibration-next-steps.md).
 4. [Decision record](decisions.md), then the frozen protocol/results for the task being resumed.
 
+## Completed checkpoint — deep model/scenario review
+
+A research and implementation review of `1b79753ebcd335e339a89c14ae9631114d1f01bd` is now written: [deep findings](model-and-scenario-review.md), [primary research/reuse catalog](model-research-sources.md), and [proposed decision scenarios](scenario-design-plan.md). This is research/proposed priority, not an implemented new model or a change to frozen gates.
+
+Fresh support audit: 9,850/18,000 individual cases have observed outcomes; 5,443 of those forecast exactly zero or one. All 32 observed near-entry capped household cases are nonbinding, with no probabilities in the 5–95% interior. Controlled zero-return examples demonstrate the material effects of one extra attendance year, interrupted deposits and a different permitted deposit schedule. `scripts/review-scenario-design.mjs` reproduces the source-hashed support artifact and its accounting assertions. Existing financial tests remain 176/176 passing.
+
+The review recommends retaining the monthly ledger while distinguishing goal, education path, economic world, household event and policy. Define a small decision-scenario registry and stronger baselines in parallel with the bounded 30-event price trace. Do not treat the existing four-year price laboratory as general household calibration, and do not import a vendor or open-source component's defaults as evidence of calibration. New scenario features and policy comparisons are still proposed, not shipped.
+
 ## Completed checkpoint — source quality and school persistence
 
 [PR #8](https://github.com/jschell/education-finance/pull/8) merged at `4e83449bb44a389125ea8ddd7b00e9d9872f9b08`. [CI 44124951755](https://github.com/jschell/education-finance/actions/runs/44124951755) passed all checks, including isolated pinned Python dictionary extraction, deterministic audit reproduction and browser checks. The source-quality plan was committed as `5fd5085`, then the gapped-window/large-change amendment as `0514754` before those additional comparisons. Official dictionaries are pinned for all 24 years, with the same-year IC2014 supplemental legend explicit. Both extraction and report generation reproduce identically; **176/176 local tests pass**.
 
 [Results](calibration-quality-persistence-results.md): source-quality exclusions change evaluated coverage by at most 0.50 percentage point. Gapped school growth comparisons remain mostly weak/negative, so cross-school forecast dispersion must not be converted directly into permanent school growth-rate variation. Large-change sensitivities and original results remain separate. No financial defaults, app/model/schema version, forecasts or candidate activation changes.
 
-**Next action:** follow the newly written [large-price-change trace plan](calibration-price-trace-plan.md). Select the fixed known-school review set, compare official source snapshots with their pinned hashes and year-specific field definitions, and distinguish revisions, plausible policy changes and unresolved causes before specifying a new coherent candidate. No trace results have been computed yet.
+**Source-investigation next action:** follow the committed [large-price-change trace plan](calibration-price-trace-plan.md), alongside the scenario-design recommendations above. Select the fixed known-school review set, compare official source snapshots with their pinned hashes and year-specific field definitions, and distinguish revisions, plausible policy changes and unresolved causes before specifying a new coherent candidate. No trace results have been computed yet.
 
 ## Current checkpoint
 
@@ -58,7 +66,7 @@ Funding reliability must remain profile-specific. Example: known-school wait-4 c
 
 ## Next concrete work
 
-The evidence release, dispersion decomposition and source-quality/persistence audit are complete. Continue the [fixed price-trace plan](calibration-price-trace-plan.md): investigate the largest known-school tuition/housing changes using original and later official source files, retaining versions and unresolved causes. The findings will guide one coherent candidate, whose protocol must be committed before scoring. Require both cost and individual/household funding evidence with the existing held-out/sector/horizon protections. More paths or related schools cannot replace longer comparable outcomes.
+Read the [deep review's revised execution order](model-and-scenario-review.md#9-revised-execution-order) and [proposed scenario design](scenario-design-plan.md). Define the goal/path/world/event/policy contract and strong simple baselines; extend supported accounting/decision cases before claiming broader calibration. Run the bounded [price-trace investigation](calibration-price-trace-plan.md) in parallel and retain unresolved causes. A revised cost candidate still needs a separately committed protocol, known-process checks and matched cost/funding evidence; original gates and reports remain unchanged.
 
 Physical iOS Safari testing, optimal household allocation and richer education/account schedules are separate product work. Current household proposals use fixed shares; affordable-budget screens are not independently verified probability targets.
 
@@ -70,7 +78,7 @@ The deep review of v0.10.2 (`d0d536c`) motivated overhaul D. Its gate/anchor/tim
 
 ## Resume prompt
 
-> Review @GitHub jschell/education-finance. Read AGENTS.md, docs/continuity.md, docs/active-work-plan.md, docs/decisions.md, docs/calibration-next-steps.md and docs/model.md. Inspect current remote heads/PRs and the latest checkpoint before editing. App 0.14/model12 evidence work and its current-model snapshot were completed; do not recreate the merged branch or repeat its failed candidates. Source-quality/persistence diagnosis is complete in PR #8; continue the committed fixed large-price-change trace plan, then freeze a single revised candidate/protocol before new scoring. Require cost and funding evidence, preserve unsupported horizons and keep production activation separate. Document exact SHAs, checks, findings and the next action as work proceeds.
+> Review @GitHub jschell/education-finance. Read AGENTS.md, docs/continuity.md, docs/active-work-plan.md, docs/decisions.md, docs/calibration-next-steps.md and docs/model.md. Inspect current remote heads/PRs and the latest checkpoint before editing. App 0.14/model12 evidence work and its current-model snapshot were completed; do not recreate the merged branch or repeat its failed candidates. Source-quality/persistence diagnosis is complete in PR #8. Read the subsequent deep model/scenario review and proposed scenario design; define the decision contract and stronger baselines in parallel with the bounded source trace, then freeze a single revised candidate/protocol before new scoring. Require cost and funding evidence, preserve unsupported horizons and keep production activation separate. Document exact SHAs, checks, findings and the next action as work proceeds.
 
 ## Checkpoint discipline
 

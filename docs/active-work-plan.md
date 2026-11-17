@@ -27,6 +27,10 @@ git diff --exit-code -- site/data/calibration-foundation.json site/data/foundati
 
 Use a clean checkout and retain every exit status. Full school/funding regeneration is a release check, not necessary for every prose edit. New forecasts use unique files and explicit as-of dates; never overwrite an existing record. Future source-backed outcomes remain unavailable until actually published.
 
+## Research priority update — proposed, not implemented
+
+The [deep model/scenario review](model-and-scenario-review.md) finds the current controlled laboratory too narrow for broad household-resilience claims. The [scenario-design proposal](scenario-design-plan.md) adds goal/path/world/event/policy contracts, attendance/support alternatives, actually binding cap cases and origin-selected decision-boundary plans. Define this small registry and stronger price/funding baselines in parallel with the bounded source trace. Existing promotion thresholds and archived evaluation protocols do not change. No new scenario controls or model features are implemented by the review.
+
 ## 2. Obtain evidence that can change calibration conclusions
 
 Continue [the concrete post-results follow-up](calibration-next-steps.md). The first descriptive error decomposition is complete. Source-quality/flag interpretation and temporal/persistence diagnosis are merged in PR #8 with passing CI; see [the detailed findings](calibration-quality-persistence-results.md). Continue [the committed large-change trace plan](calibration-price-trace-plan.md) before specifying the next candidate. Treat this as a data/evaluation program, not another automatic correction layer.
