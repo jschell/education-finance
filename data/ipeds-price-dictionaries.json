@@ -1,0 +1,1706 @@
+{
+  "extractorSha256": "3d6daead0bca93caf31db0b2568d1b2843c1e99859e73e206ce01ed7642123ad",
+  "id": "ipeds-price-dictionaries-2000-2023-v1",
+  "limitations": [
+    "These are retrieved current dictionaries for revised historical data, not original publication vintages.",
+    "Code meanings are attached separately to each field/year; unlisted values remain unclassified."
+  ],
+  "retrieved": "2026-11-17",
+  "years": [
+    {
+      "bytes": 8575,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Suppressed to protect confidentiality",
+            "I": "Imputed using Group Median or Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "S": "Legitimate skip",
+            "U": "Imputed using other reported current year data",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2000-2001"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Suppressed to protect confidentiality",
+            "I": "Imputed using Group Median or Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "S": "Legitimate skip",
+            "U": "Imputed using other reported current year data",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2000-2001"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Suppressed to protect confidentiality",
+            "I": "Imputed using Group Median or Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "S": "Legitimate skip",
+            "U": "Imputed using other reported current year data",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2000-2001"
+        }
+      },
+      "member": "ic2000_ay.html",
+      "path": "data/raw/ipeds/dictionaries/IC2000_AY_Dict.zip",
+      "sha256": "865cda343ff026e20b95769d2d39fbc380ecb8e5feadb2c42de7ffaa43d0c480",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2000_AY_Dict.zip",
+      "year": 2000
+    },
+    {
+      "bytes": 12652,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Suppressed to protect confidentiality",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "Q": "Partial imputation",
+            "R": "Reported",
+            "Y": "Particular 1st prof field not applicable",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2001-2002"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Suppressed to protect confidentiality",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "Q": "Partial imputation",
+            "R": "Reported",
+            "Y": "Particular 1st prof field not applicable",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2001-2002"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Suppressed to protect confidentiality",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "Q": "Partial imputation",
+            "R": "Reported",
+            "Y": "Particular 1st prof field not applicable",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2001-2002"
+        }
+      },
+      "member": "ic2001_ay.html",
+      "path": "data/raw/ipeds/dictionaries/IC2001_AY_Dict.zip",
+      "sha256": "0f620fdbb0ab0e38963c1045a1dcef4371d44c32bf6f91bdf42a74f0e4ff7576",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2001_AY_Dict.zip",
+      "year": 2001
+    },
+    {
+      "bytes": 12690,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Suppressed to protect confidentiality",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "Q": "Partial imputation",
+            "R": "Reported",
+            "Y": "Particular 1st prof field not applicable",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2002-03"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Suppressed to protect confidentiality",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "Q": "Partial imputation",
+            "R": "Reported",
+            "Y": "Particular 1st prof field not applicable",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2002-03"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Suppressed to protect confidentiality",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "Q": "Partial imputation",
+            "R": "Reported",
+            "Y": "Particular 1st prof field not applicable",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2002-03"
+        }
+      },
+      "member": "ic2002_ay.html",
+      "path": "data/raw/ipeds/dictionaries/IC2002_AY_Dict.zip",
+      "sha256": "76c7daa385fa5ad66f1d6fe0725e5ac3adc6f9c42ddfa65a28e399d37d102f68",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2002_AY_Dict.zip",
+      "year": 2002
+    },
+    {
+      "bytes": 13646,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment based on enrollment by race/gender in part A",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular 1st prof field not applicable",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2003-04"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment based on enrollment by race/gender in part A",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular 1st prof field not applicable",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2003-04"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment based on enrollment by race/gender in part A",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular 1st prof field not applicable",
+            "Z": "Implied zero"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2003-04"
+        }
+      },
+      "member": "ic2003_ay.html",
+      "path": "data/raw/ipeds/dictionaries/IC2003_AY_Dict.zip",
+      "sha256": "dc20c13c3741c46926d81c10f43887c55822923a33a4dec3d87bdc106f6f6099",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2003_AY_Dict.zip",
+      "year": 2003
+    },
+    {
+      "bytes": 49023,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2004-05"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2004-05"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2004-05"
+        }
+      },
+      "member": "ic2004_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2004_AY_Dict.zip",
+      "sha256": "5394be11520362a94de4fae7dfd4653f6ffda0af50dc3253407f2fa073a452ca",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2004_AY_Dict.zip",
+      "year": 2004
+    },
+    {
+      "bytes": 47941,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2005-06"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2005-06"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2005-06"
+        }
+      },
+      "member": "ic2005_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2005_AY_Dict.zip",
+      "sha256": "01b7b5a1c874a11d13526e33271df3e31d8fb6c67ae36af230d7019dee31ce3a",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2005_AY_Dict.zip",
+      "year": 2005
+    },
+    {
+      "bytes": 43515,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2006-07"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2006-07"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2006-07"
+        }
+      },
+      "member": "ic2006_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2006_AY_Dict.zip",
+      "sha256": "d700a188807a89d6737c6d0856bbd5d155234b58753e405e1114f7d8cc436d60",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2006_AY_Dict.zip",
+      "year": 2006
+    },
+    {
+      "bytes": 42297,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2007-08"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2007-08"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2007-08"
+        }
+      },
+      "member": "ic2007_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2007_AY_Dict.zip",
+      "sha256": "8d710198b81bbb72e95d838f2c4df093041ab3d7a21a7b480919cb5908706709",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2007_AY_Dict.zip",
+      "year": 2007
+    },
+    {
+      "bytes": 42458,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2008-09"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2008-09"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2008-09"
+        }
+      },
+      "member": "ic2008_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2008_AY_Dict.zip",
+      "sha256": "bec521c83bcea0fad74b18628df9702a8815915f4b74eb670b68d06ac4659121",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2008_AY_Dict.zip",
+      "year": 2008
+    },
+    {
+      "bytes": 29214,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2009-10"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2009-10"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2009-10"
+        }
+      },
+      "member": "ic2009_ay.xls",
+      "path": "data/raw/ipeds/dictionaries/IC2009_AY_Dict.zip",
+      "sha256": "546964969e3bdc41a519493a99bb78e155b817f4e4068708b5366f973a868057",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2009_AY_Dict.zip",
+      "year": 2009
+    },
+    {
+      "bytes": 36508,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2010-11"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2010-11"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2010-11"
+        }
+      },
+      "member": "ic2010_ay.xls",
+      "path": "data/raw/ipeds/dictionaries/IC2010_AY_Dict.zip",
+      "sha256": "fc78479b894c310388fe7db70e1c5a14d2f200790dbf11c600c02b512a941419",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2010_AY_Dict.zip",
+      "year": 2010
+    },
+    {
+      "bytes": 38526,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2011-12"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2011-12"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2011-12"
+        }
+      },
+      "member": "ic2011_ay.xls",
+      "path": "data/raw/ipeds/dictionaries/IC2011_AY_Dict.zip",
+      "sha256": "c4870d335d9e682c663f0b20cd4775a58591dca4b1f0ed629414ac1dd302a959",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2011_AY_Dict.zip",
+      "year": 2011
+    },
+    {
+      "bytes": 33544,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2012-13"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2012-13"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2012-13"
+        }
+      },
+      "member": "ic2012_ay.xls",
+      "path": "data/raw/ipeds/dictionaries/IC2012_AY_Dict.zip",
+      "sha256": "bef86140da93c12c913f71d165526056c6c30561f4c1c94cf5bf00c73b70c558",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2012_AY_Dict.zip",
+      "year": 2012
+    },
+    {
+      "bytes": 29312,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2013-14"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2013-14"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2013-14"
+        }
+      },
+      "member": "ic2013_ay.xls",
+      "path": "data/raw/ipeds/dictionaries/IC2013_AY_Dict.zip",
+      "sha256": "a3cccbd36a84135de17cd8e3809f8b45f2de6b56f6f49db4f90199dafd00d0b9",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2013_AY_Dict.zip",
+      "year": 2013
+    },
+    {
+      "bytes": 40538,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2014-15"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2014-15"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2014-15"
+        }
+      },
+      "member": "ic2014_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2014_AY_Dict.zip",
+      "sha256": "fbbcb0f09bfa589716ff633529f8e4b2979f22a520dd9e426fa61346707887a5",
+      "supplement": {
+        "bytes": 128155,
+        "member": "ic2014.xlsx",
+        "methodologyUrl": "https://nces.ed.gov/statprog/handbook/ipeds_surveydesign.asp",
+        "path": "data/raw/ipeds/dictionaries/IC2014_Dict.zip",
+        "reason": "AY workbook omits the legend; same-year IC table explicitly defines Xvarname codes. NCES Handbook states all IPEDS components use the same imputation flags.",
+        "sha256": "392a92b869b40fa0f247a1b65cf6bf9e7e642af327e5e4697d420dc5c615cf66",
+        "sheet": "Sheet1",
+        "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2014_Dict.zip"
+      },
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2014_AY_Dict.zip",
+      "year": 2014
+    },
+    {
+      "bytes": 45160,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2015-16"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2015-16"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2015-16"
+        }
+      },
+      "member": "ic2015_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2015_AY_Dict.zip",
+      "sha256": "527f7a8810a9335064393fd3c9d7ba8f58279bf43d183d1514f96ce86d010f65",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2015_AY_Dict.zip",
+      "year": 2015
+    },
+    {
+      "bytes": 45086,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2016-17"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2016-17"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2016-17"
+        }
+      },
+      "member": "ic2016_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2016_AY_Dict.zip",
+      "sha256": "281c814e17f0cbdca05750fa9b46a64f0fb520fc4d5c89ef436db73167055156",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2016_AY_Dict.zip",
+      "year": 2016
+    },
+    {
+      "bytes": 47419,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2017-18"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2017-18"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2017-18"
+        }
+      },
+      "member": "ic2017_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2017_AY_Dict.zip",
+      "sha256": "b90f45b40a6cd4dab1c6f77c2eb26fc031539f3e5cd37b595bba299bcc4f259b",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2017_AY_Dict.zip",
+      "year": 2017
+    },
+    {
+      "bytes": 43828,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2018-19"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2018-19"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2018-19"
+        }
+      },
+      "member": "ic2018_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2018_AY_Dict.zip",
+      "sha256": "bfeb5122cc221304f1d9e8b06b7f269d35f3842ddf06bcfa1c68f48d384f8557",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2018_AY_Dict.zip",
+      "year": 2018
+    },
+    {
+      "bytes": 43569,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2019-20"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2019-20"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2019-20"
+        }
+      },
+      "member": "ic2019_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2019_AY_Dict.zip",
+      "sha256": "e68663bef0c6be43bc652f9ac475ae7fc1bc1668091f88ec4e9fce464c35b171",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2019_AY_Dict.zip",
+      "year": 2019
+    },
+    {
+      "bytes": 44125,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2020-21"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2020-21"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2020-21"
+        }
+      },
+      "member": "ic2020_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2020_AY_Dict.zip",
+      "sha256": "c7659e620fb2129edfd3dd7eb1d2e057eef72408eb8d309d41aca2ab579a9dc2",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2020_AY_Dict.zip",
+      "year": 2020
+    },
+    {
+      "bytes": 42596,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2021-22"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2021-22"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2021-22"
+        }
+      },
+      "member": "ic2021_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2021_AY_Dict.zip",
+      "sha256": "db9171b9740c1cc1c5a677ab534cafa9a7f4f5bc7978ccc039ab73c516100ca1",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2021_AY_Dict.zip",
+      "year": 2021
+    },
+    {
+      "bytes": 42767,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2022-23"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2022-23"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, room and board 2022-23"
+        }
+      },
+      "member": "ic2022_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2022_AY_Dict.zip",
+      "sha256": "90a3f81159ac16462a87559738428f8461140a5e26ad4657f48ab109b5ecec01",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2022_AY_Dict.zip",
+      "year": 2022
+    },
+    {
+      "bytes": 40627,
+      "fields": {
+        "CHG2AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG2AY3",
+          "title": "Published in-state tuition and fees 2023-24"
+        },
+        "CHG3AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG3AY3",
+          "title": "Published out-of-state tuition and fees 2023-24"
+        },
+        "CHG5AY3": {
+          "codes": {
+            "A": "Not applicable",
+            "B": "Institution left item blank",
+            "C": "Analyst corrected reported value",
+            "D": "Do not know",
+            "G": "Data generated from other data values",
+            "H": "Value not derived - data not usable",
+            "J": "Logical imputation",
+            "K": "Ratio adjustment",
+            "L": "Imputed using the Group Median procedure",
+            "N": "Imputed using Nearest Neighbor procedure",
+            "P": "Imputed using Carry Forward procedure",
+            "R": "Reported",
+            "Y": "Particular Doctor's professional practice field not applicable",
+            "Z": "Implied zero;"
+          },
+          "flag": "XCHG5AY3",
+          "title": "On campus, food and housing 2023-24"
+        }
+      },
+      "member": "ic2023_ay.xlsx",
+      "path": "data/raw/ipeds/dictionaries/IC2023_AY_Dict.zip",
+      "sha256": "45ce5ace49c5f1e965c1704e531bd2a8224b39fd74765792899e86e0bb0788b9",
+      "supplement": null,
+      "url": "https://nces.ed.gov/ipeds/datacenter/data/IC2023_AY_Dict.zip",
+      "year": 2023
+    }
+  ]
+}

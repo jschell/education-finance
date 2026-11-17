@@ -41,3 +41,7 @@ The already pinned Fama/French monthly factors (1926 onward), BLS general CPI (1
 ## Current calibration cases
 
 `data/calibration-cases/` contains public NCES institution IDs/prices and synthetic funding policies. It contains no real family plans. Selection reads only pinned raw rows through each origin; future attrition is retained as missing outcomes. Supplied imputation flags remain in source rows and source hashes; positive reported or imputed published charges are not actual family net bills.
+
+## Year-specific source-quality and persistence audit
+
+Official NCES 2000–2023 IC academic-year dictionaries are pinned verbatim under `data/raw/ipeds/dictionaries/`, with exact URLs, archive member names and SHA-256 in `ipeds-price-dictionaries.json`. The IC2014 academic-year dictionary omits a legend; the same-year IC2014 dictionary's generic Xvarname code table supplies it explicitly, consistent with the NCES Handbook's shared flag system. No original price observations are rewritten. Python extraction uses isolated pinned development libraries; the browser adds no dependency or live request. The resulting diagnostic report uses public institution IDs and retrospective prices, never private family records, and does not imply NCES endorsement or calibrated forecasts.

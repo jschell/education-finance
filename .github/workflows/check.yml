@@ -40,6 +40,13 @@ jobs:
         run: |
           node scripts/audit-calibration-dispersion.mjs
           git diff --exit-code -- data/calibration-diagnostics/dispersion.json
+      - name: Reproduce source-quality and school-persistence audit
+        run: |
+          python3 -m venv /tmp/education-finance-dictionary-qa
+          /tmp/education-finance-dictionary-qa/bin/pip install openpyxl==3.1.5 xlrd==2.0.2
+          /tmp/education-finance-dictionary-qa/bin/python scripts/prepare_ipeds_dictionaries.py
+          node scripts/audit-calibration-quality-persistence.mjs
+          git diff --exit-code -- data/ipeds-price-dictionaries.json data/calibration-diagnostics/quality-persistence.json
       - name: Install isolated browser QA
         run: |
           npm install --prefix /tmp/education-finance-qa playwright
