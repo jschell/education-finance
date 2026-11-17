@@ -22,6 +22,10 @@ Checkpoint: 2026-11-17 America/Los_Angeles. See [continuity](continuity.md) for 
 | Prospective records | Keep original forecasts immutable; outcomes are separate source-backed records; missing baseline/target remains unscored | New branch fixes default generator to active bundle; current snapshot/index completed 2026-11-17; 25 pending targets, zero observed |
 | Calibration language | Numerical checks, comparative scores and synthetic plan counts cannot certify future funding percentages | Report source/horizon support, miss direction and dependence; more paths reduce computation noise only |
 
+## Source-quality/persistence checkpoint
+
+PR #8 completed the year-specific dictionary audit and fixed-forecast sensitivity: excluding corrected reports changes coverage by at most 0.50 percentage point. Disjoint and gapped school-growth correlations are mostly weak/negative, including separately retained large-change screens. The existing persistent-growth hierarchy remains inactive; the observed cross-school forecast dispersion is not sufficient evidence for permanent school growth effects. Trace large source changes/reversals under the committed plan before designing the next candidate.
+
 ## Prior attempts to preserve
 
 The v0.10.1 trend substitutions reused the old benchmark residual correction and scored worse; they were not independent refitted full models. v0.10.2 added own-model asymmetric corrections and nested chronological selection, but its original promotion interpretation was later invalidated by the oracle bound. Keep both historical results and that correction to their interpretation.

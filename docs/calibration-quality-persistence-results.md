@@ -59,3 +59,8 @@ git diff --exit-code -- data/ipeds-price-dictionaries.json data/calibration-diag
 Fresh `npm run check` passes **176/176** tests; dictionary extraction and the audit regenerate byte-for-byte.
 
 Tests cover year/field-specific unknown-code handling, corrected-value exclusions, retained missing outcomes, no zero fill, deterministic shared growth, persistent school effects in disjoint windows, shared-boundary measurement-error reversal, future attrition, withheld-school isolation, separate large-change screening and source/support integrity. Full original reports remain untouched; these findings do not calibrate future funding probabilities.
+
+
+## Delivery checkpoint
+
+[PR #8](https://github.com/jschell/education-finance/pull/8) merged at `4e83449bb44a389125ea8ddd7b00e9d9872f9b08` after [CI 44124951755](https://github.com/jschell/education-finance/actions/runs/44124951755) passed all report, dictionary, prospective and browser checks. Local extraction also reproduces with the exact pinned parser versions. App 0.14/model12/schema5 and all production files remain unchanged. The next [price-trace plan](calibration-price-trace-plan.md) records selection and source-version rules before that investigation begins.

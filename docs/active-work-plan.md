@@ -29,7 +29,7 @@ Use a clean checkout and retain every exit status. Full school/funding regenerat
 
 ## 2. Obtain evidence that can change calibration conclusions
 
-Continue [the concrete post-results follow-up](calibration-next-steps.md). The first descriptive error decomposition is complete. Source-quality/flag interpretation and temporal/persistence diagnosis are now implemented on `calibration-quality-persistence`; see [the detailed findings](calibration-quality-persistence-results.md). Finish CI acceptance, then audit large changes/reversals before specifying the next candidate. Treat this as a data/evaluation program, not another automatic correction layer.
+Continue [the concrete post-results follow-up](calibration-next-steps.md). The first descriptive error decomposition is complete. Source-quality/flag interpretation and temporal/persistence diagnosis are merged in PR #8 with passing CI; see [the detailed findings](calibration-quality-persistence-results.md). Continue [the committed large-change trace plan](calibration-price-trace-plan.md) before specifying the next candidate. Treat this as a data/evaluation program, not another automatic correction layer.
 
 | Workstream | Planned approach | Exit criterion |
 | --- | --- | --- |

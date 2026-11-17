@@ -9,13 +9,13 @@ Updated **2026-11-17, America/Los_Angeles**. This is a repository-grounded hando
 3. [Active work plan](active-work-plan.md) and [next calibration steps](calibration-next-steps.md).
 4. [Decision record](decisions.md), then the frozen protocol/results for the task being resumed.
 
-## In-progress checkpoint — source quality and school persistence
+## Completed checkpoint — source quality and school persistence
 
-Branch `calibration-quality-persistence` starts at `ddde81d`; audit plan committed as `5fd5085`, gapped-window/large-change amendment committed as `0514754` before those extra comparisons. Official dictionaries are pinned for all 24 years. The source-quality sensitivity and origin-2010 growth diagnostics are implemented; both dictionary extraction and report generation reproduce identically. [Results and next action](calibration-quality-persistence-results.md).
+[PR #8](https://github.com/jschell/education-finance/pull/8) merged at `4e83449bb44a389125ea8ddd7b00e9d9872f9b08`. [CI 44124951755](https://github.com/jschell/education-finance/actions/runs/44124951755) passed all checks, including isolated pinned Python dictionary extraction, deterministic audit reproduction and browser checks. The source-quality plan was committed as `5fd5085`, then the gapped-window/large-change amendment as `0514754` before those additional comparisons. Official dictionaries are pinned for all 24 years, with the same-year IC2014 supplemental legend explicit. Both extraction and report generation reproduce identically; **176/176 local tests pass**.
 
-Source-quality exclusions change evaluated coverage by at most 0.50 percentage point. Gapped growth comparisons remain mostly weak/negative, so cross-school dispersion must not be converted directly into permanent school growth-rate variation. The same-year IC2014 supplemental legend is explicit. No model/default/version changes or new candidate scoring. Fresh `npm run check` passes 176/176 tests and edited documentation links resolve. CI/merge acceptance for this branch remains pending; production state below stays valid.
+[Results](calibration-quality-persistence-results.md): source-quality exclusions change evaluated coverage by at most 0.50 percentage point. Gapped school growth comparisons remain mostly weak/negative, so cross-school forecast dispersion must not be converted directly into permanent school growth-rate variation. Large-change sensitivities and original results remain separate. No financial defaults, app/model/schema version, forecasts or candidate activation changes.
 
-Next: finish repository/CI checks, merge the diagnostic artifacts and progress notes, then audit large source changes/reversals before specifying a new coherent candidate. Preserve all original comparisons.
+**Next action:** follow the newly written [large-price-change trace plan](calibration-price-trace-plan.md). Select the fixed known-school review set, compare official source snapshots with their pinned hashes and year-specific field definitions, and distinguish revisions, plausible policy changes and unresolved causes before specifying a new coherent candidate. No trace results have been computed yet.
 
 ## Current checkpoint
 
@@ -27,7 +27,7 @@ Next: finish repository/CI checks, merge the diagnostic artifacts and progress n
 | Main release checks | [44111217451](https://github.com/jschell/education-finance/actions/runs/44111217451) succeeded at release SHA |
 | Pages | [44111217573](https://github.com/jschell/education-finance/actions/runs/44111217573) succeeded at release SHA |
 | Live acceptance | [44111402600](https://github.com/jschell/education-finance/actions/runs/44111402600) passed: deployed source/report bytes and live synthetic browser checks at release SHA |
-| Fresh local tests | **168/168** pass, including current release-artifact presence and diagnostic source/support integrity |
+| Fresh local tests | **176/176** pass, including source-quality/persistence fixtures, release artifacts and diagnostic source/support integrity |
 | Reproduction | Foundation/planning/hierarchy and full school/funding reports regenerate byte-for-byte; 12/12 numerical savings checks pass; dispersion audit regenerates identically |
 | Prospective record | `data/forecast-snapshots/2026-11-17-model12.json`, source `feea5f7f64eb44fd69332958049945f0fffd3a85`; 25 forecasts, **zero observed, 25 pending** |
 | Open finding | [Issue #2](https://github.com/jschell/education-finance/issues/2): future forecast calibration remains unresolved |
@@ -58,7 +58,7 @@ Funding reliability must remain profile-specific. Example: known-school wait-4 c
 
 ## Next concrete work
 
-The evidence release and first dispersion decomposition are complete. Continue [the post-results plan](calibration-next-steps.md), beginning with **source-quality and temporal/persistence diagnosis**: interpret the raw IPEDS flags using year-specific dictionaries, audit missing/changed-sector cases, and distinguish persistent school errors from annual/common shocks. Then commit one new coherent candidate/protocol before scoring it, verify known processes, and evaluate both cost and individual/household funding outcomes with the existing held-out/sector/horizon protections. More paths or related schools cannot replace longer comparable outcome history.
+The evidence release, dispersion decomposition and source-quality/persistence audit are complete. Continue the [fixed price-trace plan](calibration-price-trace-plan.md): investigate the largest known-school tuition/housing changes using original and later official source files, retaining versions and unresolved causes. The findings will guide one coherent candidate, whose protocol must be committed before scoring. Require both cost and individual/household funding evidence with the existing held-out/sector/horizon protections. More paths or related schools cannot replace longer comparable outcomes.
 
 Physical iOS Safari testing, optimal household allocation and richer education/account schedules are separate product work. Current household proposals use fixed shares; affordable-budget screens are not independently verified probability targets.
 
@@ -70,7 +70,7 @@ The deep review of v0.10.2 (`d0d536c`) motivated overhaul D. Its gate/anchor/tim
 
 ## Resume prompt
 
-> Review @GitHub jschell/education-finance. Read AGENTS.md, docs/continuity.md, docs/active-work-plan.md, docs/decisions.md, docs/calibration-next-steps.md and docs/model.md. Inspect current remote heads/PRs and the latest checkpoint before editing. App 0.14/model12 evidence work and its current-model snapshot were completed; do not recreate the merged branch or repeat its failed candidates. Continue source-quality and temporal/school-error diagnosis from the reproducible dispersion audit, then freeze a single revised candidate/protocol before new scoring. Require cost and funding evidence, preserve unsupported horizons and keep production activation separate. Document exact SHAs, checks, findings and the next action as work proceeds.
+> Review @GitHub jschell/education-finance. Read AGENTS.md, docs/continuity.md, docs/active-work-plan.md, docs/decisions.md, docs/calibration-next-steps.md and docs/model.md. Inspect current remote heads/PRs and the latest checkpoint before editing. App 0.14/model12 evidence work and its current-model snapshot were completed; do not recreate the merged branch or repeat its failed candidates. Source-quality/persistence diagnosis is complete in PR #8; continue the committed fixed large-price-change trace plan, then freeze a single revised candidate/protocol before new scoring. Require cost and funding evidence, preserve unsupported horizons and keep production activation separate. Document exact SHAs, checks, findings and the next action as work proceeds.
 
 ## Checkpoint discipline
 
