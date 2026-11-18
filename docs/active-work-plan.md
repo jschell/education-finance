@@ -1,10 +1,14 @@
 # Active work plan
 
-Checkpoint: 2026-11-17 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
+Checkpoint: 2026-11-18 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
-## Revision-aware panel — implemented, acceptance in progress
+## Candidate protocol and mechanism tests — implemented
 
-[Results](revision-aware-price-panel-results.md) complete the source-panel prerequisite with raw representations, dictionary academic years, source/availability versioning and same-file/revision views. All original current-year values/flags and directory sectors reconcile. Strict vintage support is unavailable; the collection-year proxy stays explicit. Initial PR CI passed; revision-reversal reporting and missing-support tests were added under committed follow-up contract `c68257a092fac5756adca11ec5ca87273e9f4111`. Complete PR acceptance, then freeze one matched-input cost-candidate protocol and known-process tests before new scoring. No economic model/default or prior report change is part of this release.
+The [frozen protocol](revision-aware-cost-candidate-protocol.md), committed at `00488a64ab122d1d55d392f5c643efb6c9fa0ff4`, specifies one paired shared/permanent/temporary/source-error process and a four-cell matched input/economic evaluation. [Mechanism results](revision-cost-process-results.md) retain reporting-bias observational equivalence and short-lag identification failures. Seven new synthetic tests and a source-hashed artifact are implemented; no historical fitting/scoring or production activation. Next: the pinned matched observation graph, bounded estimator and finite-sample recovery/misspecification checks before historical fits.
+
+## Revision-aware panel — merged and verified
+
+[PR #11](https://github.com/jschell/education-finance/pull/11) merged at `ef3767066467f8d779e106e638d31c96827c0efa`. Final PR/main checks, Pages and live acceptance passed; exact links are in continuity. The [panel results](revision-aware-price-panel-results.md) preserve raw representations, dictionary academic years, source availability/versioning, same-file changes and revision reversals. Original current-year values/flags and directory sectors reconcile. Strict vintage support remains unavailable; the collection-year proxy stays explicit. This prerequisite is complete.
 
 ## Bounded source-price trace — merged in PR #10
 
@@ -45,7 +49,7 @@ The [deep model/scenario review](model-and-scenario-review.md) finds the current
 
 ## 2. Obtain evidence that can change calibration conclusions
 
-Continue [the concrete post-results follow-up](calibration-next-steps.md). The first descriptive error decomposition is complete. Source-quality/flag interpretation and temporal/persistence diagnosis are merged in PR #8 with passing CI; see [the detailed findings](calibration-quality-persistence-results.md). The [committed large-change trace](calibration-price-trace-results.md) is complete. Build the source-snapshot panel and availability contract before specifying the next candidate. Treat this as a data/evaluation program, not another automatic correction layer.
+Continue [the concrete post-results follow-up](calibration-next-steps.md). The first descriptive error decomposition is complete. Source-quality/flag interpretation and temporal/persistence diagnosis are merged in PR #8 with passing CI; see [the detailed findings](calibration-quality-persistence-results.md). The [committed large-change trace](calibration-price-trace-results.md) is complete. The source panel and availability contract are complete; follow the frozen candidate protocol and mechanism results above. Treat this as a data/evaluation program, not another automatic correction layer.
 
 | Workstream | Planned approach | Exit criterion |
 | --- | --- | --- |

@@ -1,0 +1,459 @@
+{
+  "id": "revision-cost-known-process-v1",
+  "method": "revision-cost-process-1.0.0",
+  "kind": "synthetic supplied-parameter mechanism evidence; no historical fit or score",
+  "sourceHashes": {
+    "docs/revision-aware-cost-candidate-protocol.md": "aa5e0b98a02b7208994fd87d9c79dcad73d0a752522bd1fae4c7e4e5ecca3cc8",
+    "scripts/calibration/revision-cost-process.mjs": "f3e03bf6826d106ba8f82af64ff6bc62d01c48cde40f4d382a3706da322d676f",
+    "scripts/validate-revision-cost-process.mjs": "05abd586b85d8cc6c55c2933710e32e35405a0b6620de0e64112922f9d32cfcd",
+    "tests/revision-cost-process.test.js": "794d384f7edf3e01424f1846690bde4c7431a6cdf0250015944645427fece3a9"
+  },
+  "cases": {
+    "driftOnly": [
+      {
+        "year": 2010,
+        "shared": [
+          0.02,
+          0.01
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0.02,
+              0.01
+            ],
+            "level": [
+              1.0202013400267558,
+              1.010050167084168
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0.02,
+              0.01
+            ],
+            "level": [
+              1.0202013400267558,
+              1.010050167084168
+            ]
+          }
+        }
+      },
+      {
+        "year": 2011,
+        "shared": [
+          0.04,
+          0.02
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0.04,
+              0.02
+            ],
+            "level": [
+              1.0408107741923882,
+              1.0202013400267558
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0.04,
+              0.02
+            ],
+            "level": [
+              1.0408107741923882,
+              1.0202013400267558
+            ]
+          }
+        }
+      },
+      {
+        "year": 2012,
+        "shared": [
+          0.06,
+          0.03
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0.06,
+              0.03
+            ],
+            "level": [
+              1.0618365465453596,
+              1.030454533953517
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0.06,
+              0.03
+            ],
+            "level": [
+              1.0618365465453596,
+              1.030454533953517
+            ]
+          }
+        }
+      }
+    ],
+    "sharedShock": [
+      {
+        "year": 2010,
+        "shared": [
+          0,
+          0
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0,
+              0
+            ],
+            "level": [
+              1,
+              1
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0,
+              0
+            ],
+            "level": [
+              1,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "year": 2011,
+        "shared": [
+          0.1,
+          -0.05
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0.1,
+              -0.05
+            ],
+            "level": [
+              1.1051709180756477,
+              0.951229424500714
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0.1,
+              -0.05
+            ],
+            "level": [
+              1.1051709180756477,
+              0.951229424500714
+            ]
+          }
+        }
+      },
+      {
+        "year": 2012,
+        "shared": [
+          0.1,
+          -0.05
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0.1,
+              -0.05
+            ],
+            "level": [
+              1.1051709180756477,
+              0.951229424500714
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0.1,
+              -0.05
+            ],
+            "level": [
+              1.1051709180756477,
+              0.951229424500714
+            ]
+          }
+        }
+      }
+    ],
+    "permanentJump": [
+      {
+        "year": 2010,
+        "shared": [
+          0,
+          0
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0.3,
+              0.2
+            ],
+            "level": [
+              1.3498588075760032,
+              1.2214027581601699
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0,
+              0
+            ],
+            "level": [
+              1,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "year": 2011,
+        "shared": [
+          0,
+          0
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0.3,
+              0.2
+            ],
+            "level": [
+              1.3498588075760032,
+              1.2214027581601699
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0,
+              0
+            ],
+            "level": [
+              1,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "year": 2012,
+        "shared": [
+          0,
+          0
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0.3,
+              0.2
+            ],
+            "level": [
+              1.3498588075760032,
+              1.2214027581601699
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0,
+              0
+            ],
+            "level": [
+              1,
+              1
+            ]
+          }
+        }
+      }
+    ],
+    "temporaryDeviation": [
+      {
+        "year": 2010,
+        "shared": [
+          0,
+          0
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0.3,
+              0.2
+            ],
+            "level": [
+              1.3498588075760032,
+              1.2214027581601699
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0,
+              0
+            ],
+            "level": [
+              1,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "year": 2011,
+        "shared": [
+          0,
+          0
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0.15,
+              0.1
+            ],
+            "level": [
+              1.161834242728283,
+              1.1051709180756477
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0,
+              0
+            ],
+            "level": [
+              1,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "year": 2012,
+        "shared": [
+          0,
+          0
+        ],
+        "schools": {
+          "synthetic-a": {
+            "logLevel": [
+              0.075,
+              0.05
+            ],
+            "level": [
+              1.0778841508846315,
+              1.0512710963760241
+            ]
+          },
+          "synthetic-b": {
+            "logLevel": [
+              0,
+              0
+            ],
+            "level": [
+              1,
+              1
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "idealStationaryStitchedMoments": {
+    "parameters": {
+      "permanentVariance": 0.04,
+      "temporaryVariance": 0.09,
+      "measurementVariance": 0.01
+    },
+    "moments": {
+      "lag0": 0.15,
+      "lag1": -0.0325,
+      "lag2": -0.01125
+    },
+    "idealInverse": {
+      "status": "compatible-ideal-moments",
+      "parameters": {
+        "permanentVariance": 0.039999999999999994,
+        "temporaryVariance": 0.09,
+        "measurementVariance": 0.010000000000000002
+      },
+      "limitation": "Fixed decay and independent stationary errors assumed; no empirical identification or fitted uncertainty."
+    }
+  },
+  "identificationFailures": {
+    "shortLagAmbiguity": [
+      {
+        "parameters": {
+          "permanentVariance": 0.04,
+          "temporaryVariance": 0.08,
+          "measurementVariance": 0.02
+        },
+        "moments": {
+          "lag0": 0.16,
+          "lag1": -0.04,
+          "lag2": -0.01
+        }
+      },
+      {
+        "parameters": {
+          "permanentVariance": 0.06,
+          "temporaryVariance": 0.04,
+          "measurementVariance": 0.03
+        },
+        "moments": {
+          "lag0": 0.16,
+          "lag1": -0.04,
+          "lag2": -0.005
+        }
+      }
+    ],
+    "systematicReportingBias": {
+      "genuineLatentJumpObserved": [
+        [
+          1.3498588075760032,
+          1.2214027581601699
+        ],
+        [
+          1.3498588075760032,
+          1.2214027581601699
+        ],
+        [
+          1.3498588075760032,
+          1.2214027581601699
+        ]
+      ],
+      "noLatentJumpBiasedObserved": [
+        [
+          1.3498588075760032,
+          1.2214027581601699
+        ],
+        [
+          1.3498588075760032,
+          1.2214027581601699
+        ],
+        [
+          1.3498588075760032,
+          1.2214027581601699
+        ]
+      ],
+      "observationallyIdentical": true
+    }
+  },
+  "limitations": [
+    "Conditional supplied innovations and ideal moment inversion are not a fitted estimator or empirical parameter-recovery experiment.",
+    "Fixed temporary decay 0.5 and independent centered source errors are restrictive working assumptions, not verified facts.",
+    "The stitched-growth formula is not valid for arbitrary source-coherent observation graphs.",
+    "A systematic reporting shift can exactly mimic a genuine level shift; real source revisions do not identify economic truth.",
+    "Historical observation-graph adaptation, bounded estimation, parameter recovery, misspecification experiments and matched cost/funding evaluation remain to implement.",
+    "Strict historical original-vintage support remains unavailable; any subsequent collection-year proxy is not an actual vintage backtest.",
+    "App, active foundation, original observations/reports and prospective forecasts remain unchanged."
+  ],
+  "sha256": "54a40d6f30e4a5dd395e23be5c8ce345e80aad2f1ef22961a8e4a4cfd57c5c9c"
+}
