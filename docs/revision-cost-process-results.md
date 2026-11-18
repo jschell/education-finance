@@ -26,6 +26,8 @@ A genuine permanent paired log-price jump (0.3,0.2) and an unchanged latent pric
 
 The panel's merged main passed [full checks 44330515641](https://github.com/jschell/education-finance/actions/runs/44330515641), [Pages 44330517327](https://github.com/jschell/education-finance/actions/runs/44330517327), and [live acceptance 44330722200](https://github.com/jschell/education-finance/actions/runs/44330722200) at `ef3767066467f8d779e106e638d31c96827c0efa`. These are panel delivery checks, not acceptance of the subsequent process harness or evidence of economic calibration.
 
+Published implementation `a5d8692651d22a972b79032f679ccabdb8bb5638` is in [PR #12](https://github.com/jschell/education-finance/pull/12). This documentation update follows the implementation. Check the PR head status for full CI acceptance; this harness is not merged or deployed.
+
 ## What remains
 
 No historical fitter, optimizer, observation-graph adapter or production integration is implemented in this stage. There are no new historical cost/funding scores. Strict original-publication-vintage support remains zero; the collection-year proxy must retain its limitation label.
