@@ -47,6 +47,8 @@ Validation: `npm run check` passes **210 Node tests**; six existing Python extra
 
 Primary numerical API references: [SciPy bounded L-BFGS-B](https://docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html), [Cholesky factorization](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.cho_factor.html), [Cholesky solve](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.cho_solve.html). These libraries do not validate the statistical assumptions.
 
+Published implementation `62e6f5fbe94c2deb93a6307dbf8195d8dacf3e61` is in [PR #13](https://github.com/jschell/education-finance/pull/13). This handoff update follows it. The full twelve-world numerical rerun passed the declared reproduction tolerances. Check the PR head status for full CI acceptance; the estimator branch is not merged or deployed.
+
 ## Next action — preserve the failed gate
 
 Historical fitting stays blocked. First diagnose shared-variance recovery and boundary geometry in a newly committed finite-sample design study: distinguish realized common-shock sampling variation from estimation error, compare profiled versus known synthetic drift as an explanatory control, and vary economic years separately from institution counts. Also profile forecast-relevant latent cumulative-cost variance along weak decomposition directions; local covariance curvature alone is not a confidence interval. No new correction, threshold relaxation, seed replacement or historical score selection is justified by this release.
