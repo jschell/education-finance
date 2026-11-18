@@ -2,9 +2,15 @@
 
 Checkpoint: 2026-11-18 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
-## Matched graph and estimator — implemented, recovery gate failed
+## Estimator repair steps 1–3 — implemented
 
-[Results](revision-estimator-results.md) document the pinned two-policy observation graph, paired diffuse likelihood, bounded optimizer and independent numerical checks. Execution contract `f7af707` preceded experiments. All six ideal worlds converge numerically, but two have conservative boundary/curvature flags and shared tuition variance median recovery 0.429 misses the 0.5 floor. Historical fitting is blocked; no real price likelihood or forecast score was computed. Next: freeze a finite-sample shared-variance/boundary diagnostic study, then separate realized common-shock variation from estimation error and temporal support from school counts before proposing an estimator revision. Preserve the failed gate and unchanged production assumptions.
+[Protocol](reml-boundary-study-protocol.md) `c019c77` preceded shock attribution, separate ML/oracle/REML objectives and boundary-aware nuisance profiles. [Results](reml-boundary-study-results.md): original-world shared tuition variance ratio ML 0.429 → REML 0.50117, fresh-world REML 1.107. The original realized common-shock sample variance ratio is 0.785, separating sampling from fitted recovery. The earlier full-Hessian flags are constraint-limited under feasible geometry; coarse correlation profiles remain shallow. All v1 engine/test/report bytes and its failed gate are preserved. No historical fitting or activation.
+
+Next freeze steps 4–5: actual 3/7/12 transition-year support, larger fresh batches, school counts varied separately from years, and cumulative-cost/parameter uncertainty including reporting-bias sensitivity. The narrow 0.50117 crossing is not robust economic qualification.
+
+## Matched graph and v1 estimator — merged, failed recovery retained
+
+[PR #13](https://github.com/jschell/education-finance/pull/13) merged at `3bf588bdc61a7a390eae9d88a3900e37729ce751` with final PR/main checks, Pages and live acceptance passing. [Original results](revision-estimator-results.md) and the 0.429 failed recovery gate remain unchanged. The separate repair study above does not retroactively qualify this candidate.
 
 ## Candidate protocol and conditional mechanism tests — merged
 

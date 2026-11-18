@@ -75,6 +75,14 @@ jobs:
           /tmp/education-finance-estimator-qa/bin/pip install numpy==2.3.5 scipy==1.17.0
           /tmp/education-finance-estimator-qa/bin/python -m unittest discover -s tests -p revision_estimator_test.py
           /tmp/education-finance-estimator-qa/bin/python scripts/validate_revision_estimator.py --verify
+      - name: Verify realized-shock, REML and boundary study
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+          OMP_NUM_THREADS: '1'
+        run: |
+          /tmp/education-finance-estimator-qa/bin/python -m unittest discover -s tests -p reml_study_test.py
+          /tmp/education-finance-estimator-qa/bin/python scripts/validate_reml_study.py --verify
+          /tmp/education-finance-estimator-qa/bin/python -m unittest discover -s tests -p reml_profile_test.py
       - name: Install isolated browser QA
         run: |
           npm install --prefix /tmp/education-finance-qa playwright
