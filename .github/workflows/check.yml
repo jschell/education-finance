@@ -90,3 +90,22 @@ jobs:
         with:
           name: overhaul-browser-evidence
           path: tests/evidence/followup/
+
+  reml-study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install isolated pinned numerical dependencies
+        run: |
+          python3 -m venv /tmp/education-finance-reml-qa
+          /tmp/education-finance-reml-qa/bin/pip install numpy==2.3.5 scipy==1.17.0
+      - name: Verify REML mathematics, profiles and numerical reproduction
+        run: |
+          /tmp/education-finance-reml-qa/bin/python -m unittest discover -s tests -p reml_study_test.py
+          /tmp/education-finance-reml-qa/bin/python -m unittest discover -s tests -p reml_profile_test.py
+          /tmp/education-finance-reml-qa/bin/python -m unittest discover -s tests -p reml_reproduction_test.py
+          /tmp/education-finance-reml-qa/bin/python scripts/verify_reml_reproduction.py
