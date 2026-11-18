@@ -2,9 +2,9 @@
 
 Checkpoint: 2026-11-17 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
-## Bounded source-price trace — completed locally, branch acceptance in progress
+## Bounded source-price trace — merged in PR #10
 
-[Results and source table](calibration-price-trace-results.md): 21/30 extreme sector/component events show retrospective revisions, including Reported-flagged values; all 32 annual archives match pinned hashes. No prices were repaired or candidate scored. The next prerequisite is a revision-aware source-snapshot panel with an explicit as-of availability contract. Later-source revisions cannot enter an earlier origin; revised annual files do not recover original publication vintages. Preserve the original quality sensitivity, forecasts, data and failed models. Complete branch acceptance and record exact PR/SHA/checks in continuity.
+[Results and source table](calibration-price-trace-results.md): 21/30 extreme sector/component events show retrospective revisions, including Reported-flagged values; all 32 annual archives match pinned hashes. No prices were repaired or candidate scored. The next prerequisite is a revision-aware source-snapshot panel with an explicit as-of availability contract. Later-source revisions cannot enter an earlier origin; revised annual files do not recover original publication vintages. Preserve the original quality sensitivity, forecasts, data and failed models. [CI 44229411339](https://github.com/jschell/education-finance/actions/runs/44229411339) passed 190 Node/three Python tests, all artifact reproductions and browser regressions. Merge SHA: `e37db347fa349ded86b636080cbcc43ed6fa994d`. Follow the committed [revision-aware panel implementation plan](revision-aware-price-panel-plan.md) next; exact acceptance is recorded in continuity.
 
 ## Decision release — merged in PR #9
 
