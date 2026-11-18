@@ -15,7 +15,7 @@ def payload(study):
     elif study=='reml':paths=shared+['scripts/revision_cost_synthetic.py','scripts/revision_cost_trace.py','scripts/revision_cost_reml.py','scripts/validate_reml_study.py','scripts/verify_reml_reproduction.py','tests/reml_study_test.py','tests/reml_profile_test.py','tests/reml_reproduction_test.py','data/calibration-diagnostics/reml-boundary-study.json','data/calibration-diagnostics/revision-estimator-recovery.json','docs/reml-boundary-study-protocol.md']
     else:
         from validate_predictive_depth import PATHS
-        paths=shared+PATHS+['tests/predictive_study_test.py','tests/predictive_reproduction_test.py','tests/metadata-continuity.test.js','scripts/summarize_predictive_depth.py','data/calibration-diagnostics/predictive-depth-summary.json','tests/predictive-ledger.test.js','data/calibration-diagnostics/predictive-depth-study.json.gz','docs/predictive-depth-implementation-notes.md']
+        paths=shared+PATHS+['scripts/verify_predictive_reproduction.py','tests/predictive_portability_test.py','docs/predictive-reproduction-amendment.md','tests/predictive_study_test.py','tests/predictive_reproduction_test.py','tests/metadata-continuity.test.js','scripts/summarize_predictive_depth.py','data/calibration-diagnostics/predictive-depth-summary.json','tests/predictive-ledger.test.js','data/calibration-diagnostics/predictive-depth-study.json.gz','docs/predictive-depth-implementation-notes.md']
     # Include every recursively declared evidence dependency, not only runner files.
     pending=list(paths);seen=set(paths)
     while pending:

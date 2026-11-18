@@ -53,12 +53,14 @@ For example, UNITID 100654 changes `ALABAMA A & M UNIVERSITY` to `Alabama A & M 
 
 ## Artifacts and reproduction
 
+The [JSON key amendment](predictive-reproduction-amendment.md) repairs a false comparison rejection for integer fixed-coordinate keys using a separate strict JSON-normalizing verifier. Every evidence-generating source and artifact remains unchanged.
+
 - Full cells, all fits/refits and financial diagnostics: `data/calibration-diagnostics/predictive-depth-study.json.gz` (deterministic gzip; decode with Python gzip/json).
 - Small summaries, all-family recovery, paired method comparisons and uncertainty/support: `data/calibration-diagnostics/predictive-depth-summary.json`.
 - Metadata audit: `data/calibration-diagnostics/metadata-continuity.json` and `data/research/reviewed-metadata-equivalences.json`.
 
 ```sh
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 scripts/validate_predictive_depth.py --verify --workers 4
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python3 scripts/verify_predictive_reproduction.py --workers 4
 OPENBLAS_NUM_THREADS=1 python3 scripts/summarize_predictive_depth.py --verify
 node --max-old-space-size=4096 scripts/audit-metadata-continuity.mjs --verify
 npm run check

@@ -185,6 +185,7 @@ jobs:
         run: |
           /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p predictive_study_test.py
           /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p predictive_reproduction_test.py
+          /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p predictive_portability_test.py
           /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p reproduction_stamp_test.py
           /tmp/education-finance-predictive-qa/bin/python scripts/validate_predictive_depth.py --validate
           /tmp/education-finance-predictive-qa/bin/python scripts/summarize_predictive_depth.py --verify
@@ -201,7 +202,7 @@ jobs:
       - name: Reproduce complete predictive study
         if: steps.predictive-cache.outputs.cache-hit != 'true' || inputs.force_full == true
         run: |
-          /tmp/education-finance-predictive-qa/bin/python scripts/validate_predictive_depth.py --verify --workers 2
+          /tmp/education-finance-predictive-qa/bin/python scripts/verify_predictive_reproduction.py --workers 2
           /tmp/education-finance-predictive-qa/bin/python scripts/reproduction-stamp.py predictive --write
       - name: Verify predictive completion marker
         run: /tmp/education-finance-predictive-qa/bin/python scripts/reproduction-stamp.py predictive --check
