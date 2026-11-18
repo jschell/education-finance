@@ -1,0 +1,132 @@
+{
+  "annotations": [
+    {
+      "event": "public4:tuition:204024:2003",
+      "evidence": [
+        "miami-2008-board"
+      ],
+      "interpretation": "Gross tuition with resident scholarships is documented; exact endpoint amounts remain partly unresolved.",
+      "status": "partial-definition-context"
+    },
+    {
+      "event": "public4:tuition:204024:2006",
+      "evidence": [
+        "miami-2008-board"
+      ],
+      "interpretation": "Net resident reporting is documented and the first later value $11,443 matches the ordinance; neither original $10,554 nor later $11,875 is automatically repaired.",
+      "status": "partial-definition-context"
+    },
+    {
+      "event": "public2:tuition:121707:2002",
+      "evidence": [
+        "redwoods-2004-audit"
+      ],
+      "interpretation": "A real enrollment-fee increase is documented; the entire annual change is not numerically reconciled.",
+      "status": "partial-policy-context"
+    },
+    {
+      "event": "public4:housing:224554:2012",
+      "evidence": [
+        "commerce-cds-2013"
+      ],
+      "interpretation": "Matching $7,150 is insufficient: the expense section explicitly labels a different academic year.",
+      "status": "rejected-academic-year-match"
+    },
+    {
+      "event": "public4:housing:224554:2013",
+      "evidence": [
+        "commerce-cds-2013"
+      ],
+      "interpretation": "Matching $7,150 is insufficient: the expense section explicitly labels a different academic year.",
+      "status": "rejected-academic-year-match"
+    },
+    {
+      "event": "public4out:housing:224554:2012",
+      "evidence": [
+        "commerce-cds-2013"
+      ],
+      "interpretation": "Matching $7,150 is insufficient: the expense section explicitly labels a different academic year.",
+      "status": "rejected-academic-year-match"
+    },
+    {
+      "event": "public4out:housing:224554:2013",
+      "evidence": [
+        "commerce-cds-2013"
+      ],
+      "interpretation": "Matching $7,150 is insufficient: the expense section explicitly labels a different academic year.",
+      "status": "rejected-academic-year-match"
+    }
+  ],
+  "documents": [
+    {
+      "binaryStatus": "verified",
+      "bytes": 133086,
+      "claim": "Board ordinance O2008-2 describes the single-tuition plan adopted in 2003, resident scholarships and net resident reporting. Its 2007-08 gross amount is $23,874 and resident net maximum $11,443.",
+      "documentDate": "2008-02-08",
+      "excerpt": "at the net amount of $11,443",
+      "excerptVerification": "Verified against pinned PDF bytes",
+      "id": "miami-2008-board",
+      "limit": "Supports a gross/net definition mechanism, not an exact reconciliation of all selected annual-file amounts.",
+      "needle": "at the net amount of $11,443",
+      "pdfPages": [
+        10
+      ],
+      "sha256": "f4389734a75fa285e72b3b0f675e1e282c5a65c9d2bbba9ca7ecab89288d782e",
+      "url": "https://miamioh.edu/_files/documents/about-miami/president/bot/minutes-archive/Minutes_02-08-08.pdf"
+    },
+    {
+      "binaryStatus": "verified",
+      "bytes": 166670,
+      "claim": "The district audit documents a state increase in the per-semester-unit enrollment fee from $11 in 2002-03 to $18 in 2003-04.",
+      "documentDate": "2004-06-30 fiscal year end",
+      "excerpt": "regular enrollment fee rate of $11",
+      "excerptVerification": "Verified against pinned PDF bytes",
+      "id": "redwoods-2004-audit",
+      "limit": "Supports a real fee-policy change in the selected transition; differing full-time credit loads/other fees and the exact $288/$641 totals remain unreconciled.",
+      "needle": "regular enrollment fee rate of $11",
+      "pdfPages": [
+        13
+      ],
+      "sha256": "17ed653a3d779f03356dbff5f40e44a1ba7049716283782c516b78d6d669b940",
+      "url": "https://www.redwoods.edu/services/bo/reports/audited_financial_statement/2003-04_RedwoodsCCD_AuditFS.pdf"
+    },
+    {
+      "binaryStatus": "verified",
+      "bytes": 164349,
+      "claim": "The contemporary survey permits correction of prior-year prices in the current collection and specifies full-academic-year reporting.",
+      "documentDate": "2006-07 survey",
+      "excerpt": "update or correct any 2004-05 or 2005-06",
+      "excerptVerification": "Verified against pinned PDF bytes",
+      "id": "nces-2006-form",
+      "limit": "Explains why retrospective revisions exist; does not identify any individual revision as the economically true amount.",
+      "needle": "update or correct any 2004-05 or 2005-06",
+      "pdfPages": [
+        26
+      ],
+      "sha256": "3218dc85b7f3e9852f4151685f3469a31247d8d0599953489e7cd1e335866c41",
+      "url": "https://nces.ed.gov/ipeds/use-the-data/download-survey-material/2006/institutional%20characteristics/icay_2yr_form.pdf"
+    },
+    {
+      "binaryError": "HTTP Error 404: Not Found",
+      "binaryStatus": "unavailable",
+      "bytes": null,
+      "claim": "G1 explicitly requests 2014-2015 costs despite the 2013-2014 cover; its on-campus room/board entry is $7,150.",
+      "documentDate": "2013-2014 cover; G1 asks for 2014-2015 costs",
+      "excerpt": "2014-2015 academic year costs of attendance",
+      "excerptVerification": "Read in web PDF text; local binary unavailable. Do not claim archive-byte verification.",
+      "id": "commerce-cds-2013",
+      "limit": "Rejected as confirmation of academic-year 2013 or 2012 prices merely because the amount matches a revised endpoint. Event cause remains unresolved.",
+      "needle": "2014-2015 academic year costs of attendance",
+      "pdfPages": [],
+      "sha256": null,
+      "url": "https://inside.tamuc.edu/aboutus/ier/IR/documents/common-data-set/CDS_2013-2014.pdf"
+    }
+  ],
+  "id": "price-trace-primary-context-v1",
+  "limitations": [
+    "Independent context and source revision are separate classifications. No event receives a fully reconciled economic-cause label.",
+    "Modern aid descriptions or another campus budget cannot establish a historical price change at the selected institution.",
+    "Binary status explicitly distinguishes locally verified PDF bytes from web-reader-only review; full retrieved documents stay in an ignored cache."
+  ],
+  "retrieved": "2026-11-17"
+}

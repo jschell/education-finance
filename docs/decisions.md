@@ -35,3 +35,7 @@ The newer hierarchy also lost under the corrected foundation. The subsequent bra
 ## Decision release checkpoint
 
 The frozen [decision release protocol](decision-release-plan.md) adds method `funding-decisions-1.0.0` alongside core model12. Keep diagnostic alternatives, main-gauge results, original historical evidence and boundary-selected evidence separate. Dated-bill priority reallocates only new deposits and can be worse when future earmarked support is ignored; retain that failure case. Events have no probability weights. Boundary resources are selected before independent scoring/outcome lookup; no target tuning, failed-comparison deletion or candidate activation follows from this release.
+
+## Price-source trace interpretation
+
+The bounded [source investigation](calibration-price-trace-results.md) establishes annual-file representation differences, including values all flagged Reported, not a universally correct replacement price. Keep the original selected panel and frozen reports unchanged. Later retrospective values cannot be treated as available at an earlier forecast origin. A revised source panel and availability contract precede the next economic candidate; partial institutional context does not fully reconcile individual events. Snapshot agreement is not proof of a real economic price change, and extreme-selected revision frequencies are not population error estimates.

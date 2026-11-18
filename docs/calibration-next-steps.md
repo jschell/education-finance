@@ -35,3 +35,7 @@ The next iteration should deliver a source-quality/error decomposition, a newly 
 ## Decision-boundary extension checkpoint
 
 App 0.15 implements the [decision release](decision-release-results.md). It repairs weak decision-test support with origin-selected resources and genuinely binding household caps; it does not repair cost-model calibration. Compare the separate boundary evidence with the preserved broad-grid evidence rather than substituting its score. The priority rule helps some observed households but has a retained synthetic failure mode, so it remains an alternative. Continue the bounded source-price trace before freezing one coherent revised cost model; prospective outcomes and long-horizon support remain unavailable.
+
+## Completed bounded trace and revised prerequisite
+
+The [30-event source investigation](calibration-price-trace-results.md) finds revisions to Reported-flagged same-year values across pinned annual files. This adds a different question from the earlier flag exclusion test. Before a new economic candidate, reconstruct a source-snapshot/academic-year panel with revision history and explicit as-of availability limits. Keep collection-year reconstructions distinct from original publication vintages. Do not automatically replace every original value with a later one, drop extreme events or tune a cost layer against these selected cases.

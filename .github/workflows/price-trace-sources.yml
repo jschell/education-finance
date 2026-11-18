@@ -1,0 +1,27 @@
+name: Verify official price-trace source excerpts
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install isolated dictionary readers
+        run: |
+          python -m venv /tmp/price-trace-source-qa
+          /tmp/price-trace-source-qa/bin/pip install openpyxl==3.1.5 xlrd==2.0.2
+      - name: Verify excerpts against official archives
+        run: |
+          /tmp/price-trace-source-qa/bin/python scripts/extract_price_trace_sources.py --fetch --verify-excerpts
+          node scripts/select-price-traces.mjs
+          node scripts/compare-price-traces.mjs
+          git diff --exit-code -- data/calibration-diagnostics/price-trace-registry.json data/calibration-diagnostics/price-trace-comparison.json

@@ -51,6 +51,12 @@ jobs:
         run: |
           node scripts/validate-decision-boundaries.mjs
           git diff --exit-code --stat -- site/data/decision-validation.json data/decision-cases/
+      - name: Reproduce bounded price-source trace offline
+        run: |
+          python3 -m unittest discover -s tests -p price_trace_extract_test.py
+          node scripts/select-price-traces.mjs
+          node scripts/compare-price-traces.mjs
+          git diff --exit-code -- data/calibration-diagnostics/price-trace-registry.json data/calibration-diagnostics/price-trace-comparison.json
       - name: Install isolated browser QA
         run: |
           npm install --prefix /tmp/education-finance-qa playwright
