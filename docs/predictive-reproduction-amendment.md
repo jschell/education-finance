@@ -1,0 +1,7 @@
+# Predictive reproduction: JSON key normalization
+
+The frozen generating runner returns a fixed-coordinate dictionary keyed by integer parameter index `2`. JSON represents object keys as strings. Its original recursive comparator consequently rejects a fresh `{2: 0}` against its own serialized `{"2": 0}` before any numerical disagreement. A minimal round-trip test confirmed this representation-only defect during delivery review.
+
+Preserve every evidence-generating file, observation, fit/refit, artifact and source identity. Add a separate full-refitting verifier that round-trips both comparison operands through strict JSON before invoking the unchanged comparison contract. This converts only JSON representation types; it neither rounds numerical values nor changes statuses, coordinate values, tolerances or optimization acceptance. Reject NaN/infinity rather than serializing nonstandard JSON. Confirm by tests that changed coordinate values/indices, statuses, outcomes, missing cells and changed sources still fail.
+
+Use `python3 scripts/verify_predictive_reproduction.py` for full verification; the frozen generating runner's original `--verify` path retains this documented limitation. Ordinary artifact validation and summary reproduction remain unchanged. The wrapper must refit every fixed cell, recreate every forecast/refit and summary, and perform no successful-only resampling. CI completion markers include this wrapper, its tests and this amendment. This repairs an engineering rejection, not the scientific failures or coverage conclusions.
