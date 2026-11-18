@@ -1,0 +1,3132 @@
+{
+  "gate": {
+    "checks": {
+      "allSixIdentificationSupported": false,
+      "allSixNumericallyConverged": true,
+      "medianDriftWithin003": true,
+      "medianVarianceRatiosWithinHalfToTwo": false
+    },
+    "denominatorWarning": "Missing fits are retained; conditional medians cannot pass the all-six gate.",
+    "estimatedIdealReplicates": 6,
+    "medianAbsoluteDriftError": [
+      0.003835397017350601,
+      0.0038407451840033625
+    ],
+    "medianVarianceRatios": {
+      "measurement": [
+        1.084888094077746,
+        1.0048084883173753
+      ],
+      "permanent": [
+        0.9727062884930808,
+        0.8047826436774519
+      ],
+      "shared": [
+        0.4293297843898548,
+        0.5698881565019039
+      ],
+      "temporary": [
+        1.007052723751006,
+        1.1811329337646221
+      ]
+    },
+    "passed": false
+  },
+  "historicalFittingAuthorized": false,
+  "id": "revision-estimator-recovery-v1",
+  "kind": "synthetic finite-sample recovery and misspecification; zero historical fits",
+  "limitations": [
+    "Six shared synthetic time histories are not economic calibration or independent real histories.",
+    "Directional profiles are not nuisance-reoptimized confidence intervals; parameter-boundary and weak-curvature results remain visible.",
+    "The added common reporting bias is observationally confounded with genuine changes; this sensitivity does not identify economic truth.",
+    "Passing numerical recovery would still require a separate review before historical fitting; a failed gate blocks it.",
+    "No original price, active forecast, financial default, production probability or existing report is changed."
+  ],
+  "method": "revision-cost-estimator-1.0.0",
+  "runtime": {
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "sourceHashes": {
+    "docs/revision-aware-cost-candidate-protocol.md": "aa5e0b98a02b7208994fd87d9c79dcad73d0a752522bd1fae4c7e4e5ecca3cc8",
+    "docs/revision-cost-estimator-execution.md": "8b7b55a543c767bc33ab836355ceaf90f4e60d50e8b6c956d941f8e7d3e6cc23",
+    "docs/revision-estimator-numerical-amendment.md": "555a9ac78774b27d46950f84c1946bccc7a9e2fe0560ff395091164c985ae990",
+    "scripts/price-panel/observation-graph.mjs": "3609942a2c76d1107ff49bf043f7c01a923d1767dc77fd74c0cec2b0d106fa0f",
+    "scripts/revision_cost_estimator.py": "37ca9bacb69608d296172b0bf04b0dfb90f70b18fa91a2d1d88ebe3efbf1851e",
+    "scripts/revision_cost_synthetic.py": "ec0b2a2c37abddb0dba16c9d163ecfcde934258245e7cce69291124e8f94f4e6",
+    "scripts/validate_revision_estimator.py": "0f225809ad7076572b675d02dec8ae8de470283df54ec9d0ab2920babddad0d8",
+    "tests/observation-graph.test.js": "3f6463e20e5ba4a0ef95571f677967a668a5ce55d25e84e65829fa82d242b89b",
+    "tests/revision_estimator_test.py": "59543639d08aaf4742511a38b01818582cf6bbd6e1b68c6ae4a0d3ee6a881c09"
+  },
+  "truth": {
+    "academicYears": 24,
+    "drift": [
+      0.02,
+      0.01
+    ],
+    "parameters": [
+      0.03,
+      0.02,
+      0.4,
+      0.04,
+      0.03,
+      0.2,
+      0.05,
+      0.04,
+      0.3,
+      0.02,
+      0.03,
+      0.1
+    ],
+    "representationsPerYear": 2,
+    "schools": 8
+  },
+  "worlds": [
+    {
+      "result": {
+        "boundaryParameters": [],
+        "covariances": {
+          "measurement": [
+            [
+              0.00046072147148716467,
+              6.951615965072342e-05
+            ],
+            [
+              6.951615965072342e-05,
+              0.0007951278156956331
+            ]
+          ],
+          "permanent": [
+            [
+              0.0007611301021536718,
+              -4.510597996453848e-05
+            ],
+            [
+              -4.510597996453848e-05,
+              0.00023786349783332274
+            ]
+          ],
+          "shared": [
+            [
+              0.00024216833627827488,
+              1.4828403975397828e-05
+            ],
+            [
+              1.4828403975397828e-05,
+              0.0003663906207205659
+            ]
+          ],
+          "temporary": [
+            [
+              0.0029082767508436147,
+              0.000966347660442273
+            ],
+            [
+              0.000966347660442273,
+              0.0019490540630998036
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.02196847341740164,
+          0.015365675949974168
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": false,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.015577320537215882,
+              "highObjectiveDelta": 2.2487565729534253e-06,
+              "low": 0.015546197019659008,
+              "lowObjectiveDelta": 2.248744522148627e-06,
+              "parameter": 0
+            },
+            {
+              "high": 0.019160474116071025,
+              "highObjectiveDelta": 6.18797707829799e-06,
+              "low": 0.01912219145050445,
+              "lowObjectiveDelta": 6.1936220845382195e-06,
+              "parameter": 1
+            },
+            {
+              "high": 0.049830774096844846,
+              "highObjectiveDelta": 4.793491825694218e-09,
+              "low": 0.04973121211063736,
+              "lowObjectiveDelta": 4.793491825694218e-09,
+              "parameter": 2
+            },
+            {
+              "high": 0.02761617503362986,
+              "highObjectiveDelta": 1.270787925022887e-05,
+              "low": 0.027560997860735497,
+              "lowObjectiveDelta": 1.2717194522338104e-05,
+              "parameter": 3
+            },
+            {
+              "high": 0.01543824674930697,
+              "highObjectiveDelta": 6.423592822102364e-06,
+              "low": 0.015407401101456206,
+              "lowObjectiveDelta": 6.428875167330261e-06,
+              "parameter": 4
+            },
+            {
+              "high": -0.10590251189594346,
+              "highObjectiveDelta": 4.817229637410492e-08,
+              "low": -0.10611452893677617,
+              "lowObjectiveDelta": 4.817184162675403e-08,
+              "parameter": 5
+            },
+            {
+              "high": 0.053982369460982844,
+              "highObjectiveDelta": 9.555381257086992e-05,
+              "low": 0.053874512578942914,
+              "lowObjectiveDelta": 9.573966576681414e-05,
+              "parameter": 6
+            },
+            {
+              "high": 0.04419224049853171,
+              "highObjectiveDelta": 8.635775679977087e-05,
+              "low": 0.04410394431371946,
+              "lowObjectiveDelta": 8.651116013425053e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.4062914362043486,
+              "highObjectiveDelta": 9.7156994343095e-06,
+              "low": 0.40547966510304123,
+              "lowObjectiveDelta": 9.708291145216208e-06,
+              "parameter": 8
+            },
+            {
+              "high": 0.021485887813902652,
+              "highObjectiveDelta": 0.00019372002111595066,
+              "low": 0.021442958967121627,
+              "lowObjectiveDelta": 0.00019436108163972676,
+              "parameter": 9
+            },
+            {
+              "high": 0.028226208857280853,
+              "highObjectiveDelta": 0.00019971109850303037,
+              "low": 0.028169812835587983,
+              "lowObjectiveDelta": 0.0002003462911943643,
+              "parameter": 10
+            },
+            {
+              "high": 0.11496936955431097,
+              "highObjectiveDelta": 1.3368669442570535e-06,
+              "low": 0.11473966052423243,
+              "lowObjectiveDelta": 1.3367257452046033e-06,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            0.006679552954609434,
+            0.06328659540891239,
+            2.581848645520655,
+            6.915876325005577,
+            11.530398228484504,
+            13.003229275307836,
+            15.451501760539042,
+            22.991483323130957,
+            163.80820576096474,
+            204.13728336766025,
+            390.4643290348863,
+            411.536554423884
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1246.7483978931145,
+        "parameters": [
+          0.015561758778437445,
+          0.019141332783287737,
+          0.0497809931037411,
+          0.027588586447182678,
+          0.015422823925381588,
+          -0.10600852041635982,
+          0.05392844101996288,
+          0.044148092406125584,
+          0.4058855506536949,
+          0.02146442339051214,
+          0.028198010846434418,
+          0.1148545150392717
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 384,
+            "newtonPolishSteps": 1,
+            "objective": -1246.7483978931143,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 3.6474668959265857e-16,
+            "verifiedStep": 1.2040368702059823e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 384,
+            "newtonPolishSteps": 1,
+            "objective": -1246.7483978931143,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 3.6474668959265857e-16,
+            "verifiedStep": 1.2040368702059823e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 330,
+            "newtonPolishSteps": 1,
+            "objective": -1246.7483978931145,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 3.6474668959265847e-16,
+            "verifiedStep": 7.577480309883811e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 330,
+            "newtonPolishSteps": 1,
+            "objective": -1246.7483978931145,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 3.6474668959265847e-16,
+            "verifiedStep": 7.577480309883811e-13
+          }
+        ],
+        "status": "supported-synthetic-fit"
+      },
+      "scenario": "ideal",
+      "seed": 2026111801
+    },
+    {
+      "result": {
+        "boundaryParameters": [],
+        "covariances": {
+          "measurement": [
+            [
+              0.0004468681444982302,
+              5.744244046096083e-05
+            ],
+            [
+              5.744244046096083e-05,
+              0.0010827140542469132
+            ]
+          ],
+          "permanent": [
+            [
+              0.001888262748563989,
+              0.00031627651385288027
+            ],
+            [
+              0.00031627651385288027,
+              0.0011266697321730404
+            ]
+          ],
+          "shared": [
+            [
+              0.00034673700556275654,
+              0.000191500551787271
+            ],
+            [
+              0.000191500551787271,
+              0.00014761440085864582
+            ]
+          ],
+          "temporary": [
+            [
+              0.0021310555832129143,
+              0.00035009380604122
+            ],
+            [
+              0.00035009380604122,
+              0.0015788555276790579
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.026115538870607097,
+          0.007885576944895938
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": false,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.01863949640711593,
+              "highObjectiveDelta": 3.32986519424594e-06,
+              "low": 0.01860225465605276,
+              "lowObjectiveDelta": 3.330191930217552e-06,
+              "parameter": 0
+            },
+            {
+              "high": 0.012161816364127685,
+              "highObjectiveDelta": 2.030648829531856e-06,
+              "low": 0.012137517030732826,
+              "lowObjectiveDelta": 2.0305635644035647e-06,
+              "parameter": 1
+            },
+            {
+              "high": 0.8473047595086397,
+              "highObjectiveDelta": 1.5154571428865893e-06,
+              "low": 0.8456118429062248,
+              "lowObjectiveDelta": 1.5135012745304266e-06,
+              "parameter": 2
+            },
+            {
+              "high": 0.04349759950070654,
+              "highObjectiveDelta": 3.420863595238188e-05,
+              "low": 0.043410691209995834,
+              "lowObjectiveDelta": 3.424392389206332e-05,
+              "parameter": 3
+            },
+            {
+              "high": 0.033599467232489244,
+              "highObjectiveDelta": 2.5225943772966275e-05,
+              "low": 0.033532335429826934,
+              "lowObjectiveDelta": 2.5254124011553358e-05,
+              "parameter": 4
+            },
+            {
+              "high": 0.21705584950807605,
+              "highObjectiveDelta": 7.770368029014207e-07,
+              "low": 0.2166221714870809,
+              "lowObjectiveDelta": 7.768453542666975e-07,
+              "parameter": 5
+            },
+            {
+              "high": 0.04620952093924934,
+              "highObjectiveDelta": 5.021054448661744e-05,
+              "low": 0.04611719422408601,
+              "lowObjectiveDelta": 5.025779137213249e-05,
+              "parameter": 6
+            },
+            {
+              "high": 0.03977454987287655,
+              "highObjectiveDelta": 4.159182140028861e-05,
+              "low": 0.03969508024276091,
+              "lowObjectiveDelta": 4.1618180148361716e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.1910512660554354,
+              "highObjectiveDelta": 9.220957508659922e-07,
+              "low": 0.19066954524413585,
+              "lowObjectiveDelta": 9.219538696925156e-07,
+              "parameter": 8
+            },
+            {
+              "high": 0.021160395262266988,
+              "highObjectiveDelta": 0.00019448946841293946,
+              "low": 0.021118116750254465,
+              "lowObjectiveDelta": 0.0001951324470610416,
+              "parameter": 9
+            },
+            {
+              "high": 0.03293752518131047,
+              "highObjectiveDelta": 0.00020200379208290542,
+              "low": 0.03287171594018897,
+              "lowObjectiveDelta": 0.00020263707506273931,
+              "parameter": 10
+            },
+            {
+              "high": 0.08266475346217862,
+              "highObjectiveDelta": 6.79295908412314e-07,
+              "low": 0.08249958911959686,
+              "lowObjectiveDelta": 6.792615749873221e-07,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            0.36533887121010145,
+            1.3137174933143196,
+            2.162141204582534,
+            3.380239730367815,
+            6.8591427591597265,
+            10.500089882709947,
+            16.37668592098611,
+            19.06936234335748,
+            109.37046464566544,
+            152.09069458498234,
+            390.65622128629366,
+            411.20486093604194
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1190.451950926135,
+        "parameters": [
+          0.018620875531584345,
+          0.012149666697430256,
+          0.8464583012074323,
+          0.043454145355351186,
+          0.03356590133115809,
+          0.21683901049757848,
+          0.046163357581667674,
+          0.03973481505781873,
+          0.19086040564978562,
+          0.021139256006260727,
+          0.03290462056074972,
+          0.08258217129088774
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 368,
+            "newtonPolishSteps": 1,
+            "objective": -1190.4519509261336,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.639911052817969e-16,
+            "verifiedStep": 4.340167114591509e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 368,
+            "newtonPolishSteps": 1,
+            "objective": -1190.4519509261336,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.639911052817969e-16,
+            "verifiedStep": 4.340167114591509e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 377,
+            "newtonPolishSteps": 1,
+            "objective": -1190.451950926135,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 5.72993328961347e-16,
+            "verifiedStep": 6.745187741685754e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 377,
+            "newtonPolishSteps": 1,
+            "objective": -1190.451950926135,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 5.72993328961347e-16,
+            "verifiedStep": 6.745187741685754e-12
+          }
+        ],
+        "status": "supported-synthetic-fit"
+      },
+      "scenario": "ideal",
+      "seed": 2026111802
+    },
+    {
+      "result": {
+        "boundaryParameters": [
+          2
+        ],
+        "covariances": {
+          "measurement": [
+            [
+              0.00035426534356915434,
+              -2.1424753669702385e-05
+            ],
+            [
+              -2.1424753669702385e-05,
+              0.0009087352558575144
+            ]
+          ],
+          "permanent": [
+            [
+              0.0022090639744893285,
+              -0.00044465933099997935
+            ],
+            [
+              -0.00044465933099997935,
+              0.0006142091352043051
+            ]
+          ],
+          "shared": [
+            [
+              0.0012426698893346904,
+              0.0005880111014465019
+            ],
+            [
+              0.0005880111014465019,
+              0.00030829612434287736
+            ]
+          ],
+          "temporary": [
+            [
+              0.002391087892626181,
+              0.0008381606605552596
+            ],
+            [
+              0.0008381606605552596,
+              0.0018305713249469875
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.015980060037587087,
+          0.0067924284868722965
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": false,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.03528677474328377,
+              "highObjectiveDelta": 1.0766431614683825e-05,
+              "low": 0.03521627169684364,
+              "lowObjectiveDelta": 1.0779836884466931e-05,
+              "parameter": 0
+            },
+            {
+              "high": 0.017575921736503252,
+              "highObjectiveDelta": 4.424332018970745e-06,
+              "low": 0.01754080500975699,
+              "lowObjectiveDelta": 4.425799033924704e-06,
+              "parameter": 1
+            },
+            {
+              "high": 0.95,
+              "highObjectiveDelta": 0.0,
+              "low": 0.94905,
+              "lowObjectiveDelta": 0.002463400937813276,
+              "parameter": 2
+            },
+            {
+              "high": 0.04704768125532099,
+              "highObjectiveDelta": 3.7987217865520506e-05,
+              "low": 0.04695367989417149,
+              "lowObjectiveDelta": 3.802867536251142e-05,
+              "parameter": 3
+            },
+            {
+              "high": 0.024808026275458694,
+              "highObjectiveDelta": 1.5883718560871785e-05,
+              "low": 0.02475845978939384,
+              "lowObjectiveDelta": 1.5901018286967883e-05,
+              "parameter": 4
+            },
+            {
+              "high": -0.3813560284940531,
+              "highObjectiveDelta": 1.609695800652844e-06,
+              "low": -0.38211950402657374,
+              "lowObjectiveDelta": 1.6100652828754392e-06,
+              "parameter": 5
+            },
+            {
+              "high": 0.04894765019384818,
+              "highObjectiveDelta": 4.8509301223020884e-05,
+              "low": 0.04884985269096337,
+              "lowObjectiveDelta": 4.8559839342487976e-05,
+              "parameter": 6
+            },
+            {
+              "high": 0.042827961639193224,
+              "highObjectiveDelta": 6.519605176436016e-05,
+              "low": 0.042742391286267764,
+              "lowObjectiveDelta": 6.528246717607544e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.40102389694642165,
+              "highObjectiveDelta": 4.910735242447117e-06,
+              "low": 0.4002226503990762,
+              "lowObjectiveDelta": 4.909177505396656e-06,
+              "parameter": 8
+            },
+            {
+              "high": 0.018840759764978593,
+              "highObjectiveDelta": 0.00019374683279238525,
+              "low": 0.01880311588932429,
+              "lowObjectiveDelta": 0.00019438932235971151,
+              "parameter": 9
+            },
+            {
+              "high": 0.030175381275213162,
+              "highObjectiveDelta": 0.00020156597679488186,
+              "low": 0.030115090803134816,
+              "lowObjectiveDelta": 0.00020220587089170294,
+              "parameter": 10
+            },
+            {
+              "high": -0.03772231195617441,
+              "highObjectiveDelta": 1.400535438733641e-07,
+              "low": -0.03779783210023081,
+              "lowObjectiveDelta": 1.4005445336806588e-07,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            0.27708437770063643,
+            1.1603456653465427,
+            5.335613920795674,
+            8.458079853337418,
+            10.311574429568365,
+            15.850112879386828,
+            24.222652309998118,
+            31.4373175153364,
+            136.39604819063456,
+            154.1409348103748,
+            410.1783951967198,
+            438.7173694282021
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1221.3695239729332,
+        "parameters": [
+          0.0352515232200637,
+          0.01755836337313012,
+          0.95,
+          0.04700068057474624,
+          0.024783243032426266,
+          -0.3817377662603134,
+          0.048898751442405776,
+          0.042785176462730494,
+          0.4006232736727489,
+          0.01882193782715144,
+          0.03014523603917399,
+          -0.03776007202820261
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 195,
+            "newtonPolishSteps": 1,
+            "objective": -1221.3695239729332,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 5.584886579704872e-16,
+            "verifiedStep": 2.949862576429041e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 195,
+            "newtonPolishSteps": 1,
+            "objective": -1221.3695239729332,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 5.584886579704872e-16,
+            "verifiedStep": 2.949862576429041e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 209,
+            "newtonPolishSteps": 1,
+            "objective": -1221.3695239729332,
+            "optimizerExit": "ABNORMAL: ",
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 0.0,
+            "verifiedStep": 1.9989565558375944e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 209,
+            "newtonPolishSteps": 1,
+            "objective": -1221.3695239729332,
+            "optimizerExit": "ABNORMAL: ",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 0.0,
+            "verifiedStep": 1.9989565558375944e-13
+          }
+        ],
+        "status": "supported-synthetic-fit"
+      },
+      "scenario": "ideal",
+      "seed": 2026111803
+    },
+    {
+      "result": {
+        "boundaryParameters": [
+          2
+        ],
+        "covariances": {
+          "measurement": [
+            [
+              0.0004459652855521629,
+              6.104538895921702e-05
+            ],
+            [
+              6.104538895921702e-05,
+              0.0010592949661102804
+            ]
+          ],
+          "permanent": [
+            [
+              7.922691710612927e-05,
+              -0.00013573592901525345
+            ],
+            [
+              -0.00013573592901525345,
+              0.0003207041521610483
+            ]
+          ],
+          "shared": [
+            [
+              6.159945946310913e-06,
+              -4.178889707502478e-05
+            ],
+            [
+              -4.178889707502478e-05,
+              0.00031412153158262167
+            ]
+          ],
+          "temporary": [
+            [
+              0.004793699810933867,
+              0.0008279679873303146
+            ],
+            [
+              0.0008279679873303146,
+              0.002336830562094092
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.01775022820407989,
+          0.005526081145120979
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": true,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.0024919238397482935,
+              "highObjectiveDelta": 4.867683855991345e-07,
+              "low": 0.0024719238397482935,
+              "lowObjectiveDelta": 4.867210918746423e-07,
+              "parameter": 0
+            },
+            {
+              "high": 0.01774119750093884,
+              "highObjectiveDelta": 3.111286787316203e-06,
+              "low": 0.017705750552885015,
+              "lowObjectiveDelta": 3.1119841423787875e-06,
+              "parameter": 1
+            },
+            {
+              "high": -0.94905,
+              "highObjectiveDelta": 3.5779040672423434e-05,
+              "low": -0.95,
+              "lowObjectiveDelta": 0.0,
+              "parameter": 2
+            },
+            {
+              "high": 0.008910950348481293,
+              "highObjectiveDelta": 1.178781076305313e-06,
+              "low": 0.008890950348481294,
+              "lowObjectiveDelta": 1.1790532425948186e-06,
+              "parameter": 3
+            },
+            {
+              "high": 0.01792612287053513,
+              "highObjectiveDelta": 7.191555368990521e-06,
+              "low": 0.01789030644122337,
+              "lowObjectiveDelta": 7.199020728876349e-06,
+              "parameter": 4
+            },
+            {
+              "high": -0.8506906081378899,
+              "highObjectiveDelta": 7.218513928819448e-07,
+              "low": -0.8523936924384662,
+              "lowObjectiveDelta": 7.221615305752493e-07,
+              "parameter": 5
+            },
+            {
+              "high": 0.0693057862249289,
+              "highObjectiveDelta": 0.0001591270608969353,
+              "low": 0.0691673131255784,
+              "lowObjectiveDelta": 0.0001595969242771389,
+              "parameter": 6
+            },
+            {
+              "high": 0.04838911613213081,
+              "highObjectiveDelta": 8.318848404087476e-05,
+              "low": 0.048292434581417264,
+              "lowObjectiveDelta": 8.333487335221434e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.2476273407618313,
+              "highObjectiveDelta": 3.7036813864688156e-06,
+              "low": 0.2471325808402292,
+              "lowObjectiveDelta": 3.7026748032076284e-06,
+              "parameter": 8
+            },
+            {
+              "high": 0.021139008067753623,
+              "highObjectiveDelta": 0.0001941727114171954,
+              "low": 0.021096772287398473,
+              "lowObjectiveDelta": 0.00019481713184177352,
+              "parameter": 9
+            },
+            {
+              "high": 0.03257935873121917,
+              "highObjectiveDelta": 0.00020097345736758143,
+              "low": 0.03251426510738058,
+              "lowObjectiveDelta": 0.0002016116877712193,
+              "parameter": 10
+            },
+            {
+              "high": 0.08890536339858292,
+              "highObjectiveDelta": 7.869903129176237e-07,
+              "low": 0.08872773030487945,
+              "lowObjectiveDelta": 7.869400633353507e-07,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            -0.04267544369285286,
+            0.4183304205775092,
+            1.542017216791719,
+            2.3296732122720556,
+            5.450866308572859,
+            7.606461444290737,
+            11.00628365234641,
+            15.835618304880496,
+            161.98291569776572,
+            316.1183672075756,
+            392.558328409351,
+            411.6327154797303
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1182.8507091568763,
+        "parameters": [
+          0.0024819238397482935,
+          0.017723474026911927,
+          -0.95,
+          0.008900950348481294,
+          0.01790821465587925,
+          -0.851542150288178,
+          0.06923654967525365,
+          0.048340775356774036,
+          0.24737996080103025,
+          0.021117890177576048,
+          0.032546811919299874,
+          0.08881654685173118
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 460,
+            "newtonPolishSteps": 1,
+            "objective": -1182.8507091568763,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.689006691480167e-16,
+            "verifiedStep": 3.1101787811849135e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 460,
+            "newtonPolishSteps": 1,
+            "objective": -1182.8507091568763,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.689006691480167e-16,
+            "verifiedStep": 3.1101787811849135e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 371,
+            "newtonPolishSteps": 1,
+            "objective": -1182.850709156876,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 9.61125836435021e-16,
+            "verifiedStep": 1.96831440035794e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 371,
+            "newtonPolishSteps": 1,
+            "objective": -1182.850709156876,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 9.61125836435021e-16,
+            "verifiedStep": 1.96831440035794e-12
+          }
+        ],
+        "status": "identification-unsupported"
+      },
+      "scenario": "ideal",
+      "seed": 2026111804
+    },
+    {
+      "result": {
+        "boundaryParameters": [],
+        "covariances": {
+          "measurement": [
+            [
+              0.00042194518971003383,
+              3.183558465906298e-05
+            ],
+            [
+              3.183558465906298e-05,
+              0.000866157801747634
+            ]
+          ],
+          "permanent": [
+            [
+              0.00122439737461387,
+              4.0744135014190354e-05
+            ],
+            [
+              4.0744135014190354e-05,
+              0.0008343996234151083
+            ]
+          ],
+          "shared": [
+            [
+              0.0005755833355865473,
+              -0.00013149269373511594
+            ],
+            [
+              -0.00013149269373511594,
+              0.00012647833497839278
+            ]
+          ],
+          "temporary": [
+            [
+              0.0026441757261288505,
+              0.0007908286746561077
+            ],
+            [
+              0.0007908286746561077,
+              0.0021992219817023938
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.013600401354563998,
+          0.008084581666426501
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": false,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.024015309238922075,
+              "highObjectiveDelta": 6.351959200401325e-06,
+              "low": 0.023967326603080076,
+              "lowObjectiveDelta": 6.35850256003323e-06,
+              "parameter": 0
+            },
+            {
+              "high": 0.011257504968983338,
+              "highObjectiveDelta": 1.6757026060076896e-06,
+              "low": 0.011235012451562791,
+              "lowObjectiveDelta": 1.675601197348442e-06,
+              "parameter": 1
+            },
+            {
+              "high": -0.486860941826942,
+              "highObjectiveDelta": 3.4841968954424374e-07,
+              "low": -0.4878356384071761,
+              "lowObjectiveDelta": 3.4847926144720986e-07,
+              "parameter": 2
+            },
+            {
+              "high": 0.03502638139689101,
+              "highObjectiveDelta": 1.9567150047805626e-05,
+              "low": 0.034956398616877236,
+              "lowObjectiveDelta": 1.958411462510412e-05,
+              "parameter": 3
+            },
+            {
+              "high": 0.02891486221757873,
+              "highObjectiveDelta": 1.514662380941445e-05,
+              "low": 0.028857090265096055,
+              "lowObjectiveDelta": 1.5157608004301437e-05,
+              "parameter": 4
+            },
+            {
+              "high": 0.04035068717810616,
+              "highObjectiveDelta": 1.4528723113471642e-08,
+              "low": 0.040270066424503544,
+              "lowObjectiveDelta": 1.4529405234497972e-08,
+              "parameter": 5
+            },
+            {
+              "high": 0.05147297078814117,
+              "highObjectiveDelta": 7.416614448629844e-05,
+              "low": 0.05137012768966337,
+              "lowObjectiveDelta": 7.428439539580722e-05,
+              "parameter": 6
+            },
+            {
+              "high": 0.04694275902509119,
+              "highObjectiveDelta": 6.841772483312525e-05,
+              "low": 0.04684896729876733,
+              "lowObjectiveDelta": 6.851091575299506e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.32827423248360205,
+              "highObjectiveDelta": 4.396432586872834e-06,
+              "low": 0.3276183399112072,
+              "lowObjectiveDelta": 4.39467885371414e-06,
+              "parameter": 8
+            },
+            {
+              "high": 0.0205618457837482,
+              "highObjectiveDelta": 0.00019300166650282335,
+              "low": 0.02052076317478966,
+              "lowObjectiveDelta": 0.0001936405526521412,
+              "parameter": 9
+            },
+            {
+              "high": 0.0294599895368096,
+              "highObjectiveDelta": 0.00019991633394056407,
+              "low": 0.029401128418853933,
+              "lowObjectiveDelta": 0.00020055819913977757,
+              "parameter": 10
+            },
+            {
+              "high": 0.052713320824401645,
+              "highObjectiveDelta": 2.741435309872031e-07,
+              "low": 0.05260799950407317,
+              "lowObjectiveDelta": 2.741364824032644e-07,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            0.012149719014714885,
+            0.5380996193923605,
+            0.5570544074013588,
+            6.963955726188561,
+            9.511354959166793,
+            12.548370701672217,
+            14.224149635826754,
+            18.339156544090578,
+            147.8221979084762,
+            171.10314678270018,
+            388.132622380648,
+            405.57561748876907
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1212.2446507257955,
+        "parameters": [
+          0.023991317921001076,
+          0.011246258710273065,
+          -0.48734829011705905,
+          0.03499139000688412,
+          0.028885976241337392,
+          0.04031037680130485,
+          0.05142154923890227,
+          0.04689586316192926,
+          0.3279462861974046,
+          0.02054130447926893,
+          0.029430558977831766,
+          0.052660660164237406
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 302,
+            "newtonPolishSteps": 1,
+            "objective": -1212.2446507257955,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 0.0,
+            "verifiedStep": 1.276610761546948e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 302,
+            "newtonPolishSteps": 1,
+            "objective": -1212.2446507257955,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 0.0,
+            "verifiedStep": 1.276610761546948e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 132,
+            "newtonPolishSteps": 0,
+            "objective": -1211.3096827623124,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.1,
+            "status": "nonconverged",
+            "verificationFailure": "singular-curvature",
+            "verifiedRelativeObjective": null,
+            "verifiedStep": null
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 132,
+            "newtonPolishSteps": 0,
+            "objective": -1211.3096827623124,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "nonconverged",
+            "verificationFailure": "singular-curvature",
+            "verifiedRelativeObjective": null,
+            "verifiedStep": null
+          }
+        ],
+        "status": "supported-synthetic-fit"
+      },
+      "scenario": "ideal",
+      "seed": 2026111805
+    },
+    {
+      "result": {
+        "boundaryParameters": [
+          2
+        ],
+        "covariances": {
+          "measurement": [
+            [
+              0.0004112051913480031,
+              6.712608181064919e-05
+            ],
+            [
+              6.712608181064919e-05,
+              0.000899920023113761
+            ]
+          ],
+          "permanent": [
+            [
+              0.0034003399520292684,
+              0.0007585291378609123
+            ],
+            [
+              0.0007585291378609123,
+              0.000970317639987932
+            ]
+          ],
+          "shared": [
+            [
+              0.00042605660633898213,
+              0.00018735082351199267
+            ],
+            [
+              0.00018735082351199267,
+              9.128442797883312e-05
+            ]
+          ],
+          "temporary": [
+            [
+              0.002178618816786543,
+              0.00015845095078225526
+            ],
+            [
+              0.00015845095078225526,
+              0.0014568751382251545
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.016349145927711712,
+          -0.0028425506350979045
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": true,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.02066177982672999,
+              "highObjectiveDelta": 3.638548832896049e-06,
+              "low": 0.020620497549353908,
+              "lowObjectiveDelta": 3.63911863132671e-06,
+              "parameter": 0
+            },
+            {
+              "high": 0.009564288460101732,
+              "highObjectiveDelta": 2.066243268927792e-06,
+              "low": 0.009544288460101732,
+              "lowObjectiveDelta": 2.0663810573751107e-06,
+              "parameter": 1
+            },
+            {
+              "high": 0.95,
+              "highObjectiveDelta": 0.0,
+              "low": 0.94905,
+              "lowObjectiveDelta": 0.001565942876823101,
+              "parameter": 2
+            },
+            {
+              "high": 0.0583707463741323,
+              "highObjectiveDelta": 5.457059205582482e-05,
+              "low": 0.058254121506251914,
+              "lowObjectiveDelta": 5.463807747219107e-05,
+              "parameter": 3
+            },
+            {
+              "high": 0.03118107191206787,
+              "highObjectiveDelta": 2.4846539645295707e-05,
+              "low": 0.031118772068087712,
+              "lowObjectiveDelta": 2.4872131916708895e-05,
+              "parameter": 4
+            },
+            {
+              "high": 0.4180114839987166,
+              "highObjectiveDelta": 3.938491090593743e-06,
+              "low": 0.41717629621849944,
+              "lowObjectiveDelta": 3.935746690331143e-06,
+              "parameter": 5
+            },
+            {
+              "high": 0.046722352605995054,
+              "highObjectiveDelta": 3.3054038112823036e-05,
+              "low": 0.046629001252136926,
+              "lowObjectiveDelta": 3.306747203168925e-05,
+              "parameter": 6
+            },
+            {
+              "high": 0.03820720279445674,
+              "highObjectiveDelta": 4.711951260105707e-05,
+              "low": 0.03813086472693535,
+              "lowObjectiveDelta": 4.7156544496829156e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.08902810632338348,
+              "highObjectiveDelta": 1.7401498553226702e-07,
+              "low": 0.08885022798907102,
+              "lowObjectiveDelta": 1.740017978590913e-07,
+              "parameter": 8
+            },
+            {
+              "high": 0.02029847316760279,
+              "highObjectiveDelta": 0.00019545612281035574,
+              "low": 0.02025791677765753,
+              "lowObjectiveDelta": 0.00019610441768236342,
+              "parameter": 9
+            },
+            {
+              "high": 0.03002866568930447,
+              "highObjectiveDelta": 0.00020214104847582348,
+              "low": 0.02996866835525991,
+              "lowObjectiveDelta": 0.00020277848625482875,
+              "parameter": 10
+            },
+            {
+              "high": 0.11045722377183166,
+              "highObjectiveDelta": 1.2324819635978201e-06,
+              "low": 0.11023653001804178,
+              "lowObjectiveDelta": 1.2323600913077826e-06,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            -0.22624240148361224,
+            0.1010837594221936,
+            2.4128342509464145,
+            5.888827876820635,
+            7.096657316383411,
+            10.805233264798675,
+            16.613339803229064,
+            20.287599284469405,
+            118.87775120883785,
+            165.37268244827894,
+            391.71127490948203,
+            411.73749735211237
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1205.2651223825637,
+        "parameters": [
+          0.02064113868804195,
+          0.009554288460101732,
+          0.95,
+          0.05831243394019211,
+          0.03114992199007779,
+          0.41759389010860803,
+          0.04667567692906599,
+          0.038169033760696046,
+          0.08893916715622725,
+          0.02027819497263016,
+          0.02999866702228219,
+          0.11034687689493672
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 240,
+            "newtonPolishSteps": 1,
+            "objective": -1205.2651223825637,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 3.7730068052373507e-16,
+            "verifiedStep": 4.749395321468342e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 240,
+            "newtonPolishSteps": 1,
+            "objective": -1205.2651223825637,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 3.7730068052373507e-16,
+            "verifiedStep": 4.749395321468342e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 337,
+            "newtonPolishSteps": 1,
+            "objective": -1205.2651223825633,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 1.886503402618676e-16,
+            "verifiedStep": 1.9475809853730652e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 337,
+            "newtonPolishSteps": 1,
+            "objective": -1205.2651223825633,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 1.886503402618676e-16,
+            "verifiedStep": 1.9475809853730652e-12
+          }
+        ],
+        "status": "identification-unsupported"
+      },
+      "scenario": "ideal",
+      "seed": 2026111806
+    },
+    {
+      "result": {
+        "boundaryParameters": [],
+        "covariances": {
+          "measurement": [
+            [
+              0.00046036144479627734,
+              6.975768691665938e-05
+            ],
+            [
+              6.975768691665938e-05,
+              0.0007964942159131915
+            ]
+          ],
+          "permanent": [
+            [
+              0.0008094064254194019,
+              -4.021666519382852e-05
+            ],
+            [
+              -4.021666519382852e-05,
+              0.00023450134934872762
+            ]
+          ],
+          "shared": [
+            [
+              0.0005922235991510823,
+              0.00023056289339785615
+            ],
+            [
+              0.00023056289339785615,
+              0.0004786562141143826
+            ]
+          ],
+          "temporary": [
+            [
+              0.0028021053903643342,
+              0.0009419726743370927
+            ],
+            [
+              0.0009419726743370927,
+              0.001957221814087554
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.02681170832458738,
+          0.01918956827663709
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": false,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.024359980266268354,
+              "highObjectiveDelta": 6.722695388816646e-06,
+              "low": 0.02431130897702506,
+              "lowObjectiveDelta": 6.728597327310126e-06,
+              "parameter": 0
+            },
+            {
+              "high": 0.02190009144270465,
+              "highObjectiveDelta": 6.823453304605209e-06,
+              "low": 0.0218563350162457,
+              "lowObjectiveDelta": 6.829294989074697e-06,
+              "parameter": 1
+            },
+            {
+              "high": 0.43347972148963476,
+              "highObjectiveDelta": 1.026422523864312e-06,
+              "low": 0.43261362814000515,
+              "lowObjectiveDelta": 1.0254916560370475e-06,
+              "parameter": 2
+            },
+            {
+              "high": 0.028478519056943007,
+              "highObjectiveDelta": 1.3365578297452885e-05,
+              "low": 0.0284216189189671,
+              "lowObjectiveDelta": 1.3375596608966589e-05,
+              "parameter": 3
+            },
+            {
+              "high": 0.015328750325736747,
+              "highObjectiveDelta": 6.353404614856117e-06,
+              "low": 0.015298123451959052,
+              "lowObjectiveDelta": 6.358591235766653e-06,
+              "parameter": 4
+            },
+            {
+              "high": -0.09221796769515826,
+              "highObjectiveDelta": 3.674335857795086e-08,
+              "low": -0.09240258825110452,
+              "lowObjectiveDelta": 3.674404069897719e-08,
+              "parameter": 5
+            },
+            {
+              "high": 0.05298785146852487,
+              "highObjectiveDelta": 8.96684937288228e-05,
+              "low": 0.052881981635420926,
+              "lowObjectiveDelta": 8.983763336800621e-05,
+              "parameter": 6
+            },
+            {
+              "high": 0.04428474020401998,
+              "highObjectiveDelta": 8.586764670326374e-05,
+              "low": 0.04419625920461135,
+              "lowObjectiveDelta": 8.602064394835907e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.4026337031794086,
+              "highObjectiveDelta": 9.259815215045819e-06,
+              "low": 0.4018292402359932,
+              "lowObjectiveDelta": 9.252892368749599e-06,
+              "parameter": 8
+            },
+            {
+              "high": 0.021477491195372764,
+              "highObjectiveDelta": 0.0001940415163517173,
+              "low": 0.021434579125052342,
+              "lowObjectiveDelta": 0.00019468326809146674,
+              "parameter": 9
+            },
+            {
+              "high": 0.028250451338681898,
+              "highObjectiveDelta": 0.00019910433729819488,
+              "low": 0.028194006880462752,
+              "lowObjectiveDelta": 0.00019973809276052634,
+              "parameter": 10
+            },
+            {
+              "high": 0.11531488323734923,
+              "highObjectiveDelta": 1.3445144304569112e-06,
+              "low": 0.11508448387024164,
+              "lowObjectiveDelta": 1.3443723219097592e-06,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            0.04774036730232883,
+            1.6214072825306012,
+            2.5952880533834826,
+            11.108411845744078,
+            12.135865508563755,
+            14.37558589813565,
+            15.7241080925101,
+            22.318341416435096,
+            161.69087658560173,
+            194.9867917546895,
+            390.76197198309944,
+            410.4528282119778
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1243.0217431562824,
+        "parameters": [
+          0.024335644621646706,
+          0.021878213229475175,
+          0.43304667481481995,
+          0.028450068987955053,
+          0.0153134368888479,
+          -0.09231027797313139,
+          0.052934916551972896,
+          0.044240499704315664,
+          0.4022314717077009,
+          0.021456035160212553,
+          0.028222229109572325,
+          0.11519968355379544
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 208,
+            "newtonPolishSteps": 1,
+            "objective": -1243.0217431562824,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 0.0,
+            "verifiedStep": 3.13915560212763e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 208,
+            "newtonPolishSteps": 1,
+            "objective": -1243.0217431562824,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 0.0,
+            "verifiedStep": 3.13915560212763e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 181,
+            "newtonPolishSteps": 1,
+            "objective": -1243.0217431562821,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.316804446747153e-16,
+            "verifiedStep": 7.613909502879324e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 181,
+            "newtonPolishSteps": 1,
+            "objective": -1243.0217431562821,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.316804446747153e-16,
+            "verifiedStep": 7.613909502879324e-13
+          }
+        ],
+        "status": "supported-synthetic-fit"
+      },
+      "scenario": "shared-reporting-bias",
+      "seed": 2026111801
+    },
+    {
+      "result": {
+        "boundaryParameters": [],
+        "covariances": {
+          "measurement": [
+            [
+              0.0004469010174874591,
+              5.723681326346436e-05
+            ],
+            [
+              5.723681326346436e-05,
+              0.001081572062778679
+            ]
+          ],
+          "permanent": [
+            [
+              0.0017779560118297742,
+              0.00024905932911146816
+            ],
+            [
+              0.00024905932911146816,
+              0.0010810949138587863
+            ]
+          ],
+          "shared": [
+            [
+              0.0004696622107978296,
+              0.00030001421151703943
+            ],
+            [
+              0.00030001421151703943,
+              0.00024438763152494686
+            ]
+          ],
+          "temporary": [
+            [
+              0.002261890451545007,
+              0.00043456843487343276
+            ],
+            [
+              0.00043456843487343276,
+              0.001641526177255097
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.030644630727291858,
+          0.011610565114769461
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": false,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.021693363152854746,
+              "highObjectiveDelta": 4.119706318306271e-06,
+              "low": 0.02165001976993196,
+              "lowObjectiveDelta": 4.1205771594832186e-06,
+              "parameter": 0
+            },
+            {
+              "high": 0.015648535112771044,
+              "highObjectiveDelta": 3.2242849101749016e-06,
+              "low": 0.015617269308349922,
+              "lowObjectiveDelta": 3.2247210128844017e-06,
+              "parameter": 1
+            },
+            {
+              "high": 0.8864280385014693,
+              "highObjectiveDelta": 3.4165648230555234e-06,
+              "low": 0.8846569535094584,
+              "lowObjectiveDelta": 3.4091131055902224e-06,
+              "parameter": 2
+            },
+            {
+              "high": 0.0422079814941374,
+              "highObjectiveDelta": 3.142205991935043e-05,
+              "low": 0.042123649862780485,
+              "lowObjectiveDelta": 3.145477853649936e-05,
+              "parameter": 3
+            },
+            {
+              "high": 0.03291288782196752,
+              "highObjectiveDelta": 2.367370711908734e-05,
+              "low": 0.032847127806339214,
+              "lowObjectiveDelta": 2.3700514930169447e-05,
+              "parameter": 4
+            },
+            {
+              "high": 0.17982268307173074,
+              "highObjectiveDelta": 4.895330221188487e-07,
+              "low": 0.17946339699166733,
+              "lowObjectiveDelta": 4.894448011327768e-07,
+              "parameter": 5
+            },
+            {
+              "high": 0.047606895449488706,
+              "highObjectiveDelta": 5.418515570454474e-05,
+              "low": 0.047511776777261955,
+              "lowObjectiveDelta": 5.424224195849092e-05,
+              "parameter": 6
+            },
+            {
+              "high": 0.04055626796360563,
+              "highObjectiveDelta": 4.353211829766224e-05,
+              "low": 0.04047523645918284,
+              "lowObjectiveDelta": 4.356247814030212e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.22575249841732922,
+              "highObjectiveDelta": 1.390822944813408e-06,
+              "low": 0.22530144447443748,
+              "lowObjectiveDelta": 1.3905416835768847e-06,
+              "parameter": 8
+            },
+            {
+              "high": 0.021161173559693033,
+              "highObjectiveDelta": 0.00019439938319010253,
+              "low": 0.0211188934926407,
+              "lowObjectiveDelta": 0.00019504232932376908,
+              "parameter": 9
+            },
+            {
+              "high": 0.03292015018915161,
+              "highObjectiveDelta": 0.00020191814041936595,
+              "low": 0.032854375663299164,
+              "lowObjectiveDelta": 0.00020255219737919106,
+              "parameter": 10
+            },
+            {
+              "high": 0.08240928026465331,
+              "highObjectiveDelta": 6.751859018550022e-07,
+              "low": 0.08224462635803063,
+              "lowObjectiveDelta": 6.751508863089839e-07,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            0.32558827423084263,
+            1.3076407532502967,
+            2.94535129099183,
+            5.8274925659336425,
+            7.355589465629564,
+            11.045608179521889,
+            17.856601903018042,
+            18.74682022130794,
+            110.18812350374348,
+            153.45724240981238,
+            390.46499350260706,
+            410.89781838908044
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1187.4002527216378,
+        "parameters": [
+          0.021671691461393354,
+          0.015632902210560483,
+          0.8855424960054639,
+          0.042165815678458944,
+          0.032880007814153366,
+          0.17964304003169904,
+          0.04755933611337533,
+          0.04051575221139424,
+          0.22552697144588335,
+          0.021140033526166866,
+          0.03288726292622539,
+          0.08232695331134197
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 315,
+            "newtonPolishSteps": 1,
+            "objective": -1187.4002527216376,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 0.0,
+            "verifiedStep": 3.6454173013567015e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 315,
+            "newtonPolishSteps": 1,
+            "objective": -1187.4002527216376,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 0.0,
+            "verifiedStep": 3.6454173013567015e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 375,
+            "newtonPolishSteps": 1,
+            "objective": -1187.4002527216378,
+            "optimizerExit": "ABNORMAL: ",
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 1.9148865340231257e-16,
+            "verifiedStep": 5.954126081064715e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 375,
+            "newtonPolishSteps": 1,
+            "objective": -1187.4002527216378,
+            "optimizerExit": "ABNORMAL: ",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 1.9148865340231257e-16,
+            "verifiedStep": 5.954126081064715e-13
+          }
+        ],
+        "status": "supported-synthetic-fit"
+      },
+      "scenario": "shared-reporting-bias",
+      "seed": 2026111802
+    },
+    {
+      "result": {
+        "boundaryParameters": [
+          2
+        ],
+        "covariances": {
+          "measurement": [
+            [
+              0.0003542465110802968,
+              -2.1354938272274575e-05
+            ],
+            [
+              -2.1354938272274575e-05,
+              0.0009073215410424081
+            ]
+          ],
+          "permanent": [
+            [
+              0.0022792901495395286,
+              -0.00044982117249917856
+            ],
+            [
+              -0.00044982117249917856,
+              0.0006147354020052409
+            ]
+          ],
+          "shared": [
+            [
+              0.0008964583164752436,
+              0.0005405339282156354
+            ],
+            [
+              0.0005405339282156354,
+              0.00036113418999024466
+            ]
+          ],
+          "temporary": [
+            [
+              0.0023198686617759852,
+              0.0008188916344781747
+            ],
+            [
+              0.0008188916344781747,
+              0.0018642854377199799
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.020601903161658525,
+          0.010465989632132043
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": false,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.029970854668602807,
+              "highObjectiveDelta": 8.3837467172998e-06,
+              "low": 0.02991097284109311,
+              "lowObjectiveDelta": 8.39140557218343e-06,
+              "parameter": 0
+            },
+            {
+              "high": 0.019022534518418285,
+              "highObjectiveDelta": 4.8113788579939865e-06,
+              "low": 0.018984527456443422,
+              "lowObjectiveDelta": 4.813302211914561e-06,
+              "parameter": 1
+            },
+            {
+              "high": 0.95,
+              "highObjectiveDelta": 0.0,
+              "low": 0.94905,
+              "lowObjectiveDelta": 0.001238241136434226,
+              "parameter": 2
+            },
+            {
+              "high": 0.04778965378749628,
+              "highObjectiveDelta": 4.0022202711043064e-05,
+              "low": 0.04769416996374504,
+              "lowObjectiveDelta": 4.006606786788325e-05,
+              "parameter": 3
+            },
+            {
+              "high": 0.024818652009016392,
+              "highObjectiveDelta": 1.550076694911695e-05,
+              "low": 0.024769064292714662,
+              "lowObjectiveDelta": 1.5517684232690954e-05,
+              "parameter": 4
+            },
+            {
+              "high": -0.3796308195252496,
+              "highObjectiveDelta": 1.6012738797144266e-06,
+              "low": -0.3803908411859608,
+              "lowObjectiveDelta": 1.6016376775951358e-06,
+              "parameter": 5
+            },
+            {
+              "high": 0.04821317993005853,
+              "highObjectiveDelta": 4.6848790589137934e-05,
+              "low": 0.04811684990022825,
+              "lowObjectiveDelta": 4.6894478600734146e-05,
+              "parameter": 6
+            },
+            {
+              "high": 0.0432205491968908,
+              "highObjectiveDelta": 6.509286185973906e-05,
+              "low": 0.04313419445324066,
+              "lowObjectiveDelta": 6.51799100523931e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.3941600544703704,
+              "highObjectiveDelta": 4.642897920348332e-06,
+              "low": 0.39337252189400607,
+              "lowObjectiveDelta": 4.641517989512067e-06,
+              "parameter": 8
+            },
+            {
+              "high": 0.018840258977757405,
+              "highObjectiveDelta": 0.0001937756567258475,
+              "low": 0.01880261610267697,
+              "lowObjectiveDelta": 0.00019441816857579397,
+              "parameter": 9
+            },
+            {
+              "high": 0.03015190029576965,
+              "highObjectiveDelta": 0.00020163322847110976,
+              "low": 0.030091656738735147,
+              "lowObjectiveDelta": 0.00020227449840604095,
+              "parameter": 10
+            },
+            {
+              "high": -0.03762966976015274,
+              "highObjectiveDelta": 1.39553321787389e-07,
+              "low": -0.03770500443434724,
+              "lowObjectiveDelta": 1.3955468602944165e-07,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            0.2761399910018841,
+            1.1105617165447703,
+            4.956080017516476,
+            7.580819243440079,
+            11.574078510795127,
+            15.627647882823004,
+            18.742255521345218,
+            31.056029406034686,
+            136.75594498868847,
+            155.174655374208,
+            409.8591487263613,
+            438.8198200740059
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1221.9074528354636,
+        "parameters": [
+          0.029940913754847958,
+          0.019003530987430853,
+          0.95,
+          0.04774191187562066,
+          0.024793858150865527,
+          -0.3800108303556052,
+          0.04816501491514339,
+          0.04317737182506573,
+          0.39376628818218823,
+          0.018821437540217187,
+          0.0301217785172524,
+          -0.03766733709724999
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 190,
+            "newtonPolishSteps": 1,
+            "objective": -1221.907452835463,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 1.8608093020106104e-16,
+            "verifiedStep": 2.229882944959627e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 190,
+            "newtonPolishSteps": 1,
+            "objective": -1221.907452835463,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 1.8608093020106104e-16,
+            "verifiedStep": 2.229882944959627e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 233,
+            "newtonPolishSteps": 1,
+            "objective": -1221.9074528354636,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 3.7216186040212187e-16,
+            "verifiedStep": 8.959499808725013e-14
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 233,
+            "newtonPolishSteps": 1,
+            "objective": -1221.9074528354636,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 3.7216186040212187e-16,
+            "verifiedStep": 8.959499808725013e-14
+          }
+        ],
+        "status": "supported-synthetic-fit"
+      },
+      "scenario": "shared-reporting-bias",
+      "seed": 2026111803
+    },
+    {
+      "result": {
+        "boundaryParameters": [],
+        "covariances": {
+          "measurement": [
+            [
+              0.00044552158690712847,
+              6.032387043470466e-05
+            ],
+            [
+              6.032387043470466e-05,
+              0.0010583139365141125
+            ]
+          ],
+          "permanent": [
+            [
+              0.0001481812097453044,
+              -0.00012936929937299005
+            ],
+            [
+              -0.00012936929937299005,
+              0.0003248840699119918
+            ]
+          ],
+          "shared": [
+            [
+              0.0007345747234903002,
+              0.0003703327498063487
+            ],
+            [
+              0.0003703327498063487,
+              0.0005821050426744066
+            ]
+          ],
+          "temporary": [
+            [
+              0.0044440209959512094,
+              0.000737998147325405
+            ],
+            [
+              0.000737998147325405,
+              0.0022973459547432147
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.020618209499023852,
+          0.008512007903347262
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": false,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.02713014204739821,
+              "highObjectiveDelta": 5.628480494124233e-06,
+              "low": 0.027075935969381428,
+              "lowObjectiveDelta": 5.6338790273002815e-06,
+              "parameter": 0
+            },
+            {
+              "high": 0.024150979998020745,
+              "highObjectiveDelta": 6.86560110807477e-06,
+              "low": 0.02410272629173099,
+              "lowObjectiveDelta": 6.873603979329346e-06,
+              "parameter": 1
+            },
+            {
+              "high": 0.5669013960355397,
+              "highObjectiveDelta": 1.2735338259517448e-06,
+              "low": 0.5657687259135905,
+              "lowObjectiveDelta": 1.2725270153168822e-06,
+              "parameter": 2
+            },
+            {
+              "high": 0.0121851434273875,
+              "highObjectiveDelta": 1.3697203939955216e-06,
+              "low": 0.012160797486473637,
+              "lowObjectiveDelta": 1.3699118426302448e-06,
+              "parameter": 3
+            },
+            {
+              "high": 0.018042565309176122,
+              "highObjectiveDelta": 7.26669236428279e-06,
+              "low": 0.018006516227639307,
+              "lowObjectiveDelta": 7.2743471264402615e-06,
+              "parameter": 4
+            },
+            {
+              "high": -0.5890279972327065,
+              "highObjectiveDelta": 5.387216788221849e-07,
+              "low": -0.5902072324624016,
+              "lowObjectiveDelta": 5.388978934206534e-07,
+              "parameter": 5
+            },
+            {
+              "high": 0.06673015421804529,
+              "highObjectiveDelta": 0.00013790645971312188,
+              "low": 0.06659682723659066,
+              "lowObjectiveDelta": 0.0001382867919801356,
+              "parameter": 6
+            },
+            {
+              "high": 0.0479785675484237,
+              "highObjectiveDelta": 8.107635858323192e-05,
+              "low": 0.04788270627460068,
+              "lowObjectiveDelta": 8.1218675859418e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.2312001427910742,
+              "highObjectiveDelta": 3.053365617233794e-06,
+              "low": 0.2307382044438393,
+              "lowObjectiveDelta": 3.052635975109297e-06,
+              "parameter": 8
+            },
+            {
+              "high": 0.021128489666858104,
+              "highObjectiveDelta": 0.00019446903570496943,
+              "low": 0.021086274902288954,
+              "lowObjectiveDelta": 0.0001951141898643982,
+              "parameter": 9
+            },
+            {
+              "high": 0.0325642691105002,
+              "highObjectiveDelta": 0.0002011432343351771,
+              "low": 0.03249920563575394,
+              "lowObjectiveDelta": 0.0002017822450852691,
+              "parameter": 10
+            },
+            {
+              "high": 0.08793902424458258,
+              "highObjectiveDelta": 7.706767064519227e-07,
+              "low": 0.08776332189843955,
+              "lowObjectiveDelta": 7.70629185353755e-07,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            0.5627551729396476,
+            1.510539077664865,
+            2.101530250121638,
+            4.050367944298483,
+            8.077660519176709,
+            9.880798300237915,
+            14.152782100461321,
+            14.532654415264458,
+            158.3188070376022,
+            276.55348778866016,
+            391.40465902843687,
+            411.42412853792746
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1177.2200812983679,
+        "parameters": [
+          0.02710303900838982,
+          0.02412685314487587,
+          0.5663350609745651,
+          0.012172970456930568,
+          0.018024540768407715,
+          -0.589617614847554,
+          0.06666349072731798,
+          0.04793063691151219,
+          0.23096917361745675,
+          0.02110738228457353,
+          0.03253173737312707,
+          0.08785117307151107
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 335,
+            "newtonPolishSteps": 1,
+            "objective": -1177.2200812983679,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 1.1588674661026476e-15,
+            "verifiedStep": 1.9129142714291447e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 335,
+            "newtonPolishSteps": 1,
+            "objective": -1177.2200812983679,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 1.1588674661026476e-15,
+            "verifiedStep": 1.9129142714291447e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 233,
+            "newtonPolishSteps": 1,
+            "objective": -1177.220081298367,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 0.0,
+            "verifiedStep": 3.4098279755312433e-12
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 233,
+            "newtonPolishSteps": 1,
+            "objective": -1177.220081298367,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 0.0,
+            "verifiedStep": 3.4098279755312433e-12
+          }
+        ],
+        "status": "supported-synthetic-fit"
+      },
+      "scenario": "shared-reporting-bias",
+      "seed": 2026111804
+    },
+    {
+      "result": {
+        "boundaryParameters": [],
+        "covariances": {
+          "measurement": [
+            [
+              0.000421925011777221,
+              3.2085867777982944e-05
+            ],
+            [
+              3.2085867777982944e-05,
+              0.0008658776821575119
+            ]
+          ],
+          "permanent": [
+            [
+              0.0012196340887774414,
+              2.9071124213902368e-05
+            ],
+            [
+              2.9071124213902368e-05,
+              0.0008124595289366141
+            ]
+          ],
+          "shared": [
+            [
+              0.0016009536754231812,
+              0.0004046761788434649
+            ],
+            [
+              0.0004046761788434649,
+              0.00033739639349017654
+            ]
+          ],
+          "temporary": [
+            [
+              0.0026608662237046694,
+              0.0008200687235282673
+            ],
+            [
+              0.0008200687235282673,
+              0.002245780711983827
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.017740764264330522,
+          0.011367322330800256
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": false,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.04005193108612496,
+              "highObjectiveDelta": 1.3246301932667848e-05,
+              "low": 0.039971907247791046,
+              "lowObjectiveDelta": 1.3271879197418457e-05,
+              "parameter": 0
+            },
+            {
+              "high": 0.018386721395440526,
+              "highObjectiveDelta": 4.038628048874671e-06,
+              "low": 0.01834998468935573,
+              "lowObjectiveDelta": 4.039843361169915e-06,
+              "parameter": 1
+            },
+            {
+              "high": 0.5511656167350282,
+              "highObjectiveDelta": 1.892669388325885e-06,
+              "low": 0.5500643867315617,
+              "lowObjectiveDelta": 1.8903049294749508e-06,
+              "parameter": 2
+            },
+            {
+              "high": 0.03495818325641487,
+              "highObjectiveDelta": 1.9226781660108827e-05,
+              "low": 0.03488833673642203,
+              "lowObjectiveDelta": 1.9243969745730283e-05,
+              "parameter": 3
+            },
+            {
+              "high": 0.02853217938493336,
+              "highObjectiveDelta": 1.4323236882773926e-05,
+              "low": 0.028475172033514913,
+              "lowObjectiveDelta": 1.4333885246742284e-05,
+              "parameter": 4
+            },
+            {
+              "high": 0.029233462577428503,
+              "highObjectiveDelta": 7.3814589995890856e-09,
+              "low": 0.02917505406079028,
+              "lowObjectiveDelta": 7.3814589995890856e-09,
+              "parameter": 5
+            },
+            {
+              "high": 0.05163516841280081,
+              "highObjectiveDelta": 7.243914615173708e-05,
+              "low": 0.051532001243144866,
+              "lowObjectiveDelta": 7.255664650074323e-05,
+              "parameter": 6
+            },
+            {
+              "high": 0.04743705850059115,
+              "highObjectiveDelta": 6.80428177020076e-05,
+              "low": 0.047342279162927624,
+              "lowObjectiveDelta": 6.813609593336878e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.3358065261360934,
+              "highObjectiveDelta": 4.6112311338220024e-06,
+              "low": 0.33513558402593135,
+              "lowObjectiveDelta": 4.609218649420654e-06,
+              "parameter": 8
+            },
+            {
+              "high": 0.020561354131617575,
+              "highObjectiveDelta": 0.00019299286850582575,
+              "low": 0.02052027250498098,
+              "lowObjectiveDelta": 0.00019363187743692833,
+              "parameter": 9
+            },
+            {
+              "high": 0.029455225400589098,
+              "highObjectiveDelta": 0.00019986512120340194,
+              "low": 0.02939637380138712,
+              "lowObjectiveDelta": 0.00020050736065968522,
+              "parameter": 10
+            },
+            {
+              "high": 0.053137602831117466,
+              "highObjectiveDelta": 2.7863734430866316e-07,
+              "low": 0.05303143379449186,
+              "lowObjectiveDelta": 2.786307504720753e-07,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            0.006329839986083838,
+            0.5483540846919472,
+            3.338370090785522,
+            7.04094429333859,
+            8.861832443075045,
+            13.429850548675612,
+            18.265686254292536,
+            26.86736869970617,
+            145.51598590344813,
+            167.85557973884536,
+            388.00111524375296,
+            405.2412871450676
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1202.9169493585414,
+        "parameters": [
+          0.040011919166958,
+          0.018368353042398127,
+          0.5506150017332949,
+          0.03492325999641845,
+          0.028503675709224137,
+          0.029204258319109392,
+          0.05158358482797284,
+          0.047389668831759386,
+          0.3354710550810124,
+          0.020540813318299277,
+          0.02942579960098811,
+          0.05308451831280466
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 322,
+            "newtonPolishSteps": 1,
+            "objective": -1202.9169493585414,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.560743925488111e-16,
+            "verifiedStep": 3.232206169379026e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 322,
+            "newtonPolishSteps": 1,
+            "objective": -1202.9169493585414,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.560743925488111e-16,
+            "verifiedStep": 3.232206169379026e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 321,
+            "newtonPolishSteps": 1,
+            "objective": -1202.9169493585414,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.560743925488111e-16,
+            "verifiedStep": 1.1857403947601597e-11
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 321,
+            "newtonPolishSteps": 1,
+            "objective": -1202.9169493585414,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.560743925488111e-16,
+            "verifiedStep": 1.1857403947601597e-11
+          }
+        ],
+        "status": "supported-synthetic-fit"
+      },
+      "scenario": "shared-reporting-bias",
+      "seed": 2026111805
+    },
+    {
+      "result": {
+        "boundaryParameters": [
+          2
+        ],
+        "covariances": {
+          "measurement": [
+            [
+              0.0004111839192020214,
+              6.7075590839533e-05
+            ],
+            [
+              6.7075590839533e-05,
+              0.0008997581047121074
+            ]
+          ],
+          "permanent": [
+            [
+              0.0030653297276745403,
+              0.0005415327374862439
+            ],
+            [
+              0.0005415327374862439,
+              0.0008744762081861995
+            ]
+          ],
+          "shared": [
+            [
+              0.000494780794251045,
+              0.00023067051926707157
+            ],
+            [
+              0.00023067051926707157,
+              0.00011915825717985689
+            ]
+          ],
+          "temporary": [
+            [
+              0.0025039852277500985,
+              0.0003950848279951094
+            ],
+            [
+              0.0003950848279951094,
+              0.0016096834167065052
+            ]
+          ]
+        },
+        "design": {
+          "academicYears": 24,
+          "condition": 9.053614545825342,
+          "rank": 4,
+          "schools": 8,
+          "supported": true,
+          "transitions": 23
+        },
+        "drift": [
+          0.02076364408378641,
+          0.0009079126921772427
+        ],
+        "historicalFittingBlocked": true,
+        "likelihoodDiagnostics": {
+          "flatOrNonpositive": false,
+          "kind": "directional finite-difference profiles, not confidence intervals",
+          "profiles": [
+            {
+              "high": 0.02226591230155058,
+              "highObjectiveDelta": 3.5614903026726097e-06,
+              "low": 0.022221424964284742,
+              "lowObjectiveDelta": 3.561812036423362e-06,
+              "parameter": 0
+            },
+            {
+              "high": 0.010926879373932604,
+              "highObjectiveDelta": 1.635673697819584e-06,
+              "low": 0.01090504744711156,
+              "lowObjectiveDelta": 1.6357814729417441e-06,
+              "parameter": 1
+            },
+            {
+              "high": 0.95,
+              "highObjectiveDelta": 0.0,
+              "low": 0.94905,
+              "lowObjectiveDelta": 0.0015136590507154324,
+              "parameter": 2
+            },
+            {
+              "high": 0.05542078538291944,
+              "highObjectiveDelta": 4.615889793058159e-05,
+              "low": 0.05531005454299353,
+              "lowObjectiveDelta": 4.6210456275730394e-05,
+              "parameter": 3
+            },
+            {
+              "high": 0.029601115436394963,
+              "highObjectiveDelta": 2.118084671565157e-05,
+              "low": 0.029541972348609957,
+              "lowObjectiveDelta": 2.1202186871960294e-05,
+              "parameter": 4
+            },
+            {
+              "high": 0.3310901009177768,
+              "highObjectiveDelta": 1.990186774492031e-06,
+              "low": 0.33042858223462435,
+              "lowObjectiveDelta": 1.989307520489092e-06,
+              "parameter": 5
+            },
+            {
+              "high": 0.05008987624451498,
+              "highObjectiveDelta": 4.0592396771899075e-05,
+              "low": 0.049989796571698775,
+              "lowObjectiveDelta": 4.06185961310257e-05,
+              "parameter": 6
+            },
+            {
+              "high": 0.0401609809793453,
+              "highObjectiveDelta": 5.268543850434071e-05,
+              "low": 0.04008073925910685,
+              "lowObjectiveDelta": 5.273375768410915e-05,
+              "parameter": 7
+            },
+            {
+              "high": 0.19698733900814136,
+              "highObjectiveDelta": 1.0433539046061924e-06,
+              "low": 0.19659375791122202,
+              "lowObjectiveDelta": 1.0431479040562408e-06,
+              "parameter": 8
+            },
+            {
+              "high": 0.020297948128427775,
+              "highObjectiveDelta": 0.00019543721919035306,
+              "low": 0.020257392787511836,
+              "lowObjectiveDelta": 0.00019608558591244218,
+              "parameter": 9
+            },
+            {
+              "high": 0.030025964109077936,
+              "highObjectiveDelta": 0.00020160509666311555,
+              "low": 0.029965972172796063,
+              "lowObjectiveDelta": 0.00020224250420142198,
+              "parameter": 10
+            },
+            {
+              "high": 0.11038692608765413,
+              "highObjectiveDelta": 1.230285761266714e-06,
+              "low": 0.1101663727887777,
+              "lowObjectiveDelta": 1.2301643437240273e-06,
+              "parameter": 11
+            }
+          ],
+          "scaledCurvatureEigenvalues": [
+            0.24237873850052097,
+            0.856824788224364,
+            2.400615668106328,
+            4.694251951181593,
+            6.055209145787076,
+            11.284587451866328,
+            12.721048042449514,
+            18.164864937508636,
+            123.63716768523784,
+            161.9350816623761,
+            391.6206955640505,
+            410.94976828079456
+          ]
+        },
+        "method": "revision-cost-estimator-1.0.0",
+        "objective": -1202.0629469841263,
+        "parameters": [
+          0.02224366863291766,
+          0.010915963410522082,
+          0.95,
+          0.055365419962956484,
+          0.02957154389250246,
+          0.33075934157620057,
+          0.05003983640810688,
+          0.040120860119226075,
+          0.1967905484596817,
+          0.020277670457969806,
+          0.029995968140937,
+          0.11027664943821591
+        ],
+        "starts": [
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 0,
+            "standardDeviation": 0.0,
+            "status": "singular-start"
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 254,
+            "newtonPolishSteps": 1,
+            "objective": -1202.0629469841263,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.566115435591565e-16,
+            "verifiedStep": 6.98885394001536e-14
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 254,
+            "newtonPolishSteps": 1,
+            "objective": -1202.0629469841263,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.02,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 7.566115435591565e-16,
+            "verifiedStep": 6.98885394001536e-14
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.0,
+            "iterations": 246,
+            "newtonPolishSteps": 1,
+            "objective": -1202.0629469841253,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 5.674586576693677e-16,
+            "verifiedStep": 1.82576176399607e-13
+          },
+          {
+            "driftProfiled": true,
+            "driftStart": 0.03,
+            "iterations": 246,
+            "newtonPolishSteps": 1,
+            "objective": -1202.0629469841253,
+            "optimizerExit": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+            "reusedCovarianceOptimization": true,
+            "standardDeviation": 0.1,
+            "status": "converged",
+            "verificationFailure": null,
+            "verifiedRelativeObjective": 5.674586576693677e-16,
+            "verifiedStep": 1.82576176399607e-13
+          }
+        ],
+        "status": "supported-synthetic-fit"
+      },
+      "scenario": "shared-reporting-bias",
+      "seed": 2026111806
+    }
+  ]
+}

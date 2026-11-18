@@ -64,6 +64,17 @@ jobs:
           git diff --exit-code -- data/calibration-diagnostics/revision-price-panel.json
       - name: Verify synthetic revision-cost process evidence
         run: node scripts/validate-revision-cost-process.mjs --verify
+      - name: Reproduce matched observation-graph support
+        run: node --max-old-space-size=4096 scripts/audit-observation-graphs.mjs --verify
+      - name: Verify bounded estimator and synthetic recovery evidence
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+          OMP_NUM_THREADS: '1'
+        run: |
+          python3 -m venv /tmp/education-finance-estimator-qa
+          /tmp/education-finance-estimator-qa/bin/pip install numpy==2.3.5 scipy==1.17.0
+          /tmp/education-finance-estimator-qa/bin/python -m unittest discover -s tests -p revision_estimator_test.py
+          /tmp/education-finance-estimator-qa/bin/python scripts/validate_revision_estimator.py --verify
       - name: Install isolated browser QA
         run: |
           npm install --prefix /tmp/education-finance-qa playwright
