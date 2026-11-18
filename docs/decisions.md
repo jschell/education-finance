@@ -55,3 +55,8 @@ The [matched graph and bounded estimator](revision-estimator-results.md) are imp
 ## REML/boundary repair interpretation
 
 [Repair steps 1–3](reml-boundary-study-results.md) preserve the v1 failure and add a separate REML estimator. Sampling attribution uses the actual 23 shared innovations after the first diffuse-offset draw; it does not substitute realized sample variance for the generating recovery target. Ordinary REML handles unrestricted drift integration and explicitly marks out-of-contract GLS drift unsupported. Feasible boundary geometry and reoptimized nuisance profiles replace blanket interpretation of an indefinite unconstrained Hessian, while retaining legacy warnings. REML's original-world 0.50117 shared-tuition ratio barely clears the old 0.5 comparison floor; it does not authorize historical fitting. Freeze actual-depth/fresh-batch and forecast-uncertainty work next.
+
+
+## Realistic-depth uncertainty evidence
+
+The [precommitted predictive study](predictive-depth-study-results.md) adds actual-depth and cash-decision diagnostics without replacing the original v1/REML reports. Incomplete bootstrap refits make their mixtures unavailable; successful-only resampling is prohibited. Available-world coverage is explicitly conditional and paired comparisons use matched world identities. Zero-return cash laboratory outputs are not production probability/deposit recommendations. The shared-diagonal comparator is not selected and metadata review leads authorize no bridges. Next audit retained numerical failures and PSD coordinates before new fitting; historical fitting and strict-vintage qualification remain blocked.

@@ -2,11 +2,17 @@
 
 Checkpoint: 2026-11-18 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
+## Realistic-depth prediction and uncertainty — implemented
+
+The [frozen protocol](predictive-depth-study-protocol.md) preceded 200 synthetic cells, 600 point fits, joint-history bootstrap/refitting, production-ledger complete-bill/deposit/household diagnostics, one simpler covariance comparator, five misspecification controls, focused metadata audit and exact-input reproduction caching. [Results](predictive-depth-study-results.md): no complete bootstrap mixtures at three/seven years; only 5/24 at twelve years. At seven years/32 schools, available REML 80% bill intervals cover only 50% of the 24 worlds. Historical fitting stays blocked; no production/default changes. All older artifacts/gates remain intact.
+
+Next: precommit the retained-refit boundary/PSD-parameterization audit and independently review case-only name/flag-dictionary equivalence leads. Do not infer coverage from successful convergence or expand historical support automatically. See continuity for delivery/check SHAs.
+
 ## Estimator repair steps 1–3 — implemented
 
 [Protocol](reml-boundary-study-protocol.md) `c019c77` preceded shock attribution, separate ML/oracle/REML objectives and boundary-aware nuisance profiles. [Results](reml-boundary-study-results.md): original-world shared tuition variance ratio ML 0.429 → REML 0.50117, fresh-world REML 1.107. The original realized common-shock sample variance ratio is 0.785, separating sampling from fitted recovery. The earlier full-Hessian flags are constraint-limited under feasible geometry; coarse correlation profiles remain shallow. All v1 engine/test/report bytes and its failed gate are preserved. No historical fitting or activation.
 
-Next freeze steps 4–5: actual 3/7/12 transition-year support, larger fresh batches, school counts varied separately from years, and cumulative-cost/parameter uncertainty including reporting-bias sensitivity. The narrow 0.50117 crossing is not robust economic qualification.
+Steps 4–5 are now implemented in the realistic-depth study above: actual 3/7/12 transition-year support, larger fresh batches, school counts varied separately from years, and cumulative-cost/parameter uncertainty including reporting-bias sensitivity. The narrow 0.50117 crossing is not robust economic qualification.
 
 ## Matched graph and v1 estimator — merged, failed recovery retained
 
