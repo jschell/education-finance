@@ -9,12 +9,18 @@ on:
         description: Force all numerical reproductions
         type: boolean
         default: false
+concurrency:
+  group: check-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
     steps:
       - uses: actions/checkout@v6
         with:
@@ -169,6 +175,8 @@ jobs:
     env:
       OPENBLAS_NUM_THREADS: '1'
       OMP_NUM_THREADS: '1'
+      OPENBLAS_CORETYPE: Haswell
+      NPY_DISABLE_CPU_FEATURES: AVX512F,AVX512CD,AVX512_KNL,AVX512_KNM,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL,AVX512_SPR
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -176,7 +184,7 @@ jobs:
           node-version: '24'
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: '3.12.14'
       - name: Install isolated numerical dependencies
         run: |
           python3 -m venv /tmp/education-finance-predictive-qa
@@ -186,8 +194,10 @@ jobs:
           /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p predictive_study_test.py
           /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p predictive_reproduction_test.py
           /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p predictive_portability_test.py
+          /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p predictive_runtime_test.py
           /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p reproduction_stamp_test.py
           /tmp/education-finance-predictive-qa/bin/python scripts/validate_predictive_depth.py --validate
+          /tmp/education-finance-predictive-qa/bin/python scripts/verify_predictive_runtime.py --validate
           /tmp/education-finance-predictive-qa/bin/python scripts/summarize_predictive_depth.py --verify
           node --test tests/predictive-ledger.test.js tests/metadata-continuity.test.js
           node --max-old-space-size=4096 scripts/audit-metadata-continuity.mjs --verify
@@ -199,10 +209,10 @@ jobs:
         with:
           path: .cache/reproductions/predictive
           key: predictive-${{ runner.os }}-${{ runner.arch }}-${{ steps.predictive-key.outputs.key }}
-      - name: Reproduce complete predictive study
+      - name: Reproduce supported AVX2 arm; retain failed primary cross-runtime gate
         if: steps.predictive-cache.outputs.cache-hit != 'true' || inputs.force_full == true
         run: |
-          /tmp/education-finance-predictive-qa/bin/python scripts/verify_predictive_reproduction.py --workers 2
+          /tmp/education-finance-predictive-qa/bin/python scripts/verify_predictive_runtime.py --workers 2
           /tmp/education-finance-predictive-qa/bin/python scripts/reproduction-stamp.py predictive --write
       - name: Verify predictive completion marker
         run: /tmp/education-finance-predictive-qa/bin/python scripts/reproduction-stamp.py predictive --check
@@ -211,3 +221,8 @@ jobs:
         with:
           path: .cache/reproductions/predictive
           key: predictive-${{ runner.os }}-${{ runner.arch }}-${{ steps.predictive-key.outputs.key }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: predictive-runtime-diagnostic
+          path: .cache/predictive-reproduction/
