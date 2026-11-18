@@ -4,7 +4,7 @@ Checkpoint: 2026-11-17 America/Los_Angeles. Read [continuity](continuity.md) fir
 
 ## Revision-aware panel — implemented, acceptance in progress
 
-[Results](revision-aware-price-panel-results.md) complete the source-panel prerequisite with raw representations, dictionary academic years, source/availability versioning and same-file/revision views. All original current-year values/flags and directory sectors reconcile. Strict vintage support is unavailable; the collection-year proxy stays explicit. Initial PR CI passed; revision-reversal reporting and missing-support tests were added under committed follow-up contract `29e96a4`. Complete PR acceptance, then freeze one matched-input cost-candidate protocol and known-process tests before new scoring. No economic model/default or prior report change is part of this release.
+[Results](revision-aware-price-panel-results.md) complete the source-panel prerequisite with raw representations, dictionary academic years, source/availability versioning and same-file/revision views. All original current-year values/flags and directory sectors reconcile. Strict vintage support is unavailable; the collection-year proxy stays explicit. Initial PR CI passed; revision-reversal reporting and missing-support tests were added under committed follow-up contract `c68257a092fac5756adca11ec5ca87273e9f4111`. Complete PR acceptance, then freeze one matched-input cost-candidate protocol and known-process tests before new scoring. No economic model/default or prior report change is part of this release.
 
 ## Bounded source-price trace — merged in PR #10
 

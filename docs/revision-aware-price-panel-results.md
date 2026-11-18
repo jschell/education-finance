@@ -42,7 +42,7 @@ A title/description signature can detect text differences but cannot prove that 
 
 ## Revision trajectory follow-up
 
-Review of PR #11 found the planned reversal counts missing. The [follow-up definition](revision-reversal-followup.md) was committed at `29e96a4` before these diagnostics. A reversal means the original-to-lag-one change and lag-one-to-lag-two change have opposite signs; all three pairs must pass definition/population checks. Partial reversals, exact returns and overshoots remain distinct.
+Review of PR #11 found the planned reversal counts missing. The [follow-up definition](revision-reversal-followup.md) was committed at `c68257a092fac5756adca11ec5ca87273e9f4111` before these diagnostics. A reversal means the original-to-lag-one change and lag-one-to-lag-two change have opposite signs; all three pairs must pass definition/population checks. Partial reversals, exact returns and overshoots remain distinct.
 
 | Sector | Component | Comparable trajectories | Partial | Exact return | Overshoot |
 | --- | --- | --- | --- | --- | --- |
