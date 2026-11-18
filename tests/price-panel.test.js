@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {indexSnapshot,manifestContract,sourceAvailability,asOfPrice,coherentTransition,revision} from '../scripts/price-panel/views.mjs';
+import {indexSnapshot,manifestContract,sourceAvailability,asOfPrice,coherentTransition,revision,revisionTrajectory} from '../scripts/price-panel/views.mjs';
 const source=(year)=>({sha256:String(year).padEnd(64,'a'),publicationDate:null,originalVintageVerified:false,availabilityEvidence:null});
 function fixture(year,value=100){
  const meta={year,sources:{prices:source(year),directory:source(year+100)},fields:{CHG2AY3:{academicYear:year,semanticSignature:'same',basis:'published-charge; unreviewed',codes:{R:'Reported'}},CHG2AY2:{academicYear:year-1,semanticSignature:'same',basis:'published-charge; unreviewed',codes:{R:'Reported'}}}};
@@ -40,6 +40,21 @@ test('ambiguous definitions, missing fields, missing rows, population changes an
  f.body.observations[1][6]='observed';f.body.directories[0][3]='4';assert.equal(coherentTransition(indexSnapshot(f.meta,f.body),1,'public4','tuition',2010).status,'changed-sector');
  f.body.observations.push([...f.body.observations[0]]);assert.throws(()=>indexSnapshot(f.meta,f.body),/Duplicate/);
 });
+test('revision trajectories distinguish returns, partial reversals, overshoots and missing support',()=>{
+ const a=fixture(2010),b=fixture(2011),c=fixture(2012);
+ c.meta.fields.CHG2AY1={...c.meta.fields.CHG2AY2,academicYear:2010};
+ b.body.observations[1][5]=150;
+ c.body.observations.push([1,2,'CHG2AY1','100','R',100,'observed']);
+ const run=()=>revisionTrajectory(new Map([a,b,c].map(f=>[f.meta.year,indexSnapshot(f.meta,f.body)])),1,'public4','tuition',2010);
+ assert.equal(run().reversalType,'exact-return');
+ c.body.observations[2][5]=125;assert.equal(run().reversalType,'partial');
+ c.body.observations[2][5]=75;assert.equal(run().reversalType,'overshoot');
+ c.body.observations[2][5]=175;assert.equal(run().reversed,false);
+ b.body.observations[1][5]=100;assert.equal(run().reversed,false);
+ c.body.observations[2][6]='missing-source-row';assert.equal(run().status,'missing-source-row');
+ c.body.observations[2][6]='observed';c.meta.fields.CHG2AY1.basis='net';assert.equal(run().status,'basis-change');
+ assert.equal(revisionTrajectory(new Map([[2010,a.snapshot],[2011,b.snapshot]]),1,'public4','tuition',2010).status,'missing-source-snapshot');
+});
 test('research manifest, compressed shards and descriptive audit remain source-identified and separate from production',async()=>{
  const fs=await import('node:fs'),{createHash}=await import('node:crypto'),{canonical}=await import('../site/js/calibration.js');
  const read=p=>JSON.parse(fs.readFileSync(p)),hash=x=>createHash('sha256').update(x).digest('hex'),manifest=read('data/research/ipeds-price-snapshots/manifest.json'),report=read('data/calibration-diagnostics/revision-price-panel.json');
@@ -48,6 +63,7 @@ test('research manifest, compressed shards and descriptive audit remain source-i
  for(const snapshot of manifest.snapshots){assert.equal(hash(fs.readFileSync(snapshot.shard)),snapshot.shardSha256);assert.ok(Object.values(snapshot.sources).every(s=>s.matchesPinned&&s.originalVintageVerified===false&&s.publicationDate===null));}
  assert.equal(report.reconciliation.observations,manifest.snapshots.reduce((v,s)=>v+s.observations,0));
  assert.equal(report.reconciliation.selectedCurrentValues,3*report.reconciliation.selectedDirectorySectors);
+ for(const g of report.groups){const t=g.trajectories;assert.equal(Object.values(t.statuses).reduce((a,b)=>a+b,0),t.registered);assert.equal(t.comparable,t.statuses.observed||0);assert.equal(Object.values(t.reversalTypes).reduce((a,b)=>a+b,0),t.reversed);assert.ok(t.reversed<=t.comparable);}
  assert.ok(report.availability.every(r=>r.strictEligible===0));assert.ok(report.groups.every(g=>g.transitions.matched===g.transitions.sameSource.count&&g.transitions.matched===g.transitions.stitched.count));
  assert.equal(hash(fs.readFileSync('data/raw/ipeds/selected.csv.gz')),read('data/raw/ipeds/sources.json').selectedSha256);
 });

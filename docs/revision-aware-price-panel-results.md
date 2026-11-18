@@ -40,6 +40,25 @@ On this support, same-file transitions have fewer extreme changes in every secto
 
 A title/description signature can detect text differences but cannot prove that gross/net reporting stayed constant when the words did not change. All resulting observed levels keep a gross/net-continuity-unreviewed label. Nothing is automatically repaired, spliced into production or promoted to a new economic forecast.
 
+## Revision trajectory follow-up
+
+Review of PR #11 found the planned reversal counts missing. The [follow-up definition](revision-reversal-followup.md) was committed at `29e96a4` before these diagnostics. A reversal means the original-to-lag-one change and lag-one-to-lag-two change have opposite signs; all three pairs must pass definition/population checks. Partial reversals, exact returns and overshoots remain distinct.
+
+| Sector | Component | Comparable trajectories | Partial | Exact return | Overshoot |
+| --- | --- | --- | --- | --- | --- |
+| public4 | tuition | 5,582 | 6 | 8 | 3 |
+| public4 | housing | 5,241 | 1 | 5 | 0 |
+| public4out | tuition | 5,582 | 2 | 9 | 9 |
+| public4out | housing | 5,241 | 1 | 5 | 0 |
+| public2 | tuition | 1,937 | 2 | 5 | 3 |
+| public2 | housing | 1,800 | 1 | 2 | 0 |
+| public2out | tuition | 1,937 | 5 | 9 | 6 |
+| public2out | housing | 1,800 | 1 | 2 | 0 |
+| private4 | tuition | 10,111 | 3 | 18 | 7 |
+| private4 | housing | 9,490 | 0 | 8 | 1 |
+
+The report retains every registered trajectory and its missing/incomparable status, including absent lag-two collections. Housing counts overlap across residency sectors; these counts must not be summed as independent school events or generalized to population prevalence. No economic model was fitted.
+
 ## Validation and reproduction
 
 Synthetic tests cover later revisions, changed source bytes, missing publication evidence, price-versus-directory availability, ambiguous years, gross/net basis differences, population changes, missing fields/rows, duplicate keys and source-coherent versus stitched transitions. Extraction tests cover UTF-8 BOM and CP1252 names, raw dot/negative/zero statuses and deterministic compression. The builder's manifest identity uses the existing ten-decimal canonical convention and is checked independently in JavaScript.

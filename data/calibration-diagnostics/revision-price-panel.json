@@ -3,8 +3,9 @@
   "panelHash": "291960aa59ec12ecf9f00105d5bf49ef22cabc27013b94de7beca4da5b9c913a",
   "sourceHashes": {
     "docs/revision-aware-panel-execution.md": "19f36d6a9848a34be5ad36d6605fda1f684accad5c5d6fb57b43c6e573589093",
-    "scripts/audit_revision_price_panel.mjs": "40fbc2761a6987b9460e309fc1ef9a468ad95f3fabfb0c2c03ee7539f8a825a9",
-    "scripts/price-panel/views.mjs": "c4ae422e436c0dfb7f708dadc983ba2bbf95fb636789d84b86b41908484ea515",
+    "docs/revision-reversal-followup.md": "df535845ecb37773fb63d9c97879fe751c25086c368e8e43a0a2b638f3372305",
+    "scripts/audit_revision_price_panel.mjs": "a1b560cb441e5b972f3f272dd9770ba77f51ffa298a91f8bae825dcbc767ce6e",
+    "scripts/price-panel/views.mjs": "e1490fc535649640fd5c136aa3232f5969d3919838eb45b0ad444d04401fc6c9",
     "data/research/ipeds-price-snapshots/manifest.json": "e9eded24c2f73151a8a74c351c5c18771b17c41752d1de3b9a9f589bc382075b",
     "data/raw/ipeds/selected.csv.gz": "0ee1dbedd0392f103ce5f6fc4c8b3b2b947ea3d69c906ea0e59c831677cf903c",
     "data/calibration-diagnostics/quality-persistence.json": "08d2f0a4a272f3d9e3a2f781cba4d8781079e72b83bee7f69ef16eebb2f51593"
@@ -82,6 +83,24 @@
         },
         "sameSourceExtreme25": 38,
         "stitchedExtreme25": 53
+      },
+      "trajectories": {
+        "registered": 8472,
+        "statuses": {
+          "definition-text-change": 2117,
+          "observed": 5582,
+          "missing-source-snapshot": 684,
+          "missing-source-row": 54,
+          "missing-observation": 34,
+          "blank": 1
+        },
+        "comparable": 5582,
+        "reversed": 17,
+        "reversalTypes": {
+          "partial": 6,
+          "exact-return": 8,
+          "overshoot": 3
+        }
       },
       "revisions": [
         {
@@ -181,6 +200,24 @@
         "sameSourceExtreme25": 45,
         "stitchedExtreme25": 63
       },
+      "trajectories": {
+        "registered": 8472,
+        "statuses": {
+          "definition-text-change": 2792,
+          "observed": 5241,
+          "missing-source-snapshot": 341,
+          "missing-source-row": 54,
+          "missing-observation": 34,
+          "dot-missing-marker": 9,
+          "blank": 1
+        },
+        "comparable": 5241,
+        "reversed": 6,
+        "reversalTypes": {
+          "exact-return": 5,
+          "partial": 1
+        }
+      },
       "revisions": [
         {
           "lag": 1,
@@ -277,6 +314,24 @@
         },
         "sameSourceExtreme25": 74,
         "stitchedExtreme25": 112
+      },
+      "trajectories": {
+        "registered": 8472,
+        "statuses": {
+          "definition-text-change": 2117,
+          "observed": 5582,
+          "missing-source-snapshot": 684,
+          "missing-source-row": 54,
+          "missing-observation": 34,
+          "blank": 1
+        },
+        "comparable": 5582,
+        "reversed": 20,
+        "reversalTypes": {
+          "overshoot": 9,
+          "partial": 2,
+          "exact-return": 9
+        }
       },
       "revisions": [
         {
@@ -375,6 +430,24 @@
         "sameSourceExtreme25": 45,
         "stitchedExtreme25": 63
       },
+      "trajectories": {
+        "registered": 8472,
+        "statuses": {
+          "definition-text-change": 2792,
+          "observed": 5241,
+          "missing-source-snapshot": 341,
+          "missing-source-row": 54,
+          "missing-observation": 34,
+          "dot-missing-marker": 9,
+          "blank": 1
+        },
+        "comparable": 5241,
+        "reversed": 6,
+        "reversalTypes": {
+          "exact-return": 5,
+          "partial": 1
+        }
+      },
       "revisions": [
         {
           "lag": 1,
@@ -471,6 +544,24 @@
         },
         "sameSourceExtreme25": 47,
         "stitchedExtreme25": 58
+      },
+      "trajectories": {
+        "registered": 3168,
+        "statuses": {
+          "definition-text-change": 792,
+          "observed": 1937,
+          "missing-source-snapshot": 214,
+          "missing-source-row": 19,
+          "missing-observation": 63,
+          "changed-sector": 143
+        },
+        "comparable": 1937,
+        "reversed": 10,
+        "reversalTypes": {
+          "exact-return": 5,
+          "overshoot": 3,
+          "partial": 2
+        }
       },
       "revisions": [
         {
@@ -570,6 +661,24 @@
         "sameSourceExtreme25": 56,
         "stitchedExtreme25": 59
       },
+      "trajectories": {
+        "registered": 3168,
+        "statuses": {
+          "definition-text-change": 998,
+          "observed": 1800,
+          "missing-source-snapshot": 103,
+          "missing-source-row": 19,
+          "missing-observation": 63,
+          "changed-sector": 129,
+          "dot-missing-marker": 56
+        },
+        "comparable": 1800,
+        "reversed": 3,
+        "reversalTypes": {
+          "exact-return": 2,
+          "partial": 1
+        }
+      },
       "revisions": [
         {
           "lag": 1,
@@ -668,6 +777,25 @@
         },
         "sameSourceExtreme25": 65,
         "stitchedExtreme25": 91
+      },
+      "trajectories": {
+        "registered": 3168,
+        "statuses": {
+          "definition-text-change": 791,
+          "observed": 1937,
+          "missing-source-snapshot": 214,
+          "missing-source-row": 19,
+          "missing-observation": 63,
+          "changed-sector": 143,
+          "dot-missing-marker": 1
+        },
+        "comparable": 1937,
+        "reversed": 20,
+        "reversalTypes": {
+          "exact-return": 9,
+          "overshoot": 6,
+          "partial": 5
+        }
       },
       "revisions": [
         {
@@ -769,6 +897,24 @@
         "sameSourceExtreme25": 56,
         "stitchedExtreme25": 59
       },
+      "trajectories": {
+        "registered": 3168,
+        "statuses": {
+          "definition-text-change": 998,
+          "observed": 1800,
+          "missing-source-snapshot": 103,
+          "missing-source-row": 19,
+          "missing-observation": 63,
+          "changed-sector": 129,
+          "dot-missing-marker": 56
+        },
+        "comparable": 1800,
+        "reversed": 3,
+        "reversalTypes": {
+          "exact-return": 2,
+          "partial": 1
+        }
+      },
       "revisions": [
         {
           "lag": 1,
@@ -868,6 +1014,26 @@
         },
         "sameSourceExtreme25": 76,
         "stitchedExtreme25": 85
+      },
+      "trajectories": {
+        "registered": 15768,
+        "statuses": {
+          "definition-text-change": 3932,
+          "observed": 10111,
+          "missing-source-snapshot": 1197,
+          "missing-source-row": 138,
+          "missing-observation": 343,
+          "changed-sector": 3,
+          "blank": 10,
+          "dot-missing-marker": 34
+        },
+        "comparable": 10111,
+        "reversed": 28,
+        "reversalTypes": {
+          "exact-return": 18,
+          "partial": 3,
+          "overshoot": 7
+        }
       },
       "revisions": [
         {
@@ -970,6 +1136,26 @@
         "sameSourceExtreme25": 87,
         "stitchedExtreme25": 91
       },
+      "trajectories": {
+        "registered": 15768,
+        "statuses": {
+          "definition-text-change": 5122,
+          "observed": 9490,
+          "missing-source-snapshot": 596,
+          "missing-source-row": 132,
+          "missing-observation": 343,
+          "changed-sector": 3,
+          "blank": 10,
+          "dot-missing-marker": 71,
+          "zero": 1
+        },
+        "comparable": 9490,
+        "reversed": 9,
+        "reversalTypes": {
+          "exact-return": 8,
+          "overshoot": 1
+        }
+      },
       "revisions": [
         {
           "lag": 1,
@@ -1043,5 +1229,5 @@
     "Definition-text differences are marked incomparable; they do not establish an economic population change. Hidden gross/net basis changes can remain undetected.",
     "No revised prices, economic forecasts or probability remapping are activated. Complete bill/funding evaluation and future calibration remain separate work."
   ],
-  "sha256": "89572c2dccf35967bfb66265fa5a7a0209ad20efac46051f1ee38c9370c816dc"
+  "sha256": "5df325bf1d0cef8adc496d01c4bc7cc11fe25ed0dba26737694663054a73fa30"
 }

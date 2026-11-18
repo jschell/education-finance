@@ -62,6 +62,17 @@ export function revision(snapshots,unitid,sector,component,year,lag){
  return {...matchedChange(a,z),a,z};
 }
 
+export function revisionTrajectory(snapshots,unitid,sector,component,year){
+ const first=revision(snapshots,unitid,sector,component,year,1),final=revision(snapshots,unitid,sector,component,year,2);
+ const subsequent=matchedChange(first.z,final.z);
+ const status=[first,final,subsequent].find(r=>r.status!=='observed')?.status||'observed';
+ if(status!=='observed')return {status,first,final,subsequent};
+ const initialDelta=first.z.value-first.a.value,nextDelta=final.z.value-first.z.value;
+ const reversed=initialDelta*nextDelta<0;
+ const reversalType=!reversed?null:final.z.value===first.a.value?'exact-return':Math.sign(final.z.value-first.a.value)===Math.sign(initialDelta)?'partial':'overshoot';
+ return {status,reversed,reversalType,first,final,subsequent};
+}
+
 export function asOfPrice(snapshots,contract,options,unitid,sector,component,academicYear){
  const eligible=selectSnapshots(snapshots,contract,options).reverse(),attempts=[];
  for(const snapshot of eligible){const p=price(snapshot,unitid,sector,component,academicYear);attempts.push({collectionYear:snapshot.meta.year,status:p.status});if(p.status==='observed')return {...p,availabilityMode:options.mode,panelHash:contract.panelHash};}

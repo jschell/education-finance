@@ -4,7 +4,7 @@ import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {canonical} from '../site/js/calibration.js';
 import {parseSchools,SECTORS} from './calibration/schools.mjs';
-import {indexSnapshot,manifestContract,sourceAvailability,coherentTransition,revision,price,matchedChange} from './price-panel/views.mjs';
+import {indexSnapshot,manifestContract,sourceAvailability,coherentTransition,revision,revisionTrajectory,price,matchedChange} from './price-panel/views.mjs';
 const read=p=>JSON.parse(readFileSync(p)),hash=x=>createHash('sha256').update(x).digest('hex');
 const manifest=read('data/research/ipeds-price-snapshots/manifest.json'),{sha256,...body}=manifest;
 assert.equal(hash(canonical(body)),sha256);for(const [path,h]of Object.entries(manifest.sourceHashes))assert.equal(hash(readFileSync(path)),h,path);
@@ -42,12 +42,17 @@ for(const sector of Object.keys(SECTORS))for(const component of ['tuition','hous
   target.registered++;const r=revision(snapshots,unitid,sector,component,year,target.lag);addStatus(target.statuses,r.status);
   if(r.status==='observed'){target.comparable++;addStatus(target.originalFlags,r.a.flagLabel||'unclassified');target.logRevisions.push(r.logChange);if(r.changed){target.changed++;addStatus(target.changedLaterFlags,r.z.flagLabel||'unclassified');}}
  }
+ const trajectories={registered:0,statuses:{},comparable:0,reversed:0,reversalTypes:{}};
+ for(const unitid of cohorts[sector])for(let year=2000;year<=2023;year++){
+  trajectories.registered++;const r=revisionTrajectory(snapshots,unitid,sector,component,year);addStatus(trajectories.statuses,r.status);
+  if(r.status==='observed'){trajectories.comparable++;if(r.reversed){trajectories.reversed++;addStatus(trajectories.reversalTypes,r.reversalType);}}
+ }
  const {sameSourceLogChanges,stitchedLogChanges,differences,...counts}=transitions;
  groups.push({sector,component,trainingInstitutions:cohorts[sector].length,transitions:{...counts,sameSource:summary(sameSourceLogChanges),stitched:summary(stitchedLogChanges),difference:summary(differences),sameSourceExtreme25:sameSourceLogChanges.filter(x=>Math.abs(x)>.25).length,stitchedExtreme25:stitchedLogChanges.filter(x=>Math.abs(x)>.25).length},
-  revisions:lags.map(({logRevisions,...counts})=>({...counts,logRevision:summary(logRevisions)}))});
+  trajectories,revisions:lags.map(({logRevisions,...counts})=>({...counts,logRevision:summary(logRevisions)}))});
 }
 const availability=[2011,2015,2020,2026].map(year=>({origin:`${year}-09-01`,strictEligible:manifest.snapshots.filter(s=>sourceAvailability(s,contract,{mode:'strict',origin:`${year}-09-01`})==='eligible-strict').length,proxyEligible:manifest.snapshots.filter(s=>sourceAvailability(s,contract,{mode:'collection-proxy',origin:`${year}-09-01`})==='eligible-proxy-only').length}));
-const paths=['docs/revision-aware-panel-execution.md','scripts/audit_revision_price_panel.mjs','scripts/price-panel/views.mjs','data/research/ipeds-price-snapshots/manifest.json','data/raw/ipeds/selected.csv.gz','data/calibration-diagnostics/quality-persistence.json'];
+const paths=['docs/revision-aware-panel-execution.md','docs/revision-reversal-followup.md','scripts/audit_revision_price_panel.mjs','scripts/price-panel/views.mjs','data/research/ipeds-price-snapshots/manifest.json','data/raw/ipeds/selected.csv.gz','data/calibration-diagnostics/quality-persistence.json'];
 const report={id:'revision-aware-price-panel-audit-v1',panelHash:manifest.sha256,sourceHashes:Object.fromEntries(paths.map(p=>[p,hash(readFileSync(p))])),
  reconciliation:{observations,selectedCurrentValues:checkedValues,selectedDirectorySectors:checkedSectors,statuses},availability,groups,
  limitations:['Descriptive origin-2010 training cohort; excludes withheld identities, not a representative population or new economic holdout.','Residency sectors share institutions and housing observations. Counts are dependent and do not create macroeconomic decades.','Strict as-of views have no verified publication-vintage sources. Collection-year proxy support is not real historical availability.','Definition-text differences are marked incomparable; they do not establish an economic population change. Hidden gross/net basis changes can remain undetected.','No revised prices, economic forecasts or probability remapping are activated. Complete bill/funding evaluation and future calibration remain separate work.']};
