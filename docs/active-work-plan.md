@@ -2,9 +2,13 @@
 
 Checkpoint: 2026-11-18 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
-## Candidate protocol and mechanism tests — implemented
+## Matched graph and estimator — implemented, recovery gate failed
 
-The [frozen protocol](revision-aware-cost-candidate-protocol.md), committed at `00488a64ab122d1d55d392f5c643efb6c9fa0ff4`, specifies one paired shared/permanent/temporary/source-error process and a four-cell matched input/economic evaluation. [Mechanism results](revision-cost-process-results.md) retain reporting-bias observational equivalence and short-lag identification failures. Seven new synthetic tests and a source-hashed artifact are implemented; no historical fitting/scoring or production activation. Next: the pinned matched observation graph, bounded estimator and finite-sample recovery/misspecification checks before historical fits.
+[Results](revision-estimator-results.md) document the pinned two-policy observation graph, paired diffuse likelihood, bounded optimizer and independent numerical checks. Execution contract `f7af707` preceded experiments. All six ideal worlds converge numerically, but two have conservative boundary/curvature flags and shared tuition variance median recovery 0.429 misses the 0.5 floor. Historical fitting is blocked; no real price likelihood or forecast score was computed. Next: freeze a finite-sample shared-variance/boundary diagnostic study, then separate realized common-shock variation from estimation error and temporal support from school counts before proposing an estimator revision. Preserve the failed gate and unchanged production assumptions.
+
+## Candidate protocol and conditional mechanism tests — merged
+
+[PR #12](https://github.com/jschell/education-finance/pull/12) merged at `30ad4b391fddebebc952071104b0debbb91c8932`, with PR/main CI, Pages and live acceptance passing. Protocol `00488a6` preceded the conditional harness. [Mechanism results](revision-cost-process-results.md) remain supplied-parameter arithmetic evidence, not empirical recovery. The next stage above now implements the graph/estimator and records its failed recovery gate.
 
 ## Revision-aware panel — merged and verified
 
@@ -49,7 +53,7 @@ The [deep model/scenario review](model-and-scenario-review.md) finds the current
 
 ## 2. Obtain evidence that can change calibration conclusions
 
-Continue [the concrete post-results follow-up](calibration-next-steps.md). The first descriptive error decomposition is complete. Source-quality/flag interpretation and temporal/persistence diagnosis are merged in PR #8 with passing CI; see [the detailed findings](calibration-quality-persistence-results.md). The [committed large-change trace](calibration-price-trace-results.md) is complete. The source panel and availability contract are complete; follow the frozen candidate protocol and mechanism results above. Treat this as a data/evaluation program, not another automatic correction layer.
+Continue [the concrete post-results follow-up](calibration-next-steps.md). The first descriptive error decomposition is complete. Source-quality/flag interpretation and temporal/persistence diagnosis are merged in PR #8 with passing CI; see [the detailed findings](calibration-quality-persistence-results.md). The [committed large-change trace](calibration-price-trace-results.md) is complete. The source panel and availability contract are complete; follow the failed estimator-recovery results above before any new fitting or scores. Treat this as a data/evaluation program, not another automatic correction layer.
 
 | Workstream | Planned approach | Exit criterion |
 | --- | --- | --- |
