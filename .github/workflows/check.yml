@@ -107,4 +107,5 @@ jobs:
         run: |
           /tmp/education-finance-reml-qa/bin/python -m unittest discover -s tests -p reml_study_test.py
           /tmp/education-finance-reml-qa/bin/python -m unittest discover -s tests -p reml_profile_test.py
-          /tmp/education-finance-reml-qa/bin/python scripts/validate_reml_study.py --verify
+          /tmp/education-finance-reml-qa/bin/python -m unittest discover -s tests -p reml_reproduction_test.py
+          /tmp/education-finance-reml-qa/bin/python scripts/verify_reml_reproduction.py
