@@ -26,7 +26,7 @@ Calculate also includes collapsed attendance/support alternatives and a househol
 
 School-level origin-only cohorts, withheld-school tests and complete individual/household funding replays now accompany the earlier sector diagnostics. The app distinguishes research qualification, unsupported horizons and production activation. Financial defaults remain unchanged. New prospective snapshots use the same active bundle as the worker; future outcomes require reviewed, source-backed comparable indices.
 
-The [bounded source-price trace](docs/calibration-price-trace-results.md) now documents same-academic-year revisions across pinned annual files, including values flagged Reported. The [revision-aware source panel](docs/revision-aware-price-panel-results.md) now preserves those representations and explicit availability limits. A matched-input candidate protocol comes next; no prices or forecasts were automatically corrected.
+The [bounded source-price trace](docs/calibration-price-trace-results.md) now documents same-academic-year revisions across pinned annual files, including values flagged Reported. The [revision-aware source panel](docs/revision-aware-price-panel-results.md) now preserves those representations and explicit availability limits. The [matched-input candidate protocol](docs/revision-aware-cost-candidate-protocol.md) and [known-process tests](docs/revision-cost-process-results.md) now precede historical fitting; no prices or forecasts were automatically corrected.
 
 [Plan and frozen protocol](docs/forecast-calibration-plan.md) · [Results and fresh review](docs/forecast-calibration-results.md) · [Error-dispersion audit](docs/calibration-dispersion-audit.md) · [Next calibration work](docs/calibration-next-steps.md)
 
