@@ -80,6 +80,10 @@ Use the environment specified in `scripts/verify_predictive_runtime.py` and `pyt
 
 School-count comparisons hold the common innovations and future window fixed. History-depth controls advance the origin along a shared prefix; they are not fixed-target history truncations and their future windows overlap. Cache source closure currently includes all site JavaScript conservatively; unrelated source edits can therefore require a fresh study, even though prose-only handoff edits can reuse validated studies.
 
+## Delivery acceptance
+
+[PR #15](https://github.com/jschell/education-finance/pull/15), implementation `449ed69d81025769c057cc6af6fcf42e5146a414`, passes all three jobs in [CI 44420340663](https://github.com/jschell/education-finance/actions/runs/44420340663). This includes the full supported AVX2-arm rerun, both earlier numerical studies, source/artifact/summary checks, 215 Node tests, 29 targeted numerical/mathematics tests plus extraction checks, and project-prefix browser regressions at phone/iPad/desktop with keyboard checks. An independent local supported-runtime full rerun passed in 168.0 seconds. These are engineering acceptance results; the primary cross-runtime gate and calibration/uncertainty limitations above remain unresolved. No defaults or historical-fitting block changed.
+
 ## Next action
 
 Freeze a numerical-boundary audit of the **retained failed refits** before another economic fit: distinguish undefined correlations at zero variance, unsupported drift, weak critical curvature and failure to verify a small feasible step. Compare an identifiable PSD covariance parameterization to the unchanged optimizer on those same cases, with independently checked objectives/KKT conditions; do not relax the old gate or delete failures. Establish bootstrap availability before paying for larger tail batches. Separately review exact case-only name and flag-dictionary concept equivalences in a versioned alternative graph without modifying the frozen original view. Neither step authorizes historical fitting or establishes publication vintages.
