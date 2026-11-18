@@ -1,0 +1,3227 @@
+{
+  "id": "price-trace-registry-v1",
+  "origin": 2010,
+  "identityPool": "known/training only; withheld identities excluded",
+  "rule": "Top three absolute consecutive real log changes per sector/component, transitions 2000–2019; ties UNITID then year; preserve overlaps",
+  "sourceHashes": {
+    "docs/calibration-price-trace-plan.md": "18b70fe389403b31ff182f0491b62b9ee2f15634a307e493cff1dcad773119bf",
+    "docs/price-trace-execution.md": "7bf64c6150b34d119b650ebac3eb0f44c43369c54921b348dfe816f6e5a7f5e5",
+    "scripts/select-price-traces.mjs": "fd89b57cc1b230ffb7ea51cc7230767de495f4768d0436411ce9f2fb316045ca",
+    "scripts/price-trace/selection.mjs": "078ea60d8df163b717824d7c3e6780aaec3ea64841da24eff70db3d19b3ebf23",
+    "scripts/calibration/schools.mjs": "aa0f2aa87daec56e88974959b3c61ec7db1f678e886259b9e8de00e0c1006cb7",
+    "scripts/calibration/quality-persistence.mjs": "c1ba01611e88e030d82037890c9ca1979d5a37a2fdcc1837599d8e562fc811bc",
+    "data/calibration-diagnostics/quality-persistence.json": "08d2f0a4a272f3d9e3a2f781cba4d8781079e72b83bee7f69ef16eebb2f51593",
+    "data/raw/ipeds/sources.json": "d42162a5ab3cffd304f2b48d26f7ffc3fc2c9ec06d51e28bf8f1d388814e72bf",
+    "data/raw/ipeds/selected.csv.gz": "0ee1dbedd0392f103ce5f6fc4c8b3b2b947ea3d69c906ea0e59c831677cf903c",
+    "data/raw/cpi.csv": "0341eb36e6a0086194fa1fa58de1a08063e7086e86d43ecfb529ae1722f51a2d",
+    "data/ipeds-price-dictionaries.json": "6803a8c533b26b5e214e5c2e09662627a0d35380cb6f1e8351ec4b01f00de32f"
+  },
+  "events": [
+    {
+      "year": 2004,
+      "interval": [
+        2004,
+        2005
+      ],
+      "levels": [
+        {
+          "year": 2004,
+          "status": "observed",
+          "value": 2270,
+          "augustCpi": 189.5,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+          "rawSector": 1
+        },
+        {
+          "year": 2005,
+          "status": "observed",
+          "value": 5692,
+          "augustCpi": 196.4,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2005-06",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 0.8835174773364101,
+      "unitid": 127185,
+      "sector": "public4",
+      "component": "tuition",
+      "id": "public4:tuition:127185:2004",
+      "rank": 1,
+      "candidates": 7036,
+      "previous": {
+        "year": 2003,
+        "interval": [
+          2003,
+          2004
+        ],
+        "levels": [
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 2789,
+            "augustCpi": 184.6,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2003-04",
+            "rawSector": 1
+          },
+          {
+            "year": 2004,
+            "status": "observed",
+            "value": 2270,
+            "augustCpi": 189.5,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.23210097960576992
+      },
+      "next": {
+        "year": 2005,
+        "interval": [
+          2005,
+          2006
+        ],
+        "levels": [
+          {
+            "year": 2005,
+            "status": "observed",
+            "value": 5692,
+            "augustCpi": 196.4,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2005-06",
+            "rawSector": 1
+          },
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 5973,
+            "augustCpi": 203.9,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2006-07",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.01071135186251896
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2003,
+      "interval": [
+        2003,
+        2004
+      ],
+      "levels": [
+        {
+          "year": 2003,
+          "status": "observed",
+          "value": 8353,
+          "augustCpi": 184.6,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2003-04",
+          "rawSector": 1
+        },
+        {
+          "year": 2004,
+          "status": "observed",
+          "value": 19642,
+          "augustCpi": 189.5,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 0.8288516725080839,
+      "unitid": 204024,
+      "sector": "public4",
+      "component": "tuition",
+      "id": "public4:tuition:204024:2003",
+      "rank": 2,
+      "candidates": 7036,
+      "previous": {
+        "year": 2002,
+        "interval": [
+          2002,
+          2003
+        ],
+        "levels": [
+          {
+            "year": 2002,
+            "status": "observed",
+            "value": 7600,
+            "augustCpi": 180.7,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2002-03",
+            "rawSector": 1
+          },
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 8353,
+            "augustCpi": 184.6,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2003-04",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.07311938401091476
+      },
+      "next": {
+        "year": 2004,
+        "interval": [
+          2004,
+          2005
+        ],
+        "levels": [
+          {
+            "year": 2004,
+            "status": "observed",
+            "value": 19642,
+            "augustCpi": 189.5,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+            "rawSector": 1
+          },
+          {
+            "year": 2005,
+            "status": "observed",
+            "value": 21487,
+            "augustCpi": 196.4,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2005-06",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.05401359896212417
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2006,
+      "interval": [
+        2006,
+        2007
+      ],
+      "levels": [
+        {
+          "year": 2006,
+          "status": "observed",
+          "value": 22997,
+          "augustCpi": 203.9,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2006-07",
+          "rawSector": 1
+        },
+        {
+          "year": 2007,
+          "status": "observed",
+          "value": 10554,
+          "augustCpi": 207.917,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2007-08",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": -0.7983681216780457,
+      "unitid": 204024,
+      "sector": "public4",
+      "component": "tuition",
+      "id": "public4:tuition:204024:2006",
+      "rank": 3,
+      "candidates": 7036,
+      "previous": {
+        "year": 2005,
+        "interval": [
+          2005,
+          2006
+        ],
+        "levels": [
+          {
+            "year": 2005,
+            "status": "observed",
+            "value": 21487,
+            "augustCpi": 196.4,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2005-06",
+            "rawSector": 1
+          },
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 22997,
+            "augustCpi": 203.9,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2006-07",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.030439389883549856
+      },
+      "next": {
+        "year": 2007,
+        "interval": [
+          2007,
+          2008
+        ],
+        "levels": [
+          {
+            "year": 2007,
+            "status": "observed",
+            "value": 10554,
+            "augustCpi": 207.917,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2007-08",
+            "rawSector": 1
+          },
+          {
+            "year": 2008,
+            "status": "observed",
+            "value": 11443,
+            "augustCpi": 219.086,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2008-09",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.02854786915855436
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2001,
+      "interval": [
+        2001,
+        2002
+      ],
+      "levels": [
+        {
+          "year": 2001,
+          "status": "observed",
+          "value": 1534,
+          "augustCpi": 177.5,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2001-2002",
+          "rawSector": 1
+        },
+        {
+          "year": 2002,
+          "status": "observed",
+          "value": 5360,
+          "augustCpi": 180.7,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2002-03",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 1.233217683454934,
+      "unitid": 207661,
+      "sector": "public4",
+      "component": "housing",
+      "id": "public4:housing:207661:2001",
+      "rank": 1,
+      "candidates": 7036,
+      "previous": {
+        "year": 2000,
+        "interval": [
+          2000,
+          2001
+        ],
+        "levels": [
+          {
+            "year": 2000,
+            "status": "observed",
+            "value": 2902,
+            "augustCpi": 172.8,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2000-2001",
+            "rawSector": 1
+          },
+          {
+            "year": 2001,
+            "status": "observed",
+            "value": 1534,
+            "augustCpi": 177.5,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2001-2002",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.6643572040624469
+      },
+      "next": {
+        "year": 2002,
+        "interval": [
+          2002,
+          2003
+        ],
+        "levels": [
+          {
+            "year": 2002,
+            "status": "observed",
+            "value": 5360,
+            "augustCpi": 180.7,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2002-03",
+            "rawSector": 1
+          },
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 5360,
+            "augustCpi": 184.6,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2003-04",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.02135312447056906
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2012,
+      "interval": [
+        2012,
+        2013
+      ],
+      "levels": [
+        {
+          "year": 2012,
+          "status": "observed",
+          "value": 9420,
+          "augustCpi": 230.379,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2012-13",
+          "rawSector": 1
+        },
+        {
+          "year": 2013,
+          "status": "observed",
+          "value": 3150,
+          "augustCpi": 233.877,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2013-14",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": -1.1105021930507473,
+      "unitid": 224554,
+      "sector": "public4",
+      "component": "housing",
+      "id": "public4:housing:224554:2012",
+      "rank": 2,
+      "candidates": 7036,
+      "previous": {
+        "year": 2011,
+        "interval": [
+          2011,
+          2012
+        ],
+        "levels": [
+          {
+            "year": 2011,
+            "status": "observed",
+            "value": 7670,
+            "augustCpi": 226.545,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2011-12",
+            "rawSector": 1
+          },
+          {
+            "year": 2012,
+            "status": "observed",
+            "value": 9420,
+            "augustCpi": 230.379,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2012-13",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.18873629506115253
+      },
+      "next": {
+        "year": 2013,
+        "interval": [
+          2013,
+          2014
+        ],
+        "levels": [
+          {
+            "year": 2013,
+            "status": "observed",
+            "value": 3150,
+            "augustCpi": 233.877,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2013-14",
+            "rawSector": 1
+          },
+          {
+            "year": 2014,
+            "status": "observed",
+            "value": 7580,
+            "augustCpi": 237.852,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2014-15",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.8612574514472661
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2013,
+      "interval": [
+        2013,
+        2014
+      ],
+      "levels": [
+        {
+          "year": 2013,
+          "status": "observed",
+          "value": 3150,
+          "augustCpi": 233.877,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2013-14",
+          "rawSector": 1
+        },
+        {
+          "year": 2014,
+          "status": "observed",
+          "value": 7580,
+          "augustCpi": 237.852,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2014-15",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 0.8612574514472661,
+      "unitid": 224554,
+      "sector": "public4",
+      "component": "housing",
+      "id": "public4:housing:224554:2013",
+      "rank": 3,
+      "candidates": 7036,
+      "previous": {
+        "year": 2012,
+        "interval": [
+          2012,
+          2013
+        ],
+        "levels": [
+          {
+            "year": 2012,
+            "status": "observed",
+            "value": 9420,
+            "augustCpi": 230.379,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2012-13",
+            "rawSector": 1
+          },
+          {
+            "year": 2013,
+            "status": "observed",
+            "value": 3150,
+            "augustCpi": 233.877,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2013-14",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -1.1105021930507473
+      },
+      "next": {
+        "year": 2014,
+        "interval": [
+          2014,
+          2015
+        ],
+        "levels": [
+          {
+            "year": 2014,
+            "status": "observed",
+            "value": 7580,
+            "augustCpi": 237.852,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2014-15",
+            "rawSector": 1
+          },
+          {
+            "year": 2015,
+            "status": "observed",
+            "value": 7780,
+            "augustCpi": 238.316,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2015-16",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.02409424593146422
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2006,
+      "interval": [
+        2006,
+        2007
+      ],
+      "levels": [
+        {
+          "year": 2006,
+          "status": "observed",
+          "value": 13702,
+          "augustCpi": 203.9,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2006-07",
+          "rawSector": 1
+        },
+        {
+          "year": 2007,
+          "status": "observed",
+          "value": 2860,
+          "augustCpi": 207.917,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2007-08",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": -1.586229466771283,
+      "unitid": 138354,
+      "sector": "public4out",
+      "component": "tuition",
+      "id": "public4out:tuition:138354:2006",
+      "rank": 1,
+      "candidates": 7036,
+      "previous": {
+        "year": 2005,
+        "interval": [
+          2005,
+          2006
+        ],
+        "levels": [
+          {
+            "year": 2005,
+            "status": "observed",
+            "value": 13520,
+            "augustCpi": 196.4,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2005-06",
+            "rawSector": 1
+          },
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 13702,
+            "augustCpi": 203.9,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2006-07",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.02410454469415471
+      },
+      "next": {
+        "year": 2007,
+        "interval": [
+          2007,
+          2008
+        ],
+        "levels": [
+          {
+            "year": 2007,
+            "status": "observed",
+            "value": 2860,
+            "augustCpi": 207.917,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2007-08",
+            "rawSector": 1
+          },
+          {
+            "year": 2008,
+            "status": "observed",
+            "value": 14170,
+            "augustCpi": 219.086,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2008-09",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 1.5479800436772806
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2007,
+      "interval": [
+        2007,
+        2008
+      ],
+      "levels": [
+        {
+          "year": 2007,
+          "status": "observed",
+          "value": 2860,
+          "augustCpi": 207.917,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2007-08",
+          "rawSector": 1
+        },
+        {
+          "year": 2008,
+          "status": "observed",
+          "value": 14170,
+          "augustCpi": 219.086,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2008-09",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 1.5479800436772806,
+      "unitid": 138354,
+      "sector": "public4out",
+      "component": "tuition",
+      "id": "public4out:tuition:138354:2007",
+      "rank": 2,
+      "candidates": 7036,
+      "previous": {
+        "year": 2006,
+        "interval": [
+          2006,
+          2007
+        ],
+        "levels": [
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 13702,
+            "augustCpi": 203.9,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2006-07",
+            "rawSector": 1
+          },
+          {
+            "year": 2007,
+            "status": "observed",
+            "value": 2860,
+            "augustCpi": 207.917,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2007-08",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -1.586229466771283
+      },
+      "next": {
+        "year": 2008,
+        "interval": [
+          2008,
+          2009
+        ],
+        "levels": [
+          {
+            "year": 2008,
+            "status": "observed",
+            "value": 14170,
+            "augustCpi": 219.086,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2008-09",
+            "rawSector": 1
+          },
+          {
+            "year": 2009,
+            "status": "observed",
+            "value": 14813,
+            "augustCpi": 215.834,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2009-10",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.059332872989718045
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2004,
+      "interval": [
+        2004,
+        2005
+      ],
+      "levels": [
+        {
+          "year": 2004,
+          "status": "observed",
+          "value": 2763,
+          "augustCpi": 189.5,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2004-05",
+          "rawSector": 1
+        },
+        {
+          "year": 2005,
+          "status": "observed",
+          "value": 11754,
+          "augustCpi": 196.4,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2005-06",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 1.4121121908512946,
+      "unitid": 128391,
+      "sector": "public4out",
+      "component": "tuition",
+      "id": "public4out:tuition:128391:2004",
+      "rank": 3,
+      "candidates": 7036,
+      "previous": {
+        "year": 2003,
+        "interval": [
+          2003,
+          2004
+        ],
+        "levels": [
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 9746,
+            "augustCpi": 184.6,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2003-04",
+            "rawSector": 1
+          },
+          {
+            "year": 2004,
+            "status": "observed",
+            "value": 2763,
+            "augustCpi": 189.5,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2004-05",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -1.2867376009337645
+      },
+      "next": {
+        "year": 2005,
+        "interval": [
+          2005,
+          2006
+        ],
+        "levels": [
+          {
+            "year": 2005,
+            "status": "observed",
+            "value": 11754,
+            "augustCpi": 196.4,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2005-06",
+            "rawSector": 1
+          },
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 11908,
+            "augustCpi": 203.9,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2006-07",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.024459446696972698
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2001,
+      "interval": [
+        2001,
+        2002
+      ],
+      "levels": [
+        {
+          "year": 2001,
+          "status": "observed",
+          "value": 1534,
+          "augustCpi": 177.5,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2001-2002",
+          "rawSector": 1
+        },
+        {
+          "year": 2002,
+          "status": "observed",
+          "value": 5360,
+          "augustCpi": 180.7,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2002-03",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 1.233217683454934,
+      "unitid": 207661,
+      "sector": "public4out",
+      "component": "housing",
+      "id": "public4out:housing:207661:2001",
+      "rank": 1,
+      "candidates": 7036,
+      "previous": {
+        "year": 2000,
+        "interval": [
+          2000,
+          2001
+        ],
+        "levels": [
+          {
+            "year": 2000,
+            "status": "observed",
+            "value": 2902,
+            "augustCpi": 172.8,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2000-2001",
+            "rawSector": 1
+          },
+          {
+            "year": 2001,
+            "status": "observed",
+            "value": 1534,
+            "augustCpi": 177.5,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2001-2002",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.6643572040624469
+      },
+      "next": {
+        "year": 2002,
+        "interval": [
+          2002,
+          2003
+        ],
+        "levels": [
+          {
+            "year": 2002,
+            "status": "observed",
+            "value": 5360,
+            "augustCpi": 180.7,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2002-03",
+            "rawSector": 1
+          },
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 5360,
+            "augustCpi": 184.6,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2003-04",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.02135312447056906
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2012,
+      "interval": [
+        2012,
+        2013
+      ],
+      "levels": [
+        {
+          "year": 2012,
+          "status": "observed",
+          "value": 9420,
+          "augustCpi": 230.379,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2012-13",
+          "rawSector": 1
+        },
+        {
+          "year": 2013,
+          "status": "observed",
+          "value": 3150,
+          "augustCpi": 233.877,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2013-14",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": -1.1105021930507473,
+      "unitid": 224554,
+      "sector": "public4out",
+      "component": "housing",
+      "id": "public4out:housing:224554:2012",
+      "rank": 2,
+      "candidates": 7036,
+      "previous": {
+        "year": 2011,
+        "interval": [
+          2011,
+          2012
+        ],
+        "levels": [
+          {
+            "year": 2011,
+            "status": "observed",
+            "value": 7670,
+            "augustCpi": 226.545,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2011-12",
+            "rawSector": 1
+          },
+          {
+            "year": 2012,
+            "status": "observed",
+            "value": 9420,
+            "augustCpi": 230.379,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2012-13",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.18873629506115253
+      },
+      "next": {
+        "year": 2013,
+        "interval": [
+          2013,
+          2014
+        ],
+        "levels": [
+          {
+            "year": 2013,
+            "status": "observed",
+            "value": 3150,
+            "augustCpi": 233.877,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2013-14",
+            "rawSector": 1
+          },
+          {
+            "year": 2014,
+            "status": "observed",
+            "value": 7580,
+            "augustCpi": 237.852,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2014-15",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.8612574514472661
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2013,
+      "interval": [
+        2013,
+        2014
+      ],
+      "levels": [
+        {
+          "year": 2013,
+          "status": "observed",
+          "value": 3150,
+          "augustCpi": 233.877,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2013-14",
+          "rawSector": 1
+        },
+        {
+          "year": 2014,
+          "status": "observed",
+          "value": 7580,
+          "augustCpi": 237.852,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2014-15",
+          "rawSector": 1
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 0.8612574514472661,
+      "unitid": 224554,
+      "sector": "public4out",
+      "component": "housing",
+      "id": "public4out:housing:224554:2013",
+      "rank": 3,
+      "candidates": 7036,
+      "previous": {
+        "year": 2012,
+        "interval": [
+          2012,
+          2013
+        ],
+        "levels": [
+          {
+            "year": 2012,
+            "status": "observed",
+            "value": 9420,
+            "augustCpi": 230.379,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2012-13",
+            "rawSector": 1
+          },
+          {
+            "year": 2013,
+            "status": "observed",
+            "value": 3150,
+            "augustCpi": 233.877,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2013-14",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -1.1105021930507473
+      },
+      "next": {
+        "year": 2014,
+        "interval": [
+          2014,
+          2015
+        ],
+        "levels": [
+          {
+            "year": 2014,
+            "status": "observed",
+            "value": 7580,
+            "augustCpi": 237.852,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2014-15",
+            "rawSector": 1
+          },
+          {
+            "year": 2015,
+            "status": "observed",
+            "value": 7780,
+            "augustCpi": 238.316,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2015-16",
+            "rawSector": 1
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.02409424593146422
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2005,
+      "interval": [
+        2005,
+        2006
+      ],
+      "levels": [
+        {
+          "year": 2005,
+          "status": "observed",
+          "value": 720,
+          "augustCpi": 196.4,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2005-06",
+          "rawSector": 4
+        },
+        {
+          "year": 2006,
+          "status": "observed",
+          "value": 2980,
+          "augustCpi": 203.9,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2006-07",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 1.3829510858293053,
+      "unitid": 434584,
+      "sector": "public2",
+      "component": "tuition",
+      "id": "public2:tuition:434584:2005",
+      "rank": 1,
+      "candidates": 2514,
+      "previous": {
+        "year": 2004,
+        "interval": [
+          2004,
+          2005
+        ],
+        "levels": [
+          {
+            "year": 2004,
+            "status": "observed",
+            "value": 650,
+            "augustCpi": 189.5,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+            "rawSector": 4
+          },
+          {
+            "year": 2005,
+            "status": "observed",
+            "value": 720,
+            "augustCpi": 196.4,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2005-06",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.06651447772253369
+      },
+      "next": {
+        "year": 2006,
+        "interval": [
+          2006,
+          2007
+        ],
+        "levels": [
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 2980,
+            "augustCpi": 203.9,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2006-07",
+            "rawSector": 4
+          },
+          {
+            "year": 2007,
+            "status": "observed",
+            "value": 2980,
+            "augustCpi": 207.917,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2007-08",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.019509284022336877
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2003,
+      "interval": [
+        2003,
+        2004
+      ],
+      "levels": [
+        {
+          "year": 2003,
+          "status": "observed",
+          "value": 1730,
+          "augustCpi": 184.6,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2003-04",
+          "rawSector": 4
+        },
+        {
+          "year": 2004,
+          "status": "observed",
+          "value": 650,
+          "augustCpi": 189.5,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": -1.0051020270558713,
+      "unitid": 434584,
+      "sector": "public2",
+      "component": "tuition",
+      "id": "public2:tuition:434584:2003",
+      "rank": 2,
+      "candidates": 2514,
+      "previous": {
+        "year": 2002,
+        "interval": [
+          2002,
+          2003
+        ],
+        "levels": [
+          {
+            "year": 2002,
+            "status": "observed",
+            "value": 1730,
+            "augustCpi": 180.7,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2002-03",
+            "rawSector": 4
+          },
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 1730,
+            "augustCpi": 184.6,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2003-04",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.02135312447056906
+      },
+      "next": {
+        "year": 2004,
+        "interval": [
+          2004,
+          2005
+        ],
+        "levels": [
+          {
+            "year": 2004,
+            "status": "observed",
+            "value": 650,
+            "augustCpi": 189.5,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+            "rawSector": 4
+          },
+          {
+            "year": 2005,
+            "status": "observed",
+            "value": 720,
+            "augustCpi": 196.4,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2005-06",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.06651447772253369
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2002,
+      "interval": [
+        2002,
+        2003
+      ],
+      "levels": [
+        {
+          "year": 2002,
+          "status": "observed",
+          "value": 288,
+          "augustCpi": 180.7,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2002-03",
+          "rawSector": 4
+        },
+        {
+          "year": 2003,
+          "status": "observed",
+          "value": 641,
+          "augustCpi": 184.6,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2003-04",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 0.7787158523141552,
+      "unitid": 121707,
+      "sector": "public2",
+      "component": "tuition",
+      "id": "public2:tuition:121707:2002",
+      "rank": 3,
+      "candidates": 2514,
+      "previous": {
+        "year": 2001,
+        "interval": [
+          2001,
+          2002
+        ],
+        "levels": [
+          {
+            "year": 2001,
+            "status": "observed",
+            "value": 284,
+            "augustCpi": 177.5,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2001-2002",
+            "rawSector": 4
+          },
+          {
+            "year": 2002,
+            "status": "observed",
+            "value": 288,
+            "augustCpi": 180.7,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2002-03",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.0038813467079723846
+      },
+      "next": {
+        "year": 2003,
+        "interval": [
+          2003,
+          2004
+        ],
+        "levels": [
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 641,
+            "augustCpi": 184.6,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2003-04",
+            "rawSector": 4
+          },
+          {
+            "year": 2004,
+            "status": "observed",
+            "value": 654,
+            "augustCpi": 189.5,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.006119807917200716
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2007,
+      "interval": [
+        2007,
+        2008
+      ],
+      "levels": [
+        {
+          "year": 2007,
+          "status": "observed",
+          "value": 5535,
+          "augustCpi": 207.917,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2007-08",
+          "rawSector": 4
+        },
+        {
+          "year": 2008,
+          "status": "observed",
+          "value": 2250,
+          "augustCpi": 219.086,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2008-09",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": -0.9524867351378186,
+      "unitid": 102429,
+      "sector": "public2",
+      "component": "housing",
+      "id": "public2:housing:102429:2007",
+      "rank": 1,
+      "candidates": 2514,
+      "previous": {
+        "year": 2006,
+        "interval": [
+          2006,
+          2007
+        ],
+        "levels": [
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 5535,
+            "augustCpi": 203.9,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2006-07",
+            "rawSector": 4
+          },
+          {
+            "year": 2007,
+            "status": "observed",
+            "value": 5535,
+            "augustCpi": 207.917,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2007-08",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.019509284022336877
+      },
+      "next": {
+        "year": 2008,
+        "interval": [
+          2008,
+          2009
+        ],
+        "levels": [
+          {
+            "year": 2008,
+            "status": "observed",
+            "value": 2250,
+            "augustCpi": 219.086,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2008-09",
+            "rawSector": 4
+          },
+          {
+            "year": 2009,
+            "status": "observed",
+            "value": 1850,
+            "augustCpi": 215.834,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2009-10",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.1807898240337034
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2008,
+      "interval": [
+        2008,
+        2009
+      ],
+      "levels": [
+        {
+          "year": 2008,
+          "status": "observed",
+          "value": 2100,
+          "augustCpi": 219.086,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2008-09",
+          "rawSector": 4
+        },
+        {
+          "year": 2009,
+          "status": "observed",
+          "value": 4800,
+          "augustCpi": 215.834,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2009-10",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 0.8416333262768599,
+      "unitid": 180151,
+      "sector": "public2",
+      "component": "housing",
+      "id": "public2:housing:180151:2008",
+      "rank": 2,
+      "candidates": 2514,
+      "previous": {
+        "year": 2007,
+        "interval": [
+          2007,
+          2008
+        ],
+        "levels": [
+          {
+            "year": 2007,
+            "status": "observed",
+            "value": 2100,
+            "augustCpi": 207.917,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2007-08",
+            "rawSector": 4
+          },
+          {
+            "year": 2008,
+            "status": "observed",
+            "value": 2100,
+            "augustCpi": 219.086,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2008-09",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.052325385193547146
+      },
+      "next": {
+        "year": 2009,
+        "interval": [
+          2009,
+          2010
+        ],
+        "levels": [
+          {
+            "year": 2009,
+            "status": "observed",
+            "value": 4800,
+            "augustCpi": 215.834,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2009-10",
+            "rawSector": 4
+          },
+          {
+            "year": 2010,
+            "status": "observed",
+            "value": 4800,
+            "augustCpi": 218.312,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2010-11",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.011415638565651068
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2001,
+      "interval": [
+        2001,
+        2002
+      ],
+      "levels": [
+        {
+          "year": 2001,
+          "status": "observed",
+          "value": 2250,
+          "augustCpi": 177.5,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2001-2002",
+          "rawSector": 4
+        },
+        {
+          "year": 2002,
+          "status": "observed",
+          "value": 5300,
+          "augustCpi": 180.7,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2002-03",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 0.8389090156590352,
+      "unitid": 187976,
+      "sector": "public2",
+      "component": "housing",
+      "id": "public2:housing:187976:2001",
+      "rank": 3,
+      "candidates": 2514,
+      "previous": {
+        "year": 2000,
+        "interval": [
+          2000,
+          2001
+        ],
+        "levels": [
+          {
+            "year": 2000,
+            "status": "observed",
+            "value": 1800,
+            "augustCpi": 172.8,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2000-2001",
+            "rawSector": 4
+          },
+          {
+            "year": 2001,
+            "status": "observed",
+            "value": 2250,
+            "augustCpi": 177.5,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2001-2002",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.19630779876869464
+      },
+      "next": {
+        "year": 2002,
+        "interval": [
+          2002,
+          2003
+        ],
+        "levels": [
+          {
+            "year": 2002,
+            "status": "observed",
+            "value": 5300,
+            "augustCpi": 180.7,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2002-03",
+            "rawSector": 4
+          },
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 5450,
+            "augustCpi": 184.6,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2003-04",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.006555663646507597
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2013,
+      "interval": [
+        2013,
+        2014
+      ],
+      "levels": [
+        {
+          "year": 2013,
+          "status": "observed",
+          "value": 1140,
+          "augustCpi": 233.877,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2013-14",
+          "rawSector": 4
+        },
+        {
+          "year": 2014,
+          "status": "observed",
+          "value": 6846,
+          "augustCpi": 237.852,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2014-15",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 1.775782982332117,
+      "unitid": 121707,
+      "sector": "public2out",
+      "component": "tuition",
+      "id": "public2out:tuition:121707:2013",
+      "rank": 1,
+      "candidates": 2514,
+      "previous": {
+        "year": 2012,
+        "interval": [
+          2012,
+          2013
+        ],
+        "levels": [
+          {
+            "year": 2012,
+            "status": "observed",
+            "value": 5628,
+            "augustCpi": 230.379,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2012-13",
+            "rawSector": 4
+          },
+          {
+            "year": 2013,
+            "status": "observed",
+            "value": 1140,
+            "augustCpi": 233.877,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2013-14",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -1.6117954341457559
+      },
+      "next": {
+        "year": 2014,
+        "interval": [
+          2014,
+          2015
+        ],
+        "levels": [
+          {
+            "year": 2014,
+            "status": "observed",
+            "value": 6846,
+            "augustCpi": 237.852,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2014-15",
+            "rawSector": 4
+          },
+          {
+            "year": 2015,
+            "status": "observed",
+            "value": 6086,
+            "augustCpi": 238.316,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2015-16",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.1196223812377699
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2012,
+      "interval": [
+        2012,
+        2013
+      ],
+      "levels": [
+        {
+          "year": 2012,
+          "status": "observed",
+          "value": 5628,
+          "augustCpi": 230.379,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2012-13",
+          "rawSector": 4
+        },
+        {
+          "year": 2013,
+          "status": "observed",
+          "value": 1140,
+          "augustCpi": 233.877,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2013-14",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": -1.6117954341457559,
+      "unitid": 121707,
+      "sector": "public2out",
+      "component": "tuition",
+      "id": "public2out:tuition:121707:2012",
+      "rank": 2,
+      "candidates": 2514,
+      "previous": {
+        "year": 2011,
+        "interval": [
+          2011,
+          2012
+        ],
+        "levels": [
+          {
+            "year": 2011,
+            "status": "observed",
+            "value": 5520,
+            "augustCpi": 226.545,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2011-12",
+            "rawSector": 4
+          },
+          {
+            "year": 2012,
+            "status": "observed",
+            "value": 5628,
+            "augustCpi": 230.379,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2012-13",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.0025941008151844046
+      },
+      "next": {
+        "year": 2013,
+        "interval": [
+          2013,
+          2014
+        ],
+        "levels": [
+          {
+            "year": 2013,
+            "status": "observed",
+            "value": 1140,
+            "augustCpi": 233.877,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2013-14",
+            "rawSector": 4
+          },
+          {
+            "year": 2014,
+            "status": "observed",
+            "value": 6846,
+            "augustCpi": 237.852,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2014-15",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 1.775782982332117
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2005,
+      "interval": [
+        2005,
+        2006
+      ],
+      "levels": [
+        {
+          "year": 2005,
+          "status": "observed",
+          "value": 720,
+          "augustCpi": 196.4,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2005-06",
+          "rawSector": 4
+        },
+        {
+          "year": 2006,
+          "status": "observed",
+          "value": 2980,
+          "augustCpi": 203.9,
+          "field": "CHG3AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published out-of-state tuition and fees 2006-07",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 1.3829510858293053,
+      "unitid": 434584,
+      "sector": "public2out",
+      "component": "tuition",
+      "id": "public2out:tuition:434584:2005",
+      "rank": 3,
+      "candidates": 2514,
+      "previous": {
+        "year": 2004,
+        "interval": [
+          2004,
+          2005
+        ],
+        "levels": [
+          {
+            "year": 2004,
+            "status": "observed",
+            "value": 650,
+            "augustCpi": 189.5,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2004-05",
+            "rawSector": 4
+          },
+          {
+            "year": 2005,
+            "status": "observed",
+            "value": 720,
+            "augustCpi": 196.4,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2005-06",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.06651447772253369
+      },
+      "next": {
+        "year": 2006,
+        "interval": [
+          2006,
+          2007
+        ],
+        "levels": [
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 2980,
+            "augustCpi": 203.9,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2006-07",
+            "rawSector": 4
+          },
+          {
+            "year": 2007,
+            "status": "observed",
+            "value": 2980,
+            "augustCpi": 207.917,
+            "field": "CHG3AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published out-of-state tuition and fees 2007-08",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.019509284022336877
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2007,
+      "interval": [
+        2007,
+        2008
+      ],
+      "levels": [
+        {
+          "year": 2007,
+          "status": "observed",
+          "value": 5535,
+          "augustCpi": 207.917,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2007-08",
+          "rawSector": 4
+        },
+        {
+          "year": 2008,
+          "status": "observed",
+          "value": 2250,
+          "augustCpi": 219.086,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2008-09",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": -0.9524867351378186,
+      "unitid": 102429,
+      "sector": "public2out",
+      "component": "housing",
+      "id": "public2out:housing:102429:2007",
+      "rank": 1,
+      "candidates": 2514,
+      "previous": {
+        "year": 2006,
+        "interval": [
+          2006,
+          2007
+        ],
+        "levels": [
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 5535,
+            "augustCpi": 203.9,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2006-07",
+            "rawSector": 4
+          },
+          {
+            "year": 2007,
+            "status": "observed",
+            "value": 5535,
+            "augustCpi": 207.917,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2007-08",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.019509284022336877
+      },
+      "next": {
+        "year": 2008,
+        "interval": [
+          2008,
+          2009
+        ],
+        "levels": [
+          {
+            "year": 2008,
+            "status": "observed",
+            "value": 2250,
+            "augustCpi": 219.086,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2008-09",
+            "rawSector": 4
+          },
+          {
+            "year": 2009,
+            "status": "observed",
+            "value": 1850,
+            "augustCpi": 215.834,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2009-10",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.1807898240337034
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2008,
+      "interval": [
+        2008,
+        2009
+      ],
+      "levels": [
+        {
+          "year": 2008,
+          "status": "observed",
+          "value": 2100,
+          "augustCpi": 219.086,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2008-09",
+          "rawSector": 4
+        },
+        {
+          "year": 2009,
+          "status": "observed",
+          "value": 4800,
+          "augustCpi": 215.834,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2009-10",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 0.8416333262768599,
+      "unitid": 180151,
+      "sector": "public2out",
+      "component": "housing",
+      "id": "public2out:housing:180151:2008",
+      "rank": 2,
+      "candidates": 2514,
+      "previous": {
+        "year": 2007,
+        "interval": [
+          2007,
+          2008
+        ],
+        "levels": [
+          {
+            "year": 2007,
+            "status": "observed",
+            "value": 2100,
+            "augustCpi": 207.917,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2007-08",
+            "rawSector": 4
+          },
+          {
+            "year": 2008,
+            "status": "observed",
+            "value": 2100,
+            "augustCpi": 219.086,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2008-09",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.052325385193547146
+      },
+      "next": {
+        "year": 2009,
+        "interval": [
+          2009,
+          2010
+        ],
+        "levels": [
+          {
+            "year": 2009,
+            "status": "observed",
+            "value": 4800,
+            "augustCpi": 215.834,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2009-10",
+            "rawSector": 4
+          },
+          {
+            "year": 2010,
+            "status": "observed",
+            "value": 4800,
+            "augustCpi": 218.312,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2010-11",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.011415638565651068
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2001,
+      "interval": [
+        2001,
+        2002
+      ],
+      "levels": [
+        {
+          "year": 2001,
+          "status": "observed",
+          "value": 2250,
+          "augustCpi": 177.5,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2001-2002",
+          "rawSector": 4
+        },
+        {
+          "year": 2002,
+          "status": "observed",
+          "value": 5300,
+          "augustCpi": 180.7,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2002-03",
+          "rawSector": 4
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 0.8389090156590352,
+      "unitid": 187976,
+      "sector": "public2out",
+      "component": "housing",
+      "id": "public2out:housing:187976:2001",
+      "rank": 3,
+      "candidates": 2514,
+      "previous": {
+        "year": 2000,
+        "interval": [
+          2000,
+          2001
+        ],
+        "levels": [
+          {
+            "year": 2000,
+            "status": "observed",
+            "value": 1800,
+            "augustCpi": 172.8,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2000-2001",
+            "rawSector": 4
+          },
+          {
+            "year": 2001,
+            "status": "observed",
+            "value": 2250,
+            "augustCpi": 177.5,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2001-2002",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.19630779876869464
+      },
+      "next": {
+        "year": 2002,
+        "interval": [
+          2002,
+          2003
+        ],
+        "levels": [
+          {
+            "year": 2002,
+            "status": "observed",
+            "value": 5300,
+            "augustCpi": 180.7,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2002-03",
+            "rawSector": 4
+          },
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 5450,
+            "augustCpi": 184.6,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2003-04",
+            "rawSector": 4
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.006555663646507597
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2002,
+      "interval": [
+        2002,
+        2003
+      ],
+      "levels": [
+        {
+          "year": 2002,
+          "status": "observed",
+          "value": 200,
+          "augustCpi": 180.7,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2002-03",
+          "rawSector": 2
+        },
+        {
+          "year": 2003,
+          "status": "observed",
+          "value": 11150,
+          "augustCpi": 184.6,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2003-04",
+          "rawSector": 2
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 3.999524285869659,
+      "unitid": 178697,
+      "sector": "private4",
+      "component": "tuition",
+      "id": "private4:tuition:178697:2002",
+      "rank": 1,
+      "candidates": 12887,
+      "previous": {
+        "year": 2001,
+        "interval": [
+          2001,
+          2002
+        ],
+        "levels": [
+          {
+            "year": 2001,
+            "status": "observed",
+            "value": 150,
+            "augustCpi": 177.5,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2001-2002",
+            "rawSector": 2
+          },
+          {
+            "year": 2002,
+            "status": "observed",
+            "value": 200,
+            "augustCpi": 180.7,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2002-03",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.2698144837690686
+      },
+      "next": {
+        "year": 2003,
+        "interval": [
+          2003,
+          2004
+        ],
+        "levels": [
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 11150,
+            "augustCpi": 184.6,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2003-04",
+            "rawSector": 2
+          },
+          {
+            "year": 2004,
+            "status": "observed",
+            "value": 13150,
+            "augustCpi": 189.5,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.13878455826391647
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2005,
+      "interval": [
+        2005,
+        2006
+      ],
+      "levels": [
+        {
+          "year": 2005,
+          "status": "observed",
+          "value": 501,
+          "augustCpi": 196.4,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2005-06",
+          "rawSector": 2
+        },
+        {
+          "year": 2006,
+          "status": "observed",
+          "value": 8790,
+          "augustCpi": 203.9,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2006-07",
+          "rawSector": 2
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 2.827287607934314,
+      "unitid": 179256,
+      "sector": "private4",
+      "component": "tuition",
+      "id": "private4:tuition:179256:2005",
+      "rank": 2,
+      "candidates": 12887,
+      "previous": {
+        "year": 2004,
+        "interval": [
+          2004,
+          2005
+        ],
+        "levels": [
+          {
+            "year": 2004,
+            "status": "observed",
+            "value": 7200,
+            "augustCpi": 189.5,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+            "rawSector": 2
+          },
+          {
+            "year": 2005,
+            "status": "observed",
+            "value": 501,
+            "augustCpi": 196.4,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2005-06",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -2.7009945753171665
+      },
+      "next": {
+        "year": 2006,
+        "interval": [
+          2006,
+          2007
+        ],
+        "levels": [
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 8790,
+            "augustCpi": 203.9,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2006-07",
+            "rawSector": 2
+          },
+          {
+            "year": 2007,
+            "status": "observed",
+            "value": 9100,
+            "augustCpi": 207.917,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2007-08",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.01515041780338186
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2004,
+      "interval": [
+        2004,
+        2005
+      ],
+      "levels": [
+        {
+          "year": 2004,
+          "status": "observed",
+          "value": 7200,
+          "augustCpi": 189.5,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+          "rawSector": 2
+        },
+        {
+          "year": 2005,
+          "status": "observed",
+          "value": 501,
+          "augustCpi": 196.4,
+          "field": "CHG2AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "Published in-state tuition and fees 2005-06",
+          "rawSector": 2
+        }
+      ],
+      "status": "observed",
+      "realLogChange": -2.7009945753171665,
+      "unitid": 179256,
+      "sector": "private4",
+      "component": "tuition",
+      "id": "private4:tuition:179256:2004",
+      "rank": 3,
+      "candidates": 12887,
+      "previous": {
+        "year": 2003,
+        "interval": [
+          2003,
+          2004
+        ],
+        "levels": [
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 6510,
+            "augustCpi": 184.6,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2003-04",
+            "rawSector": 2
+          },
+          {
+            "year": 2004,
+            "status": "observed",
+            "value": 7200,
+            "augustCpi": 189.5,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2004-05",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.07454386734780247
+      },
+      "next": {
+        "year": 2005,
+        "interval": [
+          2005,
+          2006
+        ],
+        "levels": [
+          {
+            "year": 2005,
+            "status": "observed",
+            "value": 501,
+            "augustCpi": 196.4,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2005-06",
+            "rawSector": 2
+          },
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 8790,
+            "augustCpi": 203.9,
+            "field": "CHG2AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "Published in-state tuition and fees 2006-07",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 2.827287607934314
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2006,
+      "interval": [
+        2006,
+        2007
+      ],
+      "levels": [
+        {
+          "year": 2006,
+          "status": "observed",
+          "value": 850,
+          "augustCpi": 203.9,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2006-07",
+          "rawSector": 2
+        },
+        {
+          "year": 2007,
+          "status": "observed",
+          "value": 2565,
+          "augustCpi": 207.917,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2007-08",
+          "rawSector": 2
+        }
+      ],
+      "status": "observed",
+      "realLogChange": 1.0849681240981708,
+      "unitid": 168847,
+      "sector": "private4",
+      "component": "housing",
+      "id": "private4:housing:168847:2006",
+      "rank": 1,
+      "candidates": 12887,
+      "previous": {
+        "year": 2005,
+        "interval": [
+          2005,
+          2006
+        ],
+        "levels": [
+          {
+            "year": 2005,
+            "status": "observed",
+            "value": 850,
+            "augustCpi": 196.4,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2005-06",
+            "rawSector": 2
+          },
+          {
+            "year": 2006,
+            "status": "observed",
+            "value": 850,
+            "augustCpi": 203.9,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2006-07",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.03747628166004395
+      },
+      "next": {
+        "year": 2007,
+        "interval": [
+          2007,
+          2008
+        ],
+        "levels": [
+          {
+            "year": 2007,
+            "status": "observed",
+            "value": 2565,
+            "augustCpi": 207.917,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2007-08",
+            "rawSector": 2
+          },
+          {
+            "year": 2008,
+            "status": "observed",
+            "value": 2625,
+            "augustCpi": 219.086,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2008-09",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.029202967772692934
+      },
+      "oppositeSignNext": true
+    },
+    {
+      "year": 2002,
+      "interval": [
+        2002,
+        2003
+      ],
+      "levels": [
+        {
+          "year": 2002,
+          "status": "observed",
+          "value": 6372,
+          "augustCpi": 180.7,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2002-03",
+          "rawSector": 2
+        },
+        {
+          "year": 2003,
+          "status": "observed",
+          "value": 2400,
+          "augustCpi": 184.6,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2003-04",
+          "rawSector": 2
+        }
+      ],
+      "status": "observed",
+      "realLogChange": -0.9977977791644712,
+      "unitid": 157748,
+      "sector": "private4",
+      "component": "housing",
+      "id": "private4:housing:157748:2002",
+      "rank": 2,
+      "candidates": 12887,
+      "previous": {
+        "year": 2001,
+        "interval": [
+          2001,
+          2002
+        ],
+        "levels": [
+          {
+            "year": 2001,
+            "status": "observed",
+            "value": 6240,
+            "augustCpi": 177.5,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2001-2002",
+            "rawSector": 2
+          },
+          {
+            "year": 2002,
+            "status": "observed",
+            "value": 6372,
+            "augustCpi": 180.7,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2002-03",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.0030656209837534656
+      },
+      "next": {
+        "year": 2003,
+        "interval": [
+          2003,
+          2004
+        ],
+        "levels": [
+          {
+            "year": 2003,
+            "status": "observed",
+            "value": 2400,
+            "augustCpi": 184.6,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2003-04",
+            "rawSector": 2
+          },
+          {
+            "year": 2004,
+            "status": "observed",
+            "value": 1500,
+            "augustCpi": 189.5,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2004-05",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.49620133169946495
+      },
+      "oppositeSignNext": false
+    },
+    {
+      "year": 2012,
+      "interval": [
+        2012,
+        2013
+      ],
+      "levels": [
+        {
+          "year": 2012,
+          "status": "observed",
+          "value": 6100,
+          "augustCpi": 230.379,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2012-13",
+          "rawSector": 2
+        },
+        {
+          "year": 2013,
+          "status": "observed",
+          "value": 2400,
+          "augustCpi": 233.877,
+          "field": "CHG5AY3",
+          "flag": "R",
+          "quality": "reported",
+          "dictionaryTitle": "On campus, room and board 2013-14",
+          "rawSector": 2
+        }
+      ],
+      "status": "observed",
+      "realLogChange": -0.9478895911253828,
+      "unitid": 123280,
+      "sector": "private4",
+      "component": "housing",
+      "id": "private4:housing:123280:2012",
+      "rank": 3,
+      "candidates": 12887,
+      "previous": {
+        "year": 2011,
+        "interval": [
+          2011,
+          2012
+        ],
+        "levels": [
+          {
+            "year": 2011,
+            "status": "observed",
+            "value": 6000,
+            "augustCpi": 226.545,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2011-12",
+            "rawSector": 2
+          },
+          {
+            "year": 2012,
+            "status": "observed",
+            "value": 6100,
+            "augustCpi": 230.379,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2012-13",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": -0.0002528761967437697
+      },
+      "next": {
+        "year": 2013,
+        "interval": [
+          2013,
+          2014
+        ],
+        "levels": [
+          {
+            "year": 2013,
+            "status": "observed",
+            "value": 2400,
+            "augustCpi": 233.877,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2013-14",
+            "rawSector": 2
+          },
+          {
+            "year": 2014,
+            "status": "observed",
+            "value": 6000,
+            "augustCpi": 237.852,
+            "field": "CHG5AY3",
+            "flag": "R",
+            "quality": "reported",
+            "dictionaryTitle": "On campus, room and board 2014-15",
+            "rawSector": 2
+          }
+        ],
+        "status": "observed",
+        "realLogChange": 0.8994374365046826
+      },
+      "oppositeSignNext": true
+    }
+  ],
+  "uniqueSchools": 16,
+  "uniqueTransitions": 23,
+  "archiveYears": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016
+  ],
+  "limitations": [
+    "Post-results descriptive source investigation, not a price correction or a new economic evaluation.",
+    "Flags describe source processing, not the economic cause. Opposite-sign changes do not alone prove revision or error.",
+    "Residency sectors can share the same school/price event; overlaps are retained and are not independent events."
+  ],
+  "sha256": "a811615f1c05243bc167ea8732ef0fe04c4a98bcc2ac43e092713f25c6ea2b27"
+}
