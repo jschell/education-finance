@@ -39,3 +39,7 @@ The frozen [decision release protocol](decision-release-plan.md) adds method `fu
 ## Price-source trace interpretation
 
 The bounded [source investigation](calibration-price-trace-results.md) establishes annual-file representation differences, including values all flagged Reported, not a universally correct replacement price. Keep the original selected panel and frozen reports unchanged. Later retrospective values cannot be treated as available at an earlier forecast origin. A revised source panel and availability contract precede the next economic candidate; partial institutional context does not fully reconcile individual events. Snapshot agreement is not proof of a real economic price change, and extreme-selected revision frequencies are not population error estimates.
+
+## Revision-aware panel contract
+
+The [research panel](revision-aware-price-panel-results.md) preserves source representations and versioned availability separately from academic years. Strict original-vintage views stay unsupported without independently reviewed publication/vintage evidence for both price and directory sources. A collection-year proxy is not an actual historical-availability backtest. Same-file input diagnostics do not select an economically true series or establish a forecast's calibration. Keep the active foundation/original records unchanged; freeze one matched-input candidate protocol and known-process tests next.

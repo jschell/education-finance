@@ -45,3 +45,7 @@ The already pinned Fama/French monthly factors (1926 onward), BLS general CPI (1
 ## Year-specific source-quality and persistence audit
 
 Official NCES 2000–2023 IC academic-year dictionaries are pinned verbatim under `data/raw/ipeds/dictionaries/`, with exact URLs, archive member names and SHA-256 in `ipeds-price-dictionaries.json`. The IC2014 academic-year dictionary omits a legend; the same-year IC2014 dictionary's generic Xvarname code table supplies it explicitly, consistent with the NCES Handbook's shared flag system. No original price observations are rewritten. Python extraction uses isolated pinned development libraries; the browser adds no dependency or live request. The resulting diagnostic report uses public institution IDs and retrospective prices, never private family records, and does not imply NCES endorsement or calibrated forecasts.
+
+## Revision-aware IPEDS research panel
+
+`data/research/ipeds-price-snapshots/` contains normalized, compressed public NCES annual source representations with dictionary and source-hash provenance in its manifest. It is research input, separate from the original selected panel and production assumptions. Original publication vintages are not established by the retrieved annual files. Rebuild with `scripts/build_revision_price_panel.py`; see `docs/revision-aware-price-panel-results.md` for support and limitations.
