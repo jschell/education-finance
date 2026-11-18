@@ -48,6 +48,8 @@ Numerical reproduction uses pinned NumPy 2.3.5/SciPy 1.17.0 and one BLAS thread.
 
 Primary statistical references used: [statsmodels REML objective/score source](https://www.statsmodels.org/stable/_modules/statsmodels/regression/mixed_linear_model.html), [Stata mixed-model theory and REML treatment of fitted fixed effects](https://www.stata.com/manuals/memixed.pdf). Neither reference establishes recovery in our particular worlds or economic calibration.
 
+Published tested implementation `7afafd180c3f8b98bcc5bf432988df3bab0e5c6a` is on branch `revision-cost-reml-study`. The delivery update follows it and runs the isolated scientific reproduction alongside existing release checks. Read both PR head checks for full CI acceptance; the branch is not merged or deployed.
+
 ## Next action
 
 Steps 1–3 are implemented and yielded a useful estimator/diagnostic improvement. Before historical fitting, freeze the actual-information-depth study: 3/7/12 transitions as well as longer controls, school counts varied separately, and a larger fresh batch. Then assess uncertainty of the cumulative-cost quantities used in bills, including parameter uncertainty and shared reporting-bias sensitivity. Those are repair steps 4–5, not results delivered here. Keep strict-vintage unavailability, matched input policies, withheld protections and complete funding evidence requirements. No production probability, trend, price or forecast snapshot changes follow from this study.
