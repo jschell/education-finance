@@ -1,0 +1,1233 @@
+{
+  "id": "revision-aware-price-panel-audit-v1",
+  "panelHash": "291960aa59ec12ecf9f00105d5bf49ef22cabc27013b94de7beca4da5b9c913a",
+  "sourceHashes": {
+    "docs/revision-aware-panel-execution.md": "19f36d6a9848a34be5ad36d6605fda1f684accad5c5d6fb57b43c6e573589093",
+    "docs/revision-reversal-followup.md": "df535845ecb37773fb63d9c97879fe751c25086c368e8e43a0a2b638f3372305",
+    "scripts/audit_revision_price_panel.mjs": "a1b560cb441e5b972f3f272dd9770ba77f51ffa298a91f8bae825dcbc767ce6e",
+    "scripts/price-panel/views.mjs": "e1490fc535649640fd5c136aa3232f5969d3919838eb45b0ad444d04401fc6c9",
+    "data/research/ipeds-price-snapshots/manifest.json": "e9eded24c2f73151a8a74c351c5c18771b17c41752d1de3b9a9f589bc382075b",
+    "data/raw/ipeds/selected.csv.gz": "0ee1dbedd0392f103ce5f6fc4c8b3b2b947ea3d69c906ea0e59c831677cf903c",
+    "data/calibration-diagnostics/quality-persistence.json": "08d2f0a4a272f3d9e3a2f781cba4d8781079e72b83bee7f69ef16eebb2f51593"
+  },
+  "reconciliation": {
+    "observations": 1900467,
+    "selectedCurrentValues": 327267,
+    "selectedDirectorySectors": 109089,
+    "statuses": {
+      "zero": 1267,
+      "observed": 850380,
+      "blank": 70183,
+      "missing-source-row": 722865,
+      "unavailable-code": 2,
+      "dot-missing-marker": 255770
+    }
+  },
+  "availability": [
+    {
+      "origin": "2011-09-01",
+      "strictEligible": 0,
+      "proxyEligible": 11
+    },
+    {
+      "origin": "2015-09-01",
+      "strictEligible": 0,
+      "proxyEligible": 15
+    },
+    {
+      "origin": "2020-09-01",
+      "strictEligible": 0,
+      "proxyEligible": 20
+    },
+    {
+      "origin": "2026-09-01",
+      "strictEligible": 0,
+      "proxyEligible": 24
+    }
+  ],
+  "groups": [
+    {
+      "sector": "public4",
+      "component": "tuition",
+      "trainingInstitutions": 353,
+      "transitions": {
+        "registered": 8119,
+        "statuses": {
+          "definition-text-change": 1764,
+          "observed": 6295,
+          "missing-source-row": 18,
+          "missing-observation": 41,
+          "blank": 1
+        },
+        "matched": 6295,
+        "sameSource": {
+          "count": 6295,
+          "p10": 0,
+          "median": 0.033340418660237986,
+          "p90": 0.0901857176385912,
+          "mean": 0.03992105130570429
+        },
+        "stitched": {
+          "count": 6295,
+          "p10": 0,
+          "median": 0.033083320796817056,
+          "p90": 0.09085015329679551,
+          "mean": 0.04001202485433758
+        },
+        "difference": {
+          "count": 6295,
+          "p10": 0,
+          "median": 0,
+          "p90": 0,
+          "mean": -0.00009097354863332616
+        },
+        "sameSourceExtreme25": 38,
+        "stitchedExtreme25": 53
+      },
+      "trajectories": {
+        "registered": 8472,
+        "statuses": {
+          "definition-text-change": 2117,
+          "observed": 5582,
+          "missing-source-snapshot": 684,
+          "missing-source-row": 54,
+          "missing-observation": 34,
+          "blank": 1
+        },
+        "comparable": 5582,
+        "reversed": 17,
+        "reversalTypes": {
+          "partial": 6,
+          "exact-return": 8,
+          "overshoot": 3
+        }
+      },
+      "revisions": [
+        {
+          "lag": 1,
+          "registered": 8472,
+          "statuses": {
+            "definition-text-change": 1764,
+            "observed": 6295,
+            "missing-source-snapshot": 342,
+            "missing-source-row": 36,
+            "missing-observation": 34,
+            "blank": 1
+          },
+          "comparable": 6295,
+          "changed": 310,
+          "originalFlags": {
+            "Reported": 6294,
+            "Analyst corrected reported value": 1
+          },
+          "changedLaterFlags": {
+            "Reported": 310
+          },
+          "logRevision": {
+            "count": 6295,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.00009097354863332658
+          }
+        },
+        {
+          "lag": 2,
+          "registered": 8472,
+          "statuses": {
+            "definition-text-change": 2116,
+            "observed": 5582,
+            "missing-source-snapshot": 686,
+            "missing-source-row": 36,
+            "missing-observation": 50,
+            "blank": 1,
+            "dot-missing-marker": 1
+          },
+          "comparable": 5582,
+          "changed": 392,
+          "originalFlags": {
+            "Reported": 5582
+          },
+          "changedLaterFlags": {
+            "Reported": 392
+          },
+          "logRevision": {
+            "count": 5582,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.0001292570907190748
+          }
+        }
+      ]
+    },
+    {
+      "sector": "public4",
+      "component": "housing",
+      "trainingInstitutions": 353,
+      "transitions": {
+        "registered": 8119,
+        "statuses": {
+          "definition-text-change": 2105,
+          "observed": 5948,
+          "missing-source-row": 18,
+          "missing-observation": 41,
+          "dot-missing-marker": 6,
+          "blank": 1
+        },
+        "matched": 5948,
+        "sameSource": {
+          "count": 5948,
+          "p10": 0,
+          "median": 0.03152123430977816,
+          "p90": 0.07977130042529701,
+          "mean": 0.03590910575363311
+        },
+        "stitched": {
+          "count": 5948,
+          "p10": 0,
+          "median": 0.03152123430977816,
+          "p90": 0.082061070531674,
+          "mean": 0.03665732714666268
+        },
+        "difference": {
+          "count": 5948,
+          "p10": 0,
+          "median": 0,
+          "p90": 0,
+          "mean": -0.0007482213930295675
+        },
+        "sameSourceExtreme25": 45,
+        "stitchedExtreme25": 63
+      },
+      "trajectories": {
+        "registered": 8472,
+        "statuses": {
+          "definition-text-change": 2792,
+          "observed": 5241,
+          "missing-source-snapshot": 341,
+          "missing-source-row": 54,
+          "missing-observation": 34,
+          "dot-missing-marker": 9,
+          "blank": 1
+        },
+        "comparable": 5241,
+        "reversed": 6,
+        "reversalTypes": {
+          "exact-return": 5,
+          "partial": 1
+        }
+      },
+      "revisions": [
+        {
+          "lag": 1,
+          "registered": 8472,
+          "statuses": {
+            "definition-text-change": 2105,
+            "observed": 5948,
+            "missing-source-snapshot": 341,
+            "missing-source-row": 36,
+            "missing-observation": 34,
+            "dot-missing-marker": 7,
+            "blank": 1
+          },
+          "comparable": 5948,
+          "changed": 233,
+          "originalFlags": {
+            "Reported": 5948
+          },
+          "changedLaterFlags": {
+            "Reported": 233
+          },
+          "logRevision": {
+            "count": 5948,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.0007482213930295674
+          }
+        },
+        {
+          "lag": 2,
+          "registered": 8472,
+          "statuses": {
+            "definition-text-change": 2451,
+            "observed": 5242,
+            "missing-source-snapshot": 684,
+            "missing-source-row": 36,
+            "missing-observation": 50,
+            "dot-missing-marker": 8,
+            "blank": 1
+          },
+          "comparable": 5242,
+          "changed": 267,
+          "originalFlags": {
+            "Reported": 5242
+          },
+          "changedLaterFlags": {
+            "Reported": 267
+          },
+          "logRevision": {
+            "count": 5242,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.001085390276526788
+          }
+        }
+      ]
+    },
+    {
+      "sector": "public4out",
+      "component": "tuition",
+      "trainingInstitutions": 353,
+      "transitions": {
+        "registered": 8119,
+        "statuses": {
+          "definition-text-change": 1764,
+          "observed": 6295,
+          "missing-source-row": 18,
+          "missing-observation": 41,
+          "blank": 1
+        },
+        "matched": 6295,
+        "sameSource": {
+          "count": 6295,
+          "p10": 0,
+          "median": 0.029685151517843653,
+          "p90": 0.07854649297356671,
+          "mean": 0.03200922513355998
+        },
+        "stitched": {
+          "count": 6295,
+          "p10": 0,
+          "median": 0.029563222052018886,
+          "p90": 0.07899174455593475,
+          "mean": 0.030415974981705625
+        },
+        "difference": {
+          "count": 6295,
+          "p10": 0,
+          "median": 0,
+          "p90": 0,
+          "mean": 0.0015932501518543414
+        },
+        "sameSourceExtreme25": 74,
+        "stitchedExtreme25": 112
+      },
+      "trajectories": {
+        "registered": 8472,
+        "statuses": {
+          "definition-text-change": 2117,
+          "observed": 5582,
+          "missing-source-snapshot": 684,
+          "missing-source-row": 54,
+          "missing-observation": 34,
+          "blank": 1
+        },
+        "comparable": 5582,
+        "reversed": 20,
+        "reversalTypes": {
+          "overshoot": 9,
+          "partial": 2,
+          "exact-return": 9
+        }
+      },
+      "revisions": [
+        {
+          "lag": 1,
+          "registered": 8472,
+          "statuses": {
+            "definition-text-change": 1764,
+            "observed": 6295,
+            "missing-source-snapshot": 342,
+            "missing-source-row": 36,
+            "missing-observation": 34,
+            "blank": 1
+          },
+          "comparable": 6295,
+          "changed": 395,
+          "originalFlags": {
+            "Reported": 6295
+          },
+          "changedLaterFlags": {
+            "Reported": 395
+          },
+          "logRevision": {
+            "count": 6295,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": -0.001593250151854339
+          }
+        },
+        {
+          "lag": 2,
+          "registered": 8472,
+          "statuses": {
+            "definition-text-change": 2116,
+            "observed": 5582,
+            "missing-source-snapshot": 686,
+            "missing-source-row": 36,
+            "missing-observation": 50,
+            "blank": 1,
+            "dot-missing-marker": 1
+          },
+          "comparable": 5582,
+          "changed": 502,
+          "originalFlags": {
+            "Reported": 5582
+          },
+          "changedLaterFlags": {
+            "Reported": 502
+          },
+          "logRevision": {
+            "count": 5582,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": -0.00365804491688669
+          }
+        }
+      ]
+    },
+    {
+      "sector": "public4out",
+      "component": "housing",
+      "trainingInstitutions": 353,
+      "transitions": {
+        "registered": 8119,
+        "statuses": {
+          "definition-text-change": 2105,
+          "observed": 5948,
+          "missing-source-row": 18,
+          "missing-observation": 41,
+          "dot-missing-marker": 6,
+          "blank": 1
+        },
+        "matched": 5948,
+        "sameSource": {
+          "count": 5948,
+          "p10": 0,
+          "median": 0.03152123430977816,
+          "p90": 0.07977130042529701,
+          "mean": 0.03590910575363311
+        },
+        "stitched": {
+          "count": 5948,
+          "p10": 0,
+          "median": 0.03152123430977816,
+          "p90": 0.082061070531674,
+          "mean": 0.03665732714666268
+        },
+        "difference": {
+          "count": 5948,
+          "p10": 0,
+          "median": 0,
+          "p90": 0,
+          "mean": -0.0007482213930295675
+        },
+        "sameSourceExtreme25": 45,
+        "stitchedExtreme25": 63
+      },
+      "trajectories": {
+        "registered": 8472,
+        "statuses": {
+          "definition-text-change": 2792,
+          "observed": 5241,
+          "missing-source-snapshot": 341,
+          "missing-source-row": 54,
+          "missing-observation": 34,
+          "dot-missing-marker": 9,
+          "blank": 1
+        },
+        "comparable": 5241,
+        "reversed": 6,
+        "reversalTypes": {
+          "exact-return": 5,
+          "partial": 1
+        }
+      },
+      "revisions": [
+        {
+          "lag": 1,
+          "registered": 8472,
+          "statuses": {
+            "definition-text-change": 2105,
+            "observed": 5948,
+            "missing-source-snapshot": 341,
+            "missing-source-row": 36,
+            "missing-observation": 34,
+            "dot-missing-marker": 7,
+            "blank": 1
+          },
+          "comparable": 5948,
+          "changed": 233,
+          "originalFlags": {
+            "Reported": 5948
+          },
+          "changedLaterFlags": {
+            "Reported": 233
+          },
+          "logRevision": {
+            "count": 5948,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.0007482213930295674
+          }
+        },
+        {
+          "lag": 2,
+          "registered": 8472,
+          "statuses": {
+            "definition-text-change": 2451,
+            "observed": 5242,
+            "missing-source-snapshot": 684,
+            "missing-source-row": 36,
+            "missing-observation": 50,
+            "dot-missing-marker": 8,
+            "blank": 1
+          },
+          "comparable": 5242,
+          "changed": 267,
+          "originalFlags": {
+            "Reported": 5242
+          },
+          "changedLaterFlags": {
+            "Reported": 267
+          },
+          "logRevision": {
+            "count": 5242,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.001085390276526788
+          }
+        }
+      ]
+    },
+    {
+      "sector": "public2",
+      "component": "tuition",
+      "trainingInstitutions": 132,
+      "transitions": {
+        "registered": 3036,
+        "statuses": {
+          "definition-text-change": 660,
+          "observed": 2201,
+          "missing-source-row": 7,
+          "missing-observation": 61,
+          "changed-sector": 107
+        },
+        "matched": 2201,
+        "sameSource": {
+          "count": 2201,
+          "p10": 0,
+          "median": 0.03125254350410453,
+          "p90": 0.10478027168680555,
+          "mean": 0.03866876473130398
+        },
+        "stitched": {
+          "count": 2201,
+          "p10": 0,
+          "median": 0.03155408758947363,
+          "p90": 0.1124779834266903,
+          "mean": 0.04233684403654621
+        },
+        "difference": {
+          "count": 2201,
+          "p10": 0,
+          "median": 0,
+          "p90": 0,
+          "mean": -0.0036680793052422125
+        },
+        "sameSourceExtreme25": 47,
+        "stitchedExtreme25": 58
+      },
+      "trajectories": {
+        "registered": 3168,
+        "statuses": {
+          "definition-text-change": 792,
+          "observed": 1937,
+          "missing-source-snapshot": 214,
+          "missing-source-row": 19,
+          "missing-observation": 63,
+          "changed-sector": 143
+        },
+        "comparable": 1937,
+        "reversed": 10,
+        "reversalTypes": {
+          "exact-return": 5,
+          "overshoot": 3,
+          "partial": 2
+        }
+      },
+      "revisions": [
+        {
+          "lag": 1,
+          "registered": 3168,
+          "statuses": {
+            "definition-text-change": 660,
+            "observed": 2201,
+            "missing-source-snapshot": 107,
+            "missing-source-row": 13,
+            "missing-observation": 62,
+            "changed-sector": 125
+          },
+          "comparable": 2201,
+          "changed": 182,
+          "originalFlags": {
+            "Reported": 2199,
+            "Imputed using Carry Forward procedure": 2
+          },
+          "changedLaterFlags": {
+            "Reported": 182
+          },
+          "logRevision": {
+            "count": 2201,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.0036680793052422107
+          }
+        },
+        {
+          "lag": 2,
+          "registered": 3168,
+          "statuses": {
+            "definition-text-change": 792,
+            "observed": 1937,
+            "missing-source-snapshot": 216,
+            "missing-source-row": 14,
+            "missing-observation": 69,
+            "changed-sector": 140
+          },
+          "comparable": 1937,
+          "changed": 215,
+          "originalFlags": {
+            "Reported": 1936,
+            "Imputed using Carry Forward procedure": 1
+          },
+          "changedLaterFlags": {
+            "Reported": 215
+          },
+          "logRevision": {
+            "count": 1937,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.0035527999708950585
+          }
+        }
+      ]
+    },
+    {
+      "sector": "public2",
+      "component": "housing",
+      "trainingInstitutions": 132,
+      "transitions": {
+        "registered": 3036,
+        "statuses": {
+          "definition-text-change": 763,
+          "observed": 2066,
+          "missing-source-row": 7,
+          "missing-observation": 61,
+          "changed-sector": 95,
+          "dot-missing-marker": 44
+        },
+        "matched": 2066,
+        "sameSource": {
+          "count": 2066,
+          "p10": 0,
+          "median": 0.019992218727214947,
+          "p90": 0.10531661653799665,
+          "mean": 0.029217334270121437
+        },
+        "stitched": {
+          "count": 2066,
+          "p10": 0,
+          "median": 0.021019367224075342,
+          "p90": 0.11042381761437305,
+          "mean": 0.03391036152385599
+        },
+        "difference": {
+          "count": 2066,
+          "p10": 0,
+          "median": 0,
+          "p90": 0,
+          "mean": -0.004693027253734593
+        },
+        "sameSourceExtreme25": 56,
+        "stitchedExtreme25": 59
+      },
+      "trajectories": {
+        "registered": 3168,
+        "statuses": {
+          "definition-text-change": 998,
+          "observed": 1800,
+          "missing-source-snapshot": 103,
+          "missing-source-row": 19,
+          "missing-observation": 63,
+          "changed-sector": 129,
+          "dot-missing-marker": 56
+        },
+        "comparable": 1800,
+        "reversed": 3,
+        "reversalTypes": {
+          "exact-return": 2,
+          "partial": 1
+        }
+      },
+      "revisions": [
+        {
+          "lag": 1,
+          "registered": 3168,
+          "statuses": {
+            "definition-text-change": 763,
+            "observed": 2066,
+            "missing-source-snapshot": 103,
+            "missing-source-row": 13,
+            "missing-observation": 62,
+            "changed-sector": 112,
+            "dot-missing-marker": 49
+          },
+          "comparable": 2066,
+          "changed": 131,
+          "originalFlags": {
+            "Reported": 2064,
+            "Imputed using Carry Forward procedure": 2
+          },
+          "changedLaterFlags": {
+            "Reported": 131
+          },
+          "logRevision": {
+            "count": 2066,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.004693027253734598
+          }
+        },
+        {
+          "lag": 2,
+          "registered": 3168,
+          "statuses": {
+            "definition-text-change": 895,
+            "observed": 1800,
+            "missing-source-snapshot": 208,
+            "missing-source-row": 14,
+            "missing-observation": 69,
+            "changed-sector": 126,
+            "dot-missing-marker": 56
+          },
+          "comparable": 1800,
+          "changed": 136,
+          "originalFlags": {
+            "Reported": 1800
+          },
+          "changedLaterFlags": {
+            "Reported": 136
+          },
+          "logRevision": {
+            "count": 1800,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.005910053015871147
+          }
+        }
+      ]
+    },
+    {
+      "sector": "public2out",
+      "component": "tuition",
+      "trainingInstitutions": 132,
+      "transitions": {
+        "registered": 3036,
+        "statuses": {
+          "definition-text-change": 659,
+          "observed": 2201,
+          "missing-source-row": 7,
+          "missing-observation": 61,
+          "changed-sector": 107,
+          "dot-missing-marker": 1
+        },
+        "matched": 2201,
+        "sameSource": {
+          "count": 2201,
+          "p10": 0,
+          "median": 0.026991782681987635,
+          "p90": 0.09574505695838434,
+          "mean": 0.03149999287460089
+        },
+        "stitched": {
+          "count": 2201,
+          "p10": 0,
+          "median": 0.027398974188114347,
+          "p90": 0.10076927536527255,
+          "mean": 0.031664526994196564
+        },
+        "difference": {
+          "count": 2201,
+          "p10": 0,
+          "median": 0,
+          "p90": 0,
+          "mean": -0.0001645341195956621
+        },
+        "sameSourceExtreme25": 65,
+        "stitchedExtreme25": 91
+      },
+      "trajectories": {
+        "registered": 3168,
+        "statuses": {
+          "definition-text-change": 791,
+          "observed": 1937,
+          "missing-source-snapshot": 214,
+          "missing-source-row": 19,
+          "missing-observation": 63,
+          "changed-sector": 143,
+          "dot-missing-marker": 1
+        },
+        "comparable": 1937,
+        "reversed": 20,
+        "reversalTypes": {
+          "exact-return": 9,
+          "overshoot": 6,
+          "partial": 5
+        }
+      },
+      "revisions": [
+        {
+          "lag": 1,
+          "registered": 3168,
+          "statuses": {
+            "definition-text-change": 659,
+            "observed": 2201,
+            "missing-source-snapshot": 107,
+            "missing-source-row": 13,
+            "missing-observation": 62,
+            "changed-sector": 125,
+            "dot-missing-marker": 1
+          },
+          "comparable": 2201,
+          "changed": 203,
+          "originalFlags": {
+            "Reported": 2199,
+            "Imputed using Carry Forward procedure": 2
+          },
+          "changedLaterFlags": {
+            "Reported": 203
+          },
+          "logRevision": {
+            "count": 2201,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.00016453411959566452
+          }
+        },
+        {
+          "lag": 2,
+          "registered": 3168,
+          "statuses": {
+            "definition-text-change": 791,
+            "observed": 1937,
+            "missing-source-snapshot": 216,
+            "missing-source-row": 14,
+            "missing-observation": 69,
+            "changed-sector": 140,
+            "dot-missing-marker": 1
+          },
+          "comparable": 1937,
+          "changed": 257,
+          "originalFlags": {
+            "Reported": 1936,
+            "Imputed using Carry Forward procedure": 1
+          },
+          "changedLaterFlags": {
+            "Reported": 257
+          },
+          "logRevision": {
+            "count": 1937,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": -0.0027445172428431125
+          }
+        }
+      ]
+    },
+    {
+      "sector": "public2out",
+      "component": "housing",
+      "trainingInstitutions": 132,
+      "transitions": {
+        "registered": 3036,
+        "statuses": {
+          "definition-text-change": 763,
+          "observed": 2066,
+          "missing-source-row": 7,
+          "missing-observation": 61,
+          "changed-sector": 95,
+          "dot-missing-marker": 44
+        },
+        "matched": 2066,
+        "sameSource": {
+          "count": 2066,
+          "p10": 0,
+          "median": 0.019992218727214947,
+          "p90": 0.10531661653799665,
+          "mean": 0.029217334270121437
+        },
+        "stitched": {
+          "count": 2066,
+          "p10": 0,
+          "median": 0.021019367224075342,
+          "p90": 0.11042381761437305,
+          "mean": 0.03391036152385599
+        },
+        "difference": {
+          "count": 2066,
+          "p10": 0,
+          "median": 0,
+          "p90": 0,
+          "mean": -0.004693027253734593
+        },
+        "sameSourceExtreme25": 56,
+        "stitchedExtreme25": 59
+      },
+      "trajectories": {
+        "registered": 3168,
+        "statuses": {
+          "definition-text-change": 998,
+          "observed": 1800,
+          "missing-source-snapshot": 103,
+          "missing-source-row": 19,
+          "missing-observation": 63,
+          "changed-sector": 129,
+          "dot-missing-marker": 56
+        },
+        "comparable": 1800,
+        "reversed": 3,
+        "reversalTypes": {
+          "exact-return": 2,
+          "partial": 1
+        }
+      },
+      "revisions": [
+        {
+          "lag": 1,
+          "registered": 3168,
+          "statuses": {
+            "definition-text-change": 763,
+            "observed": 2066,
+            "missing-source-snapshot": 103,
+            "missing-source-row": 13,
+            "missing-observation": 62,
+            "changed-sector": 112,
+            "dot-missing-marker": 49
+          },
+          "comparable": 2066,
+          "changed": 131,
+          "originalFlags": {
+            "Reported": 2064,
+            "Imputed using Carry Forward procedure": 2
+          },
+          "changedLaterFlags": {
+            "Reported": 131
+          },
+          "logRevision": {
+            "count": 2066,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.004693027253734598
+          }
+        },
+        {
+          "lag": 2,
+          "registered": 3168,
+          "statuses": {
+            "definition-text-change": 895,
+            "observed": 1800,
+            "missing-source-snapshot": 208,
+            "missing-source-row": 14,
+            "missing-observation": 69,
+            "changed-sector": 126,
+            "dot-missing-marker": 56
+          },
+          "comparable": 1800,
+          "changed": 136,
+          "originalFlags": {
+            "Reported": 1800
+          },
+          "changedLaterFlags": {
+            "Reported": 136
+          },
+          "logRevision": {
+            "count": 1800,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.005910053015871147
+          }
+        }
+      ]
+    },
+    {
+      "sector": "private4",
+      "component": "tuition",
+      "trainingInstitutions": 657,
+      "transitions": {
+        "registered": 15111,
+        "statuses": {
+          "definition-text-change": 3275,
+          "observed": 11425,
+          "missing-source-row": 50,
+          "missing-observation": 327,
+          "changed-sector": 1,
+          "blank": 10,
+          "dot-missing-marker": 23
+        },
+        "matched": 11425,
+        "sameSource": {
+          "count": 11425,
+          "p10": 0.0046024116014518,
+          "median": 0.0380972723390124,
+          "p90": 0.06576560176304472,
+          "mean": 0.03678227196660092
+        },
+        "stitched": {
+          "count": 11425,
+          "p10": 0.005376357036380496,
+          "median": 0.038151765964376326,
+          "p90": 0.06632695723687924,
+          "mean": 0.03751946553513067
+        },
+        "difference": {
+          "count": 11425,
+          "p10": 0,
+          "median": 0,
+          "p90": 0,
+          "mean": -0.0007371935685297498
+        },
+        "sameSourceExtreme25": 76,
+        "stitchedExtreme25": 85
+      },
+      "trajectories": {
+        "registered": 15768,
+        "statuses": {
+          "definition-text-change": 3932,
+          "observed": 10111,
+          "missing-source-snapshot": 1197,
+          "missing-source-row": 138,
+          "missing-observation": 343,
+          "changed-sector": 3,
+          "blank": 10,
+          "dot-missing-marker": 34
+        },
+        "comparable": 10111,
+        "reversed": 28,
+        "reversalTypes": {
+          "exact-return": 18,
+          "partial": 3,
+          "overshoot": 7
+        }
+      },
+      "revisions": [
+        {
+          "lag": 1,
+          "registered": 15768,
+          "statuses": {
+            "definition-text-change": 3275,
+            "observed": 11425,
+            "missing-source-snapshot": 599,
+            "missing-source-row": 94,
+            "missing-observation": 335,
+            "changed-sector": 2,
+            "blank": 10,
+            "dot-missing-marker": 28
+          },
+          "comparable": 11425,
+          "changed": 576,
+          "originalFlags": {
+            "Reported": 11425
+          },
+          "changedLaterFlags": {
+            "Reported": 576
+          },
+          "logRevision": {
+            "count": 11425,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.0007371935685297503
+          }
+        },
+        {
+          "lag": 2,
+          "registered": 15768,
+          "statuses": {
+            "definition-text-change": 3924,
+            "observed": 10111,
+            "missing-source-snapshot": 1203,
+            "missing-source-row": 100,
+            "missing-observation": 378,
+            "changed-sector": 2,
+            "blank": 16,
+            "dot-missing-marker": 34
+          },
+          "comparable": 10111,
+          "changed": 692,
+          "originalFlags": {
+            "Reported": 10111
+          },
+          "changedLaterFlags": {
+            "Reported": 692
+          },
+          "logRevision": {
+            "count": 10111,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.0008328603740872068
+          }
+        }
+      ]
+    },
+    {
+      "sector": "private4",
+      "component": "housing",
+      "trainingInstitutions": 657,
+      "transitions": {
+        "registered": 15111,
+        "statuses": {
+          "definition-text-change": 3870,
+          "observed": 10805,
+          "missing-source-row": 50,
+          "missing-observation": 327,
+          "changed-sector": 1,
+          "blank": 10,
+          "dot-missing-marker": 48
+        },
+        "matched": 10805,
+        "sameSource": {
+          "count": 10805,
+          "p10": 0,
+          "median": 0.033177321523757394,
+          "p90": 0.06540220335622289,
+          "mean": 0.03403630346233288
+        },
+        "stitched": {
+          "count": 10805,
+          "p10": 0,
+          "median": 0.03315220731690055,
+          "p90": 0.06543552491594151,
+          "mean": 0.03411176026076029
+        },
+        "difference": {
+          "count": 10805,
+          "p10": 0,
+          "median": 0,
+          "p90": 0,
+          "mean": -0.00007545679842743345
+        },
+        "sameSourceExtreme25": 87,
+        "stitchedExtreme25": 91
+      },
+      "trajectories": {
+        "registered": 15768,
+        "statuses": {
+          "definition-text-change": 5122,
+          "observed": 9490,
+          "missing-source-snapshot": 596,
+          "missing-source-row": 132,
+          "missing-observation": 343,
+          "changed-sector": 3,
+          "blank": 10,
+          "dot-missing-marker": 71,
+          "zero": 1
+        },
+        "comparable": 9490,
+        "reversed": 9,
+        "reversalTypes": {
+          "exact-return": 8,
+          "overshoot": 1
+        }
+      },
+      "revisions": [
+        {
+          "lag": 1,
+          "registered": 15768,
+          "statuses": {
+            "definition-text-change": 3870,
+            "observed": 10805,
+            "missing-source-snapshot": 596,
+            "missing-source-row": 91,
+            "missing-observation": 335,
+            "changed-sector": 2,
+            "blank": 10,
+            "dot-missing-marker": 58,
+            "zero": 1
+          },
+          "comparable": 10805,
+          "changed": 390,
+          "originalFlags": {
+            "Reported": 10804,
+            "Analyst corrected reported value": 1
+          },
+          "changedLaterFlags": {
+            "Reported": 390
+          },
+          "logRevision": {
+            "count": 10805,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": 0.00007545679842743288
+          }
+        },
+        {
+          "lag": 2,
+          "registered": 15768,
+          "statuses": {
+            "definition-text-change": 4519,
+            "observed": 9491,
+            "missing-source-snapshot": 1196,
+            "missing-source-row": 98,
+            "missing-observation": 376,
+            "changed-sector": 2,
+            "blank": 16,
+            "dot-missing-marker": 69,
+            "zero": 1
+          },
+          "comparable": 9491,
+          "changed": 400,
+          "originalFlags": {
+            "Reported": 9490,
+            "Analyst corrected reported value": 1
+          },
+          "changedLaterFlags": {
+            "Reported": 400
+          },
+          "logRevision": {
+            "count": 9491,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "mean": -0.00018563997483518816
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Descriptive origin-2010 training cohort; excludes withheld identities, not a representative population or new economic holdout.",
+    "Residency sectors share institutions and housing observations. Counts are dependent and do not create macroeconomic decades.",
+    "Strict as-of views have no verified publication-vintage sources. Collection-year proxy support is not real historical availability.",
+    "Definition-text differences are marked incomparable; they do not establish an economic population change. Hidden gross/net basis changes can remain undetected.",
+    "No revised prices, economic forecasts or probability remapping are activated. Complete bill/funding evaluation and future calibration remain separate work."
+  ],
+  "sha256": "5df325bf1d0cef8adc496d01c4bc7cc11fe25ed0dba26737694663054a73fa30"
+}
