@@ -2,6 +2,20 @@
 
 Checkpoint: 2026-11-18 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
+## Next improvement round — bounded source eligibility evidence
+
+The user asked whether enough is planned to improve outcomes and authorized execution exclusively through subagents. Existing infrastructure supports a concrete evidence-acquisition step; neither completed candidate is qualified, and source work is not a promised forecast-score improvement. Start from accepted continuity checkpoint `55243dc79404e91908a5464a2f57a244dffdfef6`. Original delivery passes all thirteen jobs at `c725ca9`; the smaller study is independently reproduced but fails scientific coverage screening.
+
+The selected next scope is a separately frozen, bounded review of institution leads **100654 and 100663**, plus official 2006/2007 instrument and availability evidence. Work proceeds on `next-cost-evidence`; no new economic candidate, automatic bridge or historical fit is included.
+
+1. Freeze the bounded targets, proof rules and stopping criteria before implementation and eligibility decisions. Exploratory source-feasibility inspection already includes the 2007 instrument and current release/data-feedback policies; it is development context, not precommitted discovery. Specify the two institution cases, authoritative source targets, expected evidence dimensions, required hashes, independent support rules and stopping criteria.
+2. Acquire and pin authoritative evidence with source URL, retrieval time, content hash and document-specific provenance. Assess price/field semantics, institution reporting population and original publication availability separately. Current accessibility, a matching name or an official form alone cannot certify the other dimensions.
+3. Implement a fail-closed source/hash/evidence/eligibility validator and meaningful negative tests. Missing, conflicting or weak support must retain an explicit unresolved state; it must not silently authorize a graph edge or fill an original vintage.
+4. Independently review every resolved/unresolved decision and reproduce the registry/validator from pinned bytes. Report the exact remaining evidence needed for each unresolved case, including an honest finding that the bounded sources are insufficient.
+5. Publish a reviewable results checkpoint, exact implementation/source identities and CI evidence. Any later bridge, supported-history expansion, economic model or changed hypothesis requires a separately reviewed scope/protocol before outcomes. Preserve the original 320-cell and 960-cell failures, all denominators and provisional defaults.
+
+**Current status:** source protocol is being prepared after exploratory feasibility inspection and before implementation/eligibility decisions. No eligibility resolution, forecast improvement or historical support is claimed at this planning checkpoint. Integration owns remote publication; the continuity owner maintains these canonical progress notes. See [continuity](continuity.md) for exact active SHAs and verified milestones.
+
 ## Authorized continuation — delivery and a separately specified improvement study
 
 The user authorized continued work exclusively through subagents after the context-only review. Start from evidence head `794ae6811ecb6408182c3c3b8484b544b1b109ba` and documentation checkpoint `e894523384b77e7c469551c16310a096068e9853`. The completed candidate remains rejected; this authorization does not change its protocol or outcome.
@@ -107,3 +121,4 @@ No recurring job is currently enabled or required. More schools or simulated pla
 ## 3. Product backlog after evidence infrastructure
 
 Physical iOS Safari export/import, persistence, example restoration and recovery need device verification. Household allocation optimization, transfer/year-specific education schedules, restricted account modeling and reusable template management are separate product scope; the existing fixed-share proposal is not an optimizer. Update partly stale architecture/roadmap prose against current code before using it as an implementation specification. Prioritize this work explicitly rather than allowing old milestone lists to displace the active calibration release.
+

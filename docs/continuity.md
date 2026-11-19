@@ -9,7 +9,17 @@ Updated **2026-11-18, America/Los_Angeles**. This is a repository-grounded hando
 3. [Active work plan](active-work-plan.md) and [next calibration steps](calibration-next-steps.md).
 4. [Decision record](decisions.md), then the frozen protocol/results for the task being resumed.
 
-## Active delegated checkpoint — original delivery and separate screening study
+## Active checkpoint — bounded source evidence, next improvement round
+
+The user authorized another execution round exclusively through subagents after checkpoint `55243dc79404e91908a5464a2f57a244dffdfef6`. The [executable phase plan](active-work-plan.md#next-improvement-round--bounded-source-eligibility-evidence) now targets the first two institution reporting-population leads, **100654 and 100663**, and official 2006/2007 instrument/publication-availability evidence. The new branch is `next-cost-evidence`, based on that checkpoint.
+
+This is a concrete evidence-acquisition and validation step toward better-supported modeling. It is not a newly qualified cost model or a promise of better forecast scores. The original 320-cell evaluation has all thirteen engineering jobs accepted but remains scientifically rejected. The smaller 960-cell comparator is independently reproduced but fails coverage screening. Neither result will be retuned or reinterpreted as a pass.
+
+The scientific subagent is freezing bounded targets, proof rules and stopping criteria before implementation and eligibility decisions. Exploratory feasibility work has already inspected/downloaded the 2007 instrument and reviewed current release/data-feedback policies; those observations are development context, not preregistered discovery. The planned implementation pins authoritative source bytes/hashes and independently validates evidence linkage and eligibility, keeping field semantics, reporting-population continuity and original availability separate. Current accessibility and institution-name matches do not establish historical support. No eligibility decision has yet been resolved at this planning checkpoint; no graph bridge, historical fit, default change or production activation is authorized by this source review alone.
+
+**Next action:** publish the bounded source protocol and this plan with the exploratory chronology explicit, pin only its bounded evidence targets, implement/test the fail-closed source/evidence validator, then obtain independent review and report specific resolved/unresolved blockers. Exact protocol, source, implementation and CI identities will be recorded at subsequent checkpoints. Earlier completed delivery and scientific evidence follow below.
+
+## Completed delegated checkpoint — original delivery and separate screening study
 
 The user authorized continuation exclusively through subagents. The original evaluation remains on `complete-cost-evaluation`, [draft PR #17](https://github.com/jschell/education-finance/pull/17), at `c725ca9f5ce7176e7f22c36b655f82013ea6a0e9`. The separate research branch is `separable-cost-study`, [draft PR #18](https://github.com/jschell/education-finance/pull/18), based on `complete-cost-evaluation`. No merge, deployment, historical fit or production activation has occurred; app 0.15.0/core model12/schema5 and provisional tuition 4%/housing 3% defaults remain unchanged.
 
@@ -217,3 +227,4 @@ The deep review of v0.10.2 (`d0d536c`) motivated overhaul D. Its gate/anchor/tim
 ## Checkpoint discipline
 
 Before ending a session, record branch/head, app/model/schema/bundle, completed versus planned work, commands/outcomes, PR/deployment links, blockers and one concrete next action. Commit substantive plans before extended implementation; freeze evaluation rules before scores. Retain failed findings. Do not commit machine paths, private family exports, tokens or transient logs.
+
