@@ -10,16 +10,22 @@ The completed experiment, decision, search accounting, readable results and deli
 
 The existing [results](complete-cost-evaluation-results.md) remain current: all 320 cells complete; candidate mixtures 32/64, 45/64, 52/64 versus old 0/64, 1/64, 10/64 at 3/7/12 transitions. Promotion is rejected: 21 passing, 13 failing and three unsupported gates. Historical evaluation remains unsupported; defaults and production are unchanged.
 
-## Pending delivery verification
+## Current delivery checkpoint
 
-The context-only review observed no PR for the branch and no branch workflow runs. It did not run tests, numerical reproductions, artifact checks or workflows, and did not create a PR, merge or deploy. Earlier local verification recorded in continuity is prior-session evidence, not independent CI acceptance.
+The original delivery now has [draft PR #17](https://github.com/jschell/education-finance/pull/17), at `c725ca9f5ce7176e7f22c36b655f82013ea6a0e9`, and [Check run 44548923191](https://github.com/jschell/education-finance/actions/runs/44548923191) in progress. Pinned local application, mathematics, financial/decision, archive, readable-result, metadata, all fifteen support-group and projection/minimum checks pass against the original source tree. No independent 320-cell local refit was repeated; the eight CI partitions are performing that work. All thirteen CI jobs must finish successfully before delivery acceptance. See [continuity](continuity.md) for precise test counts, prior cancelled run and unresolved status.
+
+A separately frozen smaller-model screen is on `separable-cost-study`; it preserves this candidate's rejected decision. The checklist below describes delivery requirements, some now completed locally. No merge, deployment or scientific promotion is authorized by a passing engineering check.
+
+## Delivery requirements and verification sequence
+
+The earlier context-only review observed no PR or workflow run and executed no checks. The later authorized continuation completed local verification and opened the draft PR above. Independent CI acceptance remains pending; preserve the chronology rather than treating the earlier review as the current delivery state.
 
 1. Use the exact Python/Node versions and numerical environment in the [method's reproduction section](complete-cost-evaluation-method.md#reproduce). Run its complete application, mathematics, financial/decision, retained-case and source/projection verification list. Also verify archive bytes and generated readable results using the two commands below.
 2. Inspect the resulting diff and retain every frozen protocol, generating source, case, failed gate and scientific decision. Record exact verified commit SHAs and any failures. Do not rerun the experiment to seek better scientific outcomes or change tolerances.
-3. When delivery work is resumed, open a draft PR and require all thirteen [Check workflow](../.github/workflows/check.yml) jobs: `check`, `reml-study`, `predictive-study`, `covariance-audit`, `complete-evaluation-0` through `complete-evaluation-7`, and `evaluation-support`. All eight partitions together independently refit the 320-cell grid; support includes all 185 retained fits. A later manual dispatch can use `force_full=true` to bypass completion caches. Neither PR creation nor dispatch was performed in this pass.
+3. Keep the existing draft PR open and require all thirteen [Check workflow](../.github/workflows/check.yml) jobs: `check`, `reml-study`, `predictive-study`, `covariance-audit`, `complete-evaluation-0` through `complete-evaluation-7`, and `evaluation-support`. All eight partitions together independently refit the 320-cell grid; support includes all 185 retained fits. A later manual dispatch can use `force_full=true` to bypass completion caches. The draft PR above now exists; no manual full dispatch has been claimed.
 4. Update continuity with exact publication/CI links, head SHA and acceptance or unresolved failures. Reproducing a scientifically rejected result can pass engineering checks; it does not promote the candidate.
 
-First unexecuted verification commands, after applying the pinned environment from the method:
+Local verification commands, already passing in the authorized continuation after applying the pinned environment from the method:
 
 ```sh
 python scripts/package_complete_evaluation.py --verify
