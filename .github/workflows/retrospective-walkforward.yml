@@ -31,6 +31,7 @@ jobs:
         run: python -m unittest discover -s tests -p 'retrospective*test.py'
       - name: Verify and reproduce the unchanged production-process reference
         run: |
+          mkdir -p .cache
           node scripts/retrospective_current_baseline.mjs --self-test
           node scripts/retrospective_current_baseline.mjs --output .cache/retrospective-b0.json
       - name: Independently reproduce the complete bounded walk-forward comparison
