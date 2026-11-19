@@ -36,7 +36,7 @@ jobs:
           node scripts/retrospective_current_baseline.mjs --output .cache/retrospective-b0.json
       - name: Compare regenerated B0 with the immutable current-process archive
         run: |
-          python -c "import sys, gzip, json; from pathlib import Path; sys.path.insert(0, 'scripts'); from run_retrospective_walkforward import compare; compare(json.loads(gzip.decompress(Path('data/calibration-diagnostics/retrospective-current-reference.json.gz').read_bytes())), json.loads(Path('.cache/retrospective-b0.json').read_text()))"
+          python -c "import sys, gzip, json; from pathlib import Path; sys.path.insert(0, 'scripts'); from run_retrospective_walkforward import compare; expected=json.loads(gzip.decompress(Path('data/calibration-diagnostics/retrospective-current-reference.json.gz').read_bytes())); actual=json.loads(Path('.cache/retrospective-b0.json').read_text()); actual.pop('elapsedSeconds', None); compare(expected, actual)"
       - name: Independently reproduce the complete bounded anchored C2 comparison
         run: python scripts/run_retrospective_c2.py --verify
       - name: Verify unchanged application and financial behavior
