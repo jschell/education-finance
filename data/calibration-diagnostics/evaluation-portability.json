@@ -1,0 +1,40 @@
+{
+  "id": "complete-evaluation-portability-v1",
+  "sourceHashes": {
+    "data/calibration-diagnostics/evaluation-retained-avx2.json.gz": "400c5bd7da29456810d4e0c768d85cee93f4c6c7c7a0578f35f71b42f1f0770b",
+    "data/calibration-diagnostics/evaluation-retained-default.json.gz": "3a987e3f8d934ee36d39831700f33926859d77118badfb50a67068d06bb294ab"
+  },
+  "passed": false,
+  "state": "fail",
+  "cases": 185,
+  "differences": [
+    {
+      "outerSeed": 2026112016,
+      "transitions": 3,
+      "index": 6,
+      "reasons": [
+        "status"
+      ],
+      "avxStatus": "unavailable",
+      "defaultStatus": "qualified",
+      "avxObjective": -166.32940063232067,
+      "defaultObjective": -166.3294006323208
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 3,
+      "index": 0,
+      "reasons": [
+        "status"
+      ],
+      "avxStatus": "unavailable",
+      "defaultStatus": "qualified",
+      "avxObjective": -186.35531842423126,
+      "defaultObjective": -186.35531842423134
+    }
+  ],
+  "uncomparable": [],
+  "scope": "Two local numerical backends on identical graphs; finite search adequacy is not proof of a global optimum.",
+  "historicalFits": 0,
+  "productionActivated": false
+}
