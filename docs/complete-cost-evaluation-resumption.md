@@ -1,14 +1,39 @@
 # Complete evaluation recovery and delivery
 
-The incomplete session is identified by protocol `d5073c7`, remote implementation `736be2a` on `complete-cost-evaluation`, and a recovered local completion commit `7c940a6`. Remote main remains `a6b89e4`; the completed experiment was not published there. The recovered local commit is not a descendant of the remote implementation, so recover its final file changes onto the existing remote branch without rewriting published history.
+Updated 2026-11-18 America/Los_Angeles after a subagent context-only review. Reviewed evidence head: [`794ae6811ecb6408182c3c3b8484b544b1b109ba`](https://github.com/jschell/education-finance/commit/794ae6811ecb6408182c3c3b8484b544b1b109ba), on `complete-cost-evaluation`; remote main: `a6b89e4dd47141181012ba8923ad3c6f92a3b990`. See [continuity](continuity.md) for the active checkpoint.
 
-The completed 320-cell evidence matches the session: new complete mixtures 32/64, 45/64, 52/64 versus old 0/64, 1/64, 10/64 at 3/7/12 transitions. The decision is reject, with 21 passing, 13 failing and three unsupported gates. Historical evaluation remains unsupported; defaults and production are unchanged.
+## Already recovered and published
 
-Delivery work:
+The incomplete session is identified by frozen protocol `d5073c7`, remote implementation `736be2a` and recovered local completion commit `7c940a6`. The recovered local commit was not a descendant of the remote implementation. Recovery commit `794ae6811ecb6408182c3c3b8484b544b1b109ba` replayed its final changes onto the existing remote branch without rewriting published history.
 
-1. Recover the completed experiment, decision, search accounting, readable results and final verification guards. Preserve the frozen protocol, generating sources, every case and failed gate.
-2. Complete the interrupted lossless gzip packaging and verify decompressed JSON identity. Record encoding provenance and update only dependent archive hashes and generated presentation; compare scientific decisions before and after.
-3. Run application checks, targeted mathematical/decision/guard checks and artifact/source reproduction. Publish a draft PR and execute all thirteen CI jobs, including eight independent numerical partitions. Record failures honestly; do not change scientific tolerances to obtain acceptance.
-4. Update continuity with exact publication and CI evidence. This candidate's evaluation ends with rejection; do not restart the experiment or tune the candidate under this protocol.
+The completed experiment, decision, search accounting, readable results and delivery guards are now committed. Lossless gzip packaging is recorded in the [method](complete-cost-evaluation-method.md) and `data/calibration-diagnostics/evaluation-archive.json`. The recorded delivered gzip is 11,034,309 bytes; the unchanged decompressed JSON is 53,687,719 bytes with SHA-256 `eb8c3b9d8ea273c38975f511afb3089aa39c979f2f6a33d6b12bfaf280247640`. These are repository-recorded identities, not a new byte verification during this review.
 
-The recovered files are evidence to verify, not proof of independent CI acceptance. No historical fit or production deployment is part of this delivery.
+The existing [results](complete-cost-evaluation-results.md) remain current: all 320 cells complete; candidate mixtures 32/64, 45/64, 52/64 versus old 0/64, 1/64, 10/64 at 3/7/12 transitions. Promotion is rejected: 21 passing, 13 failing and three unsupported gates. Historical evaluation remains unsupported; defaults and production are unchanged.
+
+## Pending delivery verification
+
+The context-only review observed no PR for the branch and no branch workflow runs. It did not run tests, numerical reproductions, artifact checks or workflows, and did not create a PR, merge or deploy. Earlier local verification recorded in continuity is prior-session evidence, not independent CI acceptance.
+
+1. Use the exact Python/Node versions and numerical environment in the [method's reproduction section](complete-cost-evaluation-method.md#reproduce). Run its complete application, mathematics, financial/decision, retained-case and source/projection verification list. Also verify archive bytes and generated readable results using the two commands below.
+2. Inspect the resulting diff and retain every frozen protocol, generating source, case, failed gate and scientific decision. Record exact verified commit SHAs and any failures. Do not rerun the experiment to seek better scientific outcomes or change tolerances.
+3. When delivery work is resumed, open a draft PR and require all thirteen [Check workflow](../.github/workflows/check.yml) jobs: `check`, `reml-study`, `predictive-study`, `covariance-audit`, `complete-evaluation-0` through `complete-evaluation-7`, and `evaluation-support`. All eight partitions together independently refit the 320-cell grid; support includes all 185 retained fits. A later manual dispatch can use `force_full=true` to bypass completion caches. Neither PR creation nor dispatch was performed in this pass.
+4. Update continuity with exact publication/CI links, head SHA and acceptance or unresolved failures. Reproducing a scientifically rejected result can pass engineering checks; it does not promote the candidate.
+
+First unexecuted verification commands, after applying the pinned environment from the method:
+
+```sh
+python scripts/package_complete_evaluation.py --verify
+npm run check
+python -m unittest discover -s tests -p evaluation_optimizer_test.py
+python -m unittest discover -s tests -p complete_evaluation_test.py
+python -m unittest discover -s tests -p evaluation_delivery_test.py
+python scripts/run_complete_evaluation.py --validate
+python scripts/finalize_cost_evaluation.py --verify
+python scripts/summarize_complete_evaluation.py --verify
+```
+
+Then continue with the method's full independent numerical/source verification commands. The workflow triggers on main pushes, pull requests or manual dispatch; documentation pushes to this branch alone do not start CI.
+
+## Scientific stopping point
+
+This candidate's evaluation concludes with rejection. Do not restart older completed audits or tune this candidate under the frozen protocol. A different candidate or an independently evidenced reporting-population/original-vintage acquisition program needs a separate scope/protocol. Historical fitting and production deployment are outside this delivery.
