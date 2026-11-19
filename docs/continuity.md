@@ -9,7 +9,21 @@ Updated **2026-11-18, America/Los_Angeles**. This is a repository-grounded hando
 3. [Active work plan](active-work-plan.md) and [next calibration steps](calibration-next-steps.md).
 4. [Decision record](decisions.md), then the frozen protocol/results for the task being resumed.
 
-## Active result — genuine revised-data walk-forward comparison
+## Active C2 result — aggregate improvement with failed subgroup protections
+
+The authorized follow-up is complete under [C2 protocol](retrospective-c2-protocol.md), published at `ffe318860a8702866fafcef7934b26f8a169ae5f` before C2 outcomes. Branch `retrospective-c2` starts from PR #22 head `a37d3203770f258bcefa696937598b6d7ab9539e`. All prior C1 generating sources/artifacts and its rejection remain unchanged. See [C2 results](retrospective-c2-results.md).
+
+The single changed law anchors future nominal log centers to the current provisional 4%/3% policy, with recent-sector deviations and per-trial mean uncertainty decaying at 0.5 annually. Identical empirical annual shocks and signed school states are retained; there is no wait-specific switch, parameter search or new source. These are conditional present-policy assumptions evaluated on consumed revised histories, not economic truths or historically recorded expectations.
+
+All 6,480 cases are retained. On the fixed 1,001-case B0/B2 primary support, C2 score is **0.357242**, versus B0 **0.428754** and B2 **0.453912**: **16.68%** and **21.30%** aggregate improvements. Weighted 80% coverage is **89.37%**, explicitly overcoverage; median signed error is approximately **-0.003658** origin budgets. Descriptive block score-difference intervals are [-0.114227,-0.048383] versus B0 and [-0.111467,-0.087225] versus B2. These are reused/dependent historical development results.
+
+Four of twenty frozen subgroup protections fail: public two-year in-state unknown/wait4 (+14.84% versus B2); public two-year out-of-state known/wait4 (+68.11% versus B0); private four-year unknown/wait0 (+25.66% versus B0); private four-year unknown/wait4 (+11.70% versus B0). Therefore **reject-fixed-C2** despite its aggregate gains. No subgroup exception or threshold waiver is applied.
+
+Independent raw-case audit passes: all old 6,480 cases are identical after removing new C2 fields; 4,347 C2 score/normalizer/truth identities and fixed-support decisions validate. The 43 combined targeted tests, all 216 application/financial tests and full local reproduction pass. The exact first generating runner is retained; a post-outcome overwrite-refusal wrapper and source-stamp handling were independently reviewed as packaging-only, with no scientific numeric change. Dedicated CI remains pending at this publication checkpoint.
+
+**Stop this fixed comparison.** No C1 rescue, C3 search, funding/investment/household claim, source bridge, model activation, merge or deployment follows. Publish/reproduce the retained improvement and failures; any different mechanism or adoption requires separate authorization/protocol.
+
+## Completed C1 result — genuine revised-data walk-forward comparison
 
 The user-authorized bounded historical comparison is complete under [protocol](retrospective-walkforward-protocol.md), published at `3700720c4cef24c71dd94d16f25d771b135a1c77`, with pre-outcome precision/B0-footprint clarification `4f445e87e938c0846c7794d76cb74316a23c33e8`. Branch: `retrospective-walkforward`, based on PR #21 head `a8bf1801ab72d403df065771bf82462c72a8cf78`. See [actual results](retrospective-walkforward-results.md).
 

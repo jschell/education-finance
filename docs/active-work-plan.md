@@ -2,6 +2,12 @@
 
 Checkpoint: 2026-11-18 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
+## Bounded C2 follow-up — measured gains, retained rejection
+
+The [fixed C2 protocol](retrospective-c2-protocol.md) was published at `ffe318860a8702866fafcef7934b26f8a169ae5f` before new outcomes. The anchored nominal-state law reuses the existing data, case grid, shocks, cutoffs and seed. [Actual results](retrospective-c2-results.md): on the fixed 1,001 primary cases, C2 improves proper interval score **16.68% versus current B0** and **21.30% versus B2**, but fails **four of twenty** frozen subgroup no-harm checks. Decision: **reject-fixed-C2**. Coverage **89.37%** is overcoverage, not nominal calibration. Old C1 results remain unchanged.
+
+Independent scientific/packaging review, 43 targeted tests, 216 application tests and full local reproduction pass; dedicated CI is pending. Preserve the aggregate gains and the four regressions without post-hoc subgroup routing, more anchors or parameter searches. No production/funding qualification or activation occurs. The exact original generator is retained alongside an independently checked overwrite-protection wrapper. This authorized bounded follow-up is complete scientifically; publication/reproduction acceptance is separate.
+
 ## Priority program — improve forecasts now with revised-data hindcasts
 
 The [deep review and implementable work packages](forecast-improvement-now-review.md) correct an overly broad waiting/vintage prerequisite. The first prospective target in November 2027 does not prevent a new, explicitly revised-data retrospective experiment today. Original publication evidence remains required for an actual as-known-then claim; all failed candidate gates and production protections remain intact.

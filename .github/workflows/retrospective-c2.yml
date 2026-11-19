@@ -1,0 +1,43 @@
+name: Anchored C2 walk-forward
+on:
+  push:
+    branches: [retrospective-c2]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: retrospective-c2-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  retrospective-c2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_CORETYPE: Haswell
+      NPY_DISABLE_CPU_FEATURES: AVX512F,AVX512CD,AVX512_KNL,AVX512_KNM,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL,AVX512_SPR
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12.14'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install pinned research dependency
+        run: python -m pip install numpy==2.3.5
+      - name: Verify model mathematics and independent past-only guards
+        run: python -m unittest discover -s tests -p 'retrospective*test.py'
+      - name: Verify and reproduce the unchanged production-process reference
+        run: |
+          mkdir -p .cache
+          node scripts/retrospective_current_baseline.mjs --self-test
+          node scripts/retrospective_current_baseline.mjs --output .cache/retrospective-b0.json
+      - name: Compare regenerated B0 with the immutable current-process archive
+        run: |
+          python -c "import sys, gzip, json; from pathlib import Path; sys.path.insert(0, 'scripts'); from run_retrospective_walkforward import compare; compare(json.loads(gzip.decompress(Path('data/calibration-diagnostics/retrospective-current-reference.json.gz').read_bytes())), json.loads(Path('.cache/retrospective-b0.json').read_text()))"
+      - name: Independently reproduce the complete bounded anchored C2 comparison
+        run: python scripts/run_retrospective_c2.py --verify
+      - name: Verify unchanged application and financial behavior
+        run: npm run check
