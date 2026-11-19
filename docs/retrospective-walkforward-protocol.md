@@ -136,3 +136,23 @@ check. This first stage evaluates complete nominal bills; investment-path and
 candidate-specific individual/household funding replay are a subsequent bounded
 stage only if cost evidence is useful. The cost experiment must not claim those
 financial outcomes were evaluated. No merge, deployment or model activation.
+
+### Reproduction precision declared before the first scored run
+
+Use Python 3.12.14, NumPy 2.3.5, Node 24, one BLAS thread, Haswell BLAS and
+AVX512 NumPy dispatch disabled as in earlier accepted numerical workflows.
+Independent full reproduction compares numeric leaves with absolute tolerance
+1e-8 plus relative tolerance 1e-10. Source/input identities, status/support
+counts, missingness and decision outcomes must match exactly. This tolerance
+handles floating arithmetic only; it never changes a scientific criterion.
+Within-process future-poisoning tests require exact payload and forecast bytes.
+
+### Current-process reference footprint clarification before aggregate outcomes
+
+The 200-identity training cap applies to the new B2/C1 models. B0 deliberately
+reproduces the existing process: its sector index uses all eligible nonwithheld
+origin-cohort institutions, as `originBundle` already does. This data-footprint
+difference is reported; B0 comparisons are common-case, not identical-training-
+set comparisons. Its original eleven-price-level minimum permits origin 2010
+and later. This clarification resolves the earlier general cap wording without
+altering either reference implementation or the primary B2/C1 comparison.
