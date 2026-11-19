@@ -9,6 +9,12 @@ Updated **2026-11-18, America/Los_Angeles**. This is a repository-grounded hando
 3. [Active work plan](active-work-plan.md) and [next calibration steps](calibration-next-steps.md).
 4. [Decision record](decisions.md), then the frozen protocol/results for the task being resumed.
 
+## Continuing work authorized — 2026-11-18
+
+After the context-only checkpoint, the user authorized executing the continuing plan and pursuing improvement exclusively through subagents. The [active work plan](active-work-plan.md#authorized-continuation--delivery-and-a-separately-specified-improvement-study) records the execution order: pinned local delivery checks, draft PR and thirteen-job independent CI acceptance, then a separately precommitted improvement study using a new untouched evaluation batch. The rejected 320-cell result remains unchanged; improvement is not yet established.
+
+The integration subagent has established a clean checkout at documentation checkpoint `e894523384b77e7c469551c16310a096068e9853` and is starting delivery verification. No new test result, independent CI acceptance or improvement outcome has been verified at this planning checkpoint. Branch pushes and PR/CI work are coordinated through that integration owner. Exact checked commits, results and remaining blockers will replace this status as work proceeds.
+
 ## Context-only review — 2026-11-18
 
 Subagents reviewed remote branch `complete-cost-evaluation` at [`794ae6811ecb6408182c3c3b8484b544b1b109ba`](https://github.com/jschell/education-finance/commit/794ae6811ecb6408182c3c3b8484b544b1b109ba), “Recover completed 320-case cost evaluation and rejection evidence.” Remote main was `a6b89e4dd47141181012ba8923ad3c6f92a3b990`. That recovery commit already publishes the completed evidence and lossless packaging described below; those steps must not be restarted merely because the previous conversation filled.
