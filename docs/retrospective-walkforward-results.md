@@ -88,7 +88,7 @@ Unknown institution IDs provide stable simulation keys only; their histories are
 
 Independent review validates all 6,480 unique grid records, 180 cutoff traces and 18,696 score/formula/origin-budget identities. Real-data future-poisoning changes post-cutoff prices, CPI and directory metadata—including added future identities—and proves exact input/fit/forecast invariance. Lag tests preserve the explicitly supplied origin anchor/cohort while poisoning everything after the earlier training cutoff. Separate B0 checks poison future foundation macro/cost data and prove unchanged cutoff cohorts/factors. Tests also cover signed reversal, same-identity draws, unknown-state exclusion, anchor identity, hand-computed bill totals, proper normalization and matched missing denominators.
 
-Local targeted tests, independent full frozen forecast reproduction and `npm run check` pass; exact test counts and dedicated-CI acceptance are recorded in continuity. The fast workflow regenerates the B0 reference and independently recomputes the complete new experiment, using the predeclared numeric tolerances. The earlier 320/960-cell experiments are not rerun or altered.
+Local targeted tests, independent full frozen forecast reproduction and `npm run check` pass. Dedicated CI [44604821126](https://github.com/jschell/education-finance/actions/runs/44604821126) accepts implementation `9c9f7420ab0fd1644b01e79cf97fb0647385fabc`: 26 targeted tests, fresh B0 replay, the full 6,480-case numerical comparison and 216 application/financial tests. The first attempt, CI 44604466105, passed the tests/replay but failed writing a missing temporary `.cache` directory; the workflow and commands now create it. This packaging correction changed no scientific source, artifact, seed, tolerance or score. Exact delivery/checkpoint identities belong in continuity. The fast workflow regenerates the B0 reference and independently recomputes the complete new experiment, using the predeclared numeric tolerances. The earlier 320/960-cell experiments are not rerun or altered.
 
 - [Full compact walk-forward artifact](../data/calibration-diagnostics/retrospective-walkforward.json.gz)
 - [Current-process reference archive](../data/calibration-diagnostics/retrospective-current-reference.json.gz)
@@ -97,6 +97,7 @@ Local targeted tests, independent full frozen forecast reproduction and `npm run
 - [Fixed experiment and scoring](../scripts/run_retrospective_walkforward.py)
 
 ```sh
+mkdir -p .cache
 node scripts/retrospective_current_baseline.mjs --self-test
 node scripts/retrospective_current_baseline.mjs --output .cache/retrospective-b0.json
 python -m unittest discover -s tests -p 'retrospective*test.py'
