@@ -9,7 +9,17 @@ Updated **2026-11-18, America/Los_Angeles**. This is a repository-grounded hando
 3. [Active work plan](active-work-plan.md) and [next calibration steps](calibration-next-steps.md).
 4. [Decision record](decisions.md), then the frozen protocol/results for the task being resumed.
 
-## Active checkpoint — deep review: improve forecasts without a prospective wait
+## Active execution — bounded revised-data walk-forward forecasts
+
+The user authorized implementation and a genuine historical comparison through subagents. The [frozen protocol](retrospective-walkforward-protocol.md) was published at `3700720c4cef24c71dd94d16f25d771b135a1c77` on branch `retrospective-walkforward` before fitting/scoring new forecast outcomes. The base is PR #21 head `a8bf1801ab72d403df065771bf82462c72a8cf78`.
+
+Scope: 2003–2020 origins, five sector/residency categories, six known plus six withheld sampled identities per origin/category, first-200 training cap, 512 paired paths, and primary versus one-year-lagged training views with the supplied origin anchor fixed. B2/C1 share stochastic path machinery and fixed parameters; no inner hyperparameter search or completed-bill tuning is claimed in this bounded first run. Primary wait-zero/four bill scores and exploratory wait-eight outcomes use the same case denominators. All periods are consumed revised-data retrospective evidence, not real-time vintage or untouched validation.
+
+Model-level mathematical/independence checks pass after protocol publication; data-runner future-poisoning and complete past-only trace verification remain pending. No historical score or improvement is claimed at this checkpoint. The first real run and source-pinned artifact will retain failures/unreached outcomes and stop honestly if the protocol's 20-minute limit is exceeded. Cost-only results do not evaluate funding reliability or activate any model.
+
+**Next action:** finish the cutoff-only payload/runner, execute the frozen comparison, independently verify future invariance and past-only traces, publish actual matched metrics/limits, and run the fast dedicated reproduction workflow. No previous failed gate, production default, UI, graph or source vintage is changed.
+
+## Completed review checkpoint — improve forecasts without a prospective wait
 
 The [forecast-improvement review](forecast-improvement-now-review.md) and [priority action plan](active-work-plan.md) identify a concrete immediate path: predict observable reported charges using a separately specified revised-data hindcast protocol, strong probabilistic baselines and an annual paired-growth model with damped/decaying trends. Earlier summaries overstated original-vintage acquisition and the November 2027 prospective target as universal prerequisites. They remain necessary for stronger real-time/prospective claims, not every useful retrospective comparison.
 
