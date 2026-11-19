@@ -2,11 +2,17 @@
 
 Checkpoint: 2026-11-18 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
+## Complete cost evaluation — implemented, rejected for promotion
+
+All 320 fresh cells are complete. Candidate complete bootstrap mixtures are 3 transitions: 32/64; 7 transitions: 45/64; 12 transitions: 52/64. The fixed requirement is at least 90% at every depth. The candidate is **reject** for promotion; gates: 13 fail, 21 pass, 3 unsupported. [Results](complete-cost-evaluation-results.md), [method](complete-cost-evaluation-method.md), [frozen protocol](complete-cost-evaluation-protocol.md). Both optimizers, complete bootstrap accounting, all financial comparisons, two numerical backends and bounded metadata/source review are complete. Portability also fails; historical eligibility remains unsupported and no graph bridge or production change is authorized.
+
+The next delivery step is full independent CI acceptance, recorded in continuity. After that this evaluation is complete. Do not extend this candidate to seek a pass; any new evidence-acquisition program or smaller candidate needs a separate protocol. The older sections below preserve prior completed work and broader evidence needs.
+
 ## Retained-refit covariance and metadata audit — implemented
 
 [Precommitted audit](boundary-covariance-audit-protocol.md) and [results](boundary-covariance-audit-results.md): all 179 failed attempted AVX2 bootstrap refits plus six prespecified controls were examined with the same REML objective in covariance coordinates. The original stationarity screen passes for 87 previously failed cases; a precommitted multiplier–slack supplement leaves 86 passing necessary KKT checks and 93 unresolved. One accepted control has a lower feasible first-order-checked alternative. These are diagnostics, not a replacement gate or proof of global optimality; no bootstrap is rebuilt. High-support name/definition leads include original dictionary provenance; no equivalence was authorized and no edge bridged. Historical fitting remains blocked.
 
-Next freeze a global-optimization/constraint-qualification study and independently resolve a small set of institution and dictionary leads before constructing an alternative graph. Keep all prior failures and the primary cross-runtime gate.
+That next study is now completed by the full cost evaluation above. Keep all prior failures and the primary cross-runtime gate.
 
 ## Realistic-depth prediction and uncertainty — implemented
 

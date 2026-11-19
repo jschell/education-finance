@@ -1,5 +1,6 @@
 """Independently refit one disjoint CI partition; all eight cover the full grid."""
 import argparse,gzip,json
+from pathlib import Path
 from concurrent.futures import ProcessPoolExecutor,as_completed
 from run_complete_evaluation import OUT,validate,specs,run_cell,compare
 
@@ -10,6 +11,12 @@ def main():
     with ProcessPoolExecutor(max_workers=args.workers) as pool:
         tasks={pool.submit(run_cell,ss[i]):i for i in indices}
         for f in as_completed(tasks):
-            i=tasks[f];actual=json.loads(json.dumps(f.result()));compare(actual,expected['cells'][i],f'cell[{i}]');print(f'Reproduced cell {i}: {ss[i]}',flush=True)
+            i=tasks[f];actual=json.loads(json.dumps(f.result()))
+            try:compare(actual,expected['cells'][i],f'cell[{i}]')
+            except Exception:
+                path=Path('.cache/evaluation-ci')/str(args.partition);path.mkdir(parents=True,exist_ok=True)
+                (path/f'cell-{i}.json.gz').write_bytes(gzip.compress(json.dumps({'index':i,'expected':expected['cells'][i],'actual':actual},allow_nan=False).encode(),mtime=0))
+                raise
+            print(f'Reproduced cell {i}: {ss[i]}',flush=True)
     print(f'Partition {args.partition}: all {len(indices)} independent cells reproduced.')
 if __name__=='__main__':main()
