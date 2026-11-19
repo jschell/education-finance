@@ -2,11 +2,17 @@
 
 Checkpoint: 2026-11-18 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
+## Retained-refit covariance and metadata audit — implemented
+
+[Precommitted audit](boundary-covariance-audit-protocol.md) and [results](boundary-covariance-audit-results.md): all 179 failed attempted AVX2 bootstrap refits plus six prespecified controls were examined with the same REML objective in covariance coordinates. An independent first-order check passes for 87 previously failed cases; 92 remain unresolved. One accepted control has a lower feasible first-order-checked alternative. These are diagnostics, not a replacement gate or proof of global optimality; no bootstrap is rebuilt. High-support name/definition leads include original dictionary provenance; no equivalence was authorized and no edge bridged. Historical fitting remains blocked.
+
+Next freeze a global-optimization/constraint-qualification study and independently resolve a small set of institution and dictionary leads before constructing an alternative graph. Keep all prior failures and the primary cross-runtime gate.
+
 ## Realistic-depth prediction and uncertainty — implemented
 
 The [frozen protocol](predictive-depth-study-protocol.md) preceded 200 synthetic cells, 600 point fits, joint-history bootstrap/refitting, production-ledger complete-bill/deposit/household diagnostics, one simpler covariance comparator, five misspecification controls, focused metadata audit and exact-input reproduction caching. [Results](predictive-depth-study-results.md): no complete bootstrap mixtures at three/seven years; only 5/24 at twelve years. At seven years/32 schools, available REML 80% bill intervals cover only 50% of the 24 worlds. Historical fitting stays blocked; no production/default changes. All older artifacts/gates remain intact.
 
-Next: precommit the retained-refit boundary/PSD-parameterization audit and independently review case-only name/flag-dictionary equivalence leads. Do not infer coverage from successful convergence or expand historical support automatically. See continuity for delivery/check SHAs.
+The retained-refit covariance and metadata review are now implemented above; the next frozen study concerns global optimization and constraint qualification. Do not infer coverage from successful convergence or expand historical support automatically. See continuity for delivery/check SHAs.
 
 ## Estimator repair steps 1–3 — implemented
 

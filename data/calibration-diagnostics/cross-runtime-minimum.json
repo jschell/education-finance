@@ -1,0 +1,84 @@
+{
+  "id": "cross-runtime-minimum-review-v1",
+  "sourceHashes": {
+    "scripts/audit-cross-runtime-minimum.py": "1ab5441450e70b7047ba403bf15ce5fbbe55ea57d1a761d09f00955afade0dda",
+    "scripts/covariance_coordinate_audit.py": "549dfa98ca73eafa0e445e4adc1161d6a8317a4f6e007f5286e7044b2ace6191",
+    "scripts/revision_cost_predictive.py": "360ffda39407ff33db80018243a9ce4ee1a8637a86470087997b56771547357c",
+    "data/calibration-diagnostics/predictive-depth-study.json.gz": "7e0d7e80cbd207f812591e8725803cdb09fb0769cbd6d31816edca369303bb3c",
+    "data/calibration-diagnostics/predictive-depth-avx2.json.gz": "8c7d092b6e190cfe455a4b3aadb56f767a8c70dc3805d176c86ddcd9b033deb1"
+  },
+  "runtime": {
+    "id": "avx2-haswell-v1",
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "environment": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_CORETYPE": "Haswell",
+      "NPY_DISABLE_CPU_FEATURES": "AVX512F,AVX512CD,AVX512_KNL,AVX512_KNM,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL,AVX512_SPR"
+    }
+  },
+  "case": {
+    "seed": 2026112003,
+    "transitions": 3,
+    "schools": 8,
+    "method": "diagonal-shared-reml"
+  },
+  "solutions": {
+    "primary": {
+      "recordedObjective": -195.302437937061,
+      "reevaluatedFrozenObjective": -195.30243793706092,
+      "reevaluatedDirectObjective": -195.3024379370608,
+      "objectiveDifference": 1.1368683772161603e-13,
+      "parameters": [
+        0.0,
+        0.019081752825910504,
+        0.0,
+        0.05406043146669679,
+        0.0017208586394278278,
+        -0.95,
+        0.008042328115880425,
+        0.03993816573631148,
+        0.95,
+        0.017065690543559896,
+        0.030021029202996322,
+        0.300237097584693
+      ],
+      "drift": [
+        0.004129885128514729,
+        -0.0019688748768637997
+      ]
+    },
+    "avx2": {
+      "recordedObjective": -195.2974412832705,
+      "reevaluatedFrozenObjective": -195.2974412832705,
+      "reevaluatedDirectObjective": -195.29744128327033,
+      "objectiveDifference": 1.7053025658242404e-13,
+      "parameters": [
+        0.0,
+        0.019140066594078697,
+        0.0,
+        0.05436833917244642,
+        0.0,
+        0.95,
+        0.006409684981185614,
+        0.03996570396424051,
+        0.95,
+        0.01706320436868346,
+        0.030023907919047056,
+        0.29986057289372126
+      ],
+      "drift": [
+        0.0041167020015816175,
+        -0.0019779168813034813
+      ]
+    }
+  },
+  "higherMinusLower": 0.004996653790470873,
+  "historicalFits": 0,
+  "limitations": [
+    "Reevaluation does not establish global optimality, KKT qualification, or economic calibration.",
+    "The two original runs can differ at floating precision in synthetic input generation; both solutions are reevaluated on this identical common-runtime graph."
+  ]
+}

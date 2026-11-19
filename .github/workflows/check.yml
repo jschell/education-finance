@@ -226,3 +226,33 @@ jobs:
         with:
           name: predictive-runtime-diagnostic
           path: .cache/predictive-reproduction/
+
+  covariance-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_CORETYPE: Haswell
+      NPY_DISABLE_CPU_FEATURES: AVX512F,AVX512CD,AVX512_KNL,AVX512_KNM,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL,AVX512_SPR
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12.14'
+      - name: Install pinned numerical dependencies
+        run: |
+          python3 -m venv /tmp/education-finance-covariance-qa
+          /tmp/education-finance-covariance-qa/bin/pip install numpy==2.3.5 scipy==1.17.0
+      - name: Check direct covariance objective, gradient and KKT
+        run: /tmp/education-finance-covariance-qa/bin/python -m unittest discover -s tests -p covariance_coordinate_test.py
+      - name: Reproduce failed-refit and control audit
+        run: |
+          /tmp/education-finance-covariance-qa/bin/python scripts/audit_covariance_refits.py --validate
+          /tmp/education-finance-covariance-qa/bin/python scripts/audit_covariance_refits.py --verify --workers 2
+          /tmp/education-finance-covariance-qa/bin/python scripts/audit-cross-runtime-minimum.py --verify
+      - name: Reproduce pinned metadata review
+        run: node --max-old-space-size=4096 scripts/review-metadata-leads.mjs --verify
