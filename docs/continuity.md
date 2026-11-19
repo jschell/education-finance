@@ -9,7 +9,17 @@ Updated **2026-11-18, America/Los_Angeles**. This is a repository-grounded hando
 3. [Active work plan](active-work-plan.md) and [next calibration steps](calibration-next-steps.md).
 4. [Decision record](decisions.md), then the frozen protocol/results for the task being resumed.
 
-## Active checkpoint — dated documentary tuition contract
+## Active checkpoint — deep review: improve forecasts without a prospective wait
+
+The [forecast-improvement review](forecast-improvement-now-review.md) and [priority action plan](active-work-plan.md) identify a concrete immediate path: predict observable reported charges using a separately specified revised-data hindcast protocol, strong probabilistic baselines and an annual paired-growth model with damped/decaying trends. Earlier summaries overstated original-vintage acquisition and the November 2027 prospective target as universal prerequisites. They remain necessary for stronger real-time/prospective claims, not every useful retrospective comparison.
+
+A bounded read-only support census keeps existing cohort/outcome rules and finds potential annual-path evaluation at 18/14/10 calendar origins for waits 0/4/8 with a new three-transition predictor. It makes no forecasts or fits. Only 5/2/1 nonoverlapping full origin-to-last-bill windows exist, so related school/plan counts must not imply decades of independent evidence. Direct wait-eight bill quantile regression has no mature same-horizon training/test path here; annual growth-path forecasting is the primary full-horizon route.
+
+The review separately inventories 2000–2023 revised school histories, explains model-specific training/knot restrictions, preserves old rejections, and defines target/source/split/scoring and dependence requirements. It recommends days-to-weeks work packages rather than another open-ended source-proof prerequisite. Original-release and reporting-population evidence remain unresolved for genuine real-time historical qualification. No data is silently repaired, no source bridge is approved, no new candidate is tested and no financial default/model/UI changes occur in this review.
+
+**Next action:** freeze the new revised-data target/evaluation protocol from the review, then implement B2/C1 in isolated research code and compare matched bill forecasts with temporal/identity holdouts and source/cohort sensitivity. Require useful cost evidence before candidate funding replay or adoption. The report records uncertainties and primary references; prior completed source/scientific checkpoints follow below.
+
+## Completed checkpoint — dated documentary tuition contract
 
 After completing the bounded source-acquisition milestone, the user authorized the next bounded step through subagents. The [documentary tuition protocol](tuition-documentary-protocol.md) freezes a new narrow evidence contract before implementation, systematic chart transcription or new eligibility decisions. The child branch `tuition-documentary-evidence`, [draft PR #20](https://github.com/jschell/education-finance/pull/20), starts from accepted source implementation `88b93bf99671bd010d2ff786ba10e2bbc578ca93`, leaving source PR #19 and its inherited broad CI undisturbed.
 
