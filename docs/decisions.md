@@ -60,3 +60,8 @@ The [matched graph and bounded estimator](revision-estimator-results.md) are imp
 ## Realistic-depth uncertainty evidence
 
 The [precommitted predictive study](predictive-depth-study-results.md) adds actual-depth and cash-decision diagnostics without replacing the original v1/REML reports. Incomplete bootstrap refits make their mixtures unavailable; successful-only resampling is prohibited. Available-world coverage is explicitly conditional and paired comparisons use matched world identities. Zero-return cash laboratory outputs are not production probability/deposit recommendations. The shared-diagonal comparator is not selected and metadata review leads authorize no bridges. Next audit retained numerical failures and PSD coordinates before new fitting; historical fitting and strict-vintage qualification remain blocked.
+
+
+## Covariance-coordinate and metadata audit
+
+The [retained-refit audit](boundary-covariance-audit-results.md) checks the same bounded covariance family in direct coordinates. The original stationarity screen covers 87 of 179 previously failed refits; a precommitted complementarity supplement leaves 86 passing necessary KKT checks and 93 unresolved. This is an optimizer diagnostic, not a new acceptance rule or bootstrap success. One of six old accepted controls has a lower feasible alternative objective; neither candidate is proved globally optimal. Keep all failures, nonregular-boundary warnings and the cross-runtime gate. Dictionary/name evidence identifies review targets but does not authorize bridges or historical fitting.
