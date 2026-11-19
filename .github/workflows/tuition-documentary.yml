@@ -1,0 +1,36 @@
+name: Documentary tuition
+on:
+  push:
+    branches: [tuition-documentary-evidence]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tuition-documentary-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  tuition-documentary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12.14'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install the PDF page-proof extractor when absent
+        run: |
+          if ! command -v pdftotext; then
+            sudo apt-get update
+            sudo apt-get install -y poppler-utils
+          fi
+      - name: Verify pinned PDFs, printed dates, measure and overlap facts
+        run: python scripts/tuition_documentary.py
+      - name: Verify documentary and source guards
+        run: |
+          python -m unittest discover -s tests -p 'tuition_documentary*test.py'
+          python -m unittest discover -s tests -p 'source_evidence*test.py'
+      - name: Verify application remains unchanged
+        run: npm run check
