@@ -248,11 +248,14 @@ jobs:
           python3 -m venv /tmp/education-finance-covariance-qa
           /tmp/education-finance-covariance-qa/bin/pip install numpy==2.3.5 scipy==1.17.0
       - name: Check direct covariance objective, gradient and KKT
-        run: /tmp/education-finance-covariance-qa/bin/python -m unittest discover -s tests -p covariance_coordinate_test.py
+        run: |
+          /tmp/education-finance-covariance-qa/bin/python -m unittest discover -s tests -p covariance_coordinate_test.py
+          /tmp/education-finance-covariance-qa/bin/python -m unittest discover -s tests -p covariance_complementarity_test.py
       - name: Reproduce failed-refit and control audit
         run: |
           /tmp/education-finance-covariance-qa/bin/python scripts/audit_covariance_refits.py --validate
           /tmp/education-finance-covariance-qa/bin/python scripts/audit_covariance_refits.py --verify --workers 2
           /tmp/education-finance-covariance-qa/bin/python scripts/audit-cross-runtime-minimum.py --verify
+          /tmp/education-finance-covariance-qa/bin/python scripts/audit_covariance_complementarity.py --verify
       - name: Reproduce pinned metadata review
         run: node --max-old-space-size=4096 scripts/review-metadata-leads.mjs --verify

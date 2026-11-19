@@ -1,0 +1,5505 @@
+{
+  "id": "covariance-complementarity-v1",
+  "sourceHashes": {
+    "docs/covariance-complementarity-protocol.md": "001b4b745ee95104d188ffa9b1fb9101e72de70db50f8f1bfc826bce300ff964",
+    "scripts/audit_covariance_complementarity.py": "5326e444476836002ea4fa0b04588ff5de7c57353b80898f1c7c3d35299066b3",
+    "scripts/covariance_coordinate_audit.py": "549dfa98ca73eafa0e445e4adc1161d6a8317a4f6e007f5286e7044b2ace6191",
+    "tests/covariance_complementarity_test.py": "797d53a7c4317e9a9bb39864b1694b7b8037b763a2111209e3cebe677ccfd2df",
+    "data/calibration-diagnostics/covariance-refit-audit.json.gz": "9bd987f11672630550d5b9c187bacda8c2d47bacf9b1c027a486b9be59f3b494"
+  },
+  "priorStationarityScreenOnly": true,
+  "thresholdObjectiveUnits": 1e-06,
+  "summary": [
+    {
+      "transitions": 3,
+      "kind": "failed",
+      "cases": 54,
+      "priorStationarityPass": 27,
+      "supplementalPass": 27,
+      "unresolved": 27
+    },
+    {
+      "transitions": 3,
+      "kind": "control",
+      "cases": 2,
+      "priorStationarityPass": 1,
+      "supplementalPass": 1,
+      "unresolved": 1
+    },
+    {
+      "transitions": 7,
+      "kind": "failed",
+      "cases": 73,
+      "priorStationarityPass": 35,
+      "supplementalPass": 34,
+      "unresolved": 39
+    },
+    {
+      "transitions": 7,
+      "kind": "control",
+      "cases": 2,
+      "priorStationarityPass": 1,
+      "supplementalPass": 1,
+      "unresolved": 1
+    },
+    {
+      "transitions": 12,
+      "kind": "failed",
+      "cases": 52,
+      "priorStationarityPass": 25,
+      "supplementalPass": 25,
+      "unresolved": 27
+    },
+    {
+      "transitions": 12,
+      "kind": "control",
+      "cases": 2,
+      "priorStationarityPass": 0,
+      "supplementalPass": 0,
+      "unresolved": 2
+    }
+  ],
+  "cases": [
+    {
+      "outerSeed": 2026112001,
+      "transitions": 12,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 2476576981,
+      "kind": "control",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 0.0,
+        "constraints": []
+      }
+    },
+    {
+      "outerSeed": 2026112001,
+      "transitions": 12,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 1756829217,
+      "kind": "control",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 0.0,
+        "constraints": []
+      }
+    },
+    {
+      "outerSeed": 2026112002,
+      "transitions": 7,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 2249461700,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 5.5654843813723735e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 0.9334094148813014,
+            "normalizedSlack": -2.5152408152973953e-12,
+            "absoluteProduct": 2.3477494576923092e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 13.623688044039158,
+            "normalizedSlack": -4.0851525397393904e-12,
+            "absoluteProduct": 5.5654843813723735e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 6.35207646617426,
+            "normalizedSlack": -2.4041385736240346e-12,
+            "absoluteProduct": 1.5271272054938984e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112002,
+      "transitions": 7,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 1683260370,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 8.154730003526915e-06,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 36.29299098425814,
+            "normalizedSlack": -1.1557469493125509e-07,
+            "absoluteProduct": 4.194551361148426e-06
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 21.634124914917354,
+            "normalizedSlack": -3.7693828780215615e-07,
+            "absoluteProduct": 8.154730003526915e-06
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112002,
+      "transitions": 7,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 2942373879,
+      "kind": "control",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.2729509496306287e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 59.81541094106288,
+            "normalizedSlack": -3.7999420448188595e-11,
+            "absoluteProduct": 2.2729509496306287e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 9.555556688701015,
+            "normalizedSlack": 1.824151628156425e-11,
+            "absoluteProduct": 1.7430784291634975e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112002,
+      "transitions": 7,
+      "schools": 8,
+      "index": 3,
+      "refitSeed": 2830160101,
+      "kind": "control",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.190260033738216e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 18.840159507267973,
+            "normalizedSlack": -6.317674928808586e-10,
+            "absoluteProduct": 1.190260033738216e-08
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112002,
+      "transitions": 7,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 3624375844,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 4.2811755633262356e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 22.489916340013895,
+            "normalizedSlack": -1.9035978162840914e-09,
+            "absoluteProduct": 4.2811755633262356e-08
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 4.3379852146564035,
+            "normalizedSlack": -4.626461030760492e-11,
+            "absoluteProduct": 2.0069519547623038e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 10.810421828159054,
+            "normalizedSlack": -4.4836365789798866e-11,
+            "absoluteProduct": 4.847000274293656e-10
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 11.645893283206137,
+            "normalizedSlack": 5.244674819936137e-11,
+            "absoluteProduct": 6.107892325809462e-10
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 65.23965989392919,
+            "normalizedSlack": 1.5135593772806907e-11,
+            "absoluteProduct": 9.87440990030595e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112002,
+      "transitions": 7,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 3399304760,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 7.058956936703172e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 25.43432108552586,
+            "normalizedSlack": -2.7753667624807477e-12,
+            "absoluteProduct": 7.058956936703172e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112002,
+      "transitions": 7,
+      "schools": 8,
+      "index": 13,
+      "refitSeed": 3618281277,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 9.248370111464115e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 42.19557366834142,
+            "normalizedSlack": -2.1917867935998704e-11,
+            "absoluteProduct": 9.248370111464115e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 17.311686237606896,
+            "normalizedSlack": -1.3961311730282839e-11,
+            "absoluteProduct": 2.4169384814007716e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 17.310082282208896,
+            "normalizedSlack": -4.540241884733511e-13,
+            "absoluteProduct": 7.859196060586828e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112002,
+      "transitions": 7,
+      "schools": 8,
+      "index": 14,
+      "refitSeed": 6376307,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 4.4647340396018013e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 9.50024523048477,
+            "normalizedSlack": -1.8391790061641977e-11,
+            "absoluteProduct": 1.747265158131914e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 17.212558507206573,
+            "normalizedSlack": -2.5938816926795057e-11,
+            "absoluteProduct": 4.4647340396018013e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112002,
+      "transitions": 7,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 3219853902,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.3509399448221945e-11,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 11.852009114541056,
+            "normalizedSlack": -1.9835792582523927e-12,
+            "absoluteProduct": 2.3509399448221945e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 3929783833,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 4.623098669236903e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 5.459596624737654,
+            "normalizedSlack": -6.751357494348167e-13,
+            "absoluteProduct": 3.685968858854052e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 2.3205974031275387,
+            "normalizedSlack": -3.39282038171264e-12,
+            "absoluteProduct": 7.873370167080538e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 6.8602920112074885,
+            "normalizedSlack": -6.738924030761754e-12,
+            "absoluteProduct": 4.623098669236903e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 2703359420,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.3990525132433699e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 24.52181887629039,
+            "normalizedSlack": -5.705337439695728e-11,
+            "absoluteProduct": 1.3990525132433699e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 1.4271850597496483,
+            "normalizedSlack": -2.9631397956964742e-12,
+            "absoluteProduct": 4.228948846367633e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 21.11463699059622,
+            "normalizedSlack": -8.546564689580256e-13,
+            "absoluteProduct": 1.804576109371348e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 2702395153,
+      "kind": "control",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 3.3017889593777164e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 9.581955208686821,
+            "normalizedSlack": -3.445840527812504e-11,
+            "absoluteProduct": 3.3017889593777164e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 1.265228339599473,
+            "normalizedSlack": -3.711542676322258e-12,
+            "absoluteProduct": 4.695948977715795e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 3,
+      "refitSeed": 814919720,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.573350423411781e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 21.49153821857555,
+            "normalizedSlack": -1.197378427379193e-11,
+            "absoluteProduct": 2.573350423411781e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 0.9571948355503633,
+            "normalizedSlack": -1.2231319905417027e-11,
+            "absoluteProduct": 1.1707756245429536e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 4,
+      "refitSeed": 3215148558,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 5.995737879650013e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 18.538902178102255,
+            "normalizedSlack": -3.2341385816966267e-10,
+            "absoluteProduct": 5.995737879650013e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 13.175565397435017,
+            "normalizedSlack": -2.1183503934493e-10,
+            "absoluteProduct": 2.7910464143573452e-09
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 0.5518435137125505,
+            "normalizedSlack": -6.686977212341671e-10,
+            "absoluteProduct": 3.690165000974383e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 5,
+      "refitSeed": 4241249767,
+      "kind": "control",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "zero-gradient-or-invalid"
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 1277684000,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 3.6677167522093095e-07,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 6.103183872526452,
+            "normalizedSlack": -2.7122574545795274e-09,
+            "absoluteProduct": 1.6553405954929416e-08
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 4.023595171112422,
+            "normalizedSlack": -9.115521309255569e-08,
+            "absoluteProduct": 3.6677167522093095e-07
+          },
+          {
+            "constraint": "lower:3",
+            "multiplier": 2.382167484199513,
+            "normalizedSlack": 0.0,
+            "absoluteProduct": 0.0
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 5.78616455543974,
+            "normalizedSlack": 0.0,
+            "absoluteProduct": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 7,
+      "refitSeed": 1237507618,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 5.735785008219034e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 3.83102248648929,
+            "normalizedSlack": -1.4971942943293057e-10,
+            "absoluteProduct": 5.735785008219034e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 2.6878335196087617,
+            "normalizedSlack": 1.3226904365453214e-12,
+            "absoluteProduct": 3.5551716914124607e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 0.6244889263913544,
+            "normalizedSlack": -3.217517707375701e-12,
+            "absoluteProduct": 2.0093041787242235e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 853076099,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 5.255019723144884e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 4.892690326966676,
+            "normalizedSlack": -1.0740552481282504e-11,
+            "absoluteProduct": 5.255019723144884e-11
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 2.1472437854185613,
+            "normalizedSlack": -2.1821242859164283e-11,
+            "absoluteProduct": 4.6855528119449666e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 10,
+      "refitSeed": 2838326799,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 3.105268661523322e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 9.119284148858053,
+            "normalizedSlack": -3.405167128071312e-11,
+            "absoluteProduct": 3.105268661523322e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 1.730414112967864,
+            "normalizedSlack": -1.7897821173438069e-10,
+            "absoluteProduct": 3.097064234989229e-10
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 2.3152929587311926,
+            "normalizedSlack": 3.5281373754861126e-16,
+            "absoluteProduct": 8.168671622899346e-16
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 17.87191388131735,
+            "normalizedSlack": 3.1853469146084025e-15,
+            "absoluteProduct": 5.692824574000131e-14
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 11,
+      "refitSeed": 4284616434,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.8316683198702645e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 2.0530131119460453,
+            "normalizedSlack": 1.0221620976752218e-13,
+            "absoluteProduct": 2.0985121890615047e-13
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 5.6609640646329655,
+            "normalizedSlack": -3.235611989331755e-11,
+            "absoluteProduct": 1.8316683198702645e-10
+          },
+          {
+            "constraint": "lower:3",
+            "multiplier": 5.216326607889486,
+            "normalizedSlack": 1.0977478149339632e-13,
+            "absoluteProduct": 5.726211135792575e-13
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 2.143492372012988,
+            "normalizedSlack": 1.3387343605103801e-13,
+            "absoluteProduct": 2.8695668899056854e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 3,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 3695130453,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 7.835476356884105e-13,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 5.264467933261408,
+            "normalizedSlack": -1.4883700416102492e-13,
+            "absoluteProduct": 7.835476356884105e-13
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 0.21464497809313182,
+            "normalizedSlack": -9.386522437914912e-14,
+            "absoluteProduct": 2.0147699030569366e-14
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 3.711981297898815,
+            "normalizedSlack": -4.888894153441046e-14,
+            "absoluteProduct": 1.8147483664980022e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 12,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 2066770780,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.0745475606035055e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 23.873282996304876,
+            "normalizedSlack": -1.8821359936605368e-11,
+            "absoluteProduct": 4.4932765214189477e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 50.258026264928674,
+            "normalizedSlack": -4.127793538225709e-11,
+            "absoluteProduct": 2.0745475606035055e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 12,
+      "schools": 8,
+      "index": 4,
+      "refitSeed": 592937601,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.7998444135937837e-10,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 17.913680126167318,
+            "normalizedSlack": -1.0047318032460958e-11,
+            "absoluteProduct": 1.7998444135937837e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 12,
+      "schools": 8,
+      "index": 7,
+      "refitSeed": 1973799784,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 9.28119923819983e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 18.34747002877581,
+            "normalizedSlack": -1.2709462454983107e-09,
+            "absoluteProduct": 2.3318648147465398e-08
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 32.16733717136309,
+            "normalizedSlack": -2.885286770476731e-09,
+            "absoluteProduct": 9.28119923819983e-08
+          },
+          {
+            "constraint": "lower:3",
+            "multiplier": 21.849506395377198,
+            "normalizedSlack": 9.540763948577753e-14,
+            "absoluteProduct": 2.084609829112338e-12
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 66.14447555307835,
+            "normalizedSlack": 2.889314360043583e-13,
+            "absoluteProduct": 1.9111218305306097e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 12,
+      "schools": 8,
+      "index": 9,
+      "refitSeed": 652353244,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.6460260125229195e-06,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 43.47903197107169,
+            "normalizedSlack": -3.785792686502508e-08,
+            "absoluteProduct": 1.6460260125229195e-06
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 12,
+      "schools": 8,
+      "index": 10,
+      "refitSeed": 610359770,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 6.797601141111519e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 42.106243625511,
+            "normalizedSlack": -9.586169401787819e-11,
+            "absoluteProduct": 4.036375842670969e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 40.63175138395097,
+            "normalizedSlack": -1.6729776368430149e-10,
+            "absoluteProduct": 6.797601141111519e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112004,
+      "transitions": 12,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 74030851,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.0285563855171049e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 59.52876770841196,
+            "normalizedSlack": -1.7278308036800842e-11,
+            "absoluteProduct": 1.0285563855171049e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 26.828238223773834,
+            "normalizedSlack": -7.626606529668782e-12,
+            "absoluteProduct": 2.0460841681694314e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 3,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 3592938008,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "zero-gradient-or-invalid"
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 3,
+      "schools": 8,
+      "index": 3,
+      "refitSeed": 1842825159,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 0.00012051126807213034,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 3.107378643571201,
+            "normalizedSlack": -3.8782292695952554e-05,
+            "absoluteProduct": 0.00012051126807213034
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 6.0660687271086955,
+            "normalizedSlack": 0.0,
+            "absoluteProduct": 0.0
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 10.813461693144296,
+            "normalizedSlack": 0.0,
+            "absoluteProduct": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 3,
+      "schools": 8,
+      "index": 5,
+      "refitSeed": 726579811,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.1512582734750515e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 23.971778087964076,
+            "normalizedSlack": -1.80618244858074e-12,
+            "absoluteProduct": 4.329740484375308e-11
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 6.726878347625804,
+            "normalizedSlack": -1.7114301968629752e-11,
+            "absoluteProduct": 1.1512582734750515e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 3,
+      "schools": 8,
+      "index": 7,
+      "refitSeed": 2398567496,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 6.079450724972142e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 22.807887921805897,
+            "normalizedSlack": -3.253128134852379e-13,
+            "absoluteProduct": 7.419698189498652e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 0.366431324368426,
+            "normalizedSlack": -6.505606204971874e-12,
+            "absoluteProduct": 2.3838578975072935e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 9.043995860217153,
+            "normalizedSlack": -6.722084816197792e-12,
+            "absoluteProduct": 6.079450724972142e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 3,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 75658347,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 6.47894359039803e-07,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 20.084214557262886,
+            "normalizedSlack": -3.225888456790611e-08,
+            "absoluteProduct": 6.47894359039803e-07
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 0.29856312813794883,
+            "normalizedSlack": -3.478476541627666e-07,
+            "absoluteProduct": 1.0385448374228299e-07
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 3,
+      "schools": 8,
+      "index": 9,
+      "refitSeed": 2559793281,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 8.781779136116484e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 34.94240179755476,
+            "normalizedSlack": -1.3508949535259028e-10,
+            "absoluteProduct": 4.720351425239116e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 7.325692914307282,
+            "normalizedSlack": -1.198764299683573e-09,
+            "absoluteProduct": 8.781779136116484e-09
+          },
+          {
+            "constraint": "lower:3",
+            "multiplier": 4.068059887791746,
+            "normalizedSlack": 3.9374784929746834e-14,
+            "absoluteProduct": 1.6017898316313004e-13
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 2.5632797622020815,
+            "normalizedSlack": 2.526021458983732e-14,
+            "absoluteProduct": 6.474899684701176e-14
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 3,
+      "schools": 8,
+      "index": 14,
+      "refitSeed": 739762,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 3.681870859044234e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 41.914738750208606,
+            "normalizedSlack": -6.015743626454351e-10,
+            "absoluteProduct": 2.5214832249106663e-08
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 3.6628290562072623,
+            "normalizedSlack": -1.0051986599824259e-08,
+            "absoluteProduct": 3.681870859044234e-08
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 25.545036555261607,
+            "normalizedSlack": 6.377738925635417e-13,
+            "absoluteProduct": 1.629195739952716e-11
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 18.131032401523377,
+            "normalizedSlack": 4.5221582921670436e-13,
+            "absoluteProduct": 8.199139852009828e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 3,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 3351627587,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 7.118937175896942e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 21.35124084074305,
+            "normalizedSlack": 2.191590843892121e-12,
+            "absoluteProduct": 4.679318393230798e-11
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 6.99749606762656,
+            "normalizedSlack": -1.0173549376943876e-11,
+            "absoluteProduct": 7.118937175896942e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 7,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 2132074069,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 2.0696498769638288e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 17.289467918240412,
+            "normalizedSlack": -9.306324299197128e-12,
+            "absoluteProduct": 1.6090139540770992e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 14.739982044475546,
+            "normalizedSlack": -1.4041061045522241e-11,
+            "absoluteProduct": 2.0696498769638288e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 7,
+      "schools": 8,
+      "index": 7,
+      "refitSeed": 3932244515,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.5652983705458053e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 68.27579168869357,
+            "normalizedSlack": -2.2926110878111103e-10,
+            "absoluteProduct": 1.5652983705458053e-08
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 29.62488935044006,
+            "normalizedSlack": -2.959968759129958e-11,
+            "absoluteProduct": 8.768874696998437e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 12,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 3917732698,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.4211578369679116e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 8.11213836386164,
+            "normalizedSlack": -7.58694310945045e-14,
+            "absoluteProduct": 6.154633226260871e-13
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 15.84772427701467,
+            "normalizedSlack": -8.967583055626101e-14,
+            "absoluteProduct": 1.4211578369679116e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 12,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 2720288359,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 2.4728035391959323e-14,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 6.835570032674026,
+            "normalizedSlack": -3.6175527825418085e-15,
+            "absoluteProduct": 2.4728035391959323e-14
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 0.015930935401084922,
+            "normalizedSlack": -3.036551976998402e-15,
+            "absoluteProduct": 4.837511338759825e-17
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 12,
+      "schools": 8,
+      "index": 7,
+      "refitSeed": 3543681418,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.8976464066147856e-11,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 13.38274680908732,
+            "normalizedSlack": -1.4179797568360345e-12,
+            "absoluteProduct": 1.8976464066147856e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 12,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 1326932474,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 2.5781482344306044e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 44.81494327243956,
+            "normalizedSlack": -5.752876264413621e-12,
+            "absoluteProduct": 2.5781482344306044e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 6.886978507563455,
+            "normalizedSlack": 2.2928469233332015e-14,
+            "absoluteProduct": 1.5790787482128753e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 12,
+      "schools": 8,
+      "index": 9,
+      "refitSeed": 1666663817,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 6.957735251559669e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 33.362889223412,
+            "normalizedSlack": -2.085471436531691e-10,
+            "absoluteProduct": 6.957735251559669e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 34.114874787877746,
+            "normalizedSlack": -8.711571159806798e-11,
+            "absoluteProduct": 2.9719415932249582e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 12,
+      "schools": 8,
+      "index": 11,
+      "refitSeed": 4173092818,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 3.8747422767424015e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 64.9086208767685,
+            "normalizedSlack": -5.969534130294878e-11,
+            "absoluteProduct": 3.8747422767424015e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 32.04351865687409,
+            "normalizedSlack": -2.9411095077861617e-11,
+            "absoluteProduct": 9.424349738465566e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112005,
+      "transitions": 12,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 2341464370,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 5.312087443691913e-11,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 18.148544338958732,
+            "normalizedSlack": -2.9270046922103136e-12,
+            "absoluteProduct": 5.312087443691913e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112006,
+      "transitions": 7,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 3859961577,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.8486429659940034e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 11.587704752346564,
+            "normalizedSlack": -6.461674884793777e-13,
+            "absoluteProduct": 7.48759807706433e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 23.75552356596744,
+            "normalizedSlack": -1.1991497295706911e-12,
+            "absoluteProduct": 2.8486429659940034e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 0.5996973622047106,
+            "normalizedSlack": 9.331925713684187e-13,
+            "absoluteProduct": 5.596331234786718e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112006,
+      "transitions": 7,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 2939374365,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 9.71580870405443e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 32.7102732857401,
+            "normalizedSlack": -1.9487260960051448e-10,
+            "absoluteProduct": 6.374336315938169e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 19.013976933099197,
+            "normalizedSlack": -5.10982459810463e-10,
+            "absoluteProduct": 9.71580870405443e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112006,
+      "transitions": 12,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 1647515677,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.9419935055571985e-10,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 28.832670423768835,
+            "normalizedSlack": -6.735392445495698e-12,
+            "absoluteProduct": 1.9419935055571985e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112007,
+      "transitions": 7,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 1204370150,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 5.291592438825027e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 0.4408533423690217,
+            "normalizedSlack": -1.2003067528964393e-09,
+            "absoluteProduct": 5.291592438825027e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 10.494162204183754,
+            "normalizedSlack": -7.217209880308292e-13,
+            "absoluteProduct": 7.573857114559283e-12
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 15.70387159899989,
+            "normalizedSlack": 0.0,
+            "absoluteProduct": 0.0
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 14.439574720984893,
+            "normalizedSlack": 3.59820331212104e-17,
+            "absoluteProduct": 5.195652558666708e-16
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112007,
+      "transitions": 7,
+      "schools": 8,
+      "index": 3,
+      "refitSeed": 3324908587,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 6.307529208856e-12,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 13.02998026717825,
+            "normalizedSlack": -4.840781858084846e-13,
+            "absoluteProduct": 6.307529208856e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112007,
+      "transitions": 7,
+      "schools": 8,
+      "index": 4,
+      "refitSeed": 2755653031,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.1823779420200169e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 28.263839189865234,
+            "normalizedSlack": -7.721449047879411e-12,
+            "absoluteProduct": 2.1823779420200169e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 4.210948955842397,
+            "normalizedSlack": -1.7336739063047787e-11,
+            "absoluteProduct": 7.300412325525318e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112007,
+      "transitions": 7,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 576930449,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 5.802796403873492e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 11.308130720492558,
+            "normalizedSlack": -5.131525755497045e-13,
+            "absoluteProduct": 5.802796403873492e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 10.594559961912122,
+            "normalizedSlack": -4.1090902583194973e-13,
+            "absoluteProduct": 4.353400313067488e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 3.689847956811677,
+            "normalizedSlack": 4.18471325681622e-14,
+            "absoluteProduct": 1.5440955660506066e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112007,
+      "transitions": 7,
+      "schools": 8,
+      "index": 11,
+      "refitSeed": 2467482621,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 0.0,
+        "constraints": []
+      }
+    },
+    {
+      "outerSeed": 2026112007,
+      "transitions": 7,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 2422486332,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.0956811009492188e-11,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 11.52193623199658,
+            "normalizedSlack": -9.509522348392251e-13,
+            "absoluteProduct": 1.0956811009492188e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112007,
+      "transitions": 7,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 2559070923,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.252572971837576e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 30.766607343786287,
+            "normalizedSlack": -4.071209275177197e-12,
+            "absoluteProduct": 1.252572971837576e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 0.2513366031520519,
+            "normalizedSlack": -3.4694648223266274e-10,
+            "absoluteProduct": 8.720035031991119e-11
+          },
+          {
+            "constraint": "lower:3",
+            "multiplier": 0.17580713905970333,
+            "normalizedSlack": 1.3444360867400906e-13,
+            "absoluteProduct": 2.3636146205839846e-14
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 1.7831033611831262,
+            "normalizedSlack": 2.826159057720128e-13,
+            "absoluteProduct": 5.039333715058897e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112008,
+      "transitions": 12,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 1027783411,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 3.431306058460849e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 27.211979998592323,
+            "normalizedSlack": -6.358911391343403e-12,
+            "absoluteProduct": 1.7303856959405754e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 39.29264439077833,
+            "normalizedSlack": -8.732693132931896e-12,
+            "absoluteProduct": 3.431306058460849e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112008,
+      "transitions": 12,
+      "schools": 8,
+      "index": 4,
+      "refitSeed": 1208155115,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 9.310892550062963e-09,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 50.390160969334616,
+            "normalizedSlack": -1.8477600331003487e-10,
+            "absoluteProduct": 9.310892550062963e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112008,
+      "transitions": 12,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 326712750,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 9.78904438187455e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 7.777112733014967,
+            "normalizedSlack": -2.291691181027831e-13,
+            "absoluteProduct": 1.782274066410965e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 19.918911210989258,
+            "normalizedSlack": -4.914447520843377e-11,
+            "absoluteProduct": 9.78904438187455e-10
+          },
+          {
+            "constraint": "lower:3",
+            "multiplier": 20.239090398694056,
+            "normalizedSlack": 3.824322253594205e-12,
+            "absoluteProduct": 7.740080380423049e-11
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 3.036703374495434,
+            "normalizedSlack": 1.842185729734014e-12,
+            "absoluteProduct": 5.594171621930613e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112008,
+      "transitions": 12,
+      "schools": 8,
+      "index": 13,
+      "refitSeed": 1716908352,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 6.086181581460456e-10,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 56.36718410753751,
+            "normalizedSlack": -1.07973844672624e-11,
+            "absoluteProduct": 6.086181581460456e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112009,
+      "transitions": 7,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 3048702348,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 5.146747402764515e-10,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 30.689032268113202,
+            "normalizedSlack": -1.6770640917576718e-11,
+            "absoluteProduct": 5.146747402764515e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112009,
+      "transitions": 7,
+      "schools": 8,
+      "index": 3,
+      "refitSeed": 3711004907,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 5.070983732880716e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 15.891760795479021,
+            "normalizedSlack": -3.1909514610384383e-10,
+            "absoluteProduct": 5.070983732880716e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 0.5405731243714328,
+            "normalizedSlack": -1.0768527796637634e-11,
+            "absoluteProduct": 5.821176715909027e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112009,
+      "transitions": 7,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 1891916202,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 7.626247060997957e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 30.127653679792292,
+            "normalizedSlack": -5.819722062295736e-12,
+            "absoluteProduct": 1.7533457080549252e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 16.60458412146593,
+            "normalizedSlack": -4.5928564095375107e-10,
+            "absoluteProduct": 7.626247060997957e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112009,
+      "transitions": 7,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 113222602,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 3.353918124195505e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 13.89826196957074,
+            "normalizedSlack": -2.413192477979384e-12,
+            "absoluteProduct": 3.353918124195505e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112009,
+      "transitions": 7,
+      "schools": 8,
+      "index": 13,
+      "refitSeed": 1355415690,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 7.039587826956931e-14,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 0.44447157478354704,
+            "normalizedSlack": -4.400146156359992e-15,
+            "absoluteProduct": 1.955739891395097e-15
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 2.5868006884200185,
+            "normalizedSlack": -2.721349139293995e-14,
+            "absoluteProduct": 7.039587826956931e-14
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112009,
+      "transitions": 7,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 2657634575,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 4.4685902230644854e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 13.953051150901254,
+            "normalizedSlack": -4.900885616524799e-13,
+            "absoluteProduct": 6.8382307692086756e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 21.605347159868803,
+            "normalizedSlack": -9.806228793665249e-13,
+            "absoluteProduct": 2.1186697741623916e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 3.0257029823249146,
+            "normalizedSlack": -1.183452668060698e-12,
+            "absoluteProduct": 3.580776267191631e-12
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 0.00048214040890337426,
+            "normalizedSlack": 9.268234191836916e-08,
+            "absoluteProduct": 4.4685902230644854e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112009,
+      "transitions": 12,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 2134825155,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 8.220904268454749e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 15.79029567843089,
+            "normalizedSlack": -5.206301665195718e-09,
+            "absoluteProduct": 8.220904268454749e-08
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 37.30667169797549,
+            "normalizedSlack": -3.2451758293543906e-10,
+            "absoluteProduct": 1.2106670926792957e-08
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 8.438510979949346,
+            "normalizedSlack": 8.850896301466343e-14,
+            "absoluteProduct": 7.468838562231679e-13
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 49.9576637919968,
+            "normalizedSlack": 5.375636419742538e-13,
+            "absoluteProduct": 2.6855423692551112e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112009,
+      "transitions": 12,
+      "schools": 8,
+      "index": 7,
+      "refitSeed": 651048038,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 4.6551476872495205e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 63.168013646434716,
+            "normalizedSlack": -7.369469797333516e-11,
+            "absoluteProduct": 4.6551476872495205e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 47.71580033976369,
+            "normalizedSlack": -3.6249066334778736e-11,
+            "absoluteProduct": 1.7296532117331518e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112010,
+      "transitions": 7,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 3946048794,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.644045937104339e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 10.950358444259413,
+            "normalizedSlack": -4.0433649078044077e-14,
+            "absoluteProduct": 4.427629506139818e-13
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 5.49393208459791,
+            "normalizedSlack": -2.9924759021200447e-10,
+            "absoluteProduct": 1.644045937104339e-09
+          },
+          {
+            "constraint": "lower:3",
+            "multiplier": 6.7109721255686,
+            "normalizedSlack": 2.064926853982049e-13,
+            "absoluteProduct": 1.3857666558411593e-12
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 17.169325729975018,
+            "normalizedSlack": 5.277215016550197e-13,
+            "absoluteProduct": 9.060622356626584e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112010,
+      "transitions": 7,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 2506297842,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "zero-gradient-or-invalid"
+      }
+    },
+    {
+      "outerSeed": 2026112010,
+      "transitions": 7,
+      "schools": 8,
+      "index": 11,
+      "refitSeed": 3194172098,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 2.4715542272082464e-14,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 0.5769928145796213,
+            "normalizedSlack": -2.426847353159579e-15,
+            "absoluteProduct": 1.4002734848546496e-15
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 1.0391930061071395,
+            "normalizedSlack": -2.3783399355878963e-14,
+            "absoluteProduct": 2.4715542272082464e-14
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112010,
+      "transitions": 7,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 3773745135,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.9369797738249017e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 31.529965789890127,
+            "normalizedSlack": -2.8671452707744858e-11,
+            "absoluteProduct": 9.04009923021648e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 28.66357592245963,
+            "normalizedSlack": -1.0246383011561381e-10,
+            "absoluteProduct": 2.9369797738249017e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112011,
+      "transitions": 7,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 1513950091,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 8.102609094972718e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 14.33184116781227,
+            "normalizedSlack": -5.653571652168656e-13,
+            "absoluteProduct": 8.102609094972718e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112011,
+      "transitions": 7,
+      "schools": 8,
+      "index": 11,
+      "refitSeed": 181803598,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.2481292247008728e-11,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 5.196370768744513,
+            "normalizedSlack": -5.496584180975854e-13,
+            "absoluteProduct": 2.8562289365966433e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 22.376080455761407,
+            "normalizedSlack": -1.0047019759092899e-12,
+            "absoluteProduct": 2.2481292247008728e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112011,
+      "transitions": 7,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 3966731409,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 6.987201792972476e-14,
+        "constraints": [
+          {
+            "constraint": "cone:2",
+            "multiplier": 4.595726538855571,
+            "normalizedSlack": -1.5203693548555722e-14,
+            "absoluteProduct": 6.987201792972476e-14
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112011,
+      "transitions": 12,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 2082972038,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 6.859808667995651e-11,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 19.247886487811172,
+            "normalizedSlack": -3.563928264196519e-12,
+            "absoluteProduct": 6.859808667995651e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 0.3036869381491281,
+            "normalizedSlack": -4.584415936821603e-12,
+            "absoluteProduct": 1.3922272390554195e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112011,
+      "transitions": 12,
+      "schools": 8,
+      "index": 13,
+      "refitSeed": 3847945932,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 4.50945505446461e-11,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 20.884404183797177,
+            "normalizedSlack": -2.1592452505603185e-12,
+            "absoluteProduct": 4.50945505446461e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112011,
+      "transitions": 12,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 2581594377,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.716659507338886e-07,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 6.868186275960958,
+            "normalizedSlack": 1.337949412425286e-09,
+            "absoluteProduct": 9.189285792349377e-09
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 3.978612665129058,
+            "normalizedSlack": -4.314718852590796e-08,
+            "absoluteProduct": 1.716659507338886e-07
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112012,
+      "transitions": 7,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 3178407764,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 3.867223453521129e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 11.799503423416414,
+            "normalizedSlack": -3.2774459354336266e-09,
+            "absoluteProduct": 3.867223453521129e-08
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112012,
+      "transitions": 7,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 705557011,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 6.6906227409416e-14,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 9.79235013123935,
+            "normalizedSlack": -6.832499503461703e-15,
+            "absoluteProduct": 6.6906227409416e-14
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112012,
+      "transitions": 7,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 3479631766,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 5.403058458753581e-12,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 7.686037168980359,
+            "normalizedSlack": -7.029706388305638e-13,
+            "absoluteProduct": 5.403058458753581e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112012,
+      "transitions": 12,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 4156861360,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 2.2915142274395497e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 12.272455102008536,
+            "normalizedSlack": -1.8672011495601362e-13,
+            "absoluteProduct": 2.2915142274395497e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 8.349521048119856,
+            "normalizedSlack": 1.973261348362651e-14,
+            "absoluteProduct": 1.6475787161595323e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112012,
+      "transitions": 12,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 2440971474,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 4.140669802244874e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 17.367080248416116,
+            "normalizedSlack": -2.3842060628599357e-13,
+            "absoluteProduct": 4.140669802244874e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112012,
+      "transitions": 12,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 3027088471,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.919524700966402e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 88.7355951154405,
+            "normalizedSlack": -2.1631958386814196e-10,
+            "absoluteProduct": 1.919524700966402e-08
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 3.143671029277448,
+            "normalizedSlack": -5.626093275392173e-09,
+            "absoluteProduct": 1.768658643786304e-08
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112012,
+      "transitions": 12,
+      "schools": 8,
+      "index": 5,
+      "refitSeed": 1874976795,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.0063572059572824e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 9.436870629246284,
+            "normalizedSlack": -1.6848559626683639e-13,
+            "absoluteProduct": 1.5899767748615557e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 34.37739574895172,
+            "normalizedSlack": -5.836268752319503e-12,
+            "absoluteProduct": 2.0063572059572824e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112012,
+      "transitions": 12,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 28703141,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.572216025560013e-09,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 51.975755382095464,
+            "normalizedSlack": -4.948876657300273e-11,
+            "absoluteProduct": 2.572216025560013e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112012,
+      "transitions": 12,
+      "schools": 8,
+      "index": 14,
+      "refitSeed": 604019960,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.37897065446732e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 28.530509278074767,
+            "normalizedSlack": 4.83331945121301e-12,
+            "absoluteProduct": 1.37897065446732e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 15.8328272680879,
+            "normalizedSlack": -4.730625005246075e-13,
+            "absoluteProduct": 7.489916857815852e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112013,
+      "transitions": 12,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 4135593194,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 3.2472105435275213e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 23.04485096939556,
+            "normalizedSlack": -1.4090829000543073e-12,
+            "absoluteProduct": 3.2472105435275213e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112013,
+      "transitions": 12,
+      "schools": 8,
+      "index": 4,
+      "refitSeed": 1639019434,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 7.592287091823277e-10,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 17.392962603201713,
+            "normalizedSlack": -4.3651488622333275e-11,
+            "absoluteProduct": 7.592287091823277e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112013,
+      "transitions": 12,
+      "schools": 8,
+      "index": 11,
+      "refitSeed": 3968056374,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.9023752393320853e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 14.43160957908455,
+            "normalizedSlack": -1.3182003219441028e-12,
+            "absoluteProduct": 1.9023752393320853e-11
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 4.572378630815508,
+            "normalizedSlack": -4.108543759137425e-13,
+            "absoluteProduct": 1.878581768805038e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112014,
+      "transitions": 7,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 1432521861,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 2.4449775444104403e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 31.34359484880542,
+            "normalizedSlack": -4.8666760349423084e-12,
+            "absoluteProduct": 1.5253912189962253e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 1.671947542008542,
+            "normalizedSlack": -9.361660867349256e-13,
+            "absoluteProduct": 1.5652205876282142e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 7.911669575717345,
+            "normalizedSlack": -3.090343347900441e-11,
+            "absoluteProduct": 2.4449775444104403e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112014,
+      "transitions": 12,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 3800964118,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.4155592973156605e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 29.266712524024808,
+            "normalizedSlack": -4.836755396266798e-10,
+            "absoluteProduct": 1.4155592973156605e-08
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 31.54560092483669,
+            "normalizedSlack": 0.0,
+            "absoluteProduct": 0.0
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 22.980288014590148,
+            "normalizedSlack": 0.0,
+            "absoluteProduct": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112014,
+      "transitions": 12,
+      "schools": 8,
+      "index": 10,
+      "refitSeed": 3513299200,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.4261323771303653e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 64.03380337761816,
+            "normalizedSlack": -2.2271555052262344e-11,
+            "absoluteProduct": 1.4261323771303653e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 33.95942776575128,
+            "normalizedSlack": -2.886635772618155e-11,
+            "absoluteProduct": 9.802849900625987e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112014,
+      "transitions": 12,
+      "schools": 8,
+      "index": 13,
+      "refitSeed": 2006618345,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 7.20353816019927e-09,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 43.82607600033878,
+            "normalizedSlack": -1.6436648720600917e-10,
+            "absoluteProduct": 7.20353816019927e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112015,
+      "transitions": 7,
+      "schools": 8,
+      "index": 9,
+      "refitSeed": 2904291702,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 6.36616707997884e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 60.30451144501263,
+            "normalizedSlack": -1.0556701194376961e-09,
+            "absoluteProduct": 6.36616707997884e-08
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 14.336358020422475,
+            "normalizedSlack": -2.014703887707728e-09,
+            "absoluteProduct": 2.8883516239315028e-08
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112015,
+      "transitions": 7,
+      "schools": 8,
+      "index": 13,
+      "refitSeed": 896858860,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.607767077052773e-09,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 41.18180883806076,
+            "normalizedSlack": -3.904071050824882e-11,
+            "absoluteProduct": 1.607767077052773e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 3,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 196753078,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 5.755962316580681e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 23.9537110361024,
+            "normalizedSlack": -2.4029522222696297e-11,
+            "absoluteProduct": 5.755962316580681e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 6.0954389247893355,
+            "normalizedSlack": -8.180060976094342e-12,
+            "absoluteProduct": 4.98610620808357e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 0.0017082783414286511,
+            "normalizedSlack": 5.637570094763266e-12,
+            "absoluteProduct": 9.630538891169956e-15
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 3,
+      "schools": 8,
+      "index": 3,
+      "refitSeed": 3419314989,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.0760958304177203e-07,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 24.265686845377907,
+            "normalizedSlack": -5.457638077193666e-10,
+            "absoluteProduct": 1.3243333649659191e-08
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 6.885074725660283,
+            "normalizedSlack": -1.562939943712117e-08,
+            "absoluteProduct": 1.0760958304177203e-07
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 31.196145817267,
+            "normalizedSlack": 8.141462882219551e-11,
+            "absoluteProduct": 2.53982263239588e-09
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 18.312891340312,
+            "normalizedSlack": 5.208345655568359e-11,
+            "absoluteProduct": 9.537986805320943e-10
+          },
+          {
+            "constraint": "lower:6",
+            "multiplier": 3.8834914235480458,
+            "normalizedSlack": 3.125530044624882e-11,
+            "absoluteProduct": 1.213796912234247e-10
+          },
+          {
+            "constraint": "lower:7",
+            "multiplier": 4.004947254429781,
+            "normalizedSlack": 7.955507598290393e-12,
+            "absoluteProduct": 3.186138831336837e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 3,
+      "schools": 8,
+      "index": 4,
+      "refitSeed": 2503908776,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.6871178884952145e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 17.168833926938824,
+            "normalizedSlack": -9.826630600975387e-13,
+            "absoluteProduct": 1.6871178884952145e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 3.321022520623463,
+            "normalizedSlack": -2.8287477551381014e-13,
+            "absoluteProduct": 9.3943349999767e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 3,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 1951331090,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "zero-gradient-or-invalid"
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 3,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 265079359,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.7693572667755402e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 22.577216740201887,
+            "normalizedSlack": -7.836914917971056e-12,
+            "absoluteProduct": 1.7693572667755402e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 2.4571933138889595,
+            "normalizedSlack": -6.822128355167459e-11,
+            "absoluteProduct": 1.6763288180809763e-10
+          },
+          {
+            "constraint": "lower:6",
+            "multiplier": 0.7336436251027695,
+            "normalizedSlack": 6.076859711487441e-16,
+            "absoluteProduct": 4.458249387976616e-16
+          },
+          {
+            "constraint": "lower:7",
+            "multiplier": 8.220212929717526,
+            "normalizedSlack": 7.343642002254975e-15,
+            "absoluteProduct": 6.036630093815306e-14
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 3,
+      "schools": 8,
+      "index": 10,
+      "refitSeed": 1967655214,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.729260841878692e-13,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 6.668906249544414,
+            "normalizedSlack": -2.5930201702817853e-14,
+            "absoluteProduct": 1.729260841878692e-13
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 0.22217859411285115,
+            "normalizedSlack": -1.8655167169886724e-15,
+            "absoluteProduct": 4.1447788147456486e-16
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 0.3071706245888848,
+            "normalizedSlack": -3.2629272305415844e-16,
+            "absoluteProduct": 1.0022753953935385e-16
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 3,
+      "schools": 8,
+      "index": 11,
+      "refitSeed": 2243933174,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.5773271865085627e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 15.471492894420024,
+            "normalizedSlack": -1.0195054848762812e-12,
+            "absoluteProduct": 1.5773271865085627e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 0.21311891765680022,
+            "normalizedSlack": -1.019279762438962e-12,
+            "absoluteProduct": 2.1722779976047203e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 7,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 440628911,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "zero-gradient-or-invalid"
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 7,
+      "schools": 8,
+      "index": 10,
+      "refitSeed": 3806878112,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 2.749674279478532e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 22.601297471414746,
+            "normalizedSlack": -1.2166001898591064e-12,
+            "absoluteProduct": 2.749674279478532e-11
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 5.851117547782343,
+            "normalizedSlack": -8.336919437704806e-13,
+            "absoluteProduct": 4.8780295616402295e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 7,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 1533886002,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.6456441685043518e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 30.485241311908936,
+            "normalizedSlack": -3.5395569006075597e-10,
+            "absoluteProduct": 1.0790424625225393e-08
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 6.528900203056733,
+            "normalizedSlack": -2.520553412248338e-09,
+            "absoluteProduct": 1.6456441685043518e-08
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 12,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 2509299258,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 2.940614665317917e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 43.26439533340207,
+            "normalizedSlack": -6.23100937200862e-11,
+            "absoluteProduct": 2.6958085279671427e-09
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 7.201009129412852,
+            "normalizedSlack": -4.083614688539752e-10,
+            "absoluteProduct": 2.940614665317917e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 12,
+      "schools": 8,
+      "index": 7,
+      "refitSeed": 1238318287,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 4.34627092535528e-06,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 100.92522292512143,
+            "normalizedSlack": -4.306426876639025e-08,
+            "absoluteProduct": 4.34627092535528e-06
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 26.76911054242557,
+            "normalizedSlack": -2.908539900316806e-10,
+            "absoluteProduct": 7.785902610863603e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 12,
+      "schools": 8,
+      "index": 10,
+      "refitSeed": 2625701486,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 6.205379484583782e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 2.4988105750694554,
+            "normalizedSlack": 3.804257676202916e-12,
+            "absoluteProduct": 9.506119311584998e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 48.9845226159714,
+            "normalizedSlack": -1.2668041155024993e-11,
+            "absoluteProduct": 6.205379484583782e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 3.7581111698157224,
+            "normalizedSlack": 2.069369615833968e-11,
+            "absoluteProduct": 7.776921067742907e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 12,
+      "schools": 8,
+      "index": 13,
+      "refitSeed": 3489883339,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.5323460987777638e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 95.06620656247264,
+            "normalizedSlack": -1.6118725614351556e-10,
+            "absoluteProduct": 1.5323460987777638e-08
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 40.42785982644318,
+            "normalizedSlack": -6.343429028260806e-11,
+            "absoluteProduct": 2.5645125957351853e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112016,
+      "transitions": 12,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 4267407563,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 6.314966931312078e-15,
+        "constraints": [
+          {
+            "constraint": "cone:2",
+            "multiplier": 1.1342620520229534,
+            "normalizedSlack": -5.567467341474884e-15,
+            "absoluteProduct": 6.314966931312078e-15
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112017,
+      "transitions": 7,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 4223628193,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 8.12512898308978e-12,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 17.74090838586572,
+            "normalizedSlack": 4.579883288030006e-13,
+            "absoluteProduct": 8.12512898308978e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112017,
+      "transitions": 7,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 1654496024,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 7.133947935043526e-10,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 19.495745271167046,
+            "normalizedSlack": -3.659233251059233e-11,
+            "absoluteProduct": 7.133947935043526e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112017,
+      "transitions": 7,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 1503638486,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 7.23115087806207e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 7.141078072590632,
+            "normalizedSlack": -5.193782101988026e-14,
+            "absoluteProduct": 3.7089203482320377e-13
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 13.339790009773974,
+            "normalizedSlack": -5.420738162117885e-13,
+            "absoluteProduct": 7.23115087806207e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112017,
+      "transitions": 7,
+      "schools": 8,
+      "index": 13,
+      "refitSeed": 313428316,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.800499525161718e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 13.876617926556918,
+            "normalizedSlack": -4.372027155326058e-10,
+            "absoluteProduct": 6.0668950398991225e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 16.37463138537648,
+            "normalizedSlack": -1.0995664468939867e-09,
+            "absoluteProduct": 1.800499525161718e-08
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112017,
+      "transitions": 7,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 2514344222,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 3.2071272121117353e-13,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 2.0551003661033853,
+            "normalizedSlack": -1.5605696271626255e-13,
+            "absoluteProduct": 3.2071272121117353e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112017,
+      "transitions": 12,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 3642927950,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 0.0,
+        "constraints": []
+      }
+    },
+    {
+      "outerSeed": 2026112017,
+      "transitions": 12,
+      "schools": 8,
+      "index": 7,
+      "refitSeed": 1197654243,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 6.46683577053961e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 23.476177881611168,
+            "normalizedSlack": -2.754637404415421e-12,
+            "absoluteProduct": 6.46683577053961e-11
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 17.44237188631153,
+            "normalizedSlack": -1.4786307907418876e-12,
+            "absoluteProduct": 2.579082813467089e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112018,
+      "transitions": 7,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 370009885,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 2.5117608520243234e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 35.4600368889715,
+            "normalizedSlack": -7.083356568096271e-11,
+            "absoluteProduct": 2.5117608520243234e-09
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 16.61683201045802,
+            "normalizedSlack": -6.022847626071624e-13,
+            "absoluteProduct": 1.0008064722701804e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112018,
+      "transitions": 7,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 596554881,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 3.8264845133229927e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 32.81460600962486,
+            "normalizedSlack": -1.1660918653725861e-11,
+            "absoluteProduct": 3.8264845133229927e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112018,
+      "transitions": 7,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 1706667348,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.213987535676677e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 22.82664669131963,
+            "normalizedSlack": -5.318291171249101e-12,
+            "absoluteProduct": 1.213987535676677e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 9.43164617329371,
+            "normalizedSlack": -4.823341566024506e-12,
+            "absoluteProduct": 4.549205102368353e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 3,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 2384711995,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.620091035454094e-13,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 5.303981213775464,
+            "normalizedSlack": -4.93985730690224e-14,
+            "absoluteProduct": 2.620091035454094e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 3,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 3188137897,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 3.1153273115953287e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 14.702021822035588,
+            "normalizedSlack": -2.1189788379486924e-10,
+            "absoluteProduct": 3.1153273115953287e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 0.8802498590584527,
+            "normalizedSlack": -1.3785308579248879e-09,
+            "absoluteProduct": 1.2134515933961104e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 3,
+      "schools": 8,
+      "index": 3,
+      "refitSeed": 2562892724,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 3.0427053724934146e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 6.434222974580364,
+            "normalizedSlack": -5.4054306592710485e-11,
+            "absoluteProduct": 3.4779746135382866e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 4.6244491509950985,
+            "normalizedSlack": -6.579606074463332e-09,
+            "absoluteProduct": 3.0427053724934146e-08
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 10.572930053833066,
+            "normalizedSlack": 1.7061273856619974e-13,
+            "absoluteProduct": 1.803876551153337e-12
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 14.120778146747272,
+            "normalizedSlack": 2.309167602054485e-13,
+            "absoluteProduct": 3.260724341226777e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 3,
+      "schools": 8,
+      "index": 4,
+      "refitSeed": 1027887951,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 7.683257583387091e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 14.894316194290555,
+            "normalizedSlack": -2.0018742376566125e-11,
+            "absoluteProduct": 2.9816547876861943e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 2.5651165226875503,
+            "normalizedSlack": -2.9952859901027454e-10,
+            "absoluteProduct": 7.683257583387091e-10
+          },
+          {
+            "constraint": "lower:3",
+            "multiplier": 1.6989054236396728,
+            "normalizedSlack": 1.777104389625637e-11,
+            "absoluteProduct": 3.019132285908865e-11
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 5.526439968178924,
+            "normalizedSlack": 7.237934744455101e-12,
+            "absoluteProduct": 4.000001185882758e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 3,
+      "schools": 8,
+      "index": 5,
+      "refitSeed": 1418013154,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.4172070961447742e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 16.840222227782704,
+            "normalizedSlack": -8.415608042313663e-12,
+            "absoluteProduct": 1.4172070961447742e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 3.213071096722942,
+            "normalizedSlack": -1.6971173208100164e-12,
+            "absoluteProduct": 5.45295861124254e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 3.119772884412258,
+            "normalizedSlack": -5.574925317048796e-12,
+            "absoluteProduct": 1.7392500836752245e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 3,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 1904079796,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "zero-gradient-or-invalid"
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 3,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 2934499765,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 4.334205018204452e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 18.46153631760432,
+            "normalizedSlack": -2.347694657497976e-10,
+            "absoluteProduct": 4.334205018204452e-09
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 6.642073714259335,
+            "normalizedSlack": -8.768130952621304e-11,
+            "absoluteProduct": 5.823857212358963e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 3,
+      "schools": 8,
+      "index": 11,
+      "refitSeed": 2293257939,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 4.728835544225124e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 3.6453476952890043,
+            "normalizedSlack": -6.706596191952016e-11,
+            "absoluteProduct": 2.4447874971566295e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 4.244979314071518,
+            "normalizedSlack": -1.1139831773855032e-10,
+            "absoluteProduct": 4.728835544225124e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 3.5324167852702275,
+            "normalizedSlack": -1.1648879711756098e-10,
+            "absoluteProduct": 4.114869822340105e-10
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 24.2708357789729,
+            "normalizedSlack": 1.1435498689815747e-14,
+            "absoluteProduct": 2.775491107511777e-13
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 3.638674784292021,
+            "normalizedSlack": 1.7292981357702997e-15,
+            "absoluteProduct": 6.292353521150589e-15
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 3,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 3870413395,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 7.075391422191027e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 4.840579419836591,
+            "normalizedSlack": -1.4616827467381742e-10,
+            "absoluteProduct": 7.075391422191027e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 11.538200373456924,
+            "normalizedSlack": -8.468990307800722e-13,
+            "absoluteProduct": 9.771690713226935e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 1.7272462448646644,
+            "normalizedSlack": -2.112697277449195e-12,
+            "absoluteProduct": 3.649148439009922e-12
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 5.421376688264024,
+            "normalizedSlack": 9.817466299431506e-14,
+            "absoluteProduct": 5.322418293355564e-13
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 13.709567335930792,
+            "normalizedSlack": 2.709243110444407e-13,
+            "absoluteProduct": 3.714255085204418e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 3,
+      "schools": 8,
+      "index": 14,
+      "refitSeed": 2812472282,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.277629435985538e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 7.750442934153991,
+            "normalizedSlack": -1.6484598968600745e-12,
+            "absoluteProduct": 1.277629435985538e-11
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 0.5004662085854075,
+            "normalizedSlack": -1.6458996986567645e-13,
+            "absoluteProduct": 8.237171818986157e-14
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 1.362559537962633,
+            "normalizedSlack": -4.121800883386236e-14,
+            "absoluteProduct": 5.616199107240722e-14
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 7,
+      "schools": 8,
+      "index": 5,
+      "refitSeed": 4005180267,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 4.025595651895891e-07,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 69.39928372817671,
+            "normalizedSlack": -5.800629971432204e-09,
+            "absoluteProduct": 4.025595651895891e-07
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 6.131673721478058,
+            "normalizedSlack": -5.979805546779119e-10,
+            "absoluteProduct": 3.6666216530734256e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 7,
+      "schools": 8,
+      "index": 13,
+      "refitSeed": 1135491994,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.0641419896864758e-14,
+        "constraints": [
+          {
+            "constraint": "cone:2",
+            "multiplier": 0.8538718542506862,
+            "normalizedSlack": -1.2462549086130868e-14,
+            "absoluteProduct": 1.0641419896864758e-14
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 12,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 3831656937,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 3.854473034972261e-14,
+        "constraints": [
+          {
+            "constraint": "cone:2",
+            "multiplier": 11.004581276886615,
+            "normalizedSlack": 3.5026076303947823e-15,
+            "absoluteProduct": 3.854473034972261e-14
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112019,
+      "transitions": 12,
+      "schools": 8,
+      "index": 11,
+      "refitSeed": 792774626,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 0.0,
+        "constraints": []
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 3,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 1448443650,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 3.605854039558062e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 4.374690582635394,
+            "normalizedSlack": -1.1703133024211195e-13,
+            "absoluteProduct": 5.1197585828346e-13
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 3.154468854668939,
+            "normalizedSlack": -1.143093879091888e-12,
+            "absoluteProduct": 3.605854039558062e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 3,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 3566555661,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 6.625617072856471e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 6.761583456922867,
+            "normalizedSlack": 1.380703185536233e-10,
+            "absoluteProduct": 9.3357398182425e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 4.162189394931508,
+            "normalizedSlack": -1.5918586215525882e-09,
+            "absoluteProduct": 6.625617072856471e-09
+          },
+          {
+            "constraint": "lower:6",
+            "multiplier": 4.524099922665028,
+            "normalizedSlack": 3.430266800408899e-12,
+            "absoluteProduct": 1.5518869766450312e-11
+          },
+          {
+            "constraint": "lower:7",
+            "multiplier": 4.556616445682142,
+            "normalizedSlack": 0.0,
+            "absoluteProduct": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 3,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 247119396,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "zero-gradient-or-invalid"
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 3,
+      "schools": 8,
+      "index": 10,
+      "refitSeed": 772680572,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 6.265447423698336e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 33.80224143439981,
+            "normalizedSlack": -1.85355975160929e-11,
+            "absoluteProduct": 6.265447423698336e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 16.987063383701337,
+            "normalizedSlack": -1.249924853117763e-11,
+            "absoluteProduct": 2.1232552704775023e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 3,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 1008820096,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 7.833653761625984e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 24.818319021509765,
+            "normalizedSlack": 4.631368075506161e-14,
+            "absoluteProduct": 1.1494277040394763e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 0.6510882046673829,
+            "normalizedSlack": -1.203163212828884e-10,
+            "absoluteProduct": 7.833653761625984e-11
+          },
+          {
+            "constraint": "lower:3",
+            "multiplier": 5.211160272639032,
+            "normalizedSlack": 2.3059067446369584e-14,
+            "absoluteProduct": 1.2016449620062514e-13
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 0.8214888393395694,
+            "normalizedSlack": 5.485133274419077e-15,
+            "absoluteProduct": 4.505975767225379e-15
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 3,
+      "schools": 8,
+      "index": 14,
+      "refitSeed": 1570571986,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 3.840592137452106e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 19.95867153117867,
+            "normalizedSlack": -1.924272430383195e-11,
+            "absoluteProduct": 3.840592137452106e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 6.753148187022248,
+            "normalizedSlack": -1.1126484009177528e-11,
+            "absoluteProduct": 7.513879531450925e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 13.821823252877989,
+            "normalizedSlack": -3.355544607754912e-12,
+            "absoluteProduct": 4.637974448553619e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 7,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 2532536993,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.368077305129766e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 16.03886161560993,
+            "normalizedSlack": -8.529765627494881e-11,
+            "absoluteProduct": 1.368077305129766e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 7,
+      "schools": 8,
+      "index": 3,
+      "refitSeed": 1059205222,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.951475520140045e-13,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 5.5687943371855,
+            "normalizedSlack": -4.0778765165608743e-14,
+            "absoluteProduct": 2.270885565316593e-13
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 5.6004930825061665,
+            "normalizedSlack": -5.270027971928658e-14,
+            "absoluteProduct": 2.951475520140045e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 7,
+      "schools": 8,
+      "index": 5,
+      "refitSeed": 1802775449,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.8487769754946327e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 28.26184493430858,
+            "normalizedSlack": -1.0079939869871512e-12,
+            "absoluteProduct": 2.8487769754946327e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 14.1579840477232,
+            "normalizedSlack": -2.6033578888649175e-13,
+            "absoluteProduct": 3.685829946106385e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 7,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 2098154438,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 6.921816688918739e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 42.430030574090296,
+            "normalizedSlack": -1.631348503704712e-11,
+            "absoluteProduct": 6.921816688918739e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 1.891362297707258,
+            "normalizedSlack": -4.378653223258092e-12,
+            "absoluteProduct": 8.281619621204716e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 7,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 1484555736,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 6.502882285103333e-13,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 4.918510157550626,
+            "normalizedSlack": -5.821644923269862e-14,
+            "absoluteProduct": 2.8633819688755855e-13
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 7.379799458893344,
+            "normalizedSlack": -8.811733057687301e-14,
+            "absoluteProduct": 6.502882285103333e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 7,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 430034026,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 7.035467647838102e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 80.8758835086178,
+            "normalizedSlack": -8.699092167677441e-11,
+            "absoluteProduct": 7.035467647838102e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 31.74705922307453,
+            "normalizedSlack": -6.949037238486172e-12,
+            "absoluteProduct": 2.2061149675357078e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 2.2634053817738375,
+            "normalizedSlack": -4.7870555972161795e-11,
+            "absoluteProduct": 1.0835047401589673e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 12,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 2144639446,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 7.113620169667054e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 82.57861366181116,
+            "normalizedSlack": -8.614361339123302e-11,
+            "absoluteProduct": 7.113620169667054e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 4.063389596143185,
+            "normalizedSlack": -6.256488156613973e-11,
+            "absoluteProduct": 2.542254888397827e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 12,
+      "schools": 8,
+      "index": 5,
+      "refitSeed": 3611770599,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 7.639774369048819e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 14.769527901494452,
+            "normalizedSlack": -3.998856031604345e-13,
+            "absoluteProduct": 5.906121573283975e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 3.0348615814911093,
+            "normalizedSlack": -2.517338654138945e-12,
+            "absoluteProduct": 7.639774369048819e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112020,
+      "transitions": 12,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 2840347378,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 5.522198706875719e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 10.615416289833364,
+            "normalizedSlack": -3.485673775960518e-12,
+            "absoluteProduct": 3.700187818237626e-11
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 23.245405287624877,
+            "normalizedSlack": -2.3756087013959546e-11,
+            "absoluteProduct": 5.522198706875719e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 49.28809437631932,
+            "normalizedSlack": -5.605899535811488e-12,
+            "absoluteProduct": 2.7630410538524133e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112021,
+      "transitions": 7,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 2826907249,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.3702202569914797e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 13.945544887316796,
+            "normalizedSlack": -1.6996254188297434e-13,
+            "absoluteProduct": 2.3702202569914797e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 1.9988884299221943,
+            "normalizedSlack": 1.4924942621954533e-14,
+            "absoluteProduct": 2.9833295124277536e-14
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112021,
+      "transitions": 7,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 2441403163,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.7396710806214373e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 33.66250959074214,
+            "normalizedSlack": -5.167977972444103e-12,
+            "absoluteProduct": 1.7396710806214373e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 2.7388269146815176,
+            "normalizedSlack": -5.051294141519252e-12,
+            "absoluteProduct": 1.3834620348765999e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112021,
+      "transitions": 7,
+      "schools": 8,
+      "index": 3,
+      "refitSeed": 3806087975,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.8499456308749294e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 15.468841352713424,
+            "normalizedSlack": -1.195917385596838e-10,
+            "absoluteProduct": 1.8499456308749294e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 1.2179443527417317,
+            "normalizedSlack": -1.1572371012548162e-10,
+            "absoluteProduct": 1.4094503922565149e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 15.0617801575174,
+            "normalizedSlack": 8.880064370696263e-12,
+            "absoluteProduct": 1.3374957733603022e-10
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 3.180978293779935,
+            "normalizedSlack": 1.237840823049664e-15,
+            "absoluteProduct": 3.937544789275671e-15
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 42.573594600390706,
+            "normalizedSlack": 1.544536090400251e-14,
+            "absoluteProduct": 6.575645335837269e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112021,
+      "transitions": 7,
+      "schools": 8,
+      "index": 4,
+      "refitSeed": 2685704794,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.9733652394995664e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 50.99935124267386,
+            "normalizedSlack": -5.830202085024945e-11,
+            "absoluteProduct": 2.9733652394995664e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 26.375496231220215,
+            "normalizedSlack": -1.5470616426654363e-11,
+            "absoluteProduct": 4.080451852558757e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 6.555206336723807,
+            "normalizedSlack": 6.860797735432392e-12,
+            "absoluteProduct": 4.497394479028676e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112021,
+      "transitions": 7,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 1120506286,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.9100174617126506e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 34.93085330282335,
+            "normalizedSlack": -5.4679954284376725e-12,
+            "absoluteProduct": 1.9100174617126506e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 3.0567548632739876,
+            "normalizedSlack": 1.9129353730051355e-12,
+            "absoluteProduct": 5.847374504562287e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112021,
+      "transitions": 7,
+      "schools": 8,
+      "index": 13,
+      "refitSeed": 374520074,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.7219337143287e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 13.75708398768511,
+            "normalizedSlack": -1.9785687990022346e-12,
+            "absoluteProduct": 2.7219337143287e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 4.061400591138332,
+            "normalizedSlack": -4.72048231613437e-12,
+            "absoluteProduct": 1.9171769669206173e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112021,
+      "transitions": 7,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 3275411660,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.5832746998298505e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 14.799015500474868,
+            "normalizedSlack": -9.533763111070342e-14,
+            "absoluteProduct": 1.4109030805858549e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 10.261955517401988,
+            "normalizedSlack": -1.542858665821509e-13,
+            "absoluteProduct": 1.5832746998298505e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112021,
+      "transitions": 12,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 3046872889,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 7.97753676376782e-12,
+        "constraints": [
+          {
+            "constraint": "cone:2",
+            "multiplier": 18.55706642413761,
+            "normalizedSlack": -4.2989212742113434e-13,
+            "absoluteProduct": 7.97753676376782e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112022,
+      "transitions": 7,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 2828762474,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 3.91552298096501e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 23.723689073940893,
+            "normalizedSlack": -7.460381456632975e-12,
+            "absoluteProduct": 1.7698777005015495e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 12.489457736149934,
+            "normalizedSlack": -3.135062437203963e-11,
+            "absoluteProduct": 3.91552298096501e-10
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112022,
+      "transitions": 7,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 1505588737,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.7689113472081262e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 28.359751857245325,
+            "normalizedSlack": -6.237400651854457e-12,
+            "absoluteProduct": 1.7689113472081262e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 10.413810972612817,
+            "normalizedSlack": -2.308952071887623e-12,
+            "absoluteProduct": 2.4044990421460423e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112022,
+      "transitions": 7,
+      "schools": 8,
+      "index": 14,
+      "refitSeed": 3772125166,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.029174439114331e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 21.534640637731066,
+            "normalizedSlack": -4.7791577135079e-12,
+            "absoluteProduct": 1.029174439114331e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 4.424323517971825,
+            "normalizedSlack": -4.820945923024686e-13,
+            "absoluteProduct": 2.1329424426108503e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112023,
+      "transitions": 3,
+      "schools": 8,
+      "index": 1,
+      "refitSeed": 1674694825,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.8588606444804872e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 20.486437276445436,
+            "normalizedSlack": -2.6119471416930407e-12,
+            "absoluteProduct": 5.350949128768542e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 7.301995250748932,
+            "normalizedSlack": -2.5456886517282144e-10,
+            "absoluteProduct": 1.8588606444804872e-09
+          },
+          {
+            "constraint": "lower:6",
+            "multiplier": 6.668806618798691,
+            "normalizedSlack": 9.776572635101994e-12,
+            "absoluteProduct": 6.519807229813434e-11
+          },
+          {
+            "constraint": "lower:7",
+            "multiplier": 1.7053999089824585,
+            "normalizedSlack": 3.2638834348165175e-11,
+            "absoluteProduct": 5.566226512665443e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112023,
+      "transitions": 3,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 3161641604,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.0414596366985193e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 8.07170061671959,
+            "normalizedSlack": -1.2902604867941416e-12,
+            "absoluteProduct": 1.0414596366985193e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 2.6645950402326704,
+            "normalizedSlack": -9.211456184335772e-14,
+            "absoluteProduct": 2.4544800462101656e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112023,
+      "transitions": 3,
+      "schools": 8,
+      "index": 3,
+      "refitSeed": 2730739109,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.726695363083765e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 24.98881680804988,
+            "normalizedSlack": -1.0680029533738778e-11,
+            "absoluteProduct": 2.668813015231607e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 0.034628976042587245,
+            "normalizedSlack": -7.874028269650345e-09,
+            "absoluteProduct": 2.726695363083765e-10
+          },
+          {
+            "constraint": "lower:6",
+            "multiplier": 0.7509046116456979,
+            "normalizedSlack": 5.8802736686904735e-12,
+            "absoluteProduct": 4.415524615558443e-12
+          },
+          {
+            "constraint": "lower:7",
+            "multiplier": 2.8569931066206795,
+            "normalizedSlack": 5.538298311908951e-13,
+            "absoluteProduct": 1.582288009953282e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112023,
+      "transitions": 3,
+      "schools": 8,
+      "index": 4,
+      "refitSeed": 3314293342,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "zero-gradient-or-invalid"
+      }
+    },
+    {
+      "outerSeed": 2026112023,
+      "transitions": 3,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 1930074032,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.95471065523972e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 7.447990888965231,
+            "normalizedSlack": -2.768456282210661e-13,
+            "absoluteProduct": 2.061943716640356e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 9.988689009094617,
+            "normalizedSlack": -1.956924130343804e-12,
+            "absoluteProduct": 1.95471065523972e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 1.660829436042718,
+            "normalizedSlack": -2.307925737500269e-12,
+            "absoluteProduct": 3.833071001041046e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112023,
+      "transitions": 3,
+      "schools": 8,
+      "index": 9,
+      "refitSeed": 2910321099,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 4.752750121311457e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 16.36594815649116,
+            "normalizedSlack": -2.9040481344958878e-09,
+            "absoluteProduct": 4.752750121311457e-08
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 2.591010322932284,
+            "normalizedSlack": -1.1064709508588231e-10,
+            "absoluteProduct": 2.86687765569991e-10
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 7.112256922394689,
+            "normalizedSlack": 2.8438313546239197e-15,
+            "absoluteProduct": 2.0226059238047038e-14
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 22.610948663327065,
+            "normalizedSlack": 4.12478578050086e-13,
+            "absoluteProduct": 9.32653195301264e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112023,
+      "transitions": 3,
+      "schools": 8,
+      "index": 13,
+      "refitSeed": 1263487224,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.3769089353768892e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 37.31545777964523,
+            "normalizedSlack": 6.369770268967306e-13,
+            "absoluteProduct": 2.3769089353768892e-11
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 7.353572884081099,
+            "normalizedSlack": -1.854420491385594e-13,
+            "absoluteProduct": 1.3636616241137452e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 3,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 1543781621,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 3.4561074306044908e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 10.269245010721606,
+            "normalizedSlack": -3.3654932051929245e-13,
+            "absoluteProduct": 3.4561074306044908e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 10.625006915792591,
+            "normalizedSlack": -1.1530225241108715e-13,
+            "absoluteProduct": 1.225087229274264e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 3,
+      "schools": 8,
+      "index": 5,
+      "refitSeed": 3704936471,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 7.595112208270747e-12,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 6.456983763189253,
+            "normalizedSlack": -3.7732668698299255e-13,
+            "absoluteProduct": 2.4363922912671768e-12
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 6.711747338312875,
+            "normalizedSlack": -1.1316147383730215e-12,
+            "absoluteProduct": 7.595112208270747e-12
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 3,
+      "schools": 8,
+      "index": 6,
+      "refitSeed": 204761505,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.8526560621079054e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 15.11835033604534,
+            "normalizedSlack": -8.63661633713917e-11,
+            "absoluteProduct": 1.3057139150288264e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 2.7805030530804093,
+            "normalizedSlack": -1.1066296071060075e-10,
+            "absoluteProduct": 3.076987001187428e-10
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 7.497012149080857,
+            "normalizedSlack": -3.8050572753275377e-10,
+            "absoluteProduct": 2.8526560621079054e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 3,
+      "schools": 8,
+      "index": 9,
+      "refitSeed": 1408818663,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "zero-gradient-or-invalid"
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 3,
+      "schools": 8,
+      "index": 10,
+      "refitSeed": 3902674267,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.7611919290761531e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 11.217811485615345,
+            "normalizedSlack": -1.5699960115522874e-10,
+            "absoluteProduct": 1.7611919290761531e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 2.590036754488543,
+            "normalizedSlack": 1.8037459477804282e-11,
+            "absoluteProduct": 4.6717683005110814e-11
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 6.014330776865691,
+            "normalizedSlack": 1.7813283938246042e-17,
+            "absoluteProduct": 1.0713498182684045e-16
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 36.47259384611895,
+            "normalizedSlack": 3.937162559533201e-15,
+            "absoluteProduct": 1.4359853094000053e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 3,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 1574743720,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 8.938635161877017e-08,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 20.456562778215748,
+            "normalizedSlack": -1.312265049251119e-09,
+            "absoluteProduct": 2.6844432361663895e-08
+          },
+          {
+            "constraint": "cone:2",
+            "multiplier": 2.58348703027377,
+            "normalizedSlack": -3.4599109874106075e-08,
+            "absoluteProduct": 8.938635161877017e-08
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 7,
+      "schools": 8,
+      "index": 0,
+      "refitSeed": 3126678747,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "zero-gradient-or-invalid"
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 7,
+      "schools": 8,
+      "index": 2,
+      "refitSeed": 1248776271,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.466607733920828e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 35.7961359075153,
+            "normalizedSlack": -4.097111871823343e-12,
+            "absoluteProduct": 1.466607733920828e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 8.862202329661681,
+            "normalizedSlack": -1.624146563308907e-12,
+            "absoluteProduct": 1.4393515457068208e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 7,
+      "schools": 8,
+      "index": 4,
+      "refitSeed": 2187426266,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 2.686113440805187e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 32.13008187780591,
+            "normalizedSlack": -1.1574091625343358e-11,
+            "absoluteProduct": 3.7187651158350977e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 21.765583670033692,
+            "normalizedSlack": -1.2341104569152265e-10,
+            "absoluteProduct": 2.686113440805187e-09
+          },
+          {
+            "constraint": "lower:3",
+            "multiplier": 15.168380251004201,
+            "normalizedSlack": 0.0,
+            "absoluteProduct": 0.0
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 21.052301383530132,
+            "normalizedSlack": 0.0,
+            "absoluteProduct": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 7,
+      "schools": 8,
+      "index": 5,
+      "refitSeed": 2662164356,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 4.846783404481874e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 4.455446390978211,
+            "normalizedSlack": -1.5014686462414328e-12,
+            "absoluteProduct": 6.689713061063331e-12
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 23.64662960960274,
+            "normalizedSlack": -2.0496719763029682e-12,
+            "absoluteProduct": 4.846783404481874e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 7,
+      "schools": 8,
+      "index": 10,
+      "refitSeed": 2330238696,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 4.503697211780468e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 10.445386133570915,
+            "normalizedSlack": -1.9368857060694361e-10,
+            "absoluteProduct": 2.02315190964894e-09
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 17.788340799609614,
+            "normalizedSlack": -2.5318253470156737e-10,
+            "absoluteProduct": 4.503697211780468e-09
+          },
+          {
+            "constraint": "lower:0",
+            "multiplier": 10.089264804387,
+            "normalizedSlack": 1.0570265187573704e-16,
+            "absoluteProduct": 1.0664620453002452e-15
+          },
+          {
+            "constraint": "lower:1",
+            "multiplier": 15.369625583316658,
+            "normalizedSlack": 1.6300469737037408e-16,
+            "absoluteProduct": 2.5053211669044913e-15
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 7,
+      "schools": 8,
+      "index": 14,
+      "refitSeed": 3523711917,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.1943230374399833e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 5.426486221805825,
+            "normalizedSlack": -4.4729116843349305e-14,
+            "absoluteProduct": 2.4272193626397785e-13
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 11.810939338407888,
+            "normalizedSlack": -1.0112007209758287e-12,
+            "absoluteProduct": 1.1943230374399833e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 7,
+      "schools": 8,
+      "index": 15,
+      "refitSeed": 1189618022,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 1.5763338410613917e-09,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 11.195906309366135,
+            "normalizedSlack": -1.4079555486657488e-10,
+            "absoluteProduct": 1.5763338410613917e-09
+          },
+          {
+            "constraint": "lower:3",
+            "multiplier": 13.92991690488546,
+            "normalizedSlack": 1.2432823853291613e-11,
+            "absoluteProduct": 1.7318820316943e-10
+          },
+          {
+            "constraint": "lower:4",
+            "multiplier": 3.9284097741129838,
+            "normalizedSlack": 2.405034307757749e-11,
+            "absoluteProduct": 9.447960281672595e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 12,
+      "schools": 8,
+      "index": 3,
+      "refitSeed": 3930338583,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 5.049296476485689e-10,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 38.757058398179296,
+            "normalizedSlack": -1.3028069428310618e-11,
+            "absoluteProduct": 5.049296476485689e-10
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 11.180223251528961,
+            "normalizedSlack": -5.819487617112191e-12,
+            "absoluteProduct": 6.506317076882258e-11
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 12,
+      "schools": 8,
+      "index": 8,
+      "refitSeed": 4027902571,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 1.257927162291621e-11,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 17.0954213863743,
+            "normalizedSlack": -7.358269409458585e-13,
+            "absoluteProduct": 1.257927162291621e-11
+          },
+          {
+            "constraint": "cone:1",
+            "multiplier": 10.924278882695702,
+            "normalizedSlack": -1.9023423804507746e-14,
+            "absoluteProduct": 2.078171869441547e-13
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 12,
+      "schools": 8,
+      "index": 12,
+      "refitSeed": 2069992120,
+      "kind": "failed",
+      "priorStatus": "first-order-verified",
+      "complementarity": {
+        "status": "supplemental-kkt-screen-pass",
+        "reason": null,
+        "priorStationarityScreen": true,
+        "maximumAbsoluteProduct": 4.574648666256628e-09,
+        "constraints": [
+          {
+            "constraint": "cone:0",
+            "multiplier": 51.85350041513474,
+            "normalizedSlack": -8.822256221146841e-11,
+            "absoluteProduct": 4.574648666256628e-09
+          }
+        ]
+      }
+    },
+    {
+      "outerSeed": 2026112024,
+      "transitions": 12,
+      "schools": 8,
+      "index": 14,
+      "refitSeed": 508841840,
+      "kind": "failed",
+      "priorStatus": "unresolved",
+      "complementarity": {
+        "status": "unresolved",
+        "reason": "prior-screen-or-complementarity-failed",
+        "priorStationarityScreen": false,
+        "maximumAbsoluteProduct": 5.1806472893599546e-12,
+        "constraints": [
+          {
+            "constraint": "cone:1",
+            "multiplier": 29.620299636311344,
+            "normalizedSlack": -1.7490192040491821e-13,
+            "absoluteProduct": 5.1806472893599546e-12
+          }
+        ]
+      }
+    }
+  ],
+  "historicalFits": 0,
+  "productionActivated": false,
+  "limitations": [
+    "Passing necessary first-order tests does not prove a minimum or global optimum.",
+    "This is a post-failure check, not a validated bootstrap or economic calibration.",
+    "The frozen prior 87/179 stationarity result and all previous failures remain unchanged."
+  ]
+}
