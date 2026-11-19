@@ -1,0 +1,6 @@
+{
+  "id": "reviewed-metadata-equivalences-v1",
+  "status": "No independently reviewed equivalences; no bridges authorized",
+  "requirements": ["Exact source hashes and affected fields/years/identities", "Independent evidence for unchanged economic definition or institutional continuity", "Named review rationale; original observations and exclusions retained"],
+  "equivalences": []
+}

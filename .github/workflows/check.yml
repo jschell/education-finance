@@ -3,12 +3,24 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      force_full:
+        description: Force all numerical reproductions
+        type: boolean
+        default: false
+concurrency:
+  group: check-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
     steps:
       - uses: actions/checkout@v6
         with:
@@ -66,7 +78,10 @@ jobs:
         run: node scripts/validate-revision-cost-process.mjs --verify
       - name: Reproduce matched observation-graph support
         run: node --max-old-space-size=4096 scripts/audit-observation-graphs.mjs --verify
-      - name: Verify bounded estimator and synthetic recovery evidence
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Verify bounded estimator mathematics
         env:
           OPENBLAS_NUM_THREADS: '1'
           OMP_NUM_THREADS: '1'
@@ -74,7 +89,29 @@ jobs:
           python3 -m venv /tmp/education-finance-estimator-qa
           /tmp/education-finance-estimator-qa/bin/pip install numpy==2.3.5 scipy==1.17.0
           /tmp/education-finance-estimator-qa/bin/python -m unittest discover -s tests -p revision_estimator_test.py
+      - name: Identify estimator reproduction inputs
+        id: estimator-key
+        run: echo "key=$(/tmp/education-finance-estimator-qa/bin/python scripts/reproduction-stamp.py estimator)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v4
+        id: estimator-cache
+        with:
+          path: .cache/reproductions/estimator
+          key: estimator-${{ runner.os }}-${{ runner.arch }}-${{ steps.estimator-key.outputs.key }}
+      - name: Reproduce estimator recovery
+        if: steps.estimator-cache.outputs.cache-hit != 'true' || inputs.force_full == true
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+          OMP_NUM_THREADS: '1'
+        run: |
           /tmp/education-finance-estimator-qa/bin/python scripts/validate_revision_estimator.py --verify
+          /tmp/education-finance-estimator-qa/bin/python scripts/reproduction-stamp.py estimator --write
+      - name: Verify estimator completion marker
+        run: /tmp/education-finance-estimator-qa/bin/python scripts/reproduction-stamp.py estimator --check
+      - uses: actions/cache/save@v4
+        if: steps.estimator-cache.outputs.cache-hit != 'true'
+        with:
+          path: .cache/reproductions/estimator
+          key: estimator-${{ runner.os }}-${{ runner.arch }}-${{ steps.estimator-key.outputs.key }}
       - name: Install isolated browser QA
         run: |
           npm install --prefix /tmp/education-finance-qa playwright
@@ -99,6 +136,9 @@ jobs:
       OMP_NUM_THREADS: '1'
     steps:
       - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
       - name: Install isolated pinned numerical dependencies
         run: |
           python3 -m venv /tmp/education-finance-reml-qa
@@ -108,4 +148,81 @@ jobs:
           /tmp/education-finance-reml-qa/bin/python -m unittest discover -s tests -p reml_study_test.py
           /tmp/education-finance-reml-qa/bin/python -m unittest discover -s tests -p reml_profile_test.py
           /tmp/education-finance-reml-qa/bin/python -m unittest discover -s tests -p reml_reproduction_test.py
+      - name: Identify REML reproduction inputs
+        id: reml-key
+        run: echo "key=$(/tmp/education-finance-reml-qa/bin/python scripts/reproduction-stamp.py reml)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v4
+        id: reml-cache
+        with:
+          path: .cache/reproductions/reml
+          key: reml-${{ runner.os }}-${{ runner.arch }}-${{ steps.reml-key.outputs.key }}
+      - name: Reproduce REML study
+        if: steps.reml-cache.outputs.cache-hit != 'true' || inputs.force_full == true
+        run: |
           /tmp/education-finance-reml-qa/bin/python scripts/verify_reml_reproduction.py
+          /tmp/education-finance-reml-qa/bin/python scripts/reproduction-stamp.py reml --write
+      - name: Verify REML completion marker
+        run: /tmp/education-finance-reml-qa/bin/python scripts/reproduction-stamp.py reml --check
+      - uses: actions/cache/save@v4
+        if: steps.reml-cache.outputs.cache-hit != 'true'
+        with:
+          path: .cache/reproductions/reml
+          key: reml-${{ runner.os }}-${{ runner.arch }}-${{ steps.reml-key.outputs.key }}
+
+  predictive-study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_CORETYPE: Haswell
+      NPY_DISABLE_CPU_FEATURES: AVX512F,AVX512CD,AVX512_KNL,AVX512_KNM,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL,AVX512_SPR
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12.14'
+      - name: Install isolated numerical dependencies
+        run: |
+          python3 -m venv /tmp/education-finance-predictive-qa
+          /tmp/education-finance-predictive-qa/bin/pip install numpy==2.3.5 scipy==1.17.0
+      - name: Verify predictive mathematics and artifact contracts
+        run: |
+          /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p predictive_study_test.py
+          /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p predictive_reproduction_test.py
+          /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p predictive_portability_test.py
+          /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p predictive_runtime_test.py
+          /tmp/education-finance-predictive-qa/bin/python -m unittest discover -s tests -p reproduction_stamp_test.py
+          /tmp/education-finance-predictive-qa/bin/python scripts/validate_predictive_depth.py --validate
+          /tmp/education-finance-predictive-qa/bin/python scripts/verify_predictive_runtime.py --validate
+          /tmp/education-finance-predictive-qa/bin/python scripts/summarize_predictive_depth.py --verify
+          node --test tests/predictive-ledger.test.js tests/metadata-continuity.test.js
+          node --max-old-space-size=4096 scripts/audit-metadata-continuity.mjs --verify
+      - name: Identify predictive reproduction inputs
+        id: predictive-key
+        run: echo "key=$(/tmp/education-finance-predictive-qa/bin/python scripts/reproduction-stamp.py predictive)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v4
+        id: predictive-cache
+        with:
+          path: .cache/reproductions/predictive
+          key: predictive-${{ runner.os }}-${{ runner.arch }}-${{ steps.predictive-key.outputs.key }}
+      - name: Reproduce supported AVX2 arm; retain failed primary cross-runtime gate
+        if: steps.predictive-cache.outputs.cache-hit != 'true' || inputs.force_full == true
+        run: |
+          /tmp/education-finance-predictive-qa/bin/python scripts/verify_predictive_runtime.py --workers 2
+          /tmp/education-finance-predictive-qa/bin/python scripts/reproduction-stamp.py predictive --write
+      - name: Verify predictive completion marker
+        run: /tmp/education-finance-predictive-qa/bin/python scripts/reproduction-stamp.py predictive --check
+      - uses: actions/cache/save@v4
+        if: steps.predictive-cache.outputs.cache-hit != 'true'
+        with:
+          path: .cache/reproductions/predictive
+          key: predictive-${{ runner.os }}-${{ runner.arch }}-${{ steps.predictive-key.outputs.key }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: predictive-runtime-diagnostic
+          path: .cache/predictive-reproduction/
