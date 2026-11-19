@@ -1,0 +1,21 @@
+{
+  "sourceUrl": "https://www.uab.edu/institutionaleffectiveness/images/documents/cds/CDS-2004-05.pdf",
+  "originalDocumentSha256": "9221e183f332b5d78681278388cecff7fb78731e022c5ea9db1dedee1a4d2f5b",
+  "originalDocumentBytes": 1083128,
+  "documentLabel": "UAB Common Data Set 2004-05",
+  "printedDateClaims": [
+    "2005-07-19"
+  ],
+  "locator": {
+    "g1PrintedPage": 12,
+    "g5PrintedPage": 12
+  },
+  "fields": {
+    "academicYear": "2005-06",
+    "firstYearInStateTuition": 3960,
+    "firstYearOutStateTuition": 9900,
+    "requiredFees": 832,
+    "residentG5RoomBoard": 8924
+  },
+  "interpretation": "G1 first-year tuition and required fees; G5 typical full-time undergraduate resident expenses. G5 cohort, room type and meal-plan weighting are not proven equivalent to IPEDS first-time average on-campus attendance costs."
+}
