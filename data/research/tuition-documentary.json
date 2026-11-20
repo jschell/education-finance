@@ -1,0 +1,292 @@
+{
+  "method": "tuition-documentary-1.0.0",
+  "protocolCommit": "1217d471311c197d9cd7e821b599e9d73f75a87a",
+  "sourceBaseCommit": "88b93bf99671bd010d2ff786ba10e2bbc578ca93",
+  "measure": "annual-gross-tuition-required-fees-lowest-reported-residency-FTFT-degree-certificate-undergraduate",
+  "proofLevel": "date-claimed-documentary-fact",
+  "policyEvidence": {
+    "url": "https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx?year=-1",
+    "state": "indexed-primary-guidance-reviewed; raw HTML unavailable",
+    "rawCapture": null,
+    "attemptResult": "HTTP302 redirect loop",
+    "interpretation": "Indexed NCES policy says historical DFRs preserve provisional rather than final/revised content. This is a source-local preservation lead, not original raw CSV bytes or campus continuity proof.",
+    "originalVintageVerified": false
+  },
+  "reports": [
+    {
+      "captureId": "dfr-2005-100654",
+      "unitid": 100654,
+      "reportYear": 2005,
+      "sha256": "913aaec8f86b82e91fa87571b81fdff5fd5325be792a5e66bb4813e38eb72822",
+      "issueDate": "2005-09-01",
+      "issueDateText": "September 01, 2005",
+      "issueDatePage": 2,
+      "figure": 3,
+      "figurePage": 3,
+      "measurePage": 8,
+      "series": "institution",
+      "review": {
+        "author": "evaluation_audit",
+        "reviewer": "evaluation_audit/documentary_chart_review",
+        "state": "approved"
+      },
+      "slots": [
+        {
+          "academicYear": 2002,
+          "status": "readable",
+          "amount": 3040,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "valueBasis": "visible-institution-point-label"
+        },
+        {
+          "academicYear": 2003,
+          "status": "readable",
+          "amount": 3352,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "valueBasis": "visible-institution-point-label"
+        },
+        {
+          "academicYear": 2004,
+          "status": "readable",
+          "amount": 4420,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "valueBasis": "visible-institution-point-label"
+        }
+      ]
+    },
+    {
+      "captureId": "dfr-2006-100654",
+      "unitid": 100654,
+      "reportYear": 2006,
+      "sha256": "a17b6f4bb1f87d998e90833b3d5da0a2430c46ba7789036910edad08e6ba57b1",
+      "issueDate": "2006-09-07",
+      "issueDateText": "September 07, 2006",
+      "issueDatePage": 2,
+      "figure": 3,
+      "figurePage": 3,
+      "measurePage": 8,
+      "series": "institution",
+      "review": {
+        "author": "evaluation_audit",
+        "reviewer": "evaluation_audit/documentary_chart_review",
+        "state": "approved"
+      },
+      "slots": [
+        {
+          "academicYear": 2003,
+          "status": "readable",
+          "amount": 3352,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "valueBasis": "visible-institution-point-label"
+        },
+        {
+          "academicYear": 2004,
+          "status": "readable",
+          "amount": 4420,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "valueBasis": "visible-institution-point-label"
+        },
+        {
+          "academicYear": 2005,
+          "status": "readable",
+          "amount": 4420,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "valueBasis": "visible-institution-point-label"
+        }
+      ]
+    },
+    {
+      "captureId": "dfr-2005-100663",
+      "unitid": 100663,
+      "reportYear": 2005,
+      "sha256": "5a1edf94e739cfcd4fd093050119e07729fc6990d320e74763970a60e941ee9c",
+      "issueDate": "2005-09-01",
+      "issueDateText": "September 01, 2005",
+      "issueDatePage": 2,
+      "figure": 3,
+      "figurePage": 3,
+      "measurePage": 8,
+      "series": "institution",
+      "review": {
+        "author": "evaluation_audit",
+        "reviewer": "evaluation_audit/documentary_chart_review",
+        "state": "approved"
+      },
+      "slots": [
+        {
+          "academicYear": 2002,
+          "status": "readable",
+          "amount": 3880,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "valueBasis": "visible-institution-point-label"
+        },
+        {
+          "academicYear": 2003,
+          "status": "readable",
+          "amount": 4274,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "valueBasis": "visible-institution-point-label"
+        },
+        {
+          "academicYear": 2004,
+          "status": "readable",
+          "amount": 4662,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "valueBasis": "visible-institution-point-label"
+        }
+      ]
+    },
+    {
+      "captureId": "dfr-2006-100663",
+      "unitid": 100663,
+      "reportYear": 2006,
+      "sha256": "5f595ced373d51da9d021bdef48c7f6bb930a8360b4c14ae952e375148cee2bf",
+      "issueDate": "2006-09-07",
+      "issueDateText": "September 07, 2006",
+      "issueDatePage": 2,
+      "figure": 3,
+      "figurePage": 3,
+      "measurePage": 8,
+      "series": "institution",
+      "review": {
+        "author": "evaluation_audit",
+        "reviewer": "evaluation_audit/documentary_chart_review",
+        "state": "approved"
+      },
+      "slots": [
+        {
+          "academicYear": 2003,
+          "status": "unreadable",
+          "amount": null,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "reason": "Institution and comparison-group labels overlap; no numeric value inferred from another report or panel."
+        },
+        {
+          "academicYear": 2004,
+          "status": "readable",
+          "amount": 4662,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "valueBasis": "visible-institution-point-label"
+        },
+        {
+          "academicYear": 2005,
+          "status": "readable",
+          "amount": 4792,
+          "review": {
+            "author": "evaluation_audit",
+            "reviewer": "evaluation_audit/documentary_chart_review",
+            "state": "approved"
+          },
+          "valueBasis": "visible-institution-point-label"
+        }
+      ]
+    }
+  ],
+  "originalByteVintageVerified": false,
+  "historicalFitAuthorized": false,
+  "populationBridgeAuthorized": false,
+  "productionActivation": false,
+  "fullPairedHistorySupported": false,
+  "comparisons": [
+    {
+      "unitid": 100654,
+      "academicYear": 2003,
+      "leftReport": "dfr-2005-100654",
+      "rightReport": "dfr-2006-100654",
+      "leftAmount": 3352,
+      "rightAmount": 3352,
+      "state": "equal",
+      "proofLevel": "date-claimed-documentary-fact"
+    },
+    {
+      "unitid": 100654,
+      "academicYear": 2004,
+      "leftReport": "dfr-2005-100654",
+      "rightReport": "dfr-2006-100654",
+      "leftAmount": 4420,
+      "rightAmount": 4420,
+      "state": "equal",
+      "proofLevel": "date-claimed-documentary-fact"
+    },
+    {
+      "unitid": 100663,
+      "academicYear": 2003,
+      "leftReport": "dfr-2005-100663",
+      "rightReport": "dfr-2006-100663",
+      "leftAmount": 4274,
+      "rightAmount": null,
+      "state": "unavailable",
+      "proofLevel": "date-claimed-documentary-fact"
+    },
+    {
+      "unitid": 100663,
+      "academicYear": 2004,
+      "leftReport": "dfr-2005-100663",
+      "rightReport": "dfr-2006-100663",
+      "leftAmount": 4662,
+      "rightAmount": 4662,
+      "state": "equal",
+      "proofLevel": "date-claimed-documentary-fact"
+    }
+  ],
+  "summary": {
+    "method": "tuition-documentary-1.0.0",
+    "reports": 4,
+    "expectedSlots": 12,
+    "documentaryEligibleSlots": 11,
+    "unreadableSlots": 1,
+    "overlapPairs": 4,
+    "equalPairs": 3,
+    "differentPairs": 0,
+    "unavailablePairs": 1,
+    "originalVintagePairs": 0,
+    "populationBridges": 0,
+    "pairedHistorySupported": false,
+    "historicalFits": 0,
+    "productionActivation": false
+  }
+}
