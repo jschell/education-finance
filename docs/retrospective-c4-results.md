@@ -138,7 +138,13 @@ identities, fixed primary decisions and source hashes. Independent benchmark
 review rebuilds all1,440 quantile forecasts and1,038,816 weight entries, retaining
 720 unsupported diagnostics. Recovery independently reconstructs all180 role/cutoff/input-hash records and
 all71 mature-label banks, confirming disjoint roles and strict maturity. Dedicated
-CI acceptance is recorded in the canonical handoff when complete.
+[CI44665647813](https://github.com/jschell/education-finance/actions/runs/44665647813)
+passes at scientific source`009ec940c27a1b11aa6ece21044dd8841c7af88b`, including
+all86 targeted tests, fresh unchanged B0 replay/archive verification, the full
+C4/direct-bill numerical reproduction and all216 application checks. The whole
+published scientific tree exactly matches tested local source. Subsequent handoff
+changes are documentation only; ready research integration does not activate either
+rejected candidate. The final merge receipt is recorded in its pull request.
 
 ```sh
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 OPENBLAS_CORETYPE=Haswell \
