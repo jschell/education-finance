@@ -1,0 +1,16 @@
+{
+  "id": "complete-evaluation-archive-v1",
+  "path": "data/calibration-diagnostics/complete-cost-evaluation.json.gz",
+  "encoding": "gzip, Zopfli DEFLATE, five iterations",
+  "zopfliVersion": "0.4.3",
+  "originalGzipSha256": "44f1a48aef53ac20a51e4010115c5d9e49aba7a7073fe8ad5c9717a5f863d4e3",
+  "originalGzipBytes": 12736954,
+  "unchangedJsonSha256": "eb8c3b9d8ea273c38975f511afb3089aa39c979f2f6a33d6b12bfaf280247640",
+  "jsonBytes": 53687719,
+  "gzipSha256": "c1a8df25317284ccf8d187fef733003e689e7f23057cebed4bb29452af3aad30",
+  "gzipBytes": 11034309,
+  "sourceHashes": {
+    "scripts/package_complete_evaluation.py": "c045c7f96d852bdc6138d54f306f5e8b24c5d4424e2e8cd519eca93ecf97f0d2"
+  },
+  "numericalResultsChanged": false
+}

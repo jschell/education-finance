@@ -259,3 +259,110 @@ jobs:
           /tmp/education-finance-covariance-qa/bin/python scripts/audit_covariance_complementarity.py --verify
       - name: Reproduce pinned metadata review
         run: node --max-old-space-size=4096 scripts/review-metadata-leads.mjs --verify
+
+  complete-evaluation:
+    name: complete-evaluation-${{ matrix.partition }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        partition: [0, 1, 2, 3, 4, 5, 6, 7]
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_CORETYPE: Haswell
+      NPY_DISABLE_CPU_FEATURES: AVX512F,AVX512CD,AVX512_KNL,AVX512_KNM,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL,AVX512_SPR
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12.14'
+      - run: python -m pip install numpy==2.3.5 scipy==1.17.0
+      - name: Always verify mathematics, slot accounting and complete decision
+        run: |
+          python -m unittest discover -s tests -p evaluation_optimizer_test.py
+          python -m unittest discover -s tests -p complete_evaluation_test.py
+          python -m unittest discover -s tests -p evaluation_delivery_test.py
+          python scripts/package_complete_evaluation.py --verify
+          python scripts/run_complete_evaluation.py --validate
+          python scripts/finalize_cost_evaluation.py --verify
+          python scripts/summarize_complete_evaluation.py --verify
+      - name: Identify exact reproduction inputs
+        id: evaluation-key
+        run: echo "key=$(python scripts/evaluation_reproduction_stamp.py ${{ matrix.partition }})" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v4
+        id: evaluation-cache
+        with:
+          path: .cache/reproductions/complete-evaluation/${{ matrix.partition }}
+          key: complete-evaluation-${{ matrix.partition }}-${{ runner.os }}-${{ runner.arch }}-${{ steps.evaluation-key.outputs.key }}
+      - name: Independently reproduce disjoint forecast partition
+        if: steps.evaluation-cache.outputs.cache-hit != 'true' || inputs.force_full == true
+        run: |
+          python scripts/verify_evaluation_partition.py --partition ${{ matrix.partition }} --workers 2
+          python scripts/evaluation_reproduction_stamp.py ${{ matrix.partition }} --write
+      - name: Verify completion marker
+        run: python scripts/evaluation_reproduction_stamp.py ${{ matrix.partition }} --check
+      - uses: actions/cache/save@v4
+        if: steps.evaluation-cache.outputs.cache-hit != 'true'
+        with:
+          path: .cache/reproductions/complete-evaluation/${{ matrix.partition }}
+          key: complete-evaluation-${{ matrix.partition }}-${{ runner.os }}-${{ runner.arch }}-${{ steps.evaluation-key.outputs.key }}
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: complete-evaluation-mismatch-${{ matrix.partition }}
+          path: .cache/evaluation-ci/${{ matrix.partition }}
+          if-no-files-found: ignore
+
+  evaluation-support:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_CORETYPE: Haswell
+      NPY_DISABLE_CPU_FEATURES: AVX512F,AVX512CD,AVX512_KNL,AVX512_KNM,AVX512_SKX,AVX512_CLX,AVX512_CNL,AVX512_ICL,AVX512_SPR
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12.14'
+      - run: python -m pip install numpy==2.3.5 scipy==1.17.0 openpyxl==3.1.5
+      - name: Verify reviewed evidence and all fifteen support groups
+        run: |
+          python scripts/package_complete_evaluation.py --verify
+          python scripts/review_evaluation_metadata.py --verify
+          node --max-old-space-size=4096 scripts/audit-evaluation-support.mjs --verify
+          node --test tests/reviewed-graph.test.js
+          python scripts/audit-cross-runtime-minimum.py --verify
+          python scripts/evaluation_search_summary.py --verify
+          python scripts/finalize_cost_evaluation.py --verify
+          python scripts/summarize_complete_evaluation.py --verify
+      - name: Identify retained-case reproduction inputs
+        id: retained-key
+        run: echo "key=$(python scripts/evaluation_reproduction_stamp.py retained)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v4
+        id: retained-cache
+        with:
+          path: .cache/reproductions/complete-evaluation/retained
+          key: evaluation-retained-${{ runner.os }}-${{ runner.arch }}-${{ steps.retained-key.outputs.key }}
+      - name: Independently reproduce all 185 retained fits
+        if: steps.retained-cache.outputs.cache-hit != 'true' || inputs.force_full == true
+        run: |
+          python scripts/evaluate_retained_optimizer.py --verify --workers 2
+          python scripts/evaluation_reproduction_stamp.py retained --write
+      - name: Verify retained completion marker
+        run: python scripts/evaluation_reproduction_stamp.py retained --check
+      - uses: actions/cache/save@v4
+        if: steps.retained-cache.outputs.cache-hit != 'true'
+        with:
+          path: .cache/reproductions/complete-evaluation/retained
+          key: evaluation-retained-${{ runner.os }}-${{ runner.arch }}-${{ steps.retained-key.outputs.key }}

@@ -1,5 +1,10 @@
 # Calibration work after the evidence release
 
+## Completed evaluation checkpoint
+
+All 320 fresh cells are complete. Candidate complete bootstrap mixtures are 3 transitions: 32/64; 7 transitions: 45/64; 12 transitions: 52/64. The fixed requirement is at least 90% at every depth. The candidate is **reject** for promotion; gates: 13 fail, 21 pass, 3 unsupported. See the [complete results](complete-cost-evaluation-results.md) and continuity for exact delivery acceptance. Numerical machinery, joint uncertainty/funding evaluation and bounded source review are now implemented. Do not repeat the older completed audits below. This protocol stops with rejection; six definition concepts alone authorize no population bridge or original-vintage backtest. Future historical calibration needs independently evidenced reporting populations and original publication vintages; a different candidate requires its own separately specified evaluation. Production defaults remain provisional and unchanged.
+
+
 Written 2026-11-17. This is a post-results follow-up plan, not a retroactively frozen protocol. It uses the source-identified `current-calibration.json` findings to choose the next work. Production remains the corrected foundation; no result here authorizes automatic candidate activation.
 
 Subsequent [deep review](model-and-scenario-review.md) recommends updating the execution order: clarify the funding decision and scenario suite, add stronger baselines, and run the bounded source trace in parallel. The original cost-model research program below remains relevant, but should not block useful scenario/decision work or imply that another residual correction is the only next step. See [the scenario proposal](scenario-design-plan.md). No frozen gate changes.
