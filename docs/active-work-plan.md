@@ -2,6 +2,14 @@
 
 Checkpoint: 2026-11-18 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
+## Integrated research and completed C3 follow-up
+
+All prior ready PRs #17–#23 were merged into main `8f4b6a154d990331133a82ccb9d32c523fb825ec`, preserving accepted research trees and byte-identical production assets. Pages/live verification pass; main [Check 44651059539](https://github.com/jschell/education-finance/actions/runs/44651059539) passes all thirteen jobs at that exact head. [Merge receipt](merge-integration-checkpoint.md).
+
+The separately frozen [C3 protocol](retrospective-c3-protocol.md), published at `fb5ebcb1d92b6e2dac14c6689a794b5f2734a4cc`, is executed. [Actual results](retrospective-c3-results.md): primary score **0.367804**, improving **14.22% against B0** and **18.97% against B2**, but **2.96% worse than C2** with **5/20** subgroup protections failing. Decision **reject-fixed-C3**. Coverage **85.81%** is not nominal 80% calibration.
+
+The 480-row mature pseudo-label audit and 6,480-case comparison are independently verified. All 60 targeted tests,216 application tests and full local reproduction pass; [Fast C3 CI 44652461960](https://github.com/jschell/education-finance/actions/runs/44652461960) accepts scientific implementation `4bd6690b4d911173c086b488eda647d1623a191d`, including all 60 tests, full reproduction and 216 application tests. Stop after this one hypothesis: no C4, subgroup exception, automatic adoption or new source quest. Ready research integration may proceed under the user's merge authorization; failed scientific qualification remains explicit.
+
 ## Bounded C2 follow-up — measured gains, retained rejection
 
 The [fixed C2 protocol](retrospective-c2-protocol.md) was published at `ffe318860a8702866fafcef7934b26f8a169ae5f` before new outcomes. The anchored nominal-state law reuses the existing data, case grid, shocks, cutoffs and seed. [Actual results](retrospective-c2-results.md): on the fixed 1,001 primary cases, C2 improves proper interval score **16.68% versus current B0** and **21.30% versus B2**, but fails **four of twenty** frozen subgroup no-harm checks. Decision: **reject-fixed-C2**. Coverage **89.37%** is overcoverage, not nominal calibration. Old C1 results remain unchanged.
