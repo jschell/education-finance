@@ -9,7 +9,19 @@ Updated **2026-11-18, America/Los_Angeles**. This is a repository-grounded hando
 3. [Active work plan](active-work-plan.md) and [next calibration steps](calibration-next-steps.md).
 4. [Decision record](decisions.md), then the frozen protocol/results for the task being resumed.
 
-## Active C2 result — aggregate improvement with failed subgroup protections
+## Integrated main and bounded C3 result
+
+PRs #17–#23 are merged into main with merge commits under the user's explicit authorization. Integrated main `8f4b6a154d990331133a82ccb9d32c523fb825ec` has exactly the accepted top PR #23 tree; its entire production site/package remain identical to premerge main. Pages deployment 44651059487 and live byte/browser verification 44651216675 pass. Main Check 44651059539 was last observed at eight of thirteen successful jobs, without failures. See [the exact merge receipt](merge-integration-checkpoint.md); no failed research candidate was activated.
+
+The next single C3 hypothesis was frozen at `fb5ebcb1d92b6e2dac14c6689a794b5f2734a4cc` before fitting/outcomes. [C3 results](retrospective-c3-results.md) use only mature prior one-year pseudo-errors, last five target years, fixed shrinkage and a coherent annual location/scale transform. All prior C1/C2 sources and outcomes remain unchanged; there is no subgroup routing, source acquisition, grid or C4 iteration.
+
+All 6,480 cases are retained. On the fixed 1,001-case primary support C3 score is **0.367804**: **14.22% better than B0**, **18.97% better than B2**, but **2.96% worse than C2**. Weighted 80% interval coverage is **85.81%**, median-forecast signed bias approximately **+0.012821** origin budgets; five of twenty subgroup protections fail. Decision: **reject-fixed-C3**. Lower coverage error alone does not override the failed score/protection criteria.
+
+The artifact retains 480 pseudo-label records (473 observed), 80 inner input hashes and 180 calibration records (140 learned, 40 fixed identity fallbacks). Independent audit reconciles every pseudo error, year purge/formula/fallback and 4,347 C3 score identities, and confirms every old case remains identical after removing C3 fields. All 60 targeted tests, 216 application tests and full local reproduction pass; dedicated C3 CI remains pending at this publication checkpoint.
+
+**Bounded stop:** retain the negative C3 result and the earlier C2 aggregate gains/failures. No automatic new iteration, model activation, funding qualification, source bridge or additional deployment follows from this experiment. Review/merge of checked research evidence is separate from scientific promotion.
+
+## Completed C2 result — aggregate improvement with failed subgroup protections
 
 The authorized follow-up is complete under [C2 protocol](retrospective-c2-protocol.md), published at `ffe318860a8702866fafcef7934b26f8a169ae5f` before C2 outcomes. Branch `retrospective-c2` starts from PR #22 head `a37d3203770f258bcefa696937598b6d7ab9539e`. All prior C1 generating sources/artifacts and its rejection remain unchanged. See [C2 results](retrospective-c2-results.md).
 
