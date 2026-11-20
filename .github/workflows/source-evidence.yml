@@ -1,0 +1,28 @@
+name: Source evidence
+on:
+  push:
+    branches: [next-cost-evidence]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: source-evidence-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  source-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12.14'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Verify pinned captures and exact unresolved eligibility decision
+        run: python scripts/source_evidence.py
+      - name: Verify evidence, timestamp, scope and numeric comparison guards
+        run: python -m unittest discover -s tests -p 'source_evidence*test.py'
+      - name: Verify application remains unchanged
+        run: npm run check

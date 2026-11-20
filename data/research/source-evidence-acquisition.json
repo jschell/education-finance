@@ -1,0 +1,604 @@
+{
+  "method": "source-evidence-acquisition-1.0.0",
+  "protocolCommit": "baaf6626e5c92f607888280d862b9006c3c1a2dd",
+  "captures": [
+    {
+      "id": "dfr-2005-100654",
+      "url": "https://nces.ed.gov/ipeds/DataCenter/DfrFiles/IPEDSDFR2005_100654.pdf",
+      "retrievedAt": "2026-11-19T15:23:07.306232+00:00",
+      "originalDocumentSha256": "913aaec8f86b82e91fa87571b81fdff5fd5325be792a5e66bb4813e38eb72822",
+      "originalDocumentBytes": 421352,
+      "captureKind": "raw",
+      "role": "dated-report",
+      "originalVintageVerified": false,
+      "path": "data/research/source-evidence-captures/dfr-2005-100654.pdf",
+      "sha256": "913aaec8f86b82e91fa87571b81fdff5fd5325be792a5e66bb4813e38eb72822",
+      "bytes": 421352
+    },
+    {
+      "id": "dfr-2005-100663",
+      "url": "https://nces.ed.gov/ipeds/DataCenter/DfrFiles/IPEDSDFR2005_100663.pdf",
+      "retrievedAt": "2026-11-19T15:23:07.308407+00:00",
+      "originalDocumentSha256": "5a1edf94e739cfcd4fd093050119e07729fc6990d320e74763970a60e941ee9c",
+      "originalDocumentBytes": 423201,
+      "captureKind": "raw",
+      "role": "dated-report",
+      "originalVintageVerified": false,
+      "path": "data/research/source-evidence-captures/dfr-2005-100663.pdf",
+      "sha256": "5a1edf94e739cfcd4fd093050119e07729fc6990d320e74763970a60e941ee9c",
+      "bytes": 423201
+    },
+    {
+      "id": "dfr-2006-100654",
+      "url": "https://nces.ed.gov/ipeds/DataCenter/DfrFiles/IPEDSDFR2006_100654.pdf",
+      "retrievedAt": "2026-11-19T15:23:07.309806+00:00",
+      "originalDocumentSha256": "a17b6f4bb1f87d998e90833b3d5da0a2430c46ba7789036910edad08e6ba57b1",
+      "originalDocumentBytes": 412156,
+      "captureKind": "raw",
+      "role": "dated-report",
+      "originalVintageVerified": false,
+      "path": "data/research/source-evidence-captures/dfr-2006-100654.pdf",
+      "sha256": "a17b6f4bb1f87d998e90833b3d5da0a2430c46ba7789036910edad08e6ba57b1",
+      "bytes": 412156
+    },
+    {
+      "id": "dfr-2006-100663",
+      "url": "https://nces.ed.gov/ipeds/DataCenter/DfrFiles/IPEDSDFR2006_100663.pdf",
+      "retrievedAt": "2026-11-19T15:23:07.310789+00:00",
+      "originalDocumentSha256": "5f595ced373d51da9d021bdef48c7f6bb930a8360b4c14ae952e375148cee2bf",
+      "originalDocumentBytes": 415069,
+      "captureKind": "raw",
+      "role": "dated-report",
+      "originalVintageVerified": false,
+      "path": "data/research/source-evidence-captures/dfr-2006-100663.pdf",
+      "sha256": "5f595ced373d51da9d021bdef48c7f6bb930a8360b4c14ae952e375148cee2bf",
+      "bytes": 415069
+    },
+    {
+      "id": "ic-2006",
+      "url": "https://nces.ed.gov/ipeds/use-the-data/download-survey-material/2006/institutional%20characteristics/icay_4yr_form.pdf",
+      "retrievedAt": "2026-11-19T15:23:07.415917+00:00",
+      "originalDocumentSha256": "402113b31a2789c812bb34cd30901b83e52d58b0061c63136684da05590e3600",
+      "originalDocumentBytes": 177058,
+      "captureKind": "raw",
+      "role": "survey-instrument",
+      "originalVintageVerified": false,
+      "path": "data/research/source-evidence-captures/ic-2006.pdf",
+      "sha256": "402113b31a2789c812bb34cd30901b83e52d58b0061c63136684da05590e3600",
+      "bytes": 177058
+    },
+    {
+      "id": "ic-2007",
+      "url": "https://nces.ed.gov/ipeds/use-the-data/download-survey-material/2007/institutional%20characteristics/ic_2007.pdf",
+      "retrievedAt": "2026-11-19T15:23:07.550949+00:00",
+      "originalDocumentSha256": "2ad1037c404dc318efed5a77976c46790672e93e847f73e5f11166d25dbc4447",
+      "originalDocumentBytes": 840567,
+      "captureKind": "raw",
+      "role": "survey-instrument",
+      "originalVintageVerified": false,
+      "path": "data/research/source-evidence-captures/ic-2007.pdf",
+      "sha256": "2ad1037c404dc318efed5a77976c46790672e93e847f73e5f11166d25dbc4447",
+      "bytes": 840567
+    },
+    {
+      "id": "uab-cds-2004",
+      "url": "https://www.uab.edu/institutionaleffectiveness/images/documents/cds/CDS-2004-05.pdf",
+      "retrievedAt": "2026-11-19T15:23:08.023554+00:00",
+      "originalDocumentSha256": "9221e183f332b5d78681278388cecff7fb78731e022c5ea9db1dedee1a4d2f5b",
+      "originalDocumentBytes": 1083128,
+      "captureKind": "review-extract",
+      "role": "institution-review-extract",
+      "originalVintageVerified": false,
+      "path": "data/research/source-evidence-captures/uab-cds-2004-extract.json",
+      "sha256": "7040c3f65b03a48a06587c2bd38c6e5e5a5f933b4d252a84538f24ffccec87bd",
+      "bytes": 830
+    },
+    {
+      "id": "uab-cds-2005",
+      "url": "https://www.uab.edu/institutionaleffectiveness/images/documents/cds/CDS-2005-06.pdf",
+      "retrievedAt": "2026-11-19T15:23:13.006417+00:00",
+      "originalDocumentSha256": "3a4603ec0c4ae47a3887d6747b10d50477195b073e5e58891396c377477e7dd1",
+      "originalDocumentBytes": 2596187,
+      "captureKind": "review-extract",
+      "role": "institution-review-extract",
+      "originalVintageVerified": false,
+      "path": "data/research/source-evidence-captures/uab-cds-2005-extract.json",
+      "sha256": "bbe3925d7995d019e9a2fecc89f173f95b0ee1902e2d7f00ad104c6734d0e590",
+      "bytes": 862
+    }
+  ],
+  "claims": [
+    {
+      "id": "concept-2006-2007-in-state-tuition-fees",
+      "type": "economic-concept",
+      "state": "supported",
+      "scope": {
+        "unitid": 0,
+        "fromCollection": 2006,
+        "toCollection": 2007,
+        "component": "in-state-tuition-fees"
+      },
+      "sourceIds": [
+        "ic-2006",
+        "ic-2007"
+      ],
+      "locator": "2006 PDF p20 / 2007 PDF p19, Part D item13",
+      "author": "evaluation_audit",
+      "reviewer": "branch_context/ci_monitor",
+      "interpretation": "Generic gross published-charge and specified full-time first-time cohort concept. No institution-specific population or 2004/05 continuity claim."
+    },
+    {
+      "id": "concept-2006-2007-out-state-tuition-fees",
+      "type": "economic-concept",
+      "state": "supported",
+      "scope": {
+        "unitid": 0,
+        "fromCollection": 2006,
+        "toCollection": 2007,
+        "component": "out-state-tuition-fees"
+      },
+      "sourceIds": [
+        "ic-2006",
+        "ic-2007"
+      ],
+      "locator": "2006 PDF p20 / 2007 PDF p19, Part D item13",
+      "author": "evaluation_audit",
+      "reviewer": "branch_context/ci_monitor",
+      "interpretation": "Generic gross published-charge and specified full-time first-time cohort concept. No institution-specific population or 2004/05 continuity claim."
+    },
+    {
+      "id": "concept-2006-2007-on-campus-room-board",
+      "type": "economic-concept",
+      "state": "supported",
+      "scope": {
+        "unitid": 0,
+        "fromCollection": 2006,
+        "toCollection": 2007,
+        "component": "on-campus-room-board"
+      },
+      "sourceIds": [
+        "ic-2006",
+        "ic-2007"
+      ],
+      "locator": "2006 PDF p20 / 2007 PDF p19, Part D item13",
+      "author": "evaluation_audit",
+      "reviewer": "branch_context/ci_monitor",
+      "interpretation": "Generic gross published-charge and specified full-time first-time cohort concept. No institution-specific population or 2004/05 continuity claim."
+    },
+    {
+      "id": "economic-concept-100654-2004-2005",
+      "type": "economic-concept",
+      "state": "unsupported",
+      "scope": {
+        "unitid": 100654,
+        "fromCollection": 2004,
+        "toCollection": 2005,
+        "component": "paired-tuition-housing"
+      },
+      "sourceIds": [
+        "dfr-2005-100654",
+        "dfr-2006-100654"
+      ],
+      "locator": "DFR institutional cover and Figure3; no exact stable campus aggregation certificate",
+      "author": "evaluation_audit",
+      "reviewer": "branch_context/independent_review",
+      "interpretation": "Institution identifier and generic prices do not independently certify stable reporting population, paired economic definition or raw source vintage."
+    },
+    {
+      "id": "reporting-population-100654-2004-2005",
+      "type": "reporting-population",
+      "state": "unsupported",
+      "scope": {
+        "unitid": 100654,
+        "fromCollection": 2004,
+        "toCollection": 2005,
+        "component": "paired-tuition-housing"
+      },
+      "sourceIds": [
+        "dfr-2005-100654",
+        "dfr-2006-100654"
+      ],
+      "locator": "DFR institutional cover and Figure3; no exact stable campus aggregation certificate",
+      "author": "evaluation_audit",
+      "reviewer": "branch_context/independent_review",
+      "interpretation": "Institution identifier and generic prices do not independently certify stable reporting population, paired economic definition or raw source vintage."
+    },
+    {
+      "id": "economic-concept-100663-2004-2005",
+      "type": "economic-concept",
+      "state": "unsupported",
+      "scope": {
+        "unitid": 100663,
+        "fromCollection": 2004,
+        "toCollection": 2005,
+        "component": "paired-tuition-housing"
+      },
+      "sourceIds": [
+        "dfr-2005-100663",
+        "dfr-2006-100663"
+      ],
+      "locator": "DFR institutional cover and Figure3; no exact stable campus aggregation certificate",
+      "author": "evaluation_audit",
+      "reviewer": "branch_context/independent_review",
+      "interpretation": "Institution identifier and generic prices do not independently certify stable reporting population, paired economic definition or raw source vintage."
+    },
+    {
+      "id": "reporting-population-100663-2004-2005",
+      "type": "reporting-population",
+      "state": "unsupported",
+      "scope": {
+        "unitid": 100663,
+        "fromCollection": 2004,
+        "toCollection": 2005,
+        "component": "paired-tuition-housing"
+      },
+      "sourceIds": [
+        "dfr-2005-100663",
+        "dfr-2006-100663"
+      ],
+      "locator": "DFR institutional cover and Figure3; no exact stable campus aggregation certificate",
+      "author": "evaluation_audit",
+      "reviewer": "branch_context/independent_review",
+      "interpretation": "Institution identifier and generic prices do not independently certify stable reporting population, paired economic definition or raw source vintage."
+    }
+  ],
+  "proposedBridges": [
+    {
+      "id": "100654-2004-2005",
+      "scope": {
+        "unitid": 100654,
+        "fromCollection": 2004,
+        "toCollection": 2005,
+        "component": "paired-tuition-housing"
+      },
+      "origin": "2011-09-01T00:00:00Z",
+      "conceptClaim": "economic-concept-100654-2004-2005",
+      "populationClaim": "reporting-population-100654-2004-2005",
+      "expectedCaptures": {},
+      "originalProofs": {},
+      "requiredOriginalRawSourceUrls": [
+        "https://nces.ed.gov/ipeds/datacenter/data/HD2004.zip",
+        "https://nces.ed.gov/ipeds/datacenter/data/IC2004_AY.zip",
+        "https://nces.ed.gov/ipeds/datacenter/data/HD2005.zip",
+        "https://nces.ed.gov/ipeds/datacenter/data/IC2005_AY.zip"
+      ]
+    },
+    {
+      "id": "100663-2004-2005",
+      "scope": {
+        "unitid": 100663,
+        "fromCollection": 2004,
+        "toCollection": 2005,
+        "component": "paired-tuition-housing"
+      },
+      "origin": "2011-09-01T00:00:00Z",
+      "conceptClaim": "economic-concept-100663-2004-2005",
+      "populationClaim": "reporting-population-100663-2004-2005",
+      "expectedCaptures": {},
+      "originalProofs": {},
+      "requiredOriginalRawSourceUrls": [
+        "https://nces.ed.gov/ipeds/datacenter/data/HD2004.zip",
+        "https://nces.ed.gov/ipeds/datacenter/data/IC2004_AY.zip",
+        "https://nces.ed.gov/ipeds/datacenter/data/HD2005.zip",
+        "https://nces.ed.gov/ipeds/datacenter/data/IC2005_AY.zip"
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "unitid": 100663,
+      "collection": 2005,
+      "academicYear": "2005-06",
+      "component": "in-state-tuition-fees",
+      "institutionCaptureId": "uab-cds-2004",
+      "institutionValue": 4792,
+      "panelPath": "data/research/ipeds-price-snapshots/2005.json.gz",
+      "panelSha256": "4a0d8396508e82fbf5fb9477ecc0639542610df4a0a8e0d44884e752ccb08a4e",
+      "panelField": "CHG2AY3",
+      "panelValue": 4792,
+      "panelRow": [
+        100663,
+        4,
+        "CHG2AY3",
+        "4792",
+        "R",
+        4792,
+        "observed"
+      ],
+      "numericAgreement": true,
+      "comparability": "related-definition contrast; exact cohort/program/housing basis not independently established",
+      "comparisonAuthor": "evaluation_audit",
+      "reviewer": "branch_context/independent_review"
+    },
+    {
+      "unitid": 100663,
+      "collection": 2005,
+      "academicYear": "2005-06",
+      "component": "out-state-tuition-fees",
+      "institutionCaptureId": "uab-cds-2004",
+      "institutionValue": 10732,
+      "panelPath": "data/research/ipeds-price-snapshots/2005.json.gz",
+      "panelSha256": "4a0d8396508e82fbf5fb9477ecc0639542610df4a0a8e0d44884e752ccb08a4e",
+      "panelField": "CHG3AY3",
+      "panelValue": 10732,
+      "panelRow": [
+        100663,
+        4,
+        "CHG3AY3",
+        "10732",
+        "R",
+        10732,
+        "observed"
+      ],
+      "numericAgreement": true,
+      "comparability": "related-definition contrast; exact cohort/program/housing basis not independently established",
+      "comparisonAuthor": "evaluation_audit",
+      "reviewer": "branch_context/independent_review"
+    },
+    {
+      "unitid": 100663,
+      "collection": 2005,
+      "academicYear": "2005-06",
+      "component": "resident-G5-room-board",
+      "institutionCaptureId": "uab-cds-2004",
+      "institutionValue": 8924,
+      "panelPath": "data/research/ipeds-price-snapshots/2005.json.gz",
+      "panelSha256": "4a0d8396508e82fbf5fb9477ecc0639542610df4a0a8e0d44884e752ccb08a4e",
+      "panelField": "CHG5AY3",
+      "panelValue": 8924,
+      "panelRow": [
+        100663,
+        4,
+        "CHG5AY3",
+        "8924",
+        "R",
+        8924,
+        "observed"
+      ],
+      "numericAgreement": true,
+      "comparability": "related-definition contrast; exact cohort/program/housing basis not independently established",
+      "comparisonAuthor": "evaluation_audit",
+      "reviewer": "branch_context/independent_review"
+    },
+    {
+      "unitid": 100663,
+      "collection": 2006,
+      "academicYear": "2006-07",
+      "component": "in-state-tuition-fees",
+      "institutionCaptureId": "uab-cds-2005",
+      "institutionValue": 4792,
+      "panelPath": "data/research/ipeds-price-snapshots/2006.json.gz",
+      "panelSha256": "799705c50e5a7152659ffecdad6d28699d6eb5df3903f8ec7c9fbbd36cd73832",
+      "panelField": "CHG2AY3",
+      "panelValue": 4792,
+      "panelRow": [
+        100663,
+        4,
+        "CHG2AY3",
+        "4792",
+        "R",
+        4792,
+        "observed"
+      ],
+      "numericAgreement": true,
+      "comparability": "related-definition contrast; exact cohort/program/housing basis not independently established",
+      "comparisonAuthor": "evaluation_audit",
+      "reviewer": "branch_context/independent_review"
+    },
+    {
+      "unitid": 100663,
+      "collection": 2006,
+      "academicYear": "2006-07",
+      "component": "out-state-tuition-fees",
+      "institutionCaptureId": "uab-cds-2005",
+      "institutionValue": 10732,
+      "panelPath": "data/research/ipeds-price-snapshots/2006.json.gz",
+      "panelSha256": "799705c50e5a7152659ffecdad6d28699d6eb5df3903f8ec7c9fbbd36cd73832",
+      "panelField": "CHG3AY3",
+      "panelValue": 10732,
+      "panelRow": [
+        100663,
+        4,
+        "CHG3AY3",
+        "10732",
+        "R",
+        10732,
+        "observed"
+      ],
+      "numericAgreement": true,
+      "comparability": "related-definition contrast; exact cohort/program/housing basis not independently established",
+      "comparisonAuthor": "evaluation_audit",
+      "reviewer": "branch_context/independent_review"
+    },
+    {
+      "unitid": 100663,
+      "collection": 2006,
+      "academicYear": "2006-07",
+      "component": "resident-G5-room-board",
+      "institutionCaptureId": "uab-cds-2005",
+      "institutionValue": 9080,
+      "panelPath": "data/research/ipeds-price-snapshots/2006.json.gz",
+      "panelSha256": "799705c50e5a7152659ffecdad6d28699d6eb5df3903f8ec7c9fbbd36cd73832",
+      "panelField": "CHG5AY3",
+      "panelValue": 12266,
+      "panelRow": [
+        100663,
+        4,
+        "CHG5AY3",
+        "12266",
+        "R",
+        12266,
+        "observed"
+      ],
+      "numericAgreement": false,
+      "comparability": "related-definition contrast; exact cohort/program/housing basis not independently established",
+      "comparisonAuthor": "evaluation_audit",
+      "reviewer": "branch_context/independent_review",
+      "laterRepresentation": {
+        "collection": 2007,
+        "field": "CHG5AY2",
+        "value": 9080,
+        "panelPath": "data/research/ipeds-price-snapshots/2007.json.gz",
+        "panelSha256": "a0d7553f384dba649f77865dcb7cca2a942fedb26474468ccf92862172157220",
+        "numericAgreement": true
+      }
+    }
+  ],
+  "historicalFits": 0,
+  "productionActivation": false,
+  "appliedGraphBridges": 0,
+  "captureAttempts": [
+    {
+      "id": "dfr-2005-100654",
+      "url": "https://nces.ed.gov/ipeds/DataCenter/DfrFiles/IPEDSDFR2005_100654.pdf",
+      "government": true,
+      "retrievalRoute": "direct HTTPS current download",
+      "status": "captured",
+      "documentSha256": "913aaec8f86b82e91fa87571b81fdff5fd5325be792a5e66bb4813e38eb72822",
+      "documentBytes": 421352,
+      "retrievedAt": "2026-11-19T15:23:07.306232+00:00"
+    },
+    {
+      "id": "dfr-2005-100663",
+      "url": "https://nces.ed.gov/ipeds/DataCenter/DfrFiles/IPEDSDFR2005_100663.pdf",
+      "government": true,
+      "retrievalRoute": "direct HTTPS current download",
+      "status": "captured",
+      "documentSha256": "5a1edf94e739cfcd4fd093050119e07729fc6990d320e74763970a60e941ee9c",
+      "documentBytes": 423201,
+      "retrievedAt": "2026-11-19T15:23:07.308407+00:00"
+    },
+    {
+      "id": "dfr-2006-100654",
+      "url": "https://nces.ed.gov/ipeds/DataCenter/DfrFiles/IPEDSDFR2006_100654.pdf",
+      "government": true,
+      "retrievalRoute": "direct HTTPS current download",
+      "status": "captured",
+      "documentSha256": "a17b6f4bb1f87d998e90833b3d5da0a2430c46ba7789036910edad08e6ba57b1",
+      "documentBytes": 412156,
+      "retrievedAt": "2026-11-19T15:23:07.309806+00:00"
+    },
+    {
+      "id": "dfr-2006-100663",
+      "url": "https://nces.ed.gov/ipeds/DataCenter/DfrFiles/IPEDSDFR2006_100663.pdf",
+      "government": true,
+      "retrievalRoute": "retained current-session download",
+      "status": "captured",
+      "documentSha256": "5f595ced373d51da9d021bdef48c7f6bb930a8360b4c14ae952e375148cee2bf",
+      "documentBytes": 415069,
+      "retrievedAt": "2026-11-19T15:23:07.310789+00:00"
+    },
+    {
+      "id": "ic-2006",
+      "url": "https://nces.ed.gov/ipeds/use-the-data/download-survey-material/2006/institutional%20characteristics/icay_4yr_form.pdf",
+      "government": true,
+      "retrievalRoute": "retained current-session download",
+      "status": "captured",
+      "documentSha256": "402113b31a2789c812bb34cd30901b83e52d58b0061c63136684da05590e3600",
+      "documentBytes": 177058,
+      "retrievedAt": "2026-11-19T15:23:07.415917+00:00"
+    },
+    {
+      "id": "ic-2007",
+      "url": "https://nces.ed.gov/ipeds/use-the-data/download-survey-material/2007/institutional%20characteristics/ic_2007.pdf",
+      "government": true,
+      "retrievalRoute": "retained current-session download",
+      "status": "captured",
+      "documentSha256": "2ad1037c404dc318efed5a77976c46790672e93e847f73e5f11166d25dbc4447",
+      "documentBytes": 840567,
+      "retrievedAt": "2026-11-19T15:23:07.550949+00:00"
+    },
+    {
+      "id": "uab-cds-2004",
+      "url": "https://www.uab.edu/institutionaleffectiveness/images/documents/cds/CDS-2004-05.pdf",
+      "government": false,
+      "retrievalRoute": "direct HTTPS current download",
+      "status": "captured",
+      "documentSha256": "9221e183f332b5d78681278388cecff7fb78731e022c5ea9db1dedee1a4d2f5b",
+      "documentBytes": 1083128,
+      "retrievedAt": "2026-11-19T15:23:08.023554+00:00"
+    },
+    {
+      "id": "uab-cds-2005",
+      "url": "https://www.uab.edu/institutionaleffectiveness/images/documents/cds/CDS-2005-06.pdf",
+      "government": false,
+      "retrievalRoute": "direct HTTPS current download",
+      "status": "captured",
+      "documentSha256": "3a4603ec0c4ae47a3887d6747b10d50477195b073e5e58891396c377477e7dd1",
+      "documentBytes": 2596187,
+      "retrievedAt": "2026-11-19T15:23:13.006417+00:00"
+    }
+  ],
+  "policyReview": {
+    "url": "https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx?year=-1",
+    "state": "indexed-primary-guidance-reviewed; raw HTML unavailable",
+    "rawCapture": null,
+    "attemptResult": "HTTP302 redirect loop",
+    "interpretation": "Indexed NCES policy says historical DFRs preserve provisional rather than final/revised content. This is a source-local preservation lead, not original raw CSV bytes or campus continuity proof.",
+    "originalVintageVerified": false
+  },
+  "summary": {
+    "method": "source-evidence-acquisition-1.0.0",
+    "captures": 8,
+    "comparisons": 6,
+    "supportedConceptClaims": 3,
+    "supportedPopulationClaims": 0,
+    "strictEligiblePairs": 0,
+    "assessments": [
+      {
+        "id": "100654-2004-2005",
+        "sourceContinuitySupported": false,
+        "originalProofs": {
+          "from-price": false,
+          "from-directory": false,
+          "to-price": false,
+          "to-directory": false
+        },
+        "strictSourceEligibility": false,
+        "reasons": [
+          "economic-concept-unproved",
+          "institution-population-unproved",
+          "from-price-raw-provenance-unproved",
+          "from-directory-raw-provenance-unproved",
+          "to-price-raw-provenance-unproved",
+          "to-directory-raw-provenance-unproved",
+          "from-price-original-vintage-unproved",
+          "from-directory-original-vintage-unproved",
+          "to-price-original-vintage-unproved",
+          "to-directory-original-vintage-unproved"
+        ],
+        "graphApplied": false,
+        "historicalFitAuthorized": false
+      },
+      {
+        "id": "100663-2004-2005",
+        "sourceContinuitySupported": false,
+        "originalProofs": {
+          "from-price": false,
+          "from-directory": false,
+          "to-price": false,
+          "to-directory": false
+        },
+        "strictSourceEligibility": false,
+        "reasons": [
+          "economic-concept-unproved",
+          "institution-population-unproved",
+          "from-price-raw-provenance-unproved",
+          "from-directory-raw-provenance-unproved",
+          "to-price-raw-provenance-unproved",
+          "to-directory-raw-provenance-unproved",
+          "from-price-original-vintage-unproved",
+          "from-directory-original-vintage-unproved",
+          "to-price-original-vintage-unproved",
+          "to-directory-original-vintage-unproved"
+        ],
+        "graphApplied": false,
+        "historicalFitAuthorized": false
+      }
+    ],
+    "appliedGraphBridges": 0,
+    "historicalFits": 0,
+    "scientificQualification": false,
+    "productionActivation": false
+  }
+}
