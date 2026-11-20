@@ -1,0 +1,1946 @@
+matched depth 3: 64/64 available
+matched depth 7: 64/64 available
+matched depth 12: 64/64 available
+unequal-family depth 3: 64/64 available
+unequal-family depth 7: 64/64 available
+unequal-family depth 12: 64/64 available
+correlated-reporting depth 3: 64/64 available
+correlated-reporting depth 7: 64/64 available
+correlated-reporting depth 12: 64/64 available
+heavy-tails depth 3: 64/64 available
+heavy-tails depth 7: 64/64 available
+heavy-tails depth 12: 64/64 available
+persistence depth 3: 64/64 available
+persistence depth 7: 64/64 available
+persistence depth 12: 64/64 available
+{
+  "groups": [
+    {
+      "arm": "matched",
+      "depth": 3,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.921875,
+            "wilson95": [
+              0.8298046264583709,
+              0.9661688230914496
+            ],
+            "intervalScore": 0.15296525271478695,
+            "width": 0.1413255789806269,
+            "bias": -0.0001748785183203574
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.828125,
+            "wilson95": [
+              0.7178678837734179,
+              0.9012225769875536
+            ],
+            "intervalScore": 0.14711338343223151,
+            "width": 0.11593986759562755,
+            "bias": -0.0013925824124510402
+          },
+          "pairedScoreDifference": 0.005851869282555459,
+          "pairedNormal95": [
+            -0.005121677564383193,
+            0.016825416129494113
+          ],
+          "billCoveragePass": false,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.84375,
+            "wilson95": [
+              0.7357193822745122,
+              0.912851576617934
+            ],
+            "intervalScore": 0.4952109083223343,
+            "width": 0.4061716152194048,
+            "bias": 0.020067670421626313
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.578125,
+            "wilson95": [
+              0.456100315400829,
+              0.6913021752565451
+            ],
+            "intervalScore": 0.5094796248717927,
+            "width": 0.26835546067345106,
+            "bias": 0.00940522423107738
+          },
+          "pairedScoreDifference": -0.014268716549458344,
+          "pairedNormal95": [
+            -0.0775942087291112,
+            0.04905677563019452
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.84375,
+            "wilson95": [
+              0.7357193822745122,
+              0.912851576617934
+            ],
+            "intervalScore": 0.8670588331348488,
+            "width": 0.6915722215093094,
+            "bias": 0.05982498190533652
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.5625,
+            "wilson95": [
+              0.4408620895699301,
+              0.6770599029559693
+            ],
+            "intervalScore": 1.021839173906109,
+            "width": 0.3814016181918437,
+            "bias": 0.026822237936082988
+          },
+          "pairedScoreDifference": -0.15478034077126032,
+          "pairedNormal95": [
+            -0.30282658333643925,
+            -0.006734098206081396
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.890625
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.84375
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.859375
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.84375
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.828125
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.8125
+        }
+      }
+    },
+    {
+      "arm": "matched",
+      "depth": 7,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.84375,
+            "wilson95": [
+              0.7357193822745122,
+              0.912851576617934
+            ],
+            "intervalScore": 0.18951468304297678,
+            "width": 0.12427235658476063,
+            "bias": 0.001175337037419742
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.796875,
+            "wilson95": [
+              0.6828636426898583,
+              0.8772658218081634
+            ],
+            "intervalScore": 0.18908929360235177,
+            "width": 0.11345613656225778,
+            "bias": 0.0006942517227293554
+          },
+          "pairedScoreDifference": 0.0004253894406250115,
+          "pairedNormal95": [
+            -0.004972360131939341,
+            0.005823139013189363
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.78125,
+            "wilson95": [
+              0.6656721604337418,
+              0.8649768059328052
+            ],
+            "intervalScore": 0.4684051465899887,
+            "width": 0.32243357592459876,
+            "bias": 0.007391743346401624
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.640625,
+            "wilson95": [
+              0.518208506097791,
+              0.7471159770854825
+            ],
+            "intervalScore": 0.4988741432550148,
+            "width": 0.26226251953362434,
+            "bias": 0.003364870394325486
+          },
+          "pairedScoreDifference": -0.030468996665026116,
+          "pairedNormal95": [
+            -0.062411601377389124,
+            0.0014736080473368926
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.71875,
+            "wilson95": [
+              0.5986606971779259,
+              0.8140662766627217
+            ],
+            "intervalScore": 0.7665219738986034,
+            "width": 0.503196687312682,
+            "bias": 0.01311459294849784
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.609375,
+            "wilson95": [
+              0.4869191788027247,
+              0.7194443081175993
+            ],
+            "intervalScore": 0.8556992508448567,
+            "width": 0.3681877526505293,
+            "bias": 0.0009853896482505432
+          },
+          "pairedScoreDifference": -0.08917727694625328,
+          "pairedNormal95": [
+            -0.16768766140700708,
+            -0.010666892485499499
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.78125
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.8125
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.8125
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.734375
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.71875
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.734375
+        }
+      }
+    },
+    {
+      "arm": "matched",
+      "depth": 12,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.765625,
+            "wilson95": [
+              0.6486674241743136,
+              0.8525010440607586
+            ],
+            "intervalScore": 0.15645342649682586,
+            "width": 0.11918715684945355,
+            "bias": -0.006707013629553505
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.71875,
+            "wilson95": [
+              0.5986606971779259,
+              0.8140662766627217
+            ],
+            "intervalScore": 0.15820613428293617,
+            "width": 0.11296464689774928,
+            "bias": -0.006987341618864312
+          },
+          "pairedScoreDifference": -0.0017527077861103342,
+          "pairedNormal95": [
+            -0.005150715517410138,
+            0.0016452999451894701
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.765625,
+            "wilson95": [
+              0.6486674241743136,
+              0.8525010440607586
+            ],
+            "intervalScore": 0.46290741235004107,
+            "width": 0.29656847836682193,
+            "bias": -0.010841521541090639
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.703125,
+            "wilson95": [
+              0.5822979889645707,
+              0.8009484867446022
+            ],
+            "intervalScore": 0.47360770106548217,
+            "width": 0.2612214554513911,
+            "bias": -0.013122318598154218
+          },
+          "pairedScoreDifference": -0.010700288715441132,
+          "pairedNormal95": [
+            -0.029824654134234293,
+            0.008424076703352028
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.671875,
+            "wilson95": [
+              0.549991058490915,
+              0.7742944209553081
+            ],
+            "intervalScore": 0.7115388926497286,
+            "width": 0.4458975348266744,
+            "bias": -0.013984112013252444
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.59375,
+            "wilson95": [
+              0.4714520812860451,
+              0.7054309075028039
+            ],
+            "intervalScore": 0.7776132070905644,
+            "width": 0.3652831883284742,
+            "bias": -0.020856237280951383
+          },
+          "pairedScoreDifference": -0.06607431444083589,
+          "pairedNormal95": [
+            -0.11260364030039799,
+            -0.0195449885812738
+          ],
+          "billCoveragePass": false,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.796875
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.796875
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.765625
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.734375
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.796875
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.765625
+        }
+      }
+    },
+    {
+      "arm": "unequal-family",
+      "depth": 3,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.828125,
+            "wilson95": [
+              0.7178678837734179,
+              0.9012225769875536
+            ],
+            "intervalScore": 0.15710425137652662,
+            "width": 0.12065729876768949,
+            "bias": 8.065491825853506e-05
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.765625,
+            "wilson95": [
+              0.6486674241743136,
+              0.8525010440607586
+            ],
+            "intervalScore": 0.15824916253035662,
+            "width": 0.09887330440833511,
+            "bias": -0.0009319854943032504
+          },
+          "pairedScoreDifference": -0.001144911153829997,
+          "pairedNormal95": [
+            -0.01203394847826007,
+            0.009744126170600075
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.796875,
+            "wilson95": [
+              0.6828636426898583,
+              0.8772658218081634
+            ],
+            "intervalScore": 0.474050656412355,
+            "width": 0.3441249993217667,
+            "bias": 0.01817557608544876
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.5625,
+            "wilson95": [
+              0.4408620895699301,
+              0.6770599029559693
+            ],
+            "intervalScore": 0.529044224513989,
+            "width": 0.22750214786954556,
+            "bias": 0.009731304048419594
+          },
+          "pairedScoreDifference": -0.05499356810163399,
+          "pairedNormal95": [
+            -0.1137665791134384,
+            0.003779442910170419
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.765625,
+            "wilson95": [
+              0.6486674241743136,
+              0.8525010440607586
+            ],
+            "intervalScore": 0.8217367694709097,
+            "width": 0.5782394823295135,
+            "bias": 0.04590665700920098
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.4375,
+            "wilson95": [
+              0.3229400970440308,
+              0.5591379104300699
+            ],
+            "intervalScore": 1.0164326082179476,
+            "width": 0.32039896119604755,
+            "bias": 0.020477886616178456
+          },
+          "pairedScoreDifference": -0.19469583874703805,
+          "pairedNormal95": [
+            -0.32323735443717205,
+            -0.06615432305690408
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.78125
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.859375
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.71875
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.8125
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.75
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.859375
+        }
+      }
+    },
+    {
+      "arm": "unequal-family",
+      "depth": 7,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.796875,
+            "wilson95": [
+              0.6828636426898583,
+              0.8772658218081634
+            ],
+            "intervalScore": 0.19043597931540665,
+            "width": 0.10889450794351759,
+            "bias": 0.0013350269272097252
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.75,
+            "wilson95": [
+              0.631837235413303,
+              0.8398507346902941
+            ],
+            "intervalScore": 0.19054082540813208,
+            "width": 0.09942606481914738,
+            "bias": 0.0009751414911803448
+          },
+          "pairedScoreDifference": -0.00010484609272542024,
+          "pairedNormal95": [
+            -0.004610908725620734,
+            0.004401216540169894
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.703125,
+            "wilson95": [
+              0.5822979889645707,
+              0.8009484867446022
+            ],
+            "intervalScore": 0.43777107685662464,
+            "width": 0.2796606795224934,
+            "bias": 0.006497317258627108
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.640625,
+            "wilson95": [
+              0.518208506097791,
+              0.7471159770854825
+            ],
+            "intervalScore": 0.46726939118695665,
+            "width": 0.22722110461999534,
+            "bias": 0.0033764644565998543
+          },
+          "pairedScoreDifference": -0.029498314330332016,
+          "pairedNormal95": [
+            -0.058426465684957705,
+            -0.0005701629757063273
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.671875,
+            "wilson95": [
+              0.549991058490915,
+              0.7742944209553081
+            ],
+            "intervalScore": 0.6553241044777409,
+            "width": 0.4347327170333435,
+            "bias": 0.012065450132428126
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.609375,
+            "wilson95": [
+              0.4869191788027247,
+              0.7194443081175993
+            ],
+            "intervalScore": 0.7455254443585866,
+            "width": 0.31701065096965114,
+            "bias": 0.0026382688342136626
+          },
+          "pairedScoreDifference": -0.09020133988084567,
+          "pairedNormal95": [
+            -0.15883324430710882,
+            -0.021569435454582522
+          ],
+          "billCoveragePass": false,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.6875
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.875
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.625
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.84375
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.625
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.84375
+        }
+      }
+    },
+    {
+      "arm": "unequal-family",
+      "depth": 12,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.75,
+            "wilson95": [
+              0.631837235413303,
+              0.8398507346902941
+            ],
+            "intervalScore": 0.1499476260679695,
+            "width": 0.10475497639793352,
+            "bias": -0.008787608703066642
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.75,
+            "wilson95": [
+              0.631837235413303,
+              0.8398507346902941
+            ],
+            "intervalScore": 0.1513558448425723,
+            "width": 0.09951998701128072,
+            "bias": -0.008992602819159267
+          },
+          "pairedScoreDifference": -0.0014082187746028028,
+          "pairedNormal95": [
+            -0.00436381885508962,
+            0.0015473813058840145
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.765625,
+            "wilson95": [
+              0.6486674241743136,
+              0.8525010440607586
+            ],
+            "intervalScore": 0.40925848942829013,
+            "width": 0.25861333288483246,
+            "bias": -0.012458240129821437
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.703125,
+            "wilson95": [
+              0.5822979889645707,
+              0.8009484867446022
+            ],
+            "intervalScore": 0.41662038805604423,
+            "width": 0.2281183391926931,
+            "bias": -0.014311199860173965
+          },
+          "pairedScoreDifference": -0.00736189862775421,
+          "pairedNormal95": [
+            -0.023479864328557976,
+            0.008756067073049557
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.6875,
+            "wilson95": [
+              0.5660766429725185,
+              0.7876893346051795
+            ],
+            "intervalScore": 0.6167585988286391,
+            "width": 0.3886166788217943,
+            "bias": -0.017476362275406554
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.578125,
+            "wilson95": [
+              0.456100315400829,
+              0.6913021752565451
+            ],
+            "intervalScore": 0.67934334574863,
+            "width": 0.318682585378248,
+            "bias": -0.022978004221419414
+          },
+          "pairedScoreDifference": -0.06258474691999075,
+          "pairedNormal95": [
+            -0.10485283218610812,
+            -0.020316661653873372
+          ],
+          "billCoveragePass": false,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.71875
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.875
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.640625
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.78125
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.71875
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.859375
+        }
+      }
+    },
+    {
+      "arm": "correlated-reporting",
+      "depth": 3,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.78125,
+            "wilson95": [
+              0.6656721604337418,
+              0.8649768059328052
+            ],
+            "intervalScore": 0.1572749335103773,
+            "width": 0.10898701192727198,
+            "bias": -0.001502046651999719
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.71875,
+            "wilson95": [
+              0.5986606971779259,
+              0.8140662766627217
+            ],
+            "intervalScore": 0.16303539730488675,
+            "width": 0.08943165209345051,
+            "bias": -0.0022434918132373874
+          },
+          "pairedScoreDifference": -0.0057604637945094265,
+          "pairedNormal95": [
+            -0.01631388918559947,
+            0.0047929615965806175
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.734375,
+            "wilson95": [
+              0.6151712627143486,
+              0.8270362092577739
+            ],
+            "intervalScore": 0.47525030697224924,
+            "width": 0.3095937596179922,
+            "bias": 0.01301569743698137
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.484375,
+            "wilson95": [
+              0.3663355166543264,
+              0.6041839852141988
+            ],
+            "intervalScore": 0.5602158216703697,
+            "width": 0.2047726358074658,
+            "bias": 0.006472764797031847
+          },
+          "pairedScoreDifference": -0.08496551469812044,
+          "pairedNormal95": [
+            -0.140267159915186,
+            -0.02966386948105488
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.6875,
+            "wilson95": [
+              0.5660766429725185,
+              0.7876893346051795
+            ],
+            "intervalScore": 0.8504503807328249,
+            "width": 0.5182660984265343,
+            "bias": 0.035071130445154385
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.4375,
+            "wilson95": [
+              0.3229400970440308,
+              0.5591379104300699
+            ],
+            "intervalScore": 1.066660356320406,
+            "width": 0.28852464168429426,
+            "bias": 0.015035669706149616
+          },
+          "pairedScoreDifference": -0.21620997558758118,
+          "pairedNormal95": [
+            -0.3381635013629293,
+            -0.0942564498122331
+          ],
+          "billCoveragePass": false,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.734375
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.828125
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.71875
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.796875
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.71875
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.78125
+        }
+      }
+    },
+    {
+      "arm": "correlated-reporting",
+      "depth": 7,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.765625,
+            "wilson95": [
+              0.6486674241743136,
+              0.8525010440607586
+            ],
+            "intervalScore": 0.19114461920692005,
+            "width": 0.10038453868670527,
+            "bias": 0.000741845543180574
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.703125,
+            "wilson95": [
+              0.5822979889645707,
+              0.8009484867446022
+            ],
+            "intervalScore": 0.19399175426555615,
+            "width": 0.09166297672179076,
+            "bias": 0.0004071950096073483
+          },
+          "pairedScoreDifference": -0.0028471350586360845,
+          "pairedNormal95": [
+            -0.007497033895134329,
+            0.0018027637778621599
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.65625,
+            "wilson95": [
+              0.5340364020991819,
+              0.7607685792155665
+            ],
+            "intervalScore": 0.4567197621524818,
+            "width": 0.2554734217626056,
+            "bias": 0.004168928136824899
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.59375,
+            "wilson95": [
+              0.4714520812860451,
+              0.7054309075028039
+            ],
+            "intervalScore": 0.4926770193891432,
+            "width": 0.20821445762241886,
+            "bias": 0.001475824904234575
+          },
+          "pairedScoreDifference": -0.03595725723666141,
+          "pairedNormal95": [
+            -0.06256360608166918,
+            -0.009350908391653645
+          ],
+          "billCoveragePass": false,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.65625,
+            "wilson95": [
+              0.5340364020991819,
+              0.7607685792155665
+            ],
+            "intervalScore": 0.6810294264969602,
+            "width": 0.3991615563944413,
+            "bias": 0.007815399320091652
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.578125,
+            "wilson95": [
+              0.456100315400829,
+              0.6913021752565451
+            ],
+            "intervalScore": 0.7761720266439647,
+            "width": 0.2917304162037904,
+            "bias": -0.0002170972681178017
+          },
+          "pairedScoreDifference": -0.09514260014700454,
+          "pairedNormal95": [
+            -0.15878115198132098,
+            -0.03150404831268812
+          ],
+          "billCoveragePass": false,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.65625
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.78125
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.59375
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.796875
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.609375
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.78125
+        }
+      }
+    },
+    {
+      "arm": "correlated-reporting",
+      "depth": 12,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.71875,
+            "wilson95": [
+              0.5986606971779259,
+              0.8140662766627217
+            ],
+            "intervalScore": 0.1548638255623889,
+            "width": 0.09682702454982203,
+            "bias": -0.009212157898882755
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.6875,
+            "wilson95": [
+              0.5660766429725185,
+              0.7876893346051795
+            ],
+            "intervalScore": 0.15778158044772084,
+            "width": 0.09192369696143704,
+            "bias": -0.009401535284426036
+          },
+          "pairedScoreDifference": -0.0029177548853319395,
+          "pairedNormal95": [
+            -0.005897981638923364,
+            6.247186825948442e-05
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.71875,
+            "wilson95": [
+              0.5986606971779259,
+              0.8140662766627217
+            ],
+            "intervalScore": 0.42243160309873984,
+            "width": 0.23887126316366558,
+            "bias": -0.01396660733160349
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.703125,
+            "wilson95": [
+              0.5822979889645707,
+              0.8009484867446022
+            ],
+            "intervalScore": 0.4352218097475501,
+            "width": 0.21020264073078504,
+            "bias": -0.015531628438281441
+          },
+          "pairedScoreDifference": -0.012790206648810186,
+          "pairedNormal95": [
+            -0.02903320881969012,
+            0.003452795522069745
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.625,
+            "wilson95": [
+              0.502503786840045,
+              0.7333401982117536
+            ],
+            "intervalScore": 0.6474810191828503,
+            "width": 0.3587919376095698,
+            "bias": -0.0200622030442223
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.546875,
+            "wilson95": [
+              0.4257359722005412,
+              0.6627055221938833
+            ],
+            "intervalScore": 0.71617934808195,
+            "width": 0.2946974095702085,
+            "bias": -0.02476642280500186
+          },
+          "pairedScoreDifference": -0.06869832889909977,
+          "pairedNormal95": [
+            -0.10773581900391073,
+            -0.02966083879428881
+          ],
+          "billCoveragePass": false,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.71875
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.796875
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.625
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.765625
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.6875
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.796875
+        }
+      }
+    },
+    {
+      "arm": "heavy-tails",
+      "depth": 3,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.796875,
+            "wilson95": [
+              0.6828636426898583,
+              0.8772658218081634
+            ],
+            "intervalScore": 0.1830375541472139,
+            "width": 0.11954803855982755,
+            "bias": -0.007549932061956121
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.703125,
+            "wilson95": [
+              0.5822979889645707,
+              0.8009484867446022
+            ],
+            "intervalScore": 0.186211616636487,
+            "width": 0.09830667012046604,
+            "bias": -0.008457908022791233
+          },
+          "pairedScoreDifference": -0.0031740624892731234,
+          "pairedNormal95": [
+            -0.013806215344349119,
+            0.007458090365802871
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.734375,
+            "wilson95": [
+              0.6151712627143486,
+              0.8270362092577739
+            ],
+            "intervalScore": 0.5210343776834174,
+            "width": 0.34273164926407806,
+            "bias": 0.004264830632403904
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.53125,
+            "wilson95": [
+              0.41072087051471007,
+              0.6482401257482395
+            ],
+            "intervalScore": 0.611774979288572,
+            "width": 0.22655024289414638,
+            "bias": -0.0037413922881097527
+          },
+          "pairedScoreDifference": -0.09074060160515454,
+          "pairedNormal95": [
+            -0.15382969457688092,
+            -0.027651508633428162
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.765625,
+            "wilson95": [
+              0.6486674241743136,
+              0.8525010440607586
+            ],
+            "intervalScore": 0.786546337993611,
+            "width": 0.5763870304418148,
+            "bias": 0.0402033079335284
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.40625,
+            "wilson95": [
+              0.2945690924971961,
+              0.5285479187139549
+            ],
+            "intervalScore": 0.9944421555156351,
+            "width": 0.3206536972135587,
+            "bias": 0.01567357446463153
+          },
+          "pairedScoreDifference": -0.20789581752202413,
+          "pairedNormal95": [
+            -0.3348987468313557,
+            -0.08089288821269255
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.625
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.859375
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.703125
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.796875
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.65625
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.875
+        }
+      }
+    },
+    {
+      "arm": "heavy-tails",
+      "depth": 7,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.734375,
+            "wilson95": [
+              0.6151712627143486,
+              0.8270362092577739
+            ],
+            "intervalScore": 0.18980281028730098,
+            "width": 0.10848056461325045,
+            "bias": 0.0022840279766121784
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.71875,
+            "wilson95": [
+              0.5986606971779259,
+              0.8140662766627217
+            ],
+            "intervalScore": 0.19287809997855893,
+            "width": 0.09923421135085683,
+            "bias": 0.0019065541464144296
+          },
+          "pairedScoreDifference": -0.00307528969125798,
+          "pairedNormal95": [
+            -0.00812769398545218,
+            0.0019771146029362195
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.71875,
+            "wilson95": [
+              0.5986606971779259,
+              0.8140662766627217
+            ],
+            "intervalScore": 0.4425739217304128,
+            "width": 0.2806441720303542,
+            "bias": 0.013445951502838085
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.671875,
+            "wilson95": [
+              0.549991058490915,
+              0.7742944209553081
+            ],
+            "intervalScore": 0.46289823013558085,
+            "width": 0.22854493079726376,
+            "bias": 0.01021883450321922
+          },
+          "pairedScoreDifference": -0.020324308405167996,
+          "pairedNormal95": [
+            -0.04773757341100873,
+            0.007088956600672738
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.734375,
+            "wilson95": [
+              0.6151712627143486,
+              0.8270362092577739
+            ],
+            "intervalScore": 0.7160923770815801,
+            "width": 0.44053537774124624,
+            "bias": 0.043536307240990176
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.609375,
+            "wilson95": [
+              0.4869191788027247,
+              0.7194443081175993
+            ],
+            "intervalScore": 0.7747698416455324,
+            "width": 0.32295007914303614,
+            "bias": 0.033794828213971034
+          },
+          "pairedScoreDifference": -0.058677464563952314,
+          "pairedNormal95": [
+            -0.11766638948592562,
+            0.0003114603580209943
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.640625
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.875
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.609375
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.828125
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.75
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.828125
+        }
+      }
+    },
+    {
+      "arm": "heavy-tails",
+      "depth": 12,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.71875,
+            "wilson95": [
+              0.5986606971779259,
+              0.8140662766627217
+            ],
+            "intervalScore": 0.1788045839283282,
+            "width": 0.10507621761291158,
+            "bias": 0.01703497511554177
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.6875,
+            "wilson95": [
+              0.5660766429725185,
+              0.7876893346051795
+            ],
+            "intervalScore": 0.18115334213848697,
+            "width": 0.09979317809843957,
+            "bias": 0.01681188110682849
+          },
+          "pairedScoreDifference": -0.0023487582101587618,
+          "pairedNormal95": [
+            -0.005266317809729885,
+            0.0005688013894123616
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.734375,
+            "wilson95": [
+              0.6151712627143486,
+              0.8270362092577739
+            ],
+            "intervalScore": 0.38777544948704257,
+            "width": 0.25973353967292195,
+            "bias": 0.02858888633201514
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.71875,
+            "wilson95": [
+              0.5986606971779259,
+              0.8140662766627217
+            ],
+            "intervalScore": 0.39406088066575246,
+            "width": 0.22900897254375766,
+            "bias": 0.02671980047902187
+          },
+          "pairedScoreDifference": -0.006285431178709909,
+          "pairedNormal95": [
+            -0.021582928835200493,
+            0.009012066477780674
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.828125,
+            "wilson95": [
+              0.7178678837734179,
+              0.9012225769875536
+            ],
+            "intervalScore": 0.5045387083431864,
+            "width": 0.39207407520287507,
+            "bias": 0.0349408609368495
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.71875,
+            "wilson95": [
+              0.5986606971779259,
+              0.8140662766627217
+            ],
+            "intervalScore": 0.5048004560739793,
+            "width": 0.3203428067440147,
+            "bias": 0.0293806757475205
+          },
+          "pairedScoreDifference": -0.00026174773079285993,
+          "pairedNormal95": [
+            -0.0323620692666247,
+            0.03183857380503899
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.65625
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.78125
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.6875
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.8125
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.671875
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.890625
+        }
+      }
+    },
+    {
+      "arm": "persistence",
+      "depth": 3,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.8125,
+            "wilson95": [
+              0.7002563943589847,
+              0.8893535682705119
+            ],
+            "intervalScore": 0.14891542734258958,
+            "width": 0.11873352257846778,
+            "bias": -0.0015562545871958405
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.78125,
+            "wilson95": [
+              0.6656721604337418,
+              0.8649768059328052
+            ],
+            "intervalScore": 0.14841718374809498,
+            "width": 0.09719940606128007,
+            "bias": -0.0024916832698804745
+          },
+          "pairedScoreDifference": 0.0004982435944945961,
+          "pairedNormal95": [
+            -0.009974816876963047,
+            0.01097130406595224
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.75,
+            "wilson95": [
+              0.631837235413303,
+              0.8398507346902941
+            ],
+            "intervalScore": 0.46633943905697856,
+            "width": 0.3374192037848346,
+            "bias": 0.015583431383435563
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.5625,
+            "wilson95": [
+              0.4408620895699301,
+              0.6770599029559693
+            ],
+            "intervalScore": 0.5429287737799948,
+            "width": 0.22302418022790546,
+            "bias": 0.007532865717026367
+          },
+          "pairedScoreDifference": -0.07658933472301632,
+          "pairedNormal95": [
+            -0.13845235383402607,
+            -0.014726315612006567
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.765625,
+            "wilson95": [
+              0.6486674241743136,
+              0.8525010440607586
+            ],
+            "intervalScore": 0.8101381808811191,
+            "width": 0.5652255887472046,
+            "bias": 0.04301897855625046
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.4375,
+            "wilson95": [
+              0.3229400970440308,
+              0.5591379104300699
+            ],
+            "intervalScore": 1.04091870008327,
+            "width": 0.3134615041211789,
+            "bias": 0.018765028147435494
+          },
+          "pairedScoreDifference": -0.2307805192021509,
+          "pairedNormal95": [
+            -0.3590624830776638,
+            -0.10249855532663799
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.71875
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.921875
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.671875
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.859375
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.671875
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.796875
+        }
+      }
+    },
+    {
+      "arm": "persistence",
+      "depth": 7,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.78125,
+            "wilson95": [
+              0.6656721604337418,
+              0.8649768059328052
+            ],
+            "intervalScore": 0.19869492832069124,
+            "width": 0.10783578021937582,
+            "bias": 0.0029516467870315025
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.75,
+            "wilson95": [
+              0.631837235413303,
+              0.8398507346902941
+            ],
+            "intervalScore": 0.19950956174114765,
+            "width": 0.09847114383011742,
+            "bias": 0.002560591852269109
+          },
+          "pairedScoreDifference": -0.0008146334204563713,
+          "pairedNormal95": [
+            -0.0052540043554621324,
+            0.0036247375145493895
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.703125,
+            "wilson95": [
+              0.5822979889645707,
+              0.8009484867446022
+            ],
+            "intervalScore": 0.47521015564911573,
+            "width": 0.2753911784319294,
+            "bias": 0.010183283991872065
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.625,
+            "wilson95": [
+              0.502503786840045,
+              0.7333401982117536
+            ],
+            "intervalScore": 0.5077494910511992,
+            "width": 0.2239890684520136,
+            "bias": 0.007000944472206891
+          },
+          "pairedScoreDifference": -0.03253933540208334,
+          "pairedNormal95": [
+            -0.06152340365213571,
+            -0.0035552671520309685
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.734375,
+            "wilson95": [
+              0.6151712627143486,
+              0.8270362092577739
+            ],
+            "intervalScore": 0.679507662477248,
+            "width": 0.4295073445663641,
+            "bias": 0.014596033577870818
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.5625,
+            "wilson95": [
+              0.4408620895699301,
+              0.6770599029559693
+            ],
+            "intervalScore": 0.7589478141259358,
+            "width": 0.31440299857429205,
+            "bias": 0.005098243165105643
+          },
+          "pairedScoreDifference": -0.0794401516486877,
+          "pairedNormal95": [
+            -0.1405629212478539,
+            -0.018317382049521498
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.703125
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.8125
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.640625
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.796875
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.6875
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.828125
+        }
+      }
+    },
+    {
+      "arm": "persistence",
+      "depth": 12,
+      "total": 64,
+      "available": 64,
+      "availabilityPass": true,
+      "waits": {
+        "0": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.71875,
+            "wilson95": [
+              0.5986606971779259,
+              0.8140662766627217
+            ],
+            "intervalScore": 0.16250174077342042,
+            "width": 0.10340772691666078,
+            "bias": -0.01079180344845036
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.703125,
+            "wilson95": [
+              0.5822979889645707,
+              0.8009484867446022
+            ],
+            "intervalScore": 0.1654345239191919,
+            "width": 0.09808292273299776,
+            "bias": -0.011008552848077379
+          },
+          "pairedScoreDifference": -0.0029327831457714735,
+          "pairedNormal95": [
+            -0.006162485594642498,
+            0.0002969193030995512
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "4": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.75,
+            "wilson95": [
+              0.631837235413303,
+              0.8398507346902941
+            ],
+            "intervalScore": 0.42731460409374844,
+            "width": 0.25588691398662566,
+            "bias": -0.014618300504896424
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.6875,
+            "wilson95": [
+              0.5660766429725185,
+              0.7876893346051795
+            ],
+            "intervalScore": 0.44089476824173235,
+            "width": 0.22571976265623883,
+            "bias": -0.016419921507326442
+          },
+          "pairedScoreDifference": -0.013580164147983926,
+          "pairedNormal95": [
+            -0.030687275993242582,
+            0.00352694769727473
+          ],
+          "billCoveragePass": true,
+          "scorePass": true
+        },
+        "8": {
+          "integrated": {
+            "count": 64,
+            "coverage": 0.625,
+            "wilson95": [
+              0.502503786840045,
+              0.7333401982117536
+            ],
+            "intervalScore": 0.7225925663280283,
+            "width": 0.3823059051080427,
+            "bias": -0.024063604662699273
+          },
+          "plugin": {
+            "count": 64,
+            "coverage": 0.5625,
+            "wilson95": [
+              0.4408620895699301,
+              0.6770599029559693
+            ],
+            "intervalScore": 0.7962572459881858,
+            "width": 0.31358981494958393,
+            "bias": -0.029457114270968837
+          },
+          "pairedScoreDifference": -0.0736646796601576,
+          "pairedNormal95": [
+            -0.11690385829099331,
+            -0.030425501029321907
+          ],
+          "billCoveragePass": false,
+          "scorePass": true
+        }
+      },
+      "marginalCoverage": {
+        "4:0": {
+          "count": 64,
+          "coverage": 0.671875
+        },
+        "4:1": {
+          "count": 64,
+          "coverage": 0.8125
+        },
+        "8:0": {
+          "count": 64,
+          "coverage": 0.640625
+        },
+        "8:1": {
+          "count": 64,
+          "coverage": 0.734375
+        },
+        "12:0": {
+          "count": 64,
+          "coverage": 0.6875
+        },
+        "12:1": {
+          "count": 64,
+          "coverage": 0.78125
+        }
+      }
+    }
+  ],
+  "availabilityPass": true,
+  "matchedScreenPass": false,
+  "historicalEligibility": "unsupported",
+  "productionActivation": false,
+  "fullFinancialQualification": "not-evaluated",
+  "oldModelSuperiority": "not-evaluated"
+}
+Completed 960 cells in 23.9s
