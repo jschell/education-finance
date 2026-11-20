@@ -2,7 +2,21 @@
 
 Checkpoint: 2026-11-18 America/Los_Angeles. Read [continuity](continuity.md) first. Overhaul D and the app 0.14 calibration evidence release are complete; this plan now continues source-quality diagnosis and the next model-evidence program. Financial defaults remain unchanged and future outcomes are not available.
 
-## Active bounded follow-up — documentary tuition evidence
+## Priority program — improve forecasts now with revised-data hindcasts
+
+The [deep review and implementable work packages](forecast-improvement-now-review.md) correct an overly broad waiting/vintage prerequisite. The first prospective target in November 2027 does not prevent a new, explicitly revised-data retrospective experiment today. Original publication evidence remains required for an actual as-known-then claim; all failed candidate gates and production protections remain intact.
+
+1. **Freeze a new target/evaluation protocol (0.5–1 active day).** Predict observable reported tuition/housing in the pinned revised AY3 panel, with origin-year budget assumptions explicit, source-policy sensitivity, fixed institution holdouts, nested temporal selection and purging of overlapping four-year targets. Audit known-origin-budget score normalization. All previously inspected years, including 2024, remain consumed retrospective/development evidence.
+2. **Implement strong B2 and primary C1 annual-path models (2–4 days).** B2 uses origin-estimated sector paired growth and joint residuals. C1 adds a damped recent sector trend and strongly shrunk, decaying recent school deviation, with finite-moment shared-calendar/school residual paths and explicit cold-start/fallback rules. Avoid requiring identification of four latent covariance families. The review specifies a small inner grid and dependence requirements; freeze remaining exact tolerances before fitting.
+3. **Run the prespecified retrospective comparison (2–4 days).** A new three-transition annual predictor can potentially use 18/14/10 observed calendar origins at waits 0/4/8 under existing cohort rules. Score complete bills at waits zero/four primarily; keep wait eight exploratory. Retain missing cases, equal origin/sector weights, held-out schools, source/revision/missingness/sector/survivorship sensitivities and calendar-block uncertainty. These are opportunities, not already improved forecasts.
+4. **Replay financial decisions only if cost evidence is useful (1–3 days).** Compare cash and capped-household reliability, Brier and deposit-dollar consequences on shared candidate paths. Separate deposit feasibility from cost skill; do not use the old wait-zero impossibility as a universal forecast rejection.
+5. **Publish and stop or qualify the research result (0.5–1 day).** Preserve losses and unsupported horizons. No automatic production change follows. A separate adoption review is required for current forward assumptions and funding claims.
+
+Direct complete-bill quantile regression is a secondary near-entry benchmark, not the full-horizon first choice: prior completed wait-eight labels do not mature before the last observable wait-eight test origin in this dataset. Ten potentially evaluable long-wait annual-path origins are not ten trainable or independent long-wait quantile examples. Existing generic hierarchy/rank-calibration methods are not presented as untried solutions.
+
+**Current checkpoint:** review only. The data census is reproducible with `node scripts/audit-retrospective-support.mjs`; no candidate has been fitted, no new score gain demonstrated and no production behavior changed. The estimates above are active engineering effort, not gain/runtime guarantees. Source-vintage acquisition and prospective observation continue as parallel evidence tracks rather than blocking this narrower predictive program.
+
+## Completed bounded follow-up — documentary tuition evidence
 
 Source implementation `88b93bf99671bd010d2ff786ba10e2bbc578ca93` passes its dedicated CI. The next executable step is the separately frozen [documentary tuition contract](tuition-documentary-protocol.md), on child branch `tuition-documentary-evidence`. This improves the structure and review of existing tuition evidence; it does not promise better model scores or solve original-vintage eligibility.
 
